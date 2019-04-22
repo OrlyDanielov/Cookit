@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookit_API", "Cookit\Cookit_API.csproj", "{0D921322-1740-420D-BF1B-BF8084EBAE46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{10EAF5E7-3D54-4460-AE4E-278194A29F79}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D921322-1740-420D-BF1B-BF8084EBAE46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D921322-1740-420D-BF1B-BF8084EBAE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D921322-1740-420D-BF1B-BF8084EBAE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D921322-1740-420D-BF1B-BF8084EBAE46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10EAF5E7-3D54-4460-AE4E-278194A29F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10EAF5E7-3D54-4460-AE4E-278194A29F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10EAF5E7-3D54-4460-AE4E-278194A29F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10EAF5E7-3D54-4460-AE4E-278194A29F79}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E5743A0F-506C-462B-8A8B-4D0532B3D155}
+	EndGlobalSection
+EndGlobal
