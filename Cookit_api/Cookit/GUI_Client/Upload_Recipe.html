@@ -7,7 +7,7 @@
    
 </head>
 <body>
-    <div style="position:center">
+    <div >
         <div>
             <h1>העלאת מתכון :</h1>
         </div>
@@ -22,7 +22,10 @@
                 <!-- סוג מנה -->
                 <div style="position:center">
                     <label for="dish_type">סוג מנה : </label>
-                    <input type="text" for="dish_type" id="txt_dish_type" placeholder="סוג מנה" required />
+                    <select name="dish_type" id="select_dish_type">
+                        <option value="0" selected disabled>סוג מנה</option>
+                        <option value=""></option>
+                    </select>
                     <br />
                 </div>
                 <!--מאפייני מנה-->
@@ -34,13 +37,19 @@
                 <!--סוג אוכל-->
                 <div style="position:center">
                     <label for="food_type">סוג אוכל : </label>
-                    <input type="text" for="food_type" id="txt_food_type" placeholder="סוג אוכל" required />
+                    <select name="food_type" id="select_food_type">
+                        <option value="0" selected disabled>סוג אוכל</option>
+                        <option value=""></option>
+                    </select>
                     <br />
                 </div>
                 <!--סגנון מטבח-->
                 <div style="position:center">
                     <label for="kitchen_type">סגנון מטבח : </label>
-                    <input type="text" for="kitchen_type" id="txt_kitchen_type" placeholder="סגנון מטבח" required />
+                    <select name="kitchen_type" id="select_kitchen_type">
+                        <option value="0" selected disabled>סגנון מטבח</option>
+                        <option value=""></option>
+                    </select>
                     <br />
                 </div>
                 <!--זמן כולל -->
@@ -58,14 +67,59 @@
                 <!-- דרגת קושי -->
                 <div style="position:center">
                     <label for="work_time">דרגת קושי : </label>
-                    <input type="text" for="work_time" id="txt_work_time" placeholder="דרגת קושי" required />
+                    <select name="work_time" id="select_work_time">
+                        <option value="0" selected disabled>דרגת קושי</option>
+                        <option value=""></option>
+                    </select>
                     <br />
                 </div>
                 <!--אופן ההכנה-->
-                <!--מצרכים למתכון -->
-                <!-- תמונה -->
-                <!--שליחת הנתנים-->
+                <div style="position:center">
+                    <label for="preparation_steps">אופן הכנה : </label>
+                    <input type="text" for="preparation_steps" id="txt_preparation_steps" placeholder="אופן הכנה" required />
 
+                    <br />
+                </div>
+                <!--מצרכים למתכון -->
+                <div>
+                    <label for="ingridiant_for_recipe">מצרכים למתכון : </label>
+                    <br />
+                    <div style=" ">
+                        <!--שם מצרך-->
+                        <div style=" width: 33%; ">
+                            <label for="ingridiant_name">שם מצרך : </label>
+                            <select name="ingridiant_name" id="select_ingridiant_name">
+                                <option value="0" selected disabled>שם מצרך</option>
+                                <option value=""></option>
+                            </select>
+                            <br />
+                        </div>
+                        <!--כמות מצרך-->
+                        <div style=" width: 33%; ">
+                            <label for="ingridiant_amount">כמות מצרך: </label>
+                            <input type="text" for="ingridiant_amount" id="txt_ingridiant_amount" placeholder="כמות מצרך" required />
+                            <br />
+                        </div>
+                        <!--אופן מדידה-->
+                        <div style=" width: 33%; ">
+                            <label for="mesurment">אופן מדידה : </label>
+                            <select name="mesurment" id="select_mesurment">
+                                <option value="0" selected disabled>אופן מדידה</option>
+                                <option value=""></option>
+                            </select>
+                            <br />                        
+                        </div>
+                    </div>
+                    <!--הוספת מצרך--> 
+                    <div id="pluse_ingridiant">
+                        <input type="submit" value="הוסף מצרך" />
+                    </div>
+                </div>
+                <!-- תמונה -->
+                <!--כפתור שליחת נתונים-->
+                <div>
+                    <input type="submit" value="שלח" />
+                </div>
             </form>
         </div>
     </div>
