@@ -1540,7 +1540,7 @@
           <End Role="TBL_Holiday" Type="Self.TBL_Holiday" Multiplicity="*" />
           <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Cookit_DB_Connection" annotation:LazyLoadingEnabled="false">
+        <EntityContainer Name="Cookit_DB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBL_City" EntityType="Self.TBL_City" />
           <EntitySet Name="TBL_Comments" EntityType="Self.TBL_Comments" />
           <EntitySet Name="TBL_DishCategory" EntityType="Self.TBL_DishCategory" />
@@ -1706,7 +1706,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Cookit_DBModelStoreContainer" CdmEntityContainer="Cookit_DB_Connection">
+        <EntityContainerMapping StorageEntityContainer="Cookit_DBModelStoreContainer" CdmEntityContainer="Cookit_DB">
           <EntitySetMapping Name="TBL_City">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_City">
               <MappingFragment StoreEntitySet="TBL_City">

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using ClassLibrary; // כדי שיהיה גישה לטבלאות בסיס הנתונים
+using CookitLibrary; // כדי שיהיה גישה לטבלאות בסיס הנתונים
 
 namespace Cookit.Controllers
 {
@@ -33,7 +33,7 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DB_Connection DB = new Cookit_DB_Connection(); //מצביע לבסיס הנתונים של טבלאות
+                Cookit_DB DB = new Cookit_DB(); //מצביע לבסיס הנתונים של טבלאות
                 //DB.Entry(newUser).state = System.Data.
             }
             catch

@@ -7,18 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClassLibrary
+namespace CookitLibrary
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Cookit_DB_Connection : DbContext
+    public partial class Cookit_DB : DbContext
     {
-        public Cookit_DB_Connection()
-            : base("name=Cookit_DB_Connection")
+        public Cookit_DB()
+            : base("name=Cookit_DB")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

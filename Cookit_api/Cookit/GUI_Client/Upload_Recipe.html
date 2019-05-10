@@ -3,125 +3,143 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-   
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="Upload_Recipe.js"></script>
+    <script src="../ThirdSideFunc/GlobalAjax.js"></script>
+
 </head>
 <body>
-    <div >
+    <div class="container">
         <div>
             <h1>העלאת מתכון :</h1>
         </div>
-        <div id="recipe_details">
-            <form style="position:center">
-                <!-- שם מתכון -->
-                <div style="position:center">
-                    <label for="name_recipe">שם מתכון : </label>
-                    <input type="text" for="name_recipe" id="txt_name_recipe" placeholder="שם מתכון" required />
-                    <br />
+        <form>
+            <!-- שם מתכון -->
+            <div class="form-group row">
+                <label for="name_recipe" class="col-sm-2 col-form-label">שם מתכון : </label>
+                <div class="col-sm-10">
+                    <input type="text" for="name_recipe" id="txt_name_recipe" class="form-control" placeholder="שם מתכון" required />
                 </div>
-                <!-- סוג מנה -->
-                <div style="position:center">
-                    <label for="dish_type">סוג מנה : </label>
-                    <select name="dish_type" id="select_dish_type">
-                        <option value="0" selected disabled>סוג מנה</option>
-                        <option value=""></option>
+            </div>
+            <!-- סוג מנה -->
+            <div class="form-group row">
+                <label for="dish_type" class="col-sm-2 col-form-label">סוג מנה : </label>
+                <div class="col-sm-10">
+                    <select name="dish_type" id="select_dish_type"class="custom-select" >
+                        <option value="" selected disabled>סוג מנה</option>
                     </select>
-                    <br />
+                    </div>
                 </div>
                 <!--מאפייני מנה-->
-                <div style="position:center">
-                    <label for="dish_category">מאפיין מנה : </label>
-                    <input type="text" for="dish_category" id="txt_dish_category" placeholder="מאפיין מנה" required />
-                    <br />
+            <div class="form-group row">
+                <label for="dish_category" class="col-sm-2 col-form-label">מאפיין מנה : </label>
+               <div class="col-sm-10">
+                    <select name="dish_category" id="select_dish_category" class="custom-select">
+                        <option value="" selected disabled>מאפיין אוכל</option>
+                    </select>
                 </div>
+            </div>
                 <!--סוג אוכל-->
-                <div style="position:center">
-                    <label for="food_type">סוג אוכל : </label>
-                    <select name="food_type" id="select_food_type">
-                        <option value="0" selected disabled>סוג אוכל</option>
-                        <option value=""></option>
-                    </select>
-                    <br />
-                </div>
+                <div class="form-group row">
+                    <label for="food_type" class="col-sm-2 col-form-label">סוג אוכל : </label>
+                    <div class="col-sm-10">
+                        <select name="food_type" id="select_food_type" class="custom-select">
+                            <option value="" selected disabled>סוג אוכל</option>
+                        </select>
+                    </div>
+                    </div>
                 <!--סגנון מטבח-->
-                <div style="position:center">
-                    <label for="kitchen_type">סגנון מטבח : </label>
-                    <select name="kitchen_type" id="select_kitchen_type">
-                        <option value="0" selected disabled>סגנון מטבח</option>
-                        <option value=""></option>
-                    </select>
-                    <br />
+                <div class="form-group row">
+                    <label for="kitchen_type" class="col-sm-2 col-form-label">סגנון מטבח : </label>
+                    <div class="col-sm-10">
+                        <select name="kitchen_type" id="select_kitchen_type" class="custom-select">
+                            <option value="" selected disabled>סגנון מטבח</option>
+                        </select>
+                    </div>
                 </div>
                 <!--זמן כולל -->
-                <div style="position:center">
-                    <label for="total_time">זמן כולל : </label>
-                    <input type="text" for="total_time" id="txt_total_time" placeholder="זמן כולל" required />
-                    <br />
+                <div class="form-group row">
+                    <label for="total_time" class="col-sm-2 col-form-label">זמן כולל : </label>
+                    <div class="col-sm-10">
+                        <input type="text" for="total_time" id="txt_total_time" placeholder="זמן כולל" required class="form-control" />
+                    </div>
                 </div>
                 <!--זמן עבודה -->
-                <div style="position:center">
-                    <label for="work_time">זמן עבודה : </label>
-                    <input type="text" for="work_time" id="txt_work_time" placeholder="זמן עבודה" required />
-                    <br />
-                </div>
-                <!-- דרגת קושי -->
-                <div style="position:center">
-                    <label for="work_time">דרגת קושי : </label>
-                    <select name="work_time" id="select_work_time">
-                        <option value="0" selected disabled>דרגת קושי</option>
-                        <option value=""></option>
-                    </select>
-                    <br />
-                </div>
-                <!--אופן ההכנה-->
-                <div style="position:center">
-                    <label for="preparation_steps">אופן הכנה : </label>
-                    <input type="text" for="preparation_steps" id="txt_preparation_steps" placeholder="אופן הכנה" required />
-
-                    <br />
-                </div>
-                <!--מצרכים למתכון -->
-                <div>
-                    <label for="ingridiant_for_recipe">מצרכים למתכון : </label>
-                    <br />
-                    <div style=" ">
-                        <!--שם מצרך-->
-                        <div style=" width: 33%; ">
-                            <label for="ingridiant_name">שם מצרך : </label>
-                            <select name="ingridiant_name" id="select_ingridiant_name">
-                                <option value="0" selected disabled>שם מצרך</option>
-                                <option value=""></option>
-                            </select>
-                            <br />
-                        </div>
-                        <!--כמות מצרך-->
-                        <div style=" width: 33%; ">
-                            <label for="ingridiant_amount">כמות מצרך: </label>
-                            <input type="text" for="ingridiant_amount" id="txt_ingridiant_amount" placeholder="כמות מצרך" required />
-                            <br />
-                        </div>
-                        <!--אופן מדידה-->
-                        <div style=" width: 33%; ">
-                            <label for="mesurment">אופן מדידה : </label>
-                            <select name="mesurment" id="select_mesurment">
-                                <option value="0" selected disabled>אופן מדידה</option>
-                                <option value=""></option>
-                            </select>
-                            <br />                        
+                <div class="form-group row">
+                    <label for="work_time" class="col-sm-2 col-form-label">זמן עבודה : </label>
+                    <div class="col-sm-10">
+                        <input type="text" for="work_time" id="txt_work_time" placeholder="זמן עבודה" required class="form-control" />
+                    </div>
+                    </div>
+                    <!-- דרגת קושי -->
+                <div class="form-group row">
+                    <label for="work_time" class="col-sm-2 col-form-label">דרגת קושי : </label>
+                    <div class="col-sm-10">
+                        <select name="work_time" id="select_work_time" class="custom-select">
+                            <option value="" selected disabled>דרגת קושי</option>
+                        </select>
                         </div>
                     </div>
-                    <!--הוספת מצרך--> 
-                    <div id="pluse_ingridiant">
-                        <input type="submit" value="הוסף מצרך" />
+                    <!--אופן ההכנה-->
+                <div class="form-group row">
+                    <label for="preparation_steps" class="col-sm-2 col-form-label">אופן הכנה : </label>
+                    <div class="col-sm-10">
+                        <textarea rows="5" cols="50" for="preparation_steps" id="txt_preparation_steps" placeholder="אופן הכנה" required class="form-control"></textarea>
                     </div>
                 </div>
-                <!-- תמונה -->
-                <!--כפתור שליחת נתונים-->
-                <div>
-                    <input type="submit" value="שלח" />
-                </div>
+                   <!--מצרכים למתכון -->
+                    <div class="form-group row">
+                        <label for="ingridiant_for_recipe" class="col-sm-2 col-form-label">מצרכים למתכון : </label>
+                        <div  name="ingridiant_for_recipe" class="row">
+                            <!--שם מצרך-->
+                            <div style="width:33%;" class="col-sm" >
+                                <label for="ingridiant_name" class="col-sm-2 col-form-label">שם מצרך : </label>
+                                <div class="col-sm-10">
+                                    <select name="ingridiant_name" id="select_ingridiant_name" class="custom-select">
+                                        <option value="" selected disabled>שם מצרך</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            <!--כמות מצרך-->
+                            <div style="width:33%;" class="col-sm">
+                                <label for="ingridiant_amount" class="col-sm-2 col-form-label">כמות מצרך: </label>
+                                <div class="col-sm-10">
+                                    <input type="text" for="ingridiant_amount" id="txt_ingridiant_amount" placeholder="כמות מצרך" required class="form-control" />
+                                </div>
+                                </div>
+                            <!--אופן מדידה-->
+                            <div style="width:33%;"  class="col-sm">
+                                <label for="mesurment" class="col-sm-2 col-form-label">אופן מדידה : </label>
+                                <div class="col-sm-10">
+                                    <select name="mesurment" id="select_mesurment" class="custom-select">
+                                        <option value="" selected disabled>אופן מדידה</option>
+                                    </select>
+                                    </div>
+                                </div>
+                        </div>
+                        <!--הוספת מצרך-->
+                        <div id="pluse_ingridiant" class="col-sm-10">
+                            <input type="submit" value="הוסף מצרך נוסף" class="btn btn-outline-secondary"/>
+                        </div>
+                    </div>
+                    <!-- תמונה -->
+                    <!--כפתור שליחת נתונים-->
+                    <div class="col-sm-10">
+                        <input type="submit" value="שלח" class="btn btn-outline-primary" onclick="UpLoadRecipe()" />
+                    </div>
             </form>
-        </div>
     </div>
 </body>
 </html>
