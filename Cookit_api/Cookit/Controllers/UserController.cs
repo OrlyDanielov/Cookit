@@ -28,7 +28,8 @@ namespace Cookit.Controllers
         {
         }
         */
-        [Route("api/Clothe")]
+        /*[Route("api/Clothe")]*/
+        [Route("api/User")]
         public void Post([FromBody]TBL_User newUser)
         {
             try

@@ -208,6 +208,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="GUI_Client\HtmlPage1.html" />
+    <Content Include="GUI_Client\Login.html" />
     <Content Include="GUI_Client\Registration.html" />
     <Content Include="GUI_Client\Upload_Recipe.html" />
     <Content Include="GUI_Client\Upload_Recipe.js" />

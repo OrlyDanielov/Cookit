@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    
+</head>
+<body class="text-center">
+    <form class="form-signin" >
+        <h4 class="h4 mb-3 font-weight-normal" style="color:darkblue">אנא הכנס שם משתמש וסיסמה</h4>
+         
+            <div class="row">
+                <div class="col-sm-5">
+                    <input type="email" id="email" class="form-control" placeholder="כתובת אי-מייל" required autofocus>
+                </div>
+               <label for="email_login" class="col-sm-2 col-form-label">שם משתמש:  </label>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5">
+                    <input type="text" id="password" class="form-control" placeholder="סיסמאת התחברות" required>
+                </div>
+               <label for="pass_login" class="col-sm-2 col-form-label">סיסמה:  </label>
+            </div>
+      
+        <br /><br />
+        <button type="submit" class="btn btn-primary" onclick="LoginVerification()" >התחבר</button>
+
+       
+    </form>
+</body>
+</html>
+
+
+<!--<label for="inputEmail" class="sr-only">Email address</label>
+<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+<label for="inputPassword" class="sr-only">Password</label>
+<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+  <button type="submit" class="btn btn-lg btn-primary btn-block" >Sign in</button> 
+     -->
