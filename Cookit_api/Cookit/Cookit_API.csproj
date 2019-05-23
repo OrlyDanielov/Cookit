@@ -188,11 +188,24 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\DifficultyLevelController.cs" />
     <Compile Include="Controllers\DishCategotyController.cs" />
+    <Compile Include="Controllers\DishTypeController.cs" />
+    <Compile Include="Controllers\FoodTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IngriditansController.cs" />
+    <Compile Include="Controllers\KitchenTypeController.cs" />
+    <Compile Include="Controllers\MesurmentsController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DTO\IngridiantsDTO.cs" />
+    <Compile Include="DTO\DifficultyLevelDTO.cs" />
+    <Compile Include="DTO\DishCategoryDTO.cs" />
+    <Compile Include="DTO\DishTypeDTO.cs" />
+    <Compile Include="DTO\FoodTypeDTO.cs" />
+    <Compile Include="DTO\KitchenTypeDTO.cs" />
+    <Compile Include="DTO\MesurmentsDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,10 +220,13 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="GUI_Client\HtmlPage1.html" />
-    <Content Include="GUI_Client\Registration.html" />
-    <Content Include="GUI_Client\Upload_Recipe.html" />
-    <Content Include="GUI_Client\Upload_Recipe.js" />
+    <Content Include="GUI_Client\Images\bootstrap-solid.svg" />
+    <Content Include="GUI_Client\Images\cookie_icon.png" />
+    <Content Include="GUI_Client\Pages\HtmlPage1.html" />
+    <Content Include="GUI_Client\Pages\Login.html" />
+    <Content Include="GUI_Client\Pages\Registration.html" />
+    <Content Include="GUI_Client\Pages\Upload_Recipe.html" />
+    <Content Include="GUI_Client\Pages\Upload_Recipe.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -241,7 +257,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="ThirdSideFunc\GlobalAjax.js" />
+    <Content Include="GUI_Client\Pages\GlobalAjax.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

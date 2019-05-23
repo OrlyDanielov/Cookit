@@ -9,34 +9,33 @@ using CookitLibrary;
 
 namespace Cookit.Controllers
 {
-    public class DishCategotyController : ApiController
+    public class DifficultyLevelController : ApiController
     {
-        
-        //מחזיר את כל המאפייני מנה מבסיס הנתונים
-        [Route("api/DishCategoty")]
+        // GET api/<controller>
+        //מחזיר את כל דרגות הקושי למתכון מבסיס הנתונים
+        [Route("api/DifficultyLevel")]
         public HttpResponseMessage Get()
         {
             Cookit_DB db = new Cookit_DB();
-            // קורא לפונקציה שמחזירה את של קטגורתיות המנות מהDB
-            var dishCategory = CookitLibrary.DB_Code.CookitQuery.Get_all_DishCategory();
-            if (dishCategory == null) // אם אין נתונים במסד נתונים
-                return Request.CreateResponse(HttpStatusCode.NotFound, "there is no DishCategiry in DB.");
+            // קורא לפונקציה שמחזירה את של דגרות הקושי מהDB
+            var diffLevel = CookitLibrary.DB_Code.CookitQuery.Get_all_DifficultyLevel();
+            if (diffLevel == null) // אם אין נתונים במסד נתונים
+                return Request.CreateResponse(HttpStatusCode.NotFound, "there is no DifficultyLevel in DB.");
             else
             {
                 //המרה של רשימת של קטגוריות המנות למבנה נתונים מסוג DTO
-                List<DishCategoryDTO> result = new List<DishCategoryDTO>();
-                foreach (TBL_DishCategory item in dishCategory)
+                List<DifficultyLevelDTO> result = new List<DifficultyLevelDTO>();
+                foreach (TBL_RecipeDifficultyLevel item in diffLevel)
                 {
-                    result.Add(new DishCategoryDTO
+                    result.Add(new DifficultyLevelDTO
                     {
-                        id = item.Id_DishCategory,
-                        dish_category = item.Name_DishCategory.ToString()
+                        id = item.Id_Level,
+                        difficulty_level = item.Name_Level.ToString()
                     });
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
-       
 
         // GET api/<controller>/5
         public string Get(int id)
