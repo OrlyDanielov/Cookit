@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CookitDB;
+using Cookit.DTO;
 
 namespace Cookit.Controllers
 {
@@ -17,9 +18,32 @@ namespace Cookit.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        [Route("api/User")]
+        public HttpResponseMessage Get([FromBody]dynamic user_email_pass)
         {
-            return "value";
+            Cookit_DBConnection db = new Cookit_DBConnection();
+            var isUserExists = CookitDB.DB_Code.CookitQueries.LogIn(user_email_pass); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
+
+
+
+
+            var dishType = CookitDB.DB_Code.CookitQueries.Get_all_Mesurments();
+            if (dishType == null) // אם אין נתונים במסד נתונים
+                return Request.CreateResponse(HttpStatusCode.NotFound, "there is no Mesurments in DB.");
+            else
+            {
+                //המרה של רשימת של אופני המדידה למבנה נתונים מסוג DTO
+                List<MesurmentsDTO> result = new List<MesurmentsDTO>();
+                foreach (TBL_Mesurments item in dishType)
+                {
+                    result.Add(new MesurmentsDTO
+                    {
+                        id = item.Id_Mesurment,
+                        mesurment = item.Name_Mesurment.ToString()
+                    });
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
         }
 
         /*

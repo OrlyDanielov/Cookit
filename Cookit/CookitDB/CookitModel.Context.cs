@@ -18,6 +18,7 @@ namespace CookitDB
         public Cookit_DBConnection()
             : base("name=Cookit_DBConnection")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

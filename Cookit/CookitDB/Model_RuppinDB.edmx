@@ -1555,7 +1555,7 @@
           <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
           <End Role="TBL_Holiday" Type="Self.TBL_Holiday" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="bgroup36_prodConnection" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup36_prodConnection" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="TBL_Barcode" EntityType="Self.TBL_Barcode" />
           <EntitySet Name="TBL_City" EntityType="Self.TBL_City" />
           <EntitySet Name="TBL_Comments" EntityType="Self.TBL_Comments" />

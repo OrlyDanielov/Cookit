@@ -18,6 +18,7 @@ namespace CookitDB
         public bgroup36_prodConnection()
             : base("name=bgroup36_prodConnection")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

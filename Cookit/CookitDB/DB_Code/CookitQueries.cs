@@ -8,6 +8,31 @@ namespace CookitDB.DB_Code
 {
     public class CookitQueries
     {
+        #region LogIN
+        // בודקת את האימייל והסיסמא של המשתשמש בכניסה
+        public static bool LogIn(dynamic user_details)
+        {
+            try
+            {
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                bgroup36_prodConnection db = new bgroup36_prodConnection();
+                if (db.TBL_User.SingleOrDefault(x => x.Email == user_details.email) == null) // אם אין משתמש אם אימייל כזה
+                    return false;
+
+                else
+                {
+                    if(db.TBL_User.SingleOrDefault(x=>x.UserPass == user_details.password and x.) == null) // אם אין משתמש עם סיסמה כזאת
+                }
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region Get all dish type
         // הפוקנציה מביאה מהמסד את כל סוגי המנות
         public static List<TBL_DishType> Get_all_DishType()
         {
@@ -22,7 +47,9 @@ namespace CookitDB.DB_Code
                 return null;
             }
         }
+        #endregion
 
+        #region Get all DishCategory
         // הפוקנציה מביאה מהמסד את כל קטגוריות המנות
         public static List<TBL_DishCategory> Get_all_DishCategory()
         {
@@ -36,7 +63,9 @@ namespace CookitDB.DB_Code
                 return null;
             }
         }
+        #endregion
 
+        #region Get all FoodType
         // הפוקנציה מביאה מהמסד את כל סוגי האוכל
         public static List<TBL_FoodType> Get_all_FoodType()
         {
@@ -50,7 +79,9 @@ namespace CookitDB.DB_Code
                 return null;
             }
         }
+        #endregion
 
+        #region  Get all KitchenType
         // הפוקנציה מביאה מהמסד את כל סוגי מטבחים
         public static List<TBL_KitchenType> Get_all_KitchenType()
         {
@@ -65,8 +96,9 @@ namespace CookitDB.DB_Code
 
             }
         }
+        #endregion
 
-
+        #region Get all DifficultyLevel
         // הפוקנציה מביאה מהמסד את כל דרגות הקושי למתכון
         public static List<TBL_RecipeDifficultyLevel> Get_all_DifficultyLevel()
         {
@@ -80,7 +112,9 @@ namespace CookitDB.DB_Code
                 return null;
             }
         }
+        #endregion
 
+        #region Get all Ingridiants
         // הפוקנציה מביאה מהמסד את כל המצרכים למתכון
         public static List<TBL_Ingridiants> Get_all_Ingridiants()
         {
@@ -94,7 +128,9 @@ namespace CookitDB.DB_Code
                 return null;
             }
         }
+        #endregion
 
+        #region Get all Mesurments
         // הפוקנציה מביאה מהמסד את כל אופני המדידה למתכון
         public static List<TBL_Mesurments> Get_all_Mesurments()
         {
@@ -108,7 +144,9 @@ namespace CookitDB.DB_Code
                 return null;
             }
         }
+        #endregion
 
+        #region Add New Recipe
         //פונקציה של הוספת מתכון חדש לטבלת המתכונים
         public static bool AddNewRecipe(TBL_Recipe new_recipe)
         {
@@ -124,5 +162,6 @@ namespace CookitDB.DB_Code
                 return false;
             }
         }
+        #endregion
     }
 }
