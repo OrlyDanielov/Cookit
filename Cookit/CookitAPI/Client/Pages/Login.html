@@ -1,38 +1,87 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
     <title>Login</title>
-    <!--BOOTSTRAP-->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+    <script>
+        //פונקצית התחברות
+        function LoginVerification() {
+            var user = {
+                Email: $("#email").val(),
+                UserPass: $("#password").val()
+            };
+            $.ajax({
+                dataType: "json",
+                url: "/api/User/" + user.pass,
+                contentType: "application/json; charset=utf-8",
+                type: "GET",
+                success: function (data) {
+                    if (data.Email == user.Email) {
+                        alert("Logged succesful! ");
+                    }
+                    else {
+                        alert("doesn't have a match ");
+                    }
+                },
+                error: function () {
+                    alert("doesn't have a match");
+                }
+            });
+        }
+    </script>
+
 </head>
-<body class="text-center">
-    <form class="form-signin">
+<!--<body class="text-center"> -->
+<body>
+    <center>
+        <!--   <form class="form-signin">-->
         <h4 class="h4 mb-3 font-weight-normal" style="color:darkblue">אנא הכנס שם משתמש וסיסמה</h4>
-
-        <div class="row">
-            <div class="col-sm-5">
-                <input type="email" id="email" class="form-control" placeholder="כתובת אי-מייל" required autofocus>
-            </div>
-            <label for="email_login" class="col-sm-2 col-form-label">שם משתמש:  </label>
-        </div>
-        <div class="row">
-            <div class="col-sm-5">
-                <input type="text" id="password" class="form-control" placeholder="סיסמאת התחברות" required>
-            </div>
-            <label for="pass_login" class="col-sm-2 col-form-label">סיסמה:  </label>
-        </div>
-
+        <br />
+        <!--  <div id="table_login" class="text-center">-->
+        <table>
+            <tr>
+                <td>
+                    <input type="email" id="email" placeholder="כתובת אי-מייל" required />
+                </td>
+                <td>:שם משתמש  </td>
+            </tr>
+            <tr> <td>   </td></tr>
+            <tr> <td>   </td></tr>
+            <tr>
+                <td>
+                    <input type="text" id="password" placeholder="סיסמאת התחברות" required />
+                </td>
+                <td>:סיסמה  </td>
+            </tr>
+        </table>
+        <!-- <br />
+         <div class="row">
+             <div>
+                 class="col-sm-5">
+                 <input type="email" id="email"  placeholder="כתובת אי-מייל" required autofocus>
+             </div>
+             <label for="email_login" class="col-sm-2 col-form-label">שם משתמש:  </label>
+         </div>
+         <div class="row">
+             <div>
+                 class="col-sm-5">
+                 <input type="text" id="password"  placeholder="סיסמאת התחברות" required>
+             </div>
+             <label for="pass_login" class="col-sm-2 col-form-label">סיסמה:   </label>
+         </div>-->
+        <!-- </div>-->
         <br /><br />
         <button type="submit" class="btn btn-primary" onclick="LoginVerification()">התחבר</button>
 
-    </form>
-    <!--bootstrap-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+        <!-- </form>-->
+    </center>
 </body>
 </html>

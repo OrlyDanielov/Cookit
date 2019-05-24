@@ -50,12 +50,12 @@ namespace CookitDB
         public virtual TBL_KitchenType TBL_KitchenType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_Likes> TBL_Likes { get; set; }
+        public virtual TBL_User TBL_User { get; set; }
         public virtual TBL_RecipeDifficultyLevel TBL_RecipeDifficultyLevel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_RecpLevelByBU> TBL_RecpLevelByBU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
-        public virtual TBL_User TBL_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_Holiday> TBL_Holiday { get; set; }
     }

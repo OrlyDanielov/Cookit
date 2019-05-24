@@ -12,13 +12,9 @@ namespace CookitDB
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_Followers
+    public partial class TBL_Barcode
     {
-        public int Id_User { get; set; }
-        public int Id_Prof { get; set; }
-        public bool StatusFollower { get; set; }
-    
-        public virtual TBL_User TBL_User { get; set; }
-        public virtual TBL_Profile TBL_Profile { get; set; }
+        public int Barcode { get; set; }
+        public string Name_Table { get; set; }
     }
 }

@@ -13,7 +13,8 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                bgroup36_prodConnection db = new bgroup36_prodConnection();
                 return db.TBL_DishType.ToList();
             }
             catch (Exception e)
