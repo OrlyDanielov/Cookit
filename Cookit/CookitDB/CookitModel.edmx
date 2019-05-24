@@ -1,0 +1,2005 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Cookit_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBL_City">
+          <Key>
+            <PropertyRef Name="CityName" />
+          </Key>
+          <Property Name="Region" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Comments">
+          <Key>
+            <PropertyRef Name="Id_Comment" />
+          </Key>
+          <Property Name="Id_Comment" Type="int" Nullable="false" />
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+          <Property Name="CommentDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TBL_DishCategory">
+          <Key>
+            <PropertyRef Name="Id_DishCategory" />
+          </Key>
+          <Property Name="Id_DishCategory" Type="int" Nullable="false" />
+          <Property Name="Name_DishCategory" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_DishType">
+          <Key>
+            <PropertyRef Name="Id_DishType" />
+          </Key>
+          <Property Name="Id_DishType" Type="int" Nullable="false" />
+          <Property Name="Name_DishType" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_DrawerRecp">
+          <Key>
+            <PropertyRef Name="Id_DrawerRecp" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_DrawerRecp" Type="int" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="Name_DrawerRecp" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="TBL_Event">
+          <Key>
+            <PropertyRef Name="Id_Event" />
+          </Key>
+          <Property Name="Id_Event" Type="int" Nullable="false" />
+          <Property Name="Id_Prof" Type="int" Nullable="false" />
+          <Property Name="Name_Event" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Event_Date" Type="datetime" Nullable="false" />
+          <Property Name="Place_Event" Type="nvarchar" MaxLength="30" />
+          <Property Name="Description_Event" Type="nvarchar" MaxLength="100" />
+          <Property Name="StatusCancelation" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBL_FavoriteRecp">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="RecpStatus" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Followers">
+          <Key>
+            <PropertyRef Name="Id_User" />
+            <PropertyRef Name="Id_Prof" />
+          </Key>
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="Id_Prof" Type="int" Nullable="false" />
+          <Property Name="StatusFollower" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_FoodLable">
+          <Key>
+            <PropertyRef Name="Id_FoodLable" />
+          </Key>
+          <Property Name="Id_FoodLable" Type="int" Nullable="false" />
+          <Property Name="Name_FoodLable" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_FoodType">
+          <Key>
+            <PropertyRef Name="Id_FoodType" />
+          </Key>
+          <Property Name="Id_FoodType" Type="int" Nullable="false" />
+          <Property Name="Name_FoodType" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Holiday">
+          <Key>
+            <PropertyRef Name="Id_Holiday" />
+          </Key>
+          <Property Name="Id_Holiday" Type="int" Nullable="false" />
+          <Property Name="Name_Holiday" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_HolidaysForRecp">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_Holiday" />
+          </Key>
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
+          <Property Name="Id_Holiday" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_IngridiantForRecp">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_Ingridiants" />
+            <PropertyRef Name="Id_Mesurment" />
+          </Key>
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
+          <Property Name="Id_Ingridiants" Type="int" Nullable="false" />
+          <Property Name="Id_Mesurment" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="float" />
+        </EntityType>
+        <EntityType Name="TBL_Ingridiants">
+          <Key>
+            <PropertyRef Name="Id_Ingridiants" />
+          </Key>
+          <Property Name="Id_Ingridiants" Type="int" Nullable="false" />
+          <Property Name="Name_Ingridiants" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_KitchenType">
+          <Key>
+            <PropertyRef Name="Id_Kitchen" />
+          </Key>
+          <Property Name="Id_Kitchen" Type="int" Nullable="false" />
+          <Property Name="Kitchen_Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Likes">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="LikeStatus" Type="bit" Nullable="false" />
+          <Property Name="LikeDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Mesurments">
+          <Key>
+            <PropertyRef Name="Id_Mesurment" />
+          </Key>
+          <Property Name="Id_Mesurment" Type="int" Nullable="false" />
+          <Property Name="Name_Mesurment" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_NutritionalIngridiants">
+          <Key>
+            <PropertyRef Name="Id_Ingridiants" />
+            <PropertyRef Name="Id_Mesurment" />
+          </Key>
+          <Property Name="Id_Ingridiants" Type="int" Nullable="false" />
+          <Property Name="Id_Mesurment" Type="int" Nullable="false" />
+          <Property Name="NutritionCalories" Type="float" />
+        </EntityType>
+        <EntityType Name="TBL_Profile">
+          <Key>
+            <PropertyRef Name="Id_Prof" />
+          </Key>
+          <Property Name="Id_Prof" Type="int" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="ProfType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Name_Prof" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProfDescription" Type="nvarchar" MaxLength="250" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProfStatus" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Recipe">
+          <Key>
+            <PropertyRef Name="Id_Recipe" />
+          </Key>
+          <Property Name="Id_Recipe" Type="int" Nullable="false" />
+          <Property Name="Id_Recipe_User" Type="int" Nullable="false" />
+          <Property Name="Name_Recipe" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Id_Recipe_DishType" Type="int" Nullable="false" />
+          <Property Name="Id_Recipe_DishCategory" Type="int" Nullable="false" />
+          <Property Name="Id_Recipe_FoodType" Type="int" Nullable="false" />
+          <Property Name="Id_Recipe_KitchenType" Type="int" Nullable="false" />
+          <Property Name="RecipeTotalTime" Type="time" Precision="7" />
+          <Property Name="RecipeWorkTime" Type="time" Precision="7" />
+          <Property Name="Id_Recipe_Level" Type="int" Nullable="false" />
+          <Property Name="PreparationSteps" Type="ntext" />
+        </EntityType>
+        <EntityType Name="TBL_RecipeDifficultyLevel">
+          <Key>
+            <PropertyRef Name="Id_Level" />
+          </Key>
+          <Property Name="Id_Level" Type="int" Nullable="false" />
+          <Property Name="Name_Level" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_RecpLevelByBU">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="Id_Level" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_Star">
+          <Key>
+            <PropertyRef Name="Id_Star" />
+          </Key>
+          <Property Name="Id_Star" Type="int" Nullable="false" />
+          <Property Name="StarLevel" Type="nvarchar" MaxLength="10" />
+          <Property Name="StarNum" Type="int" />
+        </EntityType>
+        <EntityType Name="TBL_StarsForRecp">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="StarYear" />
+          </Key>
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
+          <Property Name="StarYear" Type="date" Nullable="false" />
+          <Property Name="Id_Star" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_User">
+          <Key>
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="Id_Type" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="UserPass" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="UserStatus" Type="bit" Nullable="false" />
+          <Property Name="NumDrawRecp" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_UserType">
+          <Key>
+            <PropertyRef Name="Id_Type" />
+          </Key>
+          <Property Name="Id_Type" Type="int" Nullable="false" />
+          <Property Name="Name_Type" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Workshop">
+          <Key>
+            <PropertyRef Name="Id_Workshop" />
+          </Key>
+          <Property Name="Id_Workshop" Type="int" Nullable="false" />
+          <Property Name="Id_Prof" Type="int" Nullable="false" />
+          <Property Name="Name_Workshop" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Workshop_Date" Type="datetime" Nullable="false" />
+          <Property Name="Place_Workshop" Type="nvarchar" MaxLength="30" />
+          <Property Name="Description_Workshop" Type="nvarchar" MaxLength="100" />
+          <Property Name="MaxParticipents" Type="int" Nullable="false" />
+          <Property Name="StatusCancelation" Type="bit" />
+          <Property Name="StatusAvailable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_WorkshopParticipents">
+          <Key>
+            <PropertyRef Name="Id_Workshop" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_Workshop" Type="int" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" />
+          <Property Name="StatusRegistration" Type="bit" />
+        </EntityType>
+        <Association Name="FK_City">
+          <End Role="TBL_City" Type="Self.TBL_City" Multiplicity="1" />
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_City">
+              <PropertyRef Name="CityName" />
+            </Principal>
+            <Dependent Role="TBL_Profile">
+              <PropertyRef Name="CityName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishCategory">
+          <End Role="TBL_DishCategory" Type="Self.TBL_DishCategory" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DishCategory">
+              <PropertyRef Name="Id_DishCategory" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_DishCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishType">
+          <End Role="TBL_DishType" Type="Self.TBL_DishType" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DishType">
+              <PropertyRef Name="Id_DishType" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_DishType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodType">
+          <End Role="TBL_FoodType" Type="Self.TBL_FoodType" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_FoodType">
+              <PropertyRef Name="Id_FoodType" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_FoodType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Holiday">
+          <End Role="TBL_Holiday" Type="Self.TBL_Holiday" Multiplicity="1" />
+          <End Role="TBL_HolidaysForRecp" Type="Self.TBL_HolidaysForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Holiday">
+              <PropertyRef Name="Id_Holiday" />
+            </Principal>
+            <Dependent Role="TBL_HolidaysForRecp">
+              <PropertyRef Name="Id_Holiday" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingridiants">
+          <End Role="TBL_Ingridiants" Type="Self.TBL_Ingridiants" Multiplicity="1" />
+          <End Role="TBL_NutritionalIngridiants" Type="Self.TBL_NutritionalIngridiants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ingridiants">
+              <PropertyRef Name="Id_Ingridiants" />
+            </Principal>
+            <Dependent Role="TBL_NutritionalIngridiants">
+              <PropertyRef Name="Id_Ingridiants" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingridiants1">
+          <End Role="TBL_Ingridiants" Type="Self.TBL_Ingridiants" Multiplicity="1" />
+          <End Role="TBL_IngridiantForRecp" Type="Self.TBL_IngridiantForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ingridiants">
+              <PropertyRef Name="Id_Ingridiants" />
+            </Principal>
+            <Dependent Role="TBL_IngridiantForRecp">
+              <PropertyRef Name="Id_Ingridiants" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KitchenType">
+          <End Role="TBL_KitchenType" Type="Self.TBL_KitchenType" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KitchenType">
+              <PropertyRef Name="Id_Kitchen" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_KitchenType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level">
+          <End Role="TBL_RecipeDifficultyLevel" Type="Self.TBL_RecipeDifficultyLevel" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_RecipeDifficultyLevel">
+              <PropertyRef Name="Id_Level" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level1">
+          <End Role="TBL_RecipeDifficultyLevel" Type="Self.TBL_RecipeDifficultyLevel" Multiplicity="0..1" />
+          <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_RecipeDifficultyLevel">
+              <PropertyRef Name="Id_Level" />
+            </Principal>
+            <Dependent Role="TBL_RecpLevelByBU">
+              <PropertyRef Name="Id_Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesurment">
+          <End Role="TBL_Mesurments" Type="Self.TBL_Mesurments" Multiplicity="1" />
+          <End Role="TBL_NutritionalIngridiants" Type="Self.TBL_NutritionalIngridiants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Mesurments">
+              <PropertyRef Name="Id_Mesurment" />
+            </Principal>
+            <Dependent Role="TBL_NutritionalIngridiants">
+              <PropertyRef Name="Id_Mesurment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesurment1">
+          <End Role="TBL_Mesurments" Type="Self.TBL_Mesurments" Multiplicity="1" />
+          <End Role="TBL_IngridiantForRecp" Type="Self.TBL_IngridiantForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Mesurments">
+              <PropertyRef Name="Id_Mesurment" />
+            </Principal>
+            <Dependent Role="TBL_IngridiantForRecp">
+              <PropertyRef Name="Id_Mesurment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile">
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="1" />
+          <End Role="TBL_Followers" Type="Self.TBL_Followers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Profile">
+              <PropertyRef Name="Id_Prof" />
+            </Principal>
+            <Dependent Role="TBL_Followers">
+              <PropertyRef Name="Id_Prof" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile1">
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="1" />
+          <End Role="TBL_Workshop" Type="Self.TBL_Workshop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Profile">
+              <PropertyRef Name="Id_Prof" />
+            </Principal>
+            <Dependent Role="TBL_Workshop">
+              <PropertyRef Name="Id_Prof" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile2">
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="1" />
+          <End Role="TBL_Event" Type="Self.TBL_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Profile">
+              <PropertyRef Name="Id_Prof" />
+            </Principal>
+            <Dependent Role="TBL_Event">
+              <PropertyRef Name="Id_Prof" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_IngridiantForRecp" Type="Self.TBL_IngridiantForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_IngridiantForRecp">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp1">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_HolidaysForRecp" Type="Self.TBL_HolidaysForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_HolidaysForRecp">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp2">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_Likes" Type="Self.TBL_Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_Likes">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp3">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_Comments" Type="Self.TBL_Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_Comments">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp4">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_RecpLevelByBU">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp5">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_StarsForRecp" Type="Self.TBL_StarsForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_StarsForRecp">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp6">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_FavoriteRecp" Type="Self.TBL_FavoriteRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_FavoriteRecp">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Star">
+          <End Role="TBL_Star" Type="Self.TBL_Star" Multiplicity="1" />
+          <End Role="TBL_StarsForRecp" Type="Self.TBL_StarsForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Star">
+              <PropertyRef Name="Id_Star" />
+            </Principal>
+            <Dependent Role="TBL_StarsForRecp">
+              <PropertyRef Name="Id_Star" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Profile">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User1">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User2">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Likes" Type="Self.TBL_Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Likes">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User3">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Comments" Type="Self.TBL_Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Comments">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User4">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_RecpLevelByBU">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User5">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_FavoriteRecp" Type="Self.TBL_FavoriteRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_FavoriteRecp">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User6">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Followers" Type="Self.TBL_Followers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Followers">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User7">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_WorkshopParticipents" Type="Self.TBL_WorkshopParticipents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_WorkshopParticipents">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User8">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_DrawerRecp" Type="Self.TBL_DrawerRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_DrawerRecp">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserType">
+          <End Role="TBL_UserType" Type="Self.TBL_UserType" Multiplicity="1" />
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_UserType">
+              <PropertyRef Name="Id_Type" />
+            </Principal>
+            <Dependent Role="TBL_User">
+              <PropertyRef Name="Id_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workshop">
+          <End Role="TBL_Workshop" Type="Self.TBL_Workshop" Multiplicity="1" />
+          <End Role="TBL_WorkshopParticipents" Type="Self.TBL_WorkshopParticipents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Workshop">
+              <PropertyRef Name="Id_Workshop" />
+            </Principal>
+            <Dependent Role="TBL_WorkshopParticipents">
+              <PropertyRef Name="Id_Workshop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Cookit_DBModelStoreContainer">
+          <EntitySet Name="TBL_City" EntityType="Self.TBL_City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Comments" EntityType="Self.TBL_Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_DishCategory" EntityType="Self.TBL_DishCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_DishType" EntityType="Self.TBL_DishType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_DrawerRecp" EntityType="Self.TBL_DrawerRecp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Event" EntityType="Self.TBL_Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_FavoriteRecp" EntityType="Self.TBL_FavoriteRecp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Followers" EntityType="Self.TBL_Followers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_FoodLable" EntityType="Self.TBL_FoodLable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_FoodType" EntityType="Self.TBL_FoodType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Holiday" EntityType="Self.TBL_Holiday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_HolidaysForRecp" EntityType="Self.TBL_HolidaysForRecp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_IngridiantForRecp" EntityType="Self.TBL_IngridiantForRecp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Ingridiants" EntityType="Self.TBL_Ingridiants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_KitchenType" EntityType="Self.TBL_KitchenType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Likes" EntityType="Self.TBL_Likes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Mesurments" EntityType="Self.TBL_Mesurments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_NutritionalIngridiants" EntityType="Self.TBL_NutritionalIngridiants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Profile" EntityType="Self.TBL_Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Recipe" EntityType="Self.TBL_Recipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_RecipeDifficultyLevel" EntityType="Self.TBL_RecipeDifficultyLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_RecpLevelByBU" EntityType="Self.TBL_RecpLevelByBU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Star" EntityType="Self.TBL_Star" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_StarsForRecp" EntityType="Self.TBL_StarsForRecp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_User" EntityType="Self.TBL_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_UserType" EntityType="Self.TBL_UserType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Workshop" EntityType="Self.TBL_Workshop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_WorkshopParticipents" EntityType="Self.TBL_WorkshopParticipents" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_City" Association="Self.FK_City">
+            <End Role="TBL_City" EntitySet="TBL_City" />
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishCategory" Association="Self.FK_DishCategory">
+            <End Role="TBL_DishCategory" EntitySet="TBL_DishCategory" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishType" Association="Self.FK_DishType">
+            <End Role="TBL_DishType" EntitySet="TBL_DishType" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodType" Association="Self.FK_FoodType">
+            <End Role="TBL_FoodType" EntitySet="TBL_FoodType" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Holiday" Association="Self.FK_Holiday">
+            <End Role="TBL_Holiday" EntitySet="TBL_Holiday" />
+            <End Role="TBL_HolidaysForRecp" EntitySet="TBL_HolidaysForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingridiants" Association="Self.FK_Ingridiants">
+            <End Role="TBL_Ingridiants" EntitySet="TBL_Ingridiants" />
+            <End Role="TBL_NutritionalIngridiants" EntitySet="TBL_NutritionalIngridiants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingridiants1" Association="Self.FK_Ingridiants1">
+            <End Role="TBL_Ingridiants" EntitySet="TBL_Ingridiants" />
+            <End Role="TBL_IngridiantForRecp" EntitySet="TBL_IngridiantForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KitchenType" Association="Self.FK_KitchenType">
+            <End Role="TBL_KitchenType" EntitySet="TBL_KitchenType" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level" Association="Self.FK_Level">
+            <End Role="TBL_RecipeDifficultyLevel" EntitySet="TBL_RecipeDifficultyLevel" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level1" Association="Self.FK_Level1">
+            <End Role="TBL_RecipeDifficultyLevel" EntitySet="TBL_RecipeDifficultyLevel" />
+            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesurment" Association="Self.FK_Mesurment">
+            <End Role="TBL_Mesurments" EntitySet="TBL_Mesurments" />
+            <End Role="TBL_NutritionalIngridiants" EntitySet="TBL_NutritionalIngridiants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesurment1" Association="Self.FK_Mesurment1">
+            <End Role="TBL_Mesurments" EntitySet="TBL_Mesurments" />
+            <End Role="TBL_IngridiantForRecp" EntitySet="TBL_IngridiantForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile" Association="Self.FK_Profile">
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+            <End Role="TBL_Followers" EntitySet="TBL_Followers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile1" Association="Self.FK_Profile1">
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+            <End Role="TBL_Workshop" EntitySet="TBL_Workshop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile2" Association="Self.FK_Profile2">
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+            <End Role="TBL_Event" EntitySet="TBL_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp" Association="Self.FK_Recp">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_IngridiantForRecp" EntitySet="TBL_IngridiantForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp1" Association="Self.FK_Recp1">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_HolidaysForRecp" EntitySet="TBL_HolidaysForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp2" Association="Self.FK_Recp2">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_Likes" EntitySet="TBL_Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp3" Association="Self.FK_Recp3">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_Comments" EntitySet="TBL_Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp4" Association="Self.FK_Recp4">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp5" Association="Self.FK_Recp5">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_StarsForRecp" EntitySet="TBL_StarsForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp6" Association="Self.FK_Recp6">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_FavoriteRecp" EntitySet="TBL_FavoriteRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Star" Association="Self.FK_Star">
+            <End Role="TBL_Star" EntitySet="TBL_Star" />
+            <End Role="TBL_StarsForRecp" EntitySet="TBL_StarsForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User" Association="Self.FK_User">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User1" Association="Self.FK_User1">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User2" Association="Self.FK_User2">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Likes" EntitySet="TBL_Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User3" Association="Self.FK_User3">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Comments" EntitySet="TBL_Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User4" Association="Self.FK_User4">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User5" Association="Self.FK_User5">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_FavoriteRecp" EntitySet="TBL_FavoriteRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User6" Association="Self.FK_User6">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Followers" EntitySet="TBL_Followers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User7" Association="Self.FK_User7">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_WorkshopParticipents" EntitySet="TBL_WorkshopParticipents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User8" Association="Self.FK_User8">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_DrawerRecp" EntitySet="TBL_DrawerRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserType" Association="Self.FK_UserType">
+            <End Role="TBL_UserType" EntitySet="TBL_UserType" />
+            <End Role="TBL_User" EntitySet="TBL_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workshop" Association="Self.FK_Workshop">
+            <End Role="TBL_Workshop" EntitySet="TBL_Workshop" />
+            <End Role="TBL_WorkshopParticipents" EntitySet="TBL_WorkshopParticipents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Cookit_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBL_City">
+          <Key>
+            <PropertyRef Name="CityName" />
+          </Key>
+          <Property Name="Region" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CityName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_Profile" Relationship="Self.FK_City" FromRole="TBL_City" ToRole="TBL_Profile" />
+        </EntityType>
+        <EntityType Name="TBL_Comments">
+          <Key>
+            <PropertyRef Name="Id_Comment" />
+          </Key>
+          <Property Name="Id_Comment" Type="Int32" Nullable="false" />
+          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CommentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_Recp3" FromRole="TBL_Comments" ToRole="TBL_Recipe" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_User3" FromRole="TBL_Comments" ToRole="TBL_User" />
+        </EntityType>
+        <EntityType Name="TBL_DishCategory">
+          <Key>
+            <PropertyRef Name="Id_DishCategory" />
+          </Key>
+          <Property Name="Id_DishCategory" Type="Int32" Nullable="false" />
+          <Property Name="Name_DishCategory" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_DishCategory" FromRole="TBL_DishCategory" ToRole="TBL_Recipe" />
+        </EntityType>
+        <EntityType Name="TBL_DishType">
+          <Key>
+            <PropertyRef Name="Id_DishType" />
+          </Key>
+          <Property Name="Id_DishType" Type="Int32" Nullable="false" />
+          <Property Name="Name_DishType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_DishType" FromRole="TBL_DishType" ToRole="TBL_Recipe" />
+        </EntityType>
+        <EntityType Name="TBL_DrawerRecp">
+          <Key>
+            <PropertyRef Name="Id_DrawerRecp" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_DrawerRecp" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="Name_DrawerRecp" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_User8" FromRole="TBL_DrawerRecp" ToRole="TBL_User" />
+        </EntityType>
+        <EntityType Name="TBL_Event">
+          <Key>
+            <PropertyRef Name="Id_Event" />
+          </Key>
+          <Property Name="Id_Event" Type="Int32" Nullable="false" />
+          <Property Name="Id_Prof" Type="Int32" Nullable="false" />
+          <Property Name="Name_Event" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Event_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Place_Event" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Description_Event" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StatusCancelation" Type="Boolean" />
+          <NavigationProperty Name="TBL_Profile" Relationship="Self.FK_Profile2" FromRole="TBL_Event" ToRole="TBL_Profile" />
+        </EntityType>
+        <EntityType Name="TBL_FavoriteRecp">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="RecpStatus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_Recp6" FromRole="TBL_FavoriteRecp" ToRole="TBL_Recipe" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_User5" FromRole="TBL_FavoriteRecp" ToRole="TBL_User" />
+        </EntityType>
+        <EntityType Name="TBL_Followers">
+          <Key>
+            <PropertyRef Name="Id_User" />
+            <PropertyRef Name="Id_Prof" />
+          </Key>
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="Id_Prof" Type="Int32" Nullable="false" />
+          <Property Name="StatusFollower" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBL_Profile" Relationship="Self.FK_Profile" FromRole="TBL_Followers" ToRole="TBL_Profile" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_User6" FromRole="TBL_Followers" ToRole="TBL_User" />
+        </EntityType>
+        <EntityType Name="TBL_FoodLable">
+          <Key>
+            <PropertyRef Name="Id_FoodLable" />
+          </Key>
+          <Property Name="Id_FoodLable" Type="Int32" Nullable="false" />
+          <Property Name="Name_FoodLable" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_FoodType">
+          <Key>
+            <PropertyRef Name="Id_FoodType" />
+          </Key>
+          <Property Name="Id_FoodType" Type="Int32" Nullable="false" />
+          <Property Name="Name_FoodType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_FoodType" FromRole="TBL_FoodType" ToRole="TBL_Recipe" />
+        </EntityType>
+        <EntityType Name="TBL_Holiday">
+          <Key>
+            <PropertyRef Name="Id_Holiday" />
+          </Key>
+          <Property Name="Id_Holiday" Type="Int32" Nullable="false" />
+          <Property Name="Name_Holiday" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.TBL_HolidaysForRecp" FromRole="TBL_Holiday" ToRole="TBL_Recipe" />
+        </EntityType>
+        <EntityType Name="TBL_IngridiantForRecp">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_Ingridiants" />
+            <PropertyRef Name="Id_Mesurment" />
+          </Key>
+          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
+          <Property Name="Id_Ingridiants" Type="Int32" Nullable="false" />
+          <Property Name="Id_Mesurment" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Double" />
+          <NavigationProperty Name="TBL_Ingridiants" Relationship="Self.FK_Ingridiants1" FromRole="TBL_IngridiantForRecp" ToRole="TBL_Ingridiants" />
+          <NavigationProperty Name="TBL_Mesurments" Relationship="Self.FK_Mesurment1" FromRole="TBL_IngridiantForRecp" ToRole="TBL_Mesurments" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_Recp" FromRole="TBL_IngridiantForRecp" ToRole="TBL_Recipe" />
+        </EntityType>
+        <EntityType Name="TBL_Ingridiants">
+          <Key>
+            <PropertyRef Name="Id_Ingridiants" />
+          </Key>
+          <Property Name="Id_Ingridiants" Type="Int32" Nullable="false" />
+          <Property Name="Name_Ingridiants" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_IngridiantForRecp" Relationship="Self.FK_Ingridiants1" FromRole="TBL_Ingridiants" ToRole="TBL_IngridiantForRecp" />
+          <NavigationProperty Name="TBL_NutritionalIngridiants" Relationship="Self.FK_Ingridiants" FromRole="TBL_Ingridiants" ToRole="TBL_NutritionalIngridiants" />
+        </EntityType>
+        <EntityType Name="TBL_KitchenType">
+          <Key>
+            <PropertyRef Name="Id_Kitchen" />
+          </Key>
+          <Property Name="Id_Kitchen" Type="Int32" Nullable="false" />
+          <Property Name="Kitchen_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_KitchenType" FromRole="TBL_KitchenType" ToRole="TBL_Recipe" />
+        </EntityType>
+        <EntityType Name="TBL_Likes">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="LikeStatus" Type="Boolean" Nullable="false" />
+          <Property Name="LikeDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_Recp2" FromRole="TBL_Likes" ToRole="TBL_Recipe" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_User2" FromRole="TBL_Likes" ToRole="TBL_User" />
+        </EntityType>
+        <EntityType Name="TBL_Mesurments">
+          <Key>
+            <PropertyRef Name="Id_Mesurment" />
+          </Key>
+          <Property Name="Id_Mesurment" Type="Int32" Nullable="false" />
+          <Property Name="Name_Mesurment" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_IngridiantForRecp" Relationship="Self.FK_Mesurment1" FromRole="TBL_Mesurments" ToRole="TBL_IngridiantForRecp" />
+          <NavigationProperty Name="TBL_NutritionalIngridiants" Relationship="Self.FK_Mesurment" FromRole="TBL_Mesurments" ToRole="TBL_NutritionalIngridiants" />
+        </EntityType>
+        <EntityType Name="TBL_NutritionalIngridiants">
+          <Key>
+            <PropertyRef Name="Id_Ingridiants" />
+            <PropertyRef Name="Id_Mesurment" />
+          </Key>
+          <Property Name="Id_Ingridiants" Type="Int32" Nullable="false" />
+          <Property Name="Id_Mesurment" Type="Int32" Nullable="false" />
+          <Property Name="NutritionCalories" Type="Double" />
+          <NavigationProperty Name="TBL_Ingridiants" Relationship="Self.FK_Ingridiants" FromRole="TBL_NutritionalIngridiants" ToRole="TBL_Ingridiants" />
+          <NavigationProperty Name="TBL_Mesurments" Relationship="Self.FK_Mesurment" FromRole="TBL_NutritionalIngridiants" ToRole="TBL_Mesurments" />
+        </EntityType>
+        <EntityType Name="TBL_Profile">
+          <Key>
+            <PropertyRef Name="Id_Prof" />
+          </Key>
+          <Property Name="Id_Prof" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="ProfType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Name_Prof" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProfDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CityName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProfStatus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBL_City" Relationship="Self.FK_City" FromRole="TBL_Profile" ToRole="TBL_City" />
+          <NavigationProperty Name="TBL_Event" Relationship="Self.FK_Profile2" FromRole="TBL_Profile" ToRole="TBL_Event" />
+          <NavigationProperty Name="TBL_Followers" Relationship="Self.FK_Profile" FromRole="TBL_Profile" ToRole="TBL_Followers" />
+          <NavigationProperty Name="TBL_Workshop" Relationship="Self.FK_Profile1" FromRole="TBL_Profile" ToRole="TBL_Workshop" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_User" FromRole="TBL_Profile" ToRole="TBL_User" />
+        </EntityType>
+        <EntityType Name="TBL_Recipe">
+          <Key>
+            <PropertyRef Name="Id_Recipe" />
+          </Key>
+          <Property Name="Id_Recipe" Type="Int32" Nullable="false" />
+          <Property Name="Id_Recipe_User" Type="Int32" Nullable="false" />
+          <Property Name="Name_Recipe" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_Recipe_DishType" Type="Int32" Nullable="false" />
+          <Property Name="Id_Recipe_DishCategory" Type="Int32" Nullable="false" />
+          <Property Name="Id_Recipe_FoodType" Type="Int32" Nullable="false" />
+          <Property Name="Id_Recipe_KitchenType" Type="Int32" Nullable="false" />
+          <Property Name="RecipeTotalTime" Type="Time" Precision="7" />
+          <Property Name="RecipeWorkTime" Type="Time" Precision="7" />
+          <Property Name="Id_Recipe_Level" Type="Int32" Nullable="false" />
+          <Property Name="PreparationSteps" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_Comments" Relationship="Self.FK_Recp3" FromRole="TBL_Recipe" ToRole="TBL_Comments" />
+          <NavigationProperty Name="TBL_DishCategory" Relationship="Self.FK_DishCategory" FromRole="TBL_Recipe" ToRole="TBL_DishCategory" />
+          <NavigationProperty Name="TBL_DishType" Relationship="Self.FK_DishType" FromRole="TBL_Recipe" ToRole="TBL_DishType" />
+          <NavigationProperty Name="TBL_FavoriteRecp" Relationship="Self.FK_Recp6" FromRole="TBL_Recipe" ToRole="TBL_FavoriteRecp" />
+          <NavigationProperty Name="TBL_FoodType" Relationship="Self.FK_FoodType" FromRole="TBL_Recipe" ToRole="TBL_FoodType" />
+          <NavigationProperty Name="TBL_IngridiantForRecp" Relationship="Self.FK_Recp" FromRole="TBL_Recipe" ToRole="TBL_IngridiantForRecp" />
+          <NavigationProperty Name="TBL_KitchenType" Relationship="Self.FK_KitchenType" FromRole="TBL_Recipe" ToRole="TBL_KitchenType" />
+          <NavigationProperty Name="TBL_Likes" Relationship="Self.FK_Recp2" FromRole="TBL_Recipe" ToRole="TBL_Likes" />
+          <NavigationProperty Name="TBL_RecipeDifficultyLevel" Relationship="Self.FK_Level" FromRole="TBL_Recipe" ToRole="TBL_RecipeDifficultyLevel" />
+          <NavigationProperty Name="TBL_RecpLevelByBU" Relationship="Self.FK_Recp4" FromRole="TBL_Recipe" ToRole="TBL_RecpLevelByBU" />
+          <NavigationProperty Name="TBL_StarsForRecp" Relationship="Self.FK_Recp5" FromRole="TBL_Recipe" ToRole="TBL_StarsForRecp" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_User1" FromRole="TBL_Recipe" ToRole="TBL_User" />
+          <NavigationProperty Name="TBL_Holiday" Relationship="Self.TBL_HolidaysForRecp" FromRole="TBL_Recipe" ToRole="TBL_Holiday" />
+        </EntityType>
+        <EntityType Name="TBL_RecipeDifficultyLevel">
+          <Key>
+            <PropertyRef Name="Id_Level" />
+          </Key>
+          <Property Name="Id_Level" Type="Int32" Nullable="false" />
+          <Property Name="Name_Level" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_Level" FromRole="TBL_RecipeDifficultyLevel" ToRole="TBL_Recipe" />
+          <NavigationProperty Name="TBL_RecpLevelByBU" Relationship="Self.FK_Level1" FromRole="TBL_RecipeDifficultyLevel" ToRole="TBL_RecpLevelByBU" />
+        </EntityType>
+        <EntityType Name="TBL_RecpLevelByBU">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="Id_Level" Type="Int32" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_Recp4" FromRole="TBL_RecpLevelByBU" ToRole="TBL_Recipe" />
+          <NavigationProperty Name="TBL_RecipeDifficultyLevel" Relationship="Self.FK_Level1" FromRole="TBL_RecpLevelByBU" ToRole="TBL_RecipeDifficultyLevel" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_User4" FromRole="TBL_RecpLevelByBU" ToRole="TBL_User" />
+        </EntityType>
+        <EntityType Name="TBL_Star">
+          <Key>
+            <PropertyRef Name="Id_Star" />
+          </Key>
+          <Property Name="Id_Star" Type="Int32" Nullable="false" />
+          <Property Name="StarLevel" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="StarNum" Type="Int32" />
+          <NavigationProperty Name="TBL_StarsForRecp" Relationship="Self.FK_Star" FromRole="TBL_Star" ToRole="TBL_StarsForRecp" />
+        </EntityType>
+        <EntityType Name="TBL_StarsForRecp">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="StarYear" />
+          </Key>
+          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
+          <Property Name="StarYear" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Id_Star" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_Recp5" FromRole="TBL_StarsForRecp" ToRole="TBL_Recipe" />
+          <NavigationProperty Name="TBL_Star" Relationship="Self.FK_Star" FromRole="TBL_StarsForRecp" ToRole="TBL_Star" />
+        </EntityType>
+        <EntityType Name="TBL_User">
+          <Key>
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="Id_Type" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="UserPass" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserStatus" Type="Boolean" Nullable="false" />
+          <Property Name="NumDrawRecp" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBL_Comments" Relationship="Self.FK_User3" FromRole="TBL_User" ToRole="TBL_Comments" />
+          <NavigationProperty Name="TBL_DrawerRecp" Relationship="Self.FK_User8" FromRole="TBL_User" ToRole="TBL_DrawerRecp" />
+          <NavigationProperty Name="TBL_FavoriteRecp" Relationship="Self.FK_User5" FromRole="TBL_User" ToRole="TBL_FavoriteRecp" />
+          <NavigationProperty Name="TBL_Followers" Relationship="Self.FK_User6" FromRole="TBL_User" ToRole="TBL_Followers" />
+          <NavigationProperty Name="TBL_Likes" Relationship="Self.FK_User2" FromRole="TBL_User" ToRole="TBL_Likes" />
+          <NavigationProperty Name="TBL_Profile" Relationship="Self.FK_User" FromRole="TBL_User" ToRole="TBL_Profile" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Self.FK_User1" FromRole="TBL_User" ToRole="TBL_Recipe" />
+          <NavigationProperty Name="TBL_RecpLevelByBU" Relationship="Self.FK_User4" FromRole="TBL_User" ToRole="TBL_RecpLevelByBU" />
+          <NavigationProperty Name="TBL_WorkshopParticipents" Relationship="Self.FK_User7" FromRole="TBL_User" ToRole="TBL_WorkshopParticipents" />
+          <NavigationProperty Name="TBL_UserType" Relationship="Self.FK_UserType" FromRole="TBL_User" ToRole="TBL_UserType" />
+        </EntityType>
+        <EntityType Name="TBL_UserType">
+          <Key>
+            <PropertyRef Name="Id_Type" />
+          </Key>
+          <Property Name="Id_Type" Type="Int32" Nullable="false" />
+          <Property Name="Name_Type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_UserType" FromRole="TBL_UserType" ToRole="TBL_User" />
+        </EntityType>
+        <EntityType Name="TBL_Workshop">
+          <Key>
+            <PropertyRef Name="Id_Workshop" />
+          </Key>
+          <Property Name="Id_Workshop" Type="Int32" Nullable="false" />
+          <Property Name="Id_Prof" Type="Int32" Nullable="false" />
+          <Property Name="Name_Workshop" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Workshop_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Place_Workshop" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Description_Workshop" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaxParticipents" Type="Int32" Nullable="false" />
+          <Property Name="StatusCancelation" Type="Boolean" />
+          <Property Name="StatusAvailable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBL_Profile" Relationship="Self.FK_Profile1" FromRole="TBL_Workshop" ToRole="TBL_Profile" />
+          <NavigationProperty Name="TBL_WorkshopParticipents" Relationship="Self.FK_Workshop" FromRole="TBL_Workshop" ToRole="TBL_WorkshopParticipents" />
+        </EntityType>
+        <EntityType Name="TBL_WorkshopParticipents">
+          <Key>
+            <PropertyRef Name="Id_Workshop" />
+            <PropertyRef Name="Id_User" />
+          </Key>
+          <Property Name="Id_Workshop" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="StatusRegistration" Type="Boolean" />
+          <NavigationProperty Name="TBL_User" Relationship="Self.FK_User7" FromRole="TBL_WorkshopParticipents" ToRole="TBL_User" />
+          <NavigationProperty Name="TBL_Workshop" Relationship="Self.FK_Workshop" FromRole="TBL_WorkshopParticipents" ToRole="TBL_Workshop" />
+        </EntityType>
+        <Association Name="FK_City">
+          <End Role="TBL_City" Type="Self.TBL_City" Multiplicity="1" />
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_City">
+              <PropertyRef Name="CityName" />
+            </Principal>
+            <Dependent Role="TBL_Profile">
+              <PropertyRef Name="CityName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp3">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_Comments" Type="Self.TBL_Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_Comments">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User3">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Comments" Type="Self.TBL_Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Comments">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishCategory">
+          <End Role="TBL_DishCategory" Type="Self.TBL_DishCategory" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DishCategory">
+              <PropertyRef Name="Id_DishCategory" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_DishCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishType">
+          <End Role="TBL_DishType" Type="Self.TBL_DishType" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_DishType">
+              <PropertyRef Name="Id_DishType" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_DishType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User8">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_DrawerRecp" Type="Self.TBL_DrawerRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_DrawerRecp">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile2">
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="1" />
+          <End Role="TBL_Event" Type="Self.TBL_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Profile">
+              <PropertyRef Name="Id_Prof" />
+            </Principal>
+            <Dependent Role="TBL_Event">
+              <PropertyRef Name="Id_Prof" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp6">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_FavoriteRecp" Type="Self.TBL_FavoriteRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_FavoriteRecp">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User5">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_FavoriteRecp" Type="Self.TBL_FavoriteRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_FavoriteRecp">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile">
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="1" />
+          <End Role="TBL_Followers" Type="Self.TBL_Followers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Profile">
+              <PropertyRef Name="Id_Prof" />
+            </Principal>
+            <Dependent Role="TBL_Followers">
+              <PropertyRef Name="Id_Prof" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User6">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Followers" Type="Self.TBL_Followers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Followers">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodType">
+          <End Role="TBL_FoodType" Type="Self.TBL_FoodType" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_FoodType">
+              <PropertyRef Name="Id_FoodType" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_FoodType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingridiants1">
+          <End Role="TBL_Ingridiants" Type="Self.TBL_Ingridiants" Multiplicity="1" />
+          <End Role="TBL_IngridiantForRecp" Type="Self.TBL_IngridiantForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ingridiants">
+              <PropertyRef Name="Id_Ingridiants" />
+            </Principal>
+            <Dependent Role="TBL_IngridiantForRecp">
+              <PropertyRef Name="Id_Ingridiants" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesurment1">
+          <End Role="TBL_Mesurments" Type="Self.TBL_Mesurments" Multiplicity="1" />
+          <End Role="TBL_IngridiantForRecp" Type="Self.TBL_IngridiantForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Mesurments">
+              <PropertyRef Name="Id_Mesurment" />
+            </Principal>
+            <Dependent Role="TBL_IngridiantForRecp">
+              <PropertyRef Name="Id_Mesurment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_IngridiantForRecp" Type="Self.TBL_IngridiantForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_IngridiantForRecp">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingridiants">
+          <End Role="TBL_Ingridiants" Type="Self.TBL_Ingridiants" Multiplicity="1" />
+          <End Role="TBL_NutritionalIngridiants" Type="Self.TBL_NutritionalIngridiants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Ingridiants">
+              <PropertyRef Name="Id_Ingridiants" />
+            </Principal>
+            <Dependent Role="TBL_NutritionalIngridiants">
+              <PropertyRef Name="Id_Ingridiants" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KitchenType">
+          <End Role="TBL_KitchenType" Type="Self.TBL_KitchenType" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_KitchenType">
+              <PropertyRef Name="Id_Kitchen" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_KitchenType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp2">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_Likes" Type="Self.TBL_Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_Likes">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User2">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Likes" Type="Self.TBL_Likes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Likes">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesurment">
+          <End Role="TBL_Mesurments" Type="Self.TBL_Mesurments" Multiplicity="1" />
+          <End Role="TBL_NutritionalIngridiants" Type="Self.TBL_NutritionalIngridiants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Mesurments">
+              <PropertyRef Name="Id_Mesurment" />
+            </Principal>
+            <Dependent Role="TBL_NutritionalIngridiants">
+              <PropertyRef Name="Id_Mesurment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile1">
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="1" />
+          <End Role="TBL_Workshop" Type="Self.TBL_Workshop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Profile">
+              <PropertyRef Name="Id_Prof" />
+            </Principal>
+            <Dependent Role="TBL_Workshop">
+              <PropertyRef Name="Id_Prof" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Profile" Type="Self.TBL_Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Profile">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level">
+          <End Role="TBL_RecipeDifficultyLevel" Type="Self.TBL_RecipeDifficultyLevel" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_RecipeDifficultyLevel">
+              <PropertyRef Name="Id_Level" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp4">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_RecpLevelByBU">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recp5">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_StarsForRecp" Type="Self.TBL_StarsForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_StarsForRecp">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User1">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Level1">
+          <End Role="TBL_RecipeDifficultyLevel" Type="Self.TBL_RecipeDifficultyLevel" Multiplicity="0..1" />
+          <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_RecipeDifficultyLevel">
+              <PropertyRef Name="Id_Level" />
+            </Principal>
+            <Dependent Role="TBL_RecpLevelByBU">
+              <PropertyRef Name="Id_Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User4">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_RecpLevelByBU">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Star">
+          <End Role="TBL_Star" Type="Self.TBL_Star" Multiplicity="1" />
+          <End Role="TBL_StarsForRecp" Type="Self.TBL_StarsForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Star">
+              <PropertyRef Name="Id_Star" />
+            </Principal>
+            <Dependent Role="TBL_StarsForRecp">
+              <PropertyRef Name="Id_Star" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User7">
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
+          <End Role="TBL_WorkshopParticipents" Type="Self.TBL_WorkshopParticipents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_WorkshopParticipents">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserType">
+          <End Role="TBL_UserType" Type="Self.TBL_UserType" Multiplicity="1" />
+          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_UserType">
+              <PropertyRef Name="Id_Type" />
+            </Principal>
+            <Dependent Role="TBL_User">
+              <PropertyRef Name="Id_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workshop">
+          <End Role="TBL_Workshop" Type="Self.TBL_Workshop" Multiplicity="1" />
+          <End Role="TBL_WorkshopParticipents" Type="Self.TBL_WorkshopParticipents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Workshop">
+              <PropertyRef Name="Id_Workshop" />
+            </Principal>
+            <Dependent Role="TBL_WorkshopParticipents">
+              <PropertyRef Name="Id_Workshop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TBL_HolidaysForRecp">
+          <End Role="TBL_Holiday" Type="Self.TBL_Holiday" Multiplicity="*" />
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Cookit_DBConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBL_City" EntityType="Self.TBL_City" />
+          <EntitySet Name="TBL_Comments" EntityType="Self.TBL_Comments" />
+          <EntitySet Name="TBL_DishCategory" EntityType="Self.TBL_DishCategory" />
+          <EntitySet Name="TBL_DishType" EntityType="Self.TBL_DishType" />
+          <EntitySet Name="TBL_DrawerRecp" EntityType="Self.TBL_DrawerRecp" />
+          <EntitySet Name="TBL_Event" EntityType="Self.TBL_Event" />
+          <EntitySet Name="TBL_FavoriteRecp" EntityType="Self.TBL_FavoriteRecp" />
+          <EntitySet Name="TBL_Followers" EntityType="Self.TBL_Followers" />
+          <EntitySet Name="TBL_FoodLable" EntityType="Self.TBL_FoodLable" />
+          <EntitySet Name="TBL_FoodType" EntityType="Self.TBL_FoodType" />
+          <EntitySet Name="TBL_Holiday" EntityType="Self.TBL_Holiday" />
+          <EntitySet Name="TBL_IngridiantForRecp" EntityType="Self.TBL_IngridiantForRecp" />
+          <EntitySet Name="TBL_Ingridiants" EntityType="Self.TBL_Ingridiants" />
+          <EntitySet Name="TBL_KitchenType" EntityType="Self.TBL_KitchenType" />
+          <EntitySet Name="TBL_Likes" EntityType="Self.TBL_Likes" />
+          <EntitySet Name="TBL_Mesurments" EntityType="Self.TBL_Mesurments" />
+          <EntitySet Name="TBL_NutritionalIngridiants" EntityType="Self.TBL_NutritionalIngridiants" />
+          <EntitySet Name="TBL_Profile" EntityType="Self.TBL_Profile" />
+          <EntitySet Name="TBL_Recipe" EntityType="Self.TBL_Recipe" />
+          <EntitySet Name="TBL_RecipeDifficultyLevel" EntityType="Self.TBL_RecipeDifficultyLevel" />
+          <EntitySet Name="TBL_RecpLevelByBU" EntityType="Self.TBL_RecpLevelByBU" />
+          <EntitySet Name="TBL_Star" EntityType="Self.TBL_Star" />
+          <EntitySet Name="TBL_StarsForRecp" EntityType="Self.TBL_StarsForRecp" />
+          <EntitySet Name="TBL_User" EntityType="Self.TBL_User" />
+          <EntitySet Name="TBL_UserType" EntityType="Self.TBL_UserType" />
+          <EntitySet Name="TBL_Workshop" EntityType="Self.TBL_Workshop" />
+          <EntitySet Name="TBL_WorkshopParticipents" EntityType="Self.TBL_WorkshopParticipents" />
+          <AssociationSet Name="FK_City" Association="Self.FK_City">
+            <End Role="TBL_City" EntitySet="TBL_City" />
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp3" Association="Self.FK_Recp3">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_Comments" EntitySet="TBL_Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User3" Association="Self.FK_User3">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Comments" EntitySet="TBL_Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishCategory" Association="Self.FK_DishCategory">
+            <End Role="TBL_DishCategory" EntitySet="TBL_DishCategory" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishType" Association="Self.FK_DishType">
+            <End Role="TBL_DishType" EntitySet="TBL_DishType" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User8" Association="Self.FK_User8">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_DrawerRecp" EntitySet="TBL_DrawerRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile2" Association="Self.FK_Profile2">
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+            <End Role="TBL_Event" EntitySet="TBL_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp6" Association="Self.FK_Recp6">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_FavoriteRecp" EntitySet="TBL_FavoriteRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User5" Association="Self.FK_User5">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_FavoriteRecp" EntitySet="TBL_FavoriteRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile" Association="Self.FK_Profile">
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+            <End Role="TBL_Followers" EntitySet="TBL_Followers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User6" Association="Self.FK_User6">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Followers" EntitySet="TBL_Followers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodType" Association="Self.FK_FoodType">
+            <End Role="TBL_FoodType" EntitySet="TBL_FoodType" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingridiants1" Association="Self.FK_Ingridiants1">
+            <End Role="TBL_Ingridiants" EntitySet="TBL_Ingridiants" />
+            <End Role="TBL_IngridiantForRecp" EntitySet="TBL_IngridiantForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesurment1" Association="Self.FK_Mesurment1">
+            <End Role="TBL_Mesurments" EntitySet="TBL_Mesurments" />
+            <End Role="TBL_IngridiantForRecp" EntitySet="TBL_IngridiantForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp" Association="Self.FK_Recp">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_IngridiantForRecp" EntitySet="TBL_IngridiantForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingridiants" Association="Self.FK_Ingridiants">
+            <End Role="TBL_Ingridiants" EntitySet="TBL_Ingridiants" />
+            <End Role="TBL_NutritionalIngridiants" EntitySet="TBL_NutritionalIngridiants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KitchenType" Association="Self.FK_KitchenType">
+            <End Role="TBL_KitchenType" EntitySet="TBL_KitchenType" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp2" Association="Self.FK_Recp2">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_Likes" EntitySet="TBL_Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User2" Association="Self.FK_User2">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Likes" EntitySet="TBL_Likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesurment" Association="Self.FK_Mesurment">
+            <End Role="TBL_Mesurments" EntitySet="TBL_Mesurments" />
+            <End Role="TBL_NutritionalIngridiants" EntitySet="TBL_NutritionalIngridiants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile1" Association="Self.FK_Profile1">
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+            <End Role="TBL_Workshop" EntitySet="TBL_Workshop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User" Association="Self.FK_User">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Profile" EntitySet="TBL_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level" Association="Self.FK_Level">
+            <End Role="TBL_RecipeDifficultyLevel" EntitySet="TBL_RecipeDifficultyLevel" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp4" Association="Self.FK_Recp4">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recp5" Association="Self.FK_Recp5">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_StarsForRecp" EntitySet="TBL_StarsForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User1" Association="Self.FK_User1">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Level1" Association="Self.FK_Level1">
+            <End Role="TBL_RecipeDifficultyLevel" EntitySet="TBL_RecipeDifficultyLevel" />
+            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User4" Association="Self.FK_User4">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Star" Association="Self.FK_Star">
+            <End Role="TBL_Star" EntitySet="TBL_Star" />
+            <End Role="TBL_StarsForRecp" EntitySet="TBL_StarsForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User7" Association="Self.FK_User7">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_WorkshopParticipents" EntitySet="TBL_WorkshopParticipents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserType" Association="Self.FK_UserType">
+            <End Role="TBL_UserType" EntitySet="TBL_UserType" />
+            <End Role="TBL_User" EntitySet="TBL_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workshop" Association="Self.FK_Workshop">
+            <End Role="TBL_Workshop" EntitySet="TBL_Workshop" />
+            <End Role="TBL_WorkshopParticipents" EntitySet="TBL_WorkshopParticipents" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_HolidaysForRecp" Association="Self.TBL_HolidaysForRecp">
+            <End Role="TBL_Holiday" EntitySet="TBL_Holiday" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Cookit_DBModelStoreContainer" CdmEntityContainer="Cookit_DBConnection">
+          <EntitySetMapping Name="TBL_City">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_City">
+              <MappingFragment StoreEntitySet="TBL_City">
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Comments">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Comments">
+              <MappingFragment StoreEntitySet="TBL_Comments">
+                <ScalarProperty Name="Id_Comment" ColumnName="Id_Comment" />
+                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DishCategory">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_DishCategory">
+              <MappingFragment StoreEntitySet="TBL_DishCategory">
+                <ScalarProperty Name="Id_DishCategory" ColumnName="Id_DishCategory" />
+                <ScalarProperty Name="Name_DishCategory" ColumnName="Name_DishCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DishType">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_DishType">
+              <MappingFragment StoreEntitySet="TBL_DishType">
+                <ScalarProperty Name="Id_DishType" ColumnName="Id_DishType" />
+                <ScalarProperty Name="Name_DishType" ColumnName="Name_DishType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_DrawerRecp">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_DrawerRecp">
+              <MappingFragment StoreEntitySet="TBL_DrawerRecp">
+                <ScalarProperty Name="Id_DrawerRecp" ColumnName="Id_DrawerRecp" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Name_DrawerRecp" ColumnName="Name_DrawerRecp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Event">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Event">
+              <MappingFragment StoreEntitySet="TBL_Event">
+                <ScalarProperty Name="Id_Event" ColumnName="Id_Event" />
+                <ScalarProperty Name="Id_Prof" ColumnName="Id_Prof" />
+                <ScalarProperty Name="Name_Event" ColumnName="Name_Event" />
+                <ScalarProperty Name="Event_Date" ColumnName="Event_Date" />
+                <ScalarProperty Name="Place_Event" ColumnName="Place_Event" />
+                <ScalarProperty Name="Description_Event" ColumnName="Description_Event" />
+                <ScalarProperty Name="StatusCancelation" ColumnName="StatusCancelation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_FavoriteRecp">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_FavoriteRecp">
+              <MappingFragment StoreEntitySet="TBL_FavoriteRecp">
+                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="RecpStatus" ColumnName="RecpStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Followers">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Followers">
+              <MappingFragment StoreEntitySet="TBL_Followers">
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Prof" ColumnName="Id_Prof" />
+                <ScalarProperty Name="StatusFollower" ColumnName="StatusFollower" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_FoodLable">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_FoodLable">
+              <MappingFragment StoreEntitySet="TBL_FoodLable">
+                <ScalarProperty Name="Id_FoodLable" ColumnName="Id_FoodLable" />
+                <ScalarProperty Name="Name_FoodLable" ColumnName="Name_FoodLable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_FoodType">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_FoodType">
+              <MappingFragment StoreEntitySet="TBL_FoodType">
+                <ScalarProperty Name="Id_FoodType" ColumnName="Id_FoodType" />
+                <ScalarProperty Name="Name_FoodType" ColumnName="Name_FoodType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Holiday">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Holiday">
+              <MappingFragment StoreEntitySet="TBL_Holiday">
+                <ScalarProperty Name="Id_Holiday" ColumnName="Id_Holiday" />
+                <ScalarProperty Name="Name_Holiday" ColumnName="Name_Holiday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_IngridiantForRecp">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_IngridiantForRecp">
+              <MappingFragment StoreEntitySet="TBL_IngridiantForRecp">
+                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
+                <ScalarProperty Name="Id_Ingridiants" ColumnName="Id_Ingridiants" />
+                <ScalarProperty Name="Id_Mesurment" ColumnName="Id_Mesurment" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Ingridiants">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Ingridiants">
+              <MappingFragment StoreEntitySet="TBL_Ingridiants">
+                <ScalarProperty Name="Id_Ingridiants" ColumnName="Id_Ingridiants" />
+                <ScalarProperty Name="Name_Ingridiants" ColumnName="Name_Ingridiants" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_KitchenType">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_KitchenType">
+              <MappingFragment StoreEntitySet="TBL_KitchenType">
+                <ScalarProperty Name="Id_Kitchen" ColumnName="Id_Kitchen" />
+                <ScalarProperty Name="Kitchen_Name" ColumnName="Kitchen_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Likes">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Likes">
+              <MappingFragment StoreEntitySet="TBL_Likes">
+                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="LikeStatus" ColumnName="LikeStatus" />
+                <ScalarProperty Name="LikeDate" ColumnName="LikeDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Mesurments">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Mesurments">
+              <MappingFragment StoreEntitySet="TBL_Mesurments">
+                <ScalarProperty Name="Id_Mesurment" ColumnName="Id_Mesurment" />
+                <ScalarProperty Name="Name_Mesurment" ColumnName="Name_Mesurment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_NutritionalIngridiants">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_NutritionalIngridiants">
+              <MappingFragment StoreEntitySet="TBL_NutritionalIngridiants">
+                <ScalarProperty Name="Id_Ingridiants" ColumnName="Id_Ingridiants" />
+                <ScalarProperty Name="Id_Mesurment" ColumnName="Id_Mesurment" />
+                <ScalarProperty Name="NutritionCalories" ColumnName="NutritionCalories" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Profile">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Profile">
+              <MappingFragment StoreEntitySet="TBL_Profile">
+                <ScalarProperty Name="Id_Prof" ColumnName="Id_Prof" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="ProfType" ColumnName="ProfType" />
+                <ScalarProperty Name="Name_Prof" ColumnName="Name_Prof" />
+                <ScalarProperty Name="ProfDescription" ColumnName="ProfDescription" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="ProfStatus" ColumnName="ProfStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Recipe">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Recipe">
+              <MappingFragment StoreEntitySet="TBL_Recipe">
+                <ScalarProperty Name="Id_Recipe" ColumnName="Id_Recipe" />
+                <ScalarProperty Name="Id_Recipe_User" ColumnName="Id_Recipe_User" />
+                <ScalarProperty Name="Name_Recipe" ColumnName="Name_Recipe" />
+                <ScalarProperty Name="Id_Recipe_DishType" ColumnName="Id_Recipe_DishType" />
+                <ScalarProperty Name="Id_Recipe_DishCategory" ColumnName="Id_Recipe_DishCategory" />
+                <ScalarProperty Name="Id_Recipe_FoodType" ColumnName="Id_Recipe_FoodType" />
+                <ScalarProperty Name="Id_Recipe_KitchenType" ColumnName="Id_Recipe_KitchenType" />
+                <ScalarProperty Name="RecipeTotalTime" ColumnName="RecipeTotalTime" />
+                <ScalarProperty Name="RecipeWorkTime" ColumnName="RecipeWorkTime" />
+                <ScalarProperty Name="Id_Recipe_Level" ColumnName="Id_Recipe_Level" />
+                <ScalarProperty Name="PreparationSteps" ColumnName="PreparationSteps" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_RecipeDifficultyLevel">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_RecipeDifficultyLevel">
+              <MappingFragment StoreEntitySet="TBL_RecipeDifficultyLevel">
+                <ScalarProperty Name="Id_Level" ColumnName="Id_Level" />
+                <ScalarProperty Name="Name_Level" ColumnName="Name_Level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_RecpLevelByBU">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_RecpLevelByBU">
+              <MappingFragment StoreEntitySet="TBL_RecpLevelByBU">
+                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Level" ColumnName="Id_Level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Star">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Star">
+              <MappingFragment StoreEntitySet="TBL_Star">
+                <ScalarProperty Name="Id_Star" ColumnName="Id_Star" />
+                <ScalarProperty Name="StarLevel" ColumnName="StarLevel" />
+                <ScalarProperty Name="StarNum" ColumnName="StarNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_StarsForRecp">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_StarsForRecp">
+              <MappingFragment StoreEntitySet="TBL_StarsForRecp">
+                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
+                <ScalarProperty Name="StarYear" ColumnName="StarYear" />
+                <ScalarProperty Name="Id_Star" ColumnName="Id_Star" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_User">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_User">
+              <MappingFragment StoreEntitySet="TBL_User">
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Type" ColumnName="Id_Type" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="UserPass" ColumnName="UserPass" />
+                <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+                <ScalarProperty Name="NumDrawRecp" ColumnName="NumDrawRecp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_UserType">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_UserType">
+              <MappingFragment StoreEntitySet="TBL_UserType">
+                <ScalarProperty Name="Id_Type" ColumnName="Id_Type" />
+                <ScalarProperty Name="Name_Type" ColumnName="Name_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Workshop">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Workshop">
+              <MappingFragment StoreEntitySet="TBL_Workshop">
+                <ScalarProperty Name="Id_Workshop" ColumnName="Id_Workshop" />
+                <ScalarProperty Name="Id_Prof" ColumnName="Id_Prof" />
+                <ScalarProperty Name="Name_Workshop" ColumnName="Name_Workshop" />
+                <ScalarProperty Name="Workshop_Date" ColumnName="Workshop_Date" />
+                <ScalarProperty Name="Place_Workshop" ColumnName="Place_Workshop" />
+                <ScalarProperty Name="Description_Workshop" ColumnName="Description_Workshop" />
+                <ScalarProperty Name="MaxParticipents" ColumnName="MaxParticipents" />
+                <ScalarProperty Name="StatusCancelation" ColumnName="StatusCancelation" />
+                <ScalarProperty Name="StatusAvailable" ColumnName="StatusAvailable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_WorkshopParticipents">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_WorkshopParticipents">
+              <MappingFragment StoreEntitySet="TBL_WorkshopParticipents">
+                <ScalarProperty Name="Id_Workshop" ColumnName="Id_Workshop" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="StatusRegistration" ColumnName="StatusRegistration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TBL_HolidaysForRecp" TypeName="Cookit_DBModel.TBL_HolidaysForRecp" StoreEntitySet="TBL_HolidaysForRecp">
+            <EndProperty Name="TBL_Holiday">
+              <ScalarProperty Name="Id_Holiday" ColumnName="Id_Holiday" />
+            </EndProperty>
+            <EndProperty Name="TBL_Recipe">
+              <ScalarProperty Name="Id_Recipe" ColumnName="Id_Recp" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
