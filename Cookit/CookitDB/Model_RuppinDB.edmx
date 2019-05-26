@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="bgroup36_prodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="bgroup36_prodModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TBL_Barcode">
           <Key>
             <PropertyRef Name="Barcode" />
@@ -82,12 +82,12 @@
           <Property Name="Id_Prof" Type="int" Nullable="false" />
           <Property Name="StatusFollower" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="TBL_FoodLable">
+        <EntityType Name="TBL_FoodLabel">
           <Key>
-            <PropertyRef Name="Id_FoodLable" />
+            <PropertyRef Name="Id_FoodLabel" />
           </Key>
-          <Property Name="Id_FoodLable" Type="int" Nullable="false" />
-          <Property Name="Name_FoodLable" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Id_FoodLabel" Type="int" Nullable="false" />
+          <Property Name="Name_FoodLabel" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_FoodType">
           <Key>
@@ -136,6 +136,14 @@
           <Property Name="Id_Kitchen" Type="int" Nullable="false" />
           <Property Name="Kitchen_Name" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="TBL_LabelsForRecp">
+          <Key>
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_FoodLabel" />
+          </Key>
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
+          <Property Name="Id_FoodLabel" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="TBL_Likes">
           <Key>
             <PropertyRef Name="Id_Recp" />
@@ -145,6 +153,13 @@
           <Property Name="Id_User" Type="int" Nullable="false" />
           <Property Name="LikeStatus" Type="bit" Nullable="false" />
           <Property Name="LikeDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBL_Managers">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="TBL_Mesurments">
           <Key>
@@ -399,6 +414,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Label">
+          <End Role="TBL_FoodLabel" Type="Self.TBL_FoodLabel" Multiplicity="1" />
+          <End Role="TBL_LabelsForRecp" Type="Self.TBL_LabelsForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_FoodLabel">
+              <PropertyRef Name="Id_FoodLabel" />
+            </Principal>
+            <Dependent Role="TBL_LabelsForRecp">
+              <PropertyRef Name="Id_FoodLabel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Likes_1">
           <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
           <End Role="TBL_Likes" Type="Self.TBL_Likes" Multiplicity="*" />
@@ -555,6 +582,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Recp7">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_LabelsForRecp" Type="Self.TBL_LabelsForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_LabelsForRecp">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RecpLevelByBU_1">
           <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
           <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
@@ -685,14 +724,16 @@
           <EntitySet Name="TBL_Event" EntityType="Self.TBL_Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_FavoriteRecp" EntityType="Self.TBL_FavoriteRecp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Followers" EntityType="Self.TBL_Followers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TBL_FoodLable" EntityType="Self.TBL_FoodLable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_FoodLabel" EntityType="Self.TBL_FoodLabel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_FoodType" EntityType="Self.TBL_FoodType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Holiday" EntityType="Self.TBL_Holiday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_HolidaysForRecp" EntityType="Self.TBL_HolidaysForRecp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_IngridiantForRecp" EntityType="Self.TBL_IngridiantForRecp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Ingridiants" EntityType="Self.TBL_Ingridiants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_KitchenType" EntityType="Self.TBL_KitchenType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_LabelsForRecp" EntityType="Self.TBL_LabelsForRecp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Likes" EntityType="Self.TBL_Likes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBL_Managers" EntityType="Self.TBL_Managers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Mesurments" EntityType="Self.TBL_Mesurments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_NutritionalIngridiants" EntityType="Self.TBL_NutritionalIngridiants" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Profile" EntityType="Self.TBL_Profile" Schema="dbo" store:Type="Tables" />
@@ -749,6 +790,10 @@
             <End Role="TBL_Holiday" EntitySet="TBL_Holiday" />
             <End Role="TBL_HolidaysForRecp" EntitySet="TBL_HolidaysForRecp" />
           </AssociationSet>
+          <AssociationSet Name="FK_Label" Association="Self.FK_Label">
+            <End Role="TBL_FoodLabel" EntitySet="TBL_FoodLabel" />
+            <End Role="TBL_LabelsForRecp" EntitySet="TBL_LabelsForRecp" />
+          </AssociationSet>
           <AssociationSet Name="FK_Likes_1" Association="Self.FK_Likes_1">
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
             <End Role="TBL_Likes" EntitySet="TBL_Likes" />
@@ -801,6 +846,10 @@
             <End Role="TBL_RecipeDifficultyLevel" EntitySet="TBL_RecipeDifficultyLevel" />
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
           </AssociationSet>
+          <AssociationSet Name="FK_Recp7" Association="Self.FK_Recp7">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_LabelsForRecp" EntitySet="TBL_LabelsForRecp" />
+          </AssociationSet>
           <AssociationSet Name="FK_RecpLevelByBU_1" Association="Self.FK_RecpLevelByBU_1">
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
             <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
@@ -842,18 +891,10 @@
             <End Role="TBL_WorkshopParticipents" EntitySet="TBL_WorkshopParticipents" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bgroup36_prodModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="TBL_Barcode">
-          <Key>
-            <PropertyRef Name="Barcode" />
-          </Key>
-          <Property Name="Barcode" Type="Int32" Nullable="false" />
-          <Property Name="Name_Table" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="TBL_City">
           <Key>
             <PropertyRef Name="CityName" />
@@ -934,13 +975,6 @@
           <Property Name="StatusFollower" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TBL_User" Relationship="Self.FK_Followers_2" FromRole="TBL_Followers" ToRole="TBL_User" />
           <NavigationProperty Name="TBL_Profile" Relationship="Self.FK_PFollowers_1" FromRole="TBL_Followers" ToRole="TBL_Profile" />
-        </EntityType>
-        <EntityType Name="TBL_FoodLable">
-          <Key>
-            <PropertyRef Name="Id_FoodLable" />
-          </Key>
-          <Property Name="Id_FoodLable" Type="Int32" Nullable="false" />
-          <Property Name="Name_FoodLable" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_FoodType">
           <Key>
@@ -1066,6 +1100,7 @@
           <NavigationProperty Name="TBL_RecpLevelByBU" Relationship="Self.FK_RecpLevelByBU_1" FromRole="TBL_Recipe" ToRole="TBL_RecpLevelByBU" />
           <NavigationProperty Name="TBL_StarsForRecp" Relationship="Self.FK_StarsForRecp_1" FromRole="TBL_Recipe" ToRole="TBL_StarsForRecp" />
           <NavigationProperty Name="TBL_Holiday" Relationship="Self.TBL_HolidaysForRecp" FromRole="TBL_Recipe" ToRole="TBL_Holiday" />
+          <NavigationProperty Name="TBL_FoodLabel" Relationship="bgroup36_prodModel.TBL_LabelsForRecp" FromRole="TBL_Recipe" ToRole="TBL_FoodLabel" />
         </EntityType>
         <EntityType Name="TBL_RecipeDifficultyLevel">
           <Key>
@@ -1556,7 +1591,6 @@
           <End Role="TBL_Holiday" Type="Self.TBL_Holiday" Multiplicity="*" />
         </Association>
         <EntityContainer Name="bgroup36_prodConnection" annotation:LazyLoadingEnabled="false">
-          <EntitySet Name="TBL_Barcode" EntityType="Self.TBL_Barcode" />
           <EntitySet Name="TBL_City" EntityType="Self.TBL_City" />
           <EntitySet Name="TBL_Comments" EntityType="Self.TBL_Comments" />
           <EntitySet Name="TBL_DishCategory" EntityType="Self.TBL_DishCategory" />
@@ -1565,7 +1599,6 @@
           <EntitySet Name="TBL_Event" EntityType="Self.TBL_Event" />
           <EntitySet Name="TBL_FavoriteRecp" EntityType="Self.TBL_FavoriteRecp" />
           <EntitySet Name="TBL_Followers" EntityType="Self.TBL_Followers" />
-          <EntitySet Name="TBL_FoodLable" EntityType="Self.TBL_FoodLable" />
           <EntitySet Name="TBL_FoodType" EntityType="Self.TBL_FoodType" />
           <EntitySet Name="TBL_Holiday" EntityType="Self.TBL_Holiday" />
           <EntitySet Name="TBL_IngridiantForRecp" EntityType="Self.TBL_IngridiantForRecp" />
@@ -1716,21 +1749,46 @@
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
             <End Role="TBL_Holiday" EntitySet="TBL_Holiday" />
           </AssociationSet>
+          <EntitySet Name="TBL_FoodLabel" EntityType="bgroup36_prodModel.TBL_FoodLabel" />
+          <EntitySet Name="TBL_Managers" EntityType="bgroup36_prodModel.TBL_Managers" />
+          <AssociationSet Name="TBL_LabelsForRecp" Association="bgroup36_prodModel.TBL_LabelsForRecp">
+            <End Role="TBL_FoodLabel" EntitySet="TBL_FoodLabel" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+          </AssociationSet>
+          <EntitySet Name="TBL_Barcode" EntityType="bgroup36_prodModel.TBL_Barcode" />
         </EntityContainer>
+        <EntityType Name="TBL_FoodLabel">
+          <Key>
+            <PropertyRef Name="Id_FoodLabel" />
+          </Key>
+          <Property Name="Id_FoodLabel" Type="Int32" Nullable="false" />
+          <Property Name="Name_FoodLabel" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="bgroup36_prodModel.TBL_LabelsForRecp" FromRole="TBL_FoodLabel" ToRole="TBL_Recipe" />
+        </EntityType>
+        <EntityType Name="TBL_Managers">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="pass" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="TBL_LabelsForRecp">
+          <End Type="bgroup36_prodModel.TBL_FoodLabel" Role="TBL_FoodLabel" Multiplicity="*" />
+          <End Type="bgroup36_prodModel.TBL_Recipe" Role="TBL_Recipe" Multiplicity="*" />
+        </Association>
+        <EntityType Name="TBL_Barcode">
+          <Key>
+            <PropertyRef Name="Barcode" />
+          </Key>
+          <Property Name="Barcode" Type="Int32" Nullable="false" />
+          <Property Name="Name_Table" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="bgroup36_prodModelStoreContainer" CdmEntityContainer="bgroup36_prodConnection">
-          <EntitySetMapping Name="TBL_Barcode">
-            <EntityTypeMapping TypeName="bgroup36_prodModel.TBL_Barcode">
-              <MappingFragment StoreEntitySet="TBL_Barcode">
-                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-                <ScalarProperty Name="Name_Table" ColumnName="Name_Table" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_City">
             <EntityTypeMapping TypeName="bgroup36_prodModel.TBL_City">
               <MappingFragment StoreEntitySet="TBL_City">
@@ -1803,14 +1861,6 @@
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="Id_Prof" ColumnName="Id_Prof" />
                 <ScalarProperty Name="StatusFollower" ColumnName="StatusFollower" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_FoodLable">
-            <EntityTypeMapping TypeName="bgroup36_prodModel.TBL_FoodLable">
-              <MappingFragment StoreEntitySet="TBL_FoodLable">
-                <ScalarProperty Name="Id_FoodLable" ColumnName="Id_FoodLable" />
-                <ScalarProperty Name="Name_FoodLable" ColumnName="Name_FoodLable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2003,6 +2053,38 @@
               <ScalarProperty Name="Id_Holiday" ColumnName="Id_Holiday" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="TBL_FoodLabel">
+            <EntityTypeMapping TypeName="bgroup36_prodModel.TBL_FoodLabel">
+              <MappingFragment StoreEntitySet="TBL_FoodLabel">
+                <ScalarProperty Name="Name_FoodLabel" ColumnName="Name_FoodLabel" />
+                <ScalarProperty Name="Id_FoodLabel" ColumnName="Id_FoodLabel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Managers">
+            <EntityTypeMapping TypeName="bgroup36_prodModel.TBL_Managers">
+              <MappingFragment StoreEntitySet="TBL_Managers">
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TBL_LabelsForRecp" TypeName="bgroup36_prodModel.TBL_LabelsForRecp" StoreEntitySet="TBL_LabelsForRecp">
+            <EndProperty Name="TBL_Recipe">
+              <ScalarProperty Name="Id_Recipe" ColumnName="Id_Recp" />
+            </EndProperty>
+            <EndProperty Name="TBL_FoodLabel">
+              <ScalarProperty Name="Id_FoodLabel" ColumnName="Id_FoodLabel" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="TBL_Barcode">
+            <EntityTypeMapping TypeName="bgroup36_prodModel.TBL_Barcode">
+              <MappingFragment StoreEntitySet="TBL_Barcode">
+                <ScalarProperty Name="Name_Table" ColumnName="Name_Table" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

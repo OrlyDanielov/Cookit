@@ -61,6 +61,7 @@ namespace Cookit.Controllers
             {
                 Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 //DB.Entry(newUser).state = System.Data.
+                
             }
             catch
             {

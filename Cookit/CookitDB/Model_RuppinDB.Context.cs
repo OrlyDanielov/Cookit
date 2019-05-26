@@ -26,7 +26,6 @@ namespace CookitDB
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<TBL_Barcode> TBL_Barcode { get; set; }
         public virtual DbSet<TBL_City> TBL_City { get; set; }
         public virtual DbSet<TBL_Comments> TBL_Comments { get; set; }
         public virtual DbSet<TBL_DishCategory> TBL_DishCategory { get; set; }
@@ -35,7 +34,6 @@ namespace CookitDB
         public virtual DbSet<TBL_Event> TBL_Event { get; set; }
         public virtual DbSet<TBL_FavoriteRecp> TBL_FavoriteRecp { get; set; }
         public virtual DbSet<TBL_Followers> TBL_Followers { get; set; }
-        public virtual DbSet<TBL_FoodLable> TBL_FoodLable { get; set; }
         public virtual DbSet<TBL_FoodType> TBL_FoodType { get; set; }
         public virtual DbSet<TBL_Holiday> TBL_Holiday { get; set; }
         public virtual DbSet<TBL_IngridiantForRecp> TBL_IngridiantForRecp { get; set; }
@@ -54,5 +52,8 @@ namespace CookitDB
         public virtual DbSet<TBL_UserType> TBL_UserType { get; set; }
         public virtual DbSet<TBL_Workshop> TBL_Workshop { get; set; }
         public virtual DbSet<TBL_WorkshopParticipents> TBL_WorkshopParticipents { get; set; }
+        public virtual DbSet<TBL_FoodLabel> TBL_FoodLabel { get; set; }
+        public virtual DbSet<TBL_Managers> TBL_Managers { get; set; }
+        public virtual DbSet<TBL_Barcode> TBL_Barcode { get; set; }
     }
 }

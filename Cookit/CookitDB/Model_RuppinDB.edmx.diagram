@@ -4,8 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="432ee6ca0bf7424baa39522d3772c88f" Name="Diagram1" ZoomLevel="85">
-        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Barcode" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="432ee6ca0bf7424baa39522d3772c88f" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="bgroup36_prodModel.TBL_City" Width="1.5" PointX="6.75" PointY="25.25" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Comments" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup36_prodModel.TBL_DishCategory" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
@@ -14,7 +13,6 @@
         <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Event" Width="1.5" PointX="11.25" PointY="16.875" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup36_prodModel.TBL_FavoriteRecp" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Followers" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_FoodLable" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup36_prodModel.TBL_FoodType" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Holiday" Width="1.5" PointX="5.25" PointY="16.375" IsExpanded="true" />
         <EntityTypeShape EntityType="bgroup36_prodModel.TBL_IngridiantForRecp" Width="1.5" PointX="8.25" PointY="10.125" IsExpanded="true" />
@@ -66,6 +64,10 @@
         <AssociationConnector Association="bgroup36_prodModel.FK_WorkshopParticipents_2" ManuallyRouted="false" />
         <AssociationConnector Association="bgroup36_prodModel.FK_WorkshopParticipents_1" ManuallyRouted="false" />
         <AssociationConnector Association="bgroup36_prodModel.TBL_HolidaysForRecp" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_FoodLabel" Width="1.5" PointX="5.375" PointY="0.875" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Managers" Width="1.5" PointX="7.375" PointY="0.75" />
+        <AssociationConnector Association="bgroup36_prodModel.TBL_LabelsForRecp" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Barcode" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

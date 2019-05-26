@@ -12,9 +12,9 @@ namespace CookitDB
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_FoodLable
+    public partial class TBL_Managers
     {
-        public int Id_FoodLable { get; set; }
-        public string Name_FoodLable { get; set; }
+        public string name { get; set; }
+        public string pass { get; set; }
     }
 }
