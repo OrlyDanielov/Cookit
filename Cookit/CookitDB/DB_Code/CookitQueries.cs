@@ -8,6 +8,7 @@ namespace CookitDB.DB_Code
 {
     public class CookitQueries
     {
+        /*
         #region LogIN
         // בודקת את האימייל והסיסמא של המשתשמש בכניסה
         public static bool LogIn(dynamic user_details)
@@ -31,6 +32,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
+        */
 
         #region Get all dish type
         // הפוקנציה מביאה מהמסד את כל סוגי המנות

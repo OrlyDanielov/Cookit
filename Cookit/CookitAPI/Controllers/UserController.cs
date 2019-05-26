@@ -17,6 +17,7 @@ namespace Cookit.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        /*
         // GET api/<controller>/5
         [Route("api/User")]
         public HttpResponseMessage Get([FromBody]dynamic user_email_pass)
@@ -45,6 +46,7 @@ namespace Cookit.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
+        */
 
         /*
         // POST api/<controller>

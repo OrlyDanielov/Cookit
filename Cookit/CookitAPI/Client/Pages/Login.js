@@ -24,5 +24,5 @@ function LoginVerification() {
     });
     */
     // בדיקה בשרת של זיהוי הלקוח
-    GlobalAjax("/api/DishType", "GET", "", SuccessDishType, FailDishType);
+    //GlobalAjax("/api/DishType", "GET", "", SuccessDishType, FailDishType);
 }
