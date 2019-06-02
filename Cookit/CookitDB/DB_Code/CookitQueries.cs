@@ -8,31 +8,27 @@ namespace CookitDB.DB_Code
 {
     public class CookitQueries
     {
-        /*
+        
         #region LogIN
         // בודקת את האימייל והסיסמא של המשתשמש בכניסה
-        public static bool LogIn(dynamic user_details)
+        public static TBL_User LogIn(string email, string pass)
         {
             try
             {
                 //Cookit_DBConnection db = new Cookit_DBConnection();
                 bgroup36_prodConnection db = new bgroup36_prodConnection();
-                if (db.TBL_User.SingleOrDefault(x => x.Email == user_details.email) == null) // אם אין משתמש אם אימייל כזה
-                    return false;
-
-                else
-                {
-                    if(db.TBL_User.SingleOrDefault(x=>x.UserPass == user_details.password and x.) == null) // אם אין משתמש עם סיסמה כזאת
-                }
-
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email && x.UserPass == pass);//x => x.Email = user_details.Email && x.UserPass == user_details.Pass)
+                if (user == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return user;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return false;
+                return null;
             }
         }
         #endregion
-        */
+        
 
         #region Get all dish type
         // הפוקנציה מביאה מהמסד את כל סוגי המנות

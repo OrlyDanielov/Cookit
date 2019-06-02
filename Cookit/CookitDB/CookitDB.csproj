@@ -113,6 +113,7 @@
     <Compile Include="TBL_FoodLabel.cs">
       <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_FoodLable.cs" />
     <Compile Include="TBL_FoodType.cs">
       <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
