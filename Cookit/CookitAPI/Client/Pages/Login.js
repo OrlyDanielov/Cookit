@@ -13,8 +13,8 @@ function LoginVerification() {
 
 // פןנקציה של הצלחת זיהוי המשתמש
 function SuccessLogin(user) {
-    console.log("login success!.");
-    alert("login success!.");
+    //console.log("login success!.");
+    //alert("login success!.");
     // שמירת המשתמש המחובר והעברה לדף הבית
     sessionStorage.setItem("Login_User", JSON.stringify(user));
     //מעבר לדף הבית המחובר

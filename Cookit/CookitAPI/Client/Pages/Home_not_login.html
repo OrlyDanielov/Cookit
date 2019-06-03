@@ -14,11 +14,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!--java script code  -->
     <script src="GlobalAjax.js"></script>
+    <script src="Home_not_login.js"></script>
 </head>
 <body>
     <div>
         <!--תפריט-->
-
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="Home_not_login.html">
                 <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -47,8 +47,14 @@
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <!--<li class="nav-item">
+                        <!--הודעת שלום למשתמש+ התנתקות-->
+                        <!--<label for="hello_user" class="nav-link" id="lbl_Hello_to_User"></label>-->
+                    <!--</li>-->
+                    <li>
+                        <!--התנתקות-->
+                        <!--<a for="hello_user" class="nav-link disabled" id="link_logout" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Login()">Login</button>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
