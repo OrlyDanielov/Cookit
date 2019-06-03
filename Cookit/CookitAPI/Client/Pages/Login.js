@@ -2,8 +2,8 @@
 //פונקצית התחברות
 function LoginVerification() {
     // פרטי המשתמש הנכנס
-    var email = $("#email").val();
-    var pass= $("#password").val();  
+    var email = $("#inputEmail").val();
+    var pass = $("#inputPassword").val();  
 
     // בדיקה בשרת של זיהוי הלקוח
     //GlobalAjax("/api/User/", "GET", JSON.stringify(user), SuccessLogin, FailLogin);

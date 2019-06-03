@@ -279,7 +279,8 @@
     <Content Include="Client\Pages\Login.js" />
     <Content Include="Client\Pages\Login2.html" />
     <Content Include="Client\Pages\Registration.html" />
-    <Content Include="Client\Pages\signin.css" />
+    <Content Include="Client\Pages\Registration.js" />
+    <Content Include="Client\Pages\Login2.css" />
     <Content Include="Client\Pages\Upload_Recipe.html" />
     <Content Include="Client\Pages\Upload_Recipe.js" />
     <Content Include="Content\bootstrap-grid.css" />

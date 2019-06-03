@@ -23,7 +23,7 @@
         <table>
             <tr>
                 <td>
-                    <input type="email" id="email" placeholder="כתובת אי-מייל" required />
+                    <input type="email" id="inputEmail" placeholder="כתובת אי-מייל" required />
                 </td>
                 <td>:אימייל  </td>
             </tr>
@@ -31,15 +31,19 @@
             <tr> <td>   </td></tr>
             <tr>
                 <td>
-                    <input type="password" id="password" placeholder="סיסמאת התחברות" required />
+                    <input type="password" id="inputPassword" placeholder="סיסמאת התחברות" required />
                 </td>
                 <td>:סיסמה  </td>
+            </tr>
+            <tr>
+                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+                <button type="submit" class="btn btn-primary" onclick="LoginVerification()">התחבר</button>
+                <button type="submit" class="btn btn-primary" onclick="Registration()">עדיין לא רשום? הרשם.</button>
             </tr>
         </table>
       
         <br /><br />
-        <button type="submit" class="btn btn-primary" onclick="LoginVerification()">התחבר</button>
-
+        
     </center>
 </body>
 </html>

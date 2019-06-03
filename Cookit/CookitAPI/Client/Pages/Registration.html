@@ -2,37 +2,19 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>הרשמה</title>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>
-        //פונקצית הרשמה
-        function Regitration() {
-            //משתמש חדש
-            var new_user = {
-                FirstName: document.getElementById("txt_first_name").value, //שם פרטי
-                LastName: document.getElementById("txt_last_name").value, //שם משפחה
-                Email: document.getElementById("txt_email").value, //שם אימייל 
-                Gender: document.getElementById("radio-choice_gender").value, //מין
-                UserPass: document.getElementById("txt_password").value//סיסמה
-            };
-
-            // שליחת נתונים לשרת
-            $.ajax({
-                dataType: "json",			                         //סוג הנתונים שאנחנו מצפים לקבל מהשרת
-                url: "/api/Clothe",			                 //הכתובת לשרת ולפונקציה
-                contentType: "application/json; charset=utf-8",	   //סוג הנתונים שאנחנו שולחים לשרת
-                type: "POST",				                         //סוג הפעולה
-                data: newItemString,			                 //הנתונים עצמם שאנחנו שולחים
-                success: function (data) {                       //פונקציה  שתופעל לאחר הצלחה
-                    alert('המוצר התווסף למערכת בהצלחה!.');
-                },
-                error: function (data) {
-                    alert('error' + '\n' + data.error);
-
-                }
-            });
-        };
-    </script>
+    <!--java script code  -->
+    <script src="GlobalAjax.js"></script>
+    <script src="Registration.js"></script>
 </head>
 <body>
     <div style="position:center">
