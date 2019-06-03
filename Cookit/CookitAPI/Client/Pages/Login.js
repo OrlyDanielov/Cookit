@@ -17,6 +17,9 @@ function SuccessLogin(user) {
     alert("login success!.");
     // שמירת המשתמש המחובר והעברה לדף הבית
     sessionStorage.setItem("Login_User", JSON.stringify(user));
+    //מעבר לדף הבית המחובר
+    window.location.replace("Home_login.html");
+
 }
 
 //פונקציה של אי הצלחת זיהוי המשתמש

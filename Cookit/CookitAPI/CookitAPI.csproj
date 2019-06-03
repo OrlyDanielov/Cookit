@@ -270,7 +270,10 @@
     <Content Include="Client\Images\bootstrap-solid.svg" />
     <Content Include="Client\Images\cookie_icon.png" />
     <Content Include="Client\Pages\GlobalAjax.js" />
-    <Content Include="Client\Pages\Home.html" />
+    <Content Include="Client\Pages\Home_login.js" />
+    <Content Include="Client\Pages\Home_not_login.html" />
+    <Content Include="Client\Pages\Home_login.html" />
+    <Content Include="Client\Pages\Home_not_login.js" />
     <Content Include="Client\Pages\HtmlPage1.html" />
     <Content Include="Client\Pages\Login.html" />
     <Content Include="Client\Pages\Login.js" />
