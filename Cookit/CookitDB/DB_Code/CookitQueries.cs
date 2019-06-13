@@ -8,15 +8,24 @@ namespace CookitDB.DB_Code
 {
     public class CookitQueries
     {
-        
+
+        public static Cookit_DBConnection Get_DB()
+        {
+            Cookit_DBConnection db = new Cookit_DBConnection();
+            //bgroup36_prodConnection db = new bgroup36_prodConnection();
+            return db;
+
+        }
+
         #region LogIN
         // בודקת את האימייל והסיסמא של המשתשמש בכניסה
         public static TBL_User LogIn(string email, string pass)
         {
             try
             {
+                var db = Get_DB();
                 //Cookit_DBConnection db = new Cookit_DBConnection();
-                bgroup36_prodConnection db = new bgroup36_prodConnection();
+                ////bgroup36_prodConnection db = new bgroup36_prodConnection();
                 TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email && x.UserPass == pass);//x => x.Email = user_details.Email && x.UserPass == user_details.Pass)
                 if (user == null) // אם אין משתמש אם פרטים כאלה
                     return null;
@@ -28,16 +37,52 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-        
 
+        #region Get All User Type
+        // הפוקנציה מביאה מהמסד את כל סוגי המשתמשים
+        public static List<TBL_UserType> Get_all_User_Type()
+        {
+            try
+            {
+                var db = Get_DB();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                return db.TBL_UserType.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get All City
+        // הפוקנציה מביאה מהמסד את כל הערים
+        public static List<TBL_City> Get_all_cities()
+        {
+            try
+            {
+                var db = Get_DB();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                return db.TBL_City.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+                
         #region Get all dish type
         // הפוקנציה מביאה מהמסד את כל סוגי המנות
         public static List<TBL_DishType> Get_all_DishType()
         {
             try
             {
+                var db = Get_DB();
                 //Cookit_DBConnection db = new Cookit_DBConnection();
-                bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
                 return db.TBL_DishType.ToList();
             }
             catch (Exception e)
@@ -53,7 +98,9 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                var db = Get_DB();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
                 return db.TBL_DishCategory.ToList();
             }
             catch (Exception e)
@@ -69,7 +116,9 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                var db = Get_DB();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
                 return db.TBL_FoodType.ToList();
             }
             catch (Exception e)
@@ -85,7 +134,9 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                var db = Get_DB();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 return db.TBL_KitchenType.ToList();
             }
             catch (Exception e)
@@ -102,7 +153,9 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                var db = Get_DB();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 return db.TBL_RecipeDifficultyLevel.ToList();
             }
             catch (Exception e)
@@ -118,7 +171,9 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                var db = Get_DB();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 return db.TBL_Ingridiants.ToList();
             }
             catch (Exception e)
@@ -134,7 +189,9 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                var db = Get_DB();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 return db.TBL_Mesurments.ToList();
             }
             catch (Exception e)
@@ -150,7 +207,9 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                var db = Get_DB();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.Entry(new_recipe).State = System.Data.Entity.EntityState.Added; // הוספת רשומת מתכון חדש לטבלת המתכונים
                 db.SaveChanges();
                 return true;

@@ -14,7 +14,7 @@ namespace CookitDB
     
     public partial class TBL_Followers
     {
-        public int Id_User { get; set; }
+        public string User_Email { get; set; }
         public int Id_Prof { get; set; }
         public bool StatusFollower { get; set; }
     

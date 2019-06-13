@@ -15,9 +15,58 @@
     <!--java script code  -->
     <script src="GlobalAjax.js"></script>
     <script src="Registration.js"></script>
+    <script src="Menu_Logout.js"></script>
 </head>
-<body>
+<body class="text-center"> 
+    <div>
+        <!--תפריט-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="Home_not_login.html">
+                <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Cookit
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li>
+                        <!--התחברות-->
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Login()">Login</button>
+                    </li>
+                    <li>
+                        <!--הרשמה-->
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Registration()">Registration</button>
+                        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Registration2()">Registration</button>-->
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </div>
     <div style="position:center">
+        <!--טופס הרשמה-->
         <div>
             <h1>הרשמה</h1>
         </div>
@@ -32,7 +81,7 @@
                 <!-- שם משפחה -->
                 <div>
                     <label for="last_name">שם משפחה : </label>
-                    <input type="text" for="last_name" id="txt_last_name" placeholder="שם משפחה" required/>
+                    <input type="text" for="last_name" id="txt_last_name" placeholder="שם משפחה" required />
                     <br />
                 </div>
                 <!--אימייל-->
@@ -46,7 +95,7 @@
                     <label for="gender">מין : </label>
                     <br />
                     <label for="rdio_gender_M">זכר</label>
-                    <input type="radio" name="radio-choice_gender" id="radio_gender_M" value="M"  required/>
+                    <input type="radio" name="radio-choice_gender" id="radio_gender_M" value="M" required />
                     <label for="rdio_gender_F">נקבה</label>
                     <input type="radio" name="radio-choice_gender" id="rdio_gender_F" value="F" required />
                     <br />
@@ -54,10 +103,10 @@
                 <!--סיסמה-->
                 <div>
                     <label for="password">סיסמה : </label>
-                    <input type="password" for="password" id="txt_password" placeholder="סיסמה" required pattern="(?=.*\d)(?=.*[a-z]|.*[A-Z])\w.{6,12}"  title="נדרש לסיסמה 6 עד 12 אותיות, מספרים או סימנים."/>
+                    <input type="password" for="password" id="txt_password" placeholder="סיסמה" required pattern="(?=.*\d)(?=.*[a-z]|.*[A-Z])\w.{6,12}" title="נדרש לסיסמה 6 עד 12 אותיות, מספרים או סימנים." />
                     <br />
                 </div>
-            <input type="submit" value="הרשמה" />
+                <input type="submit" value="הרשמה" />
             </form>
         </div>
     </div>

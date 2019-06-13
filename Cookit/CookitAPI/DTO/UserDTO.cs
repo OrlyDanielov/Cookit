@@ -14,7 +14,7 @@ namespace CookitAPI.DTO
         public string email;
         public string gender;
         public string pasword;
-        public string status;
+        public bool status;
         public int number_of_draw_recipe;
     }
 }

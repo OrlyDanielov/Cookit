@@ -24,22 +24,36 @@
         <table>
             <tr>
                 <td>
-                    <input type="email" id="inputEmail" placeholder="כתובת אי-מייל" required />
+                    <input type="email" id="inputEmail" placeholder="כתובת אימייל" required />
                 </td>
-                <td>:אימייל  </td>
+                <!--  <td>:אימייל  </td> -->
             </tr>
             <tr> <td>   </td></tr>
             <tr> <td>   </td></tr>
             <tr>
                 <td>
-                    <input type="password" id="inputPassword" placeholder="סיסמאת התחברות" required />
+                    <input type="password" id="inputPassword" placeholder="סיסמה" equired />
                 </td>
-                <td>:סיסמה  </td>
+                <!-- <td>:סיסמה  </td>-->
             </tr>
         </table>
+        <div class="checkbox mb-3">
+            <button type="submit" class="btn btn-primary" onclick="LoginVerification()">התחבר</button>
 
-        <br /><br />
-        <button type="submit" class="btn btn-primary" onclick="LoginVerification()">התחבר</button>
+            <!--<label>-->
+        </div>
+        <div class="checkbox mb-3">
+            <!--<input type="checkbox" value="remember-me"> Remember me-->
+            <span class="psw">שכחת סיסמה? <a href="#">שחזר סיסמה</a></span>
+            <br />
+            <span class="psw">עדיין לא רשום? <a href="Registration.html">הרשם</a></span>
+            <!--</label>-->
+            <!--  <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>-->
+        </div>
+        <!--<div class="spinner-border m-5" role="status" id="loading_spinner">
+            <span class="sr-only">Loading...</span>
+        </div>-->
+
     </center>
 </body>
 </html>

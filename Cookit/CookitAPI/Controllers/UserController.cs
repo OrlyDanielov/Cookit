@@ -25,7 +25,8 @@ namespace Cookit.Controllers
         //public HttpResponseMessage Get([FromBody]dynamic user_email_pass)
         public HttpResponseMessage Get(string email,string pass)
         {
-            Cookit_DBConnection db = new Cookit_DBConnection();
+            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
             //TBL_User user = CookitDB.DB_Code.CookitQueries.LogIn(user_email_pass.Email, user_email_pass.Pass); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
             TBL_User user = CookitDB.DB_Code.CookitQueries.LogIn(email, pass); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
 
@@ -35,14 +36,14 @@ namespace Cookit.Controllers
             {
                 //המרה של רשימת של אופני המדידה למבנה נתונים מסוג DTO
                 UserDTO result = new UserDTO();
-                result.id = user.Id_User;
+                //result.id = user.Id_User;
                 result.user_type = user.Id_Type;
                 result.first_name = user.FirstName;
                 result.last_name = user.LastName;
                 result.email = user.Email;
                 result.gender = user.Gender;
                 result.pasword = user.UserPass;
-                result.status = (user.UserStatus)?  "active":  "not active";
+                result.status = user.UserStatus;
                 result.number_of_draw_recipe = user.NumDrawRecp;
              
                 return Request.CreateResponse(HttpStatusCode.OK, result);

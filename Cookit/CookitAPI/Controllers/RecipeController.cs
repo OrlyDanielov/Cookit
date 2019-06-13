@@ -34,7 +34,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.TBL_Recipe.Add(newRecipe); // הוספת רשומת מתכון חדש לטבלת המתכונים
                 db.SaveChanges();
                 return true;

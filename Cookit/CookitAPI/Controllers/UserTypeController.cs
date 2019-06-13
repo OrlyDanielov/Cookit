@@ -5,32 +5,32 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CookitDB;
-using Cookit.DTO;
+using CookitAPI.DTO;
 
-namespace Cookit.Controllers
+namespace CookitAPI.Controllers
 {
-    public class MesurmentsController : ApiController
+    public class UserTypeController : ApiController
     {
-        // GET api/<controller>        
-        [Route("api/Mesurments")]
+        // GET api/<controller>
+        [Route("api/UserType")]
         public HttpResponseMessage Get()
         {
-            bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
+            //bgroup36_prodConnection db = new bgroup36_prodConnection();
+            Cookit_DBConnection db = new Cookit_DBConnection();
             // קורא לפונקציה שמחזירה את של אופני המדידה מהDB
-            var dishType = CookitDB.DB_Code.CookitQueries.Get_all_Mesurments();
-            if (dishType == null) // אם אין נתונים במסד נתונים
-                return Request.CreateResponse(HttpStatusCode.NotFound, "there is no Mesurments in DB.");
+            var userType = CookitDB.DB_Code.CookitQueries.Get_all_User_Type();
+            if (userType == null) // אם אין נתונים במסד נתונים
+                return Request.CreateResponse(HttpStatusCode.NotFound, "there is no user type in DB.");
             else
             {
                 //המרה של רשימת של אופני המדידה למבנה נתונים מסוג DTO
-                List<MesurmentsDTO> result = new List<MesurmentsDTO>();
-                foreach (TBL_Mesurments item in dishType)
+                List<UserTypeDTO> result = new List<UserTypeDTO>();
+                foreach (TBL_UserType item in userType)
                 {
-                    result.Add(new MesurmentsDTO
+                    result.Add(new UserTypeDTO
                     {
-                        id = item.Id_Mesurment,
-                        mesurment = item.Name_Mesurment.ToString()
+                        id = item.Id_Type,
+                        user_type = item.Name_Type.ToString()
                     });
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, result);

@@ -15,7 +15,8 @@ namespace Cookit.Controllers
         [Route("api/DishType")]
         public HttpResponseMessage Get()
         {
-            Cookit_DBConnection db = new Cookit_DBConnection();
+            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
             // קורא לפונקציה שמחזירה את של סוגי המנות מהDB
             var dishType =  CookitDB.DB_Code.CookitQueries.Get_all_DishType(); 
             if (dishType == null) // אם אין נתונים במסד נתונים

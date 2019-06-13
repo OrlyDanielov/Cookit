@@ -18,7 +18,6 @@ namespace CookitDB
         public Cookit_DBConnection()
             : base("name=Cookit_DBConnection")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -26,6 +25,7 @@ namespace CookitDB
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<TBL_Barcode> TBL_Barcode { get; set; }
         public virtual DbSet<TBL_City> TBL_City { get; set; }
         public virtual DbSet<TBL_Comments> TBL_Comments { get; set; }
         public virtual DbSet<TBL_DishCategory> TBL_DishCategory { get; set; }
@@ -47,6 +47,7 @@ namespace CookitDB
         public virtual DbSet<TBL_Recipe> TBL_Recipe { get; set; }
         public virtual DbSet<TBL_RecipeDifficultyLevel> TBL_RecipeDifficultyLevel { get; set; }
         public virtual DbSet<TBL_RecpLevelByBU> TBL_RecpLevelByBU { get; set; }
+        public virtual DbSet<TBL_Region> TBL_Region { get; set; }
         public virtual DbSet<TBL_Star> TBL_Star { get; set; }
         public virtual DbSet<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
         public virtual DbSet<TBL_User> TBL_User { get; set; }

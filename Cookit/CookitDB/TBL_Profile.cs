@@ -23,8 +23,8 @@ namespace CookitDB
         }
     
         public int Id_Prof { get; set; }
-        public int Id_User { get; set; }
-        public string ProfType { get; set; }
+        public string User_Email { get; set; }
+        public int ProfType { get; set; }
         public string Name_Prof { get; set; }
         public string ProfDescription { get; set; }
         public string CityName { get; set; }

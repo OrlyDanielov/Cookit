@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fdee1d436b844299871c9ea175681471" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Barcode" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_City" Width="1.5" PointX="13" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Comments" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishCategory" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishType" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_DrawerRecp" Width="1.5" PointX="3" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Event" Width="1.5" PointX="17.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_FavoriteRecp" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Followers" Width="1.5" PointX="20.5" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_FoodLable" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_FoodType" Width="1.5" PointX="0.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Holiday" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_IngridiantForRecp" Width="1.5" PointX="8.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Ingridiants" Width="1.5" PointX="6" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_KitchenType" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Likes" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Mesurments" Width="1.5" PointX="6" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_NutritionalIngridiants" Width="1.5" PointX="11.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Profile" Width="1.5" PointX="15.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Recipe" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_RecipeDifficultyLevel" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_RecpLevelByBU" Width="1.5" PointX="8.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Region" Width="1.5" PointX="10.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Star" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_StarsForRecp" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_User" Width="1.5" PointX="0.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_UserType" Width="1.5" PointX="1.5" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Workshop" Width="1.5" PointX="17.5" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_WorkshopParticipents" Width="1.5" PointX="19.75" PointY="20.375" IsExpanded="true" />
+        <AssociationConnector Association="Cookit_DBModel.FK_City_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Profile_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Comments_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Comments_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recipe_3" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recipe_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_DrawerRecp_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Event_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_FavoriteRecp_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_FavoriteRecp_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Followers_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_PFollowers_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recipe_4" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_TBL_IngridiantForRecp_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_TBL_IngridiantForRecp_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_TBL_IngridiantForRecp_3" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_NutritionalIngridiants_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recipe_5" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Likes_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Likes_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_NutritionalIngridiants_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Profile_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Workshop_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recipe_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recipe_6" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_RecpLevelByBU_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_StarsForRecp_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK__RecpLevelByBU_3" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK__RecpLevelByBU_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_StarsForRecp_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_User_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_WorkshopParticipents_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.FK_WorkshopParticipents_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.TBL_FoodLablesForRecp" ManuallyRouted="false" />
+        <AssociationConnector Association="Cookit_DBModel.TBL_HolidaysForRecp" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

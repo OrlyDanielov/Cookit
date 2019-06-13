@@ -23,12 +23,12 @@ namespace CookitDB
             this.TBL_Likes = new HashSet<TBL_Likes>();
             this.TBL_RecpLevelByBU = new HashSet<TBL_RecpLevelByBU>();
             this.TBL_StarsForRecp = new HashSet<TBL_StarsForRecp>();
+            this.TBL_FoodLable = new HashSet<TBL_FoodLable>();
             this.TBL_Holiday = new HashSet<TBL_Holiday>();
-            this.TBL_FoodLabel = new HashSet<TBL_FoodLabel>();
         }
     
         public int Id_Recipe { get; set; }
-        public int Id_Recipe_User { get; set; }
+        public string User_Email { get; set; }
         public string Name_Recipe { get; set; }
         public int Id_Recipe_DishType { get; set; }
         public int Id_Recipe_DishCategory { get; set; }
@@ -58,8 +58,8 @@ namespace CookitDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_Holiday> TBL_Holiday { get; set; }
+        public virtual ICollection<TBL_FoodLable> TBL_FoodLable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_FoodLabel> TBL_FoodLabel { get; set; }
+        public virtual ICollection<TBL_Holiday> TBL_Holiday { get; set; }
     }
 }

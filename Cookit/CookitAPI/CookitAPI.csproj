@@ -235,6 +235,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\DifficultyLevelController.cs" />
     <Compile Include="Controllers\DishCategotyController.cs" />
     <Compile Include="Controllers\DishTypeController.cs" />
@@ -245,7 +246,9 @@
     <Compile Include="Controllers\MesurmentsController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserTypeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DTO\CityDTO.cs" />
     <Compile Include="DTO\DifficultyLevelDTO.cs" />
     <Compile Include="DTO\DishCategoryDTO.cs" />
     <Compile Include="DTO\DishTypeDTO.cs" />
@@ -253,7 +256,9 @@
     <Compile Include="DTO\IngridiantsDTO.cs" />
     <Compile Include="DTO\KitchenTypeDTO.cs" />
     <Compile Include="DTO\MesurmentsDTO.cs" />
+    <Compile Include="DTO\ProfileDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\UserTypeDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -271,16 +276,20 @@
     <Content Include="Client\Images\cookie_icon.png" />
     <Content Include="Client\Pages\GlobalAjax.js" />
     <Content Include="Client\Pages\Home_login.js" />
-    <Content Include="Client\Pages\Home_not_login.html" />
+    <Content Include="Client\Pages\Home_logout.html" />
     <Content Include="Client\Pages\Home_login.html" />
-    <Content Include="Client\Pages\Home_not_login.js" />
+    <Content Include="Client\Pages\Home_logout.js" />
     <Content Include="Client\Pages\HtmlPage1.html" />
     <Content Include="Client\Pages\Login.html" />
     <Content Include="Client\Pages\Login.js" />
     <Content Include="Client\Pages\Login2.html" />
+    <Content Include="Client\Pages\Menu_Login.js" />
+    <Content Include="Client\Pages\Menu_Logout.js" />
     <Content Include="Client\Pages\Registration.html" />
     <Content Include="Client\Pages\Registration.js" />
     <Content Include="Client\Pages\Login2.css" />
+    <Content Include="Client\Pages\Registration2.html" />
+    <Content Include="Client\Pages\Registration3.html" />
     <Content Include="Client\Pages\Upload_Recipe.html" />
     <Content Include="Client\Pages\Upload_Recipe.js" />
     <Content Include="Content\bootstrap-grid.css" />

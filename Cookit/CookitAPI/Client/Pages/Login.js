@@ -1,6 +1,16 @@
-﻿var user = new Array();
+﻿// הפונקציה מתרחשת בטעינת הדף
+$(document).ready(function () {
+    // העלמת הLoading spinner
+    //$("#loading_spinner").style.display = "none";
+});
+
+
+var user = new Array();
 //פונקצית התחברות
 function LoginVerification() {
+    // הופעת ה Loading spinner
+    //$("#loading_spinner").style.display = "true";
+
     // פרטי המשתמש הנכנס
     var email = $("#inputEmail").val();
     var pass = $("#inputPassword").val();  
@@ -27,3 +37,4 @@ function FailLogin() {
     console.log("login fail!.");
     alert("אימייל או סיסמה לא נכונים. אנא נסה שנית.");
 }
+

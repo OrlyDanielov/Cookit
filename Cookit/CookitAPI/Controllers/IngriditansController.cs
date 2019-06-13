@@ -15,7 +15,8 @@ namespace Cookit.Controllers
         [Route("api/Ingridiants")]
         public HttpResponseMessage Get()
         {
-            Cookit_DBConnection db = new Cookit_DBConnection();
+            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
             // קורא לפונקציה שמחזירה את של המצרכים מהDB
             var ingridiants = CookitDB.DB_Code.CookitQueries.Get_all_Ingridiants();
             if (ingridiants == null) // אם אין נתונים במסד נתונים

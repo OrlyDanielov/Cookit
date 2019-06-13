@@ -4,34 +4,41 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Cookit.DTO;
+using CookitAPI.DTO;
 using CookitDB;
 
-namespace Cookit.Controllers
+
+namespace CookitAPI.Controllers
 {
-    public class DifficultyLevelController : ApiController
+    public class CityController : ApiController
     {
+        /*
         // GET api/<controller>
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
+        */
         //מחזיר את כל דרגות הקושי למתכון מבסיס הנתונים
-        [Route("api/DifficultyLevel")]
+        [Route("api/City")]
         public HttpResponseMessage Get()
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
             //Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את של דגרות הקושי מהDB
-            var diffLevel = CookitDB.DB_Code.CookitQueries.Get_all_DifficultyLevel();
-            if (diffLevel == null) // אם אין נתונים במסד נתונים
-                return Request.CreateResponse(HttpStatusCode.NotFound, "there is no DifficultyLevel in DB.");
+            // קורא לפונקציה שמחזירה את של הערים מהDB
+            var cities = CookitDB.DB_Code.CookitQueries.Get_all_cities();
+            if (cities == null) // אם אין נתונים במסד נתונים
+                return Request.CreateResponse(HttpStatusCode.NotFound, "there is no cities in DB.");
             else
             {
                 //המרה של רשימת של קטגוריות המנות למבנה נתונים מסוג DTO
-                List<DifficultyLevelDTO> result = new List<DifficultyLevelDTO>();
-                foreach (TBL_RecipeDifficultyLevel item in diffLevel)
+                List<CityDTO> result = new List<CityDTO>();
+                foreach (TBL_City item in cities)
                 {
-                    result.Add(new DifficultyLevelDTO
+                    result.Add(new CityDTO
                     {
-                        id = item.Id_Level,
-                        difficulty_level = item.Name_Level.ToString()
+                        region_id = item.Id_Region,
+                        city_name = item.CityName.ToString()
                     });
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, result);
