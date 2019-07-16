@@ -1,15 +1,18 @@
 ﻿//משתנים גלובליים
-//רשימת הערים ממסד הנתונים
-var arry_city = new Array();
-//דגל האם כבר הבנו את הערים
-var isCity = false;
-//האם למשתמש יש פרופיל
-var isHasProfile = false;
-//האם נתוני ההרשמה תקינים
-var password_valitadion = false;
-var form_validation = false;
-// רשימת סוגי המשתמשים
-var arry_userType = new Array();
+var arry_city = new Array();//רשימת הערים ממסד הנתונים
+var isCity = false;//דגל האם כבר הבנו את הערים
+
+var isHasProfile = false;//האם למשתמש יש פרופיל
+
+//var password_valitadion = false;
+var form_validation = true;//האם נתוני ההרשמה תקינים
+
+var arry_userType = new Array();// רשימת סוגי המשתמשים
+
+var array_exsitsUserEmail = new Array();//רשימת האמיילים של משתמשים קיים איתם אי אפשר לבצע הרשמה
+var isEmailNotExsits = false; // האם המייל חדש
+var usedEmail; // המייל המשומש
+
 //***************************************************************************//
 // הפונקציה קוראת בתחילת הקריאה לדף
 $(document).ready(function () {
@@ -112,84 +115,80 @@ function IsFormValid() // הפונקציה בודקת הנתוני הטופס ת
         pass2: $("#password_authentication").val(),
         user_type: $('#select_user_type').find(":selected").val()
     };
-    let i = 0;
-    let flag = false;
-    while (i < personalData.length && form_validation === true) {
-        if (personalData[i].val() === "") {
+    for (var item in personalData) {
+        if (personalData[item] === "") {
             form_validation = false;
             alert('אנא מלא את הפרטים האיישים.');
+            break;
         }
-        else
-            i++;
     }
-    if (i === personalData.length)
-        flag = true;
-    if (flag === true) {
+    if (form_validation === true) {
         if (personalData.pasword !== personalData.pass2) {
             form_validation = false;
             alert('אנא וודא שהסיסמה זהה לאימות הסיסמה');
         }
-    if (personalData.user_type !== "יצירתי") //אם יש גם פרופיל
-    {
-        //פרטי פרופיל
-        let profilelData = {
-            name: $("#profile_name").val(),
-            deskription: $("#profile_description").val(),
-            city: $("#select_city").find(":selected").val(),
-            type: $('#select_user_type').find(":selected").val()
-        };
-        let i = 0;
-        while (i < profilelData.length && form_validation === true) {
-            if (profilelData[i].val() === null) {
-                form_validation = false;
-                alert('אנא מלא את פרטי הפרופיל .');
+        if (personalData.user_type !== "100") //אם יש גם פרופיל
+        {
+            //פרטי פרופיל
+            let profilelData = {
+                name: $("#profile_name").val(),
+                deskription: $("#profile_description").val(),
+                city: $("#select_city").find(":selected").val(),
+                type: $('#select_user_type').find(":selected").val()
+            };
+            let i = 0;
+            while (i < profilelData.length && form_validation === true) {
+                if (profilelData[i].val() === null) {
+                    form_validation = false;
+                    alert('אנא מלא את פרטי הפרופיל .');
+                }
+                else
+                    i++;
             }
-            else
-                i++;
         }
-        form_validation = true;
     }
-    else
-        form_validation = true;
-    }
-    }
+}
 
+//***************************************************************************//
+function IsUserExsits(user_email) //הפונקציה בודקת האם המשתמש כבר קיים
+{
+    //GlobalAjax("/api/User/" + email + '/' + pass, "GET", "", SuccessLogin, FailLogin);
+    GlobalAjax("/api/User/IsExists/" + user_email, "GET","", SuccessIsUserExsits, FailIsUserExsits);
+    //GlobalAjax("/api/User/IsExists", "GET", user_email, SuccessIsUserExsits, FailIsUserExsits);
+}
+
+function SuccessIsUserExsits() {
+    isEmailNotExsits = true;
+}
+
+function FailIsUserExsits(usedEmail) {
+    array_exsitsUserEmail.push(usedEmail);
+    isEmailNotExsits = false;
+    alert("את\ה כבר רשום לאתר עם אימייל זה. אנא התחבר.");
+}
 //***************************************************************************//
 //פונקצית הרשמה
 function Regitration() {
     //בדיקת תאימות סיסמאות
     //CheckPassword();
     IsFormValid();
-    if (password_valitadion === true) {
-        //הוספת משתמש חדש
-        AddNewUser();
-        //הוספת פרופיל חדש
-        if (isHasProfile === true)
-            AddNewProfile();
-    }
-    else
-        alert("אנא וודא שהסיסמה זהה לאימות סיסמה.");
+    if (form_validation === true) {
+        //בדיקה האם אימייל של המשתמש לא קיים במערכת.
+        var email = $("#email").val();
+        IsUserExsits(email);
+        if (isEmailNotExsits === true) {
+            //הוספת משתמש חדש
+            AddNewUser();
+            //הוספת פרופיל חדש
+            if (isHasProfile === true)
+                AddNewProfile();
+        }
+    }    
  }
-//***************************************************************************//
-/*function CheckPassword() // פונקציה בודקת שהסיסמה זהה לאימות סיסמה
-{
-    let pass1 = $("#password").val();
-    let pass2 = $("#password_authentication").val();
-    if (pass1 === pass2)
-        password_valitadion = true;
-    else {
-        password_valitadion = false;
-        //alert("אנא וודא שהסיסמה זהה לאימות סיסמה.");
-  }    
-}
-*/
-
-
 //***************************************************************************//
 
 function AddNewUser()// הפונקציה שולחת את פרטי המשתמש לשרת
 {
-    IsFormValid();
     if (form_validation === true) {
         //משתמש חדש
         var new_user = {

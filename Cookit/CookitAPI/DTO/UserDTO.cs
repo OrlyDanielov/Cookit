@@ -7,7 +7,7 @@ namespace CookitAPI.DTO
 {
     public class UserDTO
     {
-        public int id;
+        //public int id;
         public int user_type;
         public string first_name;
         public string last_name;
