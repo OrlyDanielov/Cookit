@@ -9,26 +9,13 @@ namespace CookitDB.DB_Code
     public class CookitQueries
     {
 
-        private static Cookit_DBConnection Get_DB()
+        public static Cookit_DBConnection Get_DB()
         {
             Cookit_DBConnection db = new Cookit_DBConnection();
             //bgroup36_prodConnection db = new bgroup36_prodConnection();
             return db;
 
         }
-
-        #region Get User By Email
-        //בודק האם קיים משתמש לפי אימייל
-        public static string GetUserByEmail(string email)
-        {
-            var db = Get_DB();
-            TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-            if (user == null)
-                return "";
-            else
-                return user.Email.ToString(); 
-        }
-        #endregion
 
         #region LogIN
         // בודקת את האימייל והסיסמא של המשתשמש בכניסה

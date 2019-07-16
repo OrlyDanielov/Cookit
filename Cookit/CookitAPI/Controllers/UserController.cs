@@ -49,19 +49,7 @@ namespace Cookit.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
-
-        //[Route("api/User/IsExists")]
-        [Route("api/User/IsExists/{email}")]
-        public HttpResponseMessage Get(string user_email)// בודק האם המשתמש הזה קיים
-        {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            Cookit_DBConnection db = new Cookit_DBConnection();
-            string user = CookitDB.DB_Code.CookitQueries.GetUserByEmail(user_email);
-            if (user == "") // אם אין משתמש שכזה            
-                return Request.CreateResponse(HttpStatusCode.OK, true);            
-            else  
-                return Request.CreateResponse(HttpStatusCode.NotFound, user);
-        }
+       
 
         /*
         // POST api/<controller>
@@ -69,8 +57,8 @@ namespace Cookit.Controllers
         {
         }
         */
-        [Route("api/User")]
-        public void Post([FromBody]UserDTO newUser)
+        [Route("api/Clothe")]
+        public void Post([FromBody]TBL_User newUser)
         {
             try
             {
