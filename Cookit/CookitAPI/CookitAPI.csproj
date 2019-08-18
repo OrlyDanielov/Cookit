@@ -272,12 +272,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
-    <Content Include="Client\Images\andy-chilton-56332-unsplash.jpg" />
-    <Content Include="Client\Images\blog-featured-diabetes-20180406-1330.jpg" />
+    <Content Include="Client\Images\pic_bg_12.jpg" />
     <Content Include="Client\Images\bootstrap-solid.svg" />
     <Content Include="Client\Images\cookie_icon.png" />
     <Content Include="Client\Images\pic_bg_1.jpg" />
     <Content Include="Client\Images\pic_bg_10.jpg" />
+    <Content Include="Client\Images\pic_bg_11.jpg" />
     <Content Include="Client\Images\pic_bg_2.jpg" />
     <Content Include="Client\Images\pic_bg_3.jpg" />
     <Content Include="Client\Images\pic_bg_4.jpg" />
@@ -292,6 +292,7 @@
     <Content Include="Client\Images\pic_cookies_4.jpg" />
     <Content Include="Client\Images\pic_cookies_5.jpg" />
     <Content Include="Client\Images\pic_cookies_6.jpg" />
+    <Content Include="Client\Pages\FormStyle.css" />
     <Content Include="Client\Pages\GeneralStyle.css" />
     <Content Include="Client\Pages\GlobalAjax.js" />
     <Content Include="Client\Pages\Home_login.js" />
@@ -300,8 +301,8 @@
     <Content Include="Client\Pages\Home_logout.js" />
     <Content Include="Client\Pages\Login.html" />
     <Content Include="Client\Pages\Login.js" />
+    <Content Include="Client\Pages\Login2.html" />
     <Content Include="Client\Pages\Menu_Login.js" />
-    <Content Include="Client\Pages\Menu_Logout.js" />
     <Content Include="Client\Pages\OldMenu.html" />
     <Content Include="Client\Pages\Registration.js" />
     <Content Include="Client\Pages\Registration.html" />
@@ -337,6 +338,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Login2.html" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

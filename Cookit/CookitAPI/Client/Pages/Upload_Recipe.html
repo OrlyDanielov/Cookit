@@ -16,174 +16,172 @@
     <script src="Upload_Recipe.js"></script>
     <script src="Menu_Login.js"></script>
     <script src="GlobalAjax.js"></script>
+    <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
+    <link href="FormStyle.css" rel="stylesheet" />
 </head>
 <body>
+    <!--תפריט-->
     <div>
-        <!--תפריט-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="Home_login.html">
-                <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-                Cookit
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:paleturquoise">
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        <!--התנתקות-->
+                        <!--<a for="hello_user" class="nav-link disabled" id="link_logout" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+                        <button class="btn btn-light" type="button" onclick="Logout()">התנתק</button>
                     </li>
                     <li class="nav-item">
                         <!--העלאת מתכון-->
                         <a class="nav-link" href="Upload_Recipe.html">העלאת מתכון</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
+                    <li class="nav-item">
+                        <!--צפייה במתכונים-->
+                        <a class="nav-link" href="#">צפייה במתכונים</a>
+                    </li>
+                    <li class="nav-item active">
+                        <!--דף הבית-->
+                        <a class="nav-link" href="Home_login.html">דף הבית <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <!--איקון-->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand" href="Home_logout.html">
+                            <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Cookit
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+
                     </li>
-                    <!--<li class="nav-item">-->
-                    <!--הודעת שלום למשתמש+ התנתקות-->
-                    <!--  <label for="hello_user" class="nav-link" id="lbl_Hello_to_User"></label>-->
-                    <!--</li>-->
-                    <li>
-                        <!--התנתקות-->
-                        <!--<a for="hello_user" class="nav-link disabled" id="link_logout" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Logout()">Logout</button>
-                    </li>
+
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </nav>
-    </div>
+    </div>       
+    <!--טופס העלאת מתכון-->
     <div class="container">
-        <!--טופס העלאת מתכון-->
-        <div>
-            <h1>העלאת מתכון :</h1>
-        </div>
+        <!--<div style="text-align:center">
+            <h1> :</h1>
+        </div>-->
         <form>
+            <legend>העלאת מתכון</legend>
             <!-- שם מתכון -->
             <div class="form-group row">
-                <label for="name_recipe" class="col-sm-2 col-form-label">שם מתכון : </label>
                 <div class="col-sm-10">
-                    <input type="text" for="name_recipe" id="txt_name_recipe" class="form-control" placeholder="שם מתכון" required />
+                    <input type="text" for="name_recipe" id="txt_name_recipe" class="form-control" style="text-align:right" placeholder="שם מתכון" required />
                 </div>
+                <label for="name_recipe" class="col-sm-2 col-form-label">שם מתכון</label>
+
             </div>
             <!-- סוג מנה -->
             <div class="form-group row">
-                <label for="dish_type" class="col-sm-2 col-form-label">סוג מנה : </label>
                 <div class="col-sm-10">
                     <select name="dish_type" id="select_dish_type" class="custom-select">
                         <option value="" selected disabled>סוג מנה</option>
                     </select>
                 </div>
+                <label for="dish_type" class="col-sm-2 col-form-label">סוג מנה</label>
             </div>
             <!--מאפייני מנה-->
             <div class="form-group row">
-                <label for="dish_category" class="col-sm-2 col-form-label">מאפיין מנה : </label>
                 <div class="col-sm-10">
                     <select name="dish_category" id="select_dish_category" class="custom-select">
                         <option value="" selected disabled>מאפיין אוכל</option>
                     </select>
                 </div>
+                <label for="dish_category" class="col-sm-2 col-form-label">מאפיין מנה</label>
             </div>
             <!--סוג אוכל-->
             <div class="form-group row">
-                <label for="food_type" class="col-sm-2 col-form-label">סוג אוכל : </label>
                 <div class="col-sm-10">
                     <select name="food_type" id="select_food_type" class="custom-select">
                         <option value="" selected disabled>סוג אוכל</option>
                     </select>
                 </div>
+                <label for="food_type" class="col-sm-2 col-form-label">סוג אוכל</label>
             </div>
             <!--סגנון מטבח-->
             <div class="form-group row">
-                <label for="kitchen_type" class="col-sm-2 col-form-label">סגנון מטבח : </label>
                 <div class="col-sm-10">
                     <select name="kitchen_type" id="select_kitchen_type" class="custom-select">
                         <option value="" selected disabled>סגנון מטבח</option>
                     </select>
                 </div>
+                <label for="kitchen_type" class="col-sm-2 col-form-label">סגנון מטבח</label>
             </div>
             <!--זמן כולל -->
             <div class="form-group row">
-                <label for="total_time" class="col-sm-2 col-form-label">זמן כולל : </label>
                 <div class="col-sm-10">
                     <input type="text" for="total_time" id="txt_total_time" placeholder="זמן כולל" required class="form-control" />
                 </div>
+                <label for="total_time" class="col-sm-2 col-form-label">זמן כולל</label>
             </div>
             <!--זמן עבודה -->
             <div class="form-group row">
-                <label for="work_time" class="col-sm-2 col-form-label">זמן עבודה : </label>
                 <div class="col-sm-10">
                     <input type="text" for="work_time" id="txt_work_time" placeholder="זמן עבודה" required class="form-control" />
                 </div>
+                <label for="work_time" class="col-sm-2 col-form-label">זמן עבודה</label>
             </div>
             <!-- דרגת קושי -->
             <div class="form-group row">
-                <label for="work_time" class="col-sm-2 col-form-label">דרגת קושי : </label>
                 <div class="col-sm-10">
                     <select name="work_time" id="select_work_time" class="custom-select">
                         <option value="" selected disabled>דרגת קושי</option>
                     </select>
                 </div>
             </div>
+            <label for="work_time" class="col-sm-2 col-form-label">דרגת קושי</label>
             <!--אופן ההכנה-->
             <div class="form-group row">
-                <label for="preparation_steps" class="col-sm-2 col-form-label">אופן הכנה : </label>
                 <div class="col-sm-10">
                     <textarea rows="5" cols="50" for="preparation_steps" id="txt_preparation_steps" placeholder="אופן הכנה" required class="form-control"></textarea>
                 </div>
+                <label for="preparation_steps" class="col-sm-2 col-form-label">אופן הכנה</label>
             </div>
             <!--מצרכים למתכון -->
-            <div class="form-group row">
-                <label for="ingridiant_for_recipe" class="col-sm-2 col-form-label">מצרכים למתכון : </label>
-                <div name="ingridiant_for_recipe" class="row">
-                    <!--שם מצרך-->
-                    <div style="width:33%;" class="col-sm">
-                        <label for="ingridiant_name" class="col-sm-2 col-form-label">שם מצרך : </label>
-                        <div class="col-sm-10">
-                            <select name="ingridiant_name" id="select_ingridiant_name" class="custom-select">
-                                <option value="" selected disabled>שם מצרך</option>
-                            </select>
+            <form>
+                <legend>מצרכים</legend>
+                <!--<div class="form-group row">-->
+                    <!--<label for="ingridiant_for_recipe" class="col-sm-2 col-form-label">מצרכים למתכון</label>-->
+                    <div name="ingridiant_for_recipe" class="row">
+                        <!--שם מצרך-->
+                        <div style="width:33%;" class="col-sm">
+                            <div class="col-sm-10">
+                                <select name="ingridiant_name" id="select_ingridiant_name" class="custom-select">
+                                    <option value="" selected disabled>שם מצרך</option>
+                                </select>
+                            </div>
+                            <label for="ingridiant_name" class="col-sm-2 col-form-label">שם מצרך</label>
+                        </div>
+                        <!--כמות מצרך-->
+                        <div style="width:33%;" class="col-sm">
+                            <div class="col-sm-10">
+                                <input type="text" for="ingridiant_amount" id="txt_ingridiant_amount" placeholder="כמות מצרך" required class="form-control" />
+                            </div>
+                            <label for="ingridiant_amount" class="col-sm-2 col-form-label">כמות מצרך</label>
+                        </div>
+                        <!--אופן מדידה-->
+                        <div style="width:33%;" class="col-sm">
+                            <div class="col-sm-10">
+                                <select name="mesurment" id="select_mesurment" class="custom-select">
+                                    <option value="" selected disabled>אופן מדידה</option>
+                                </select>
+                            </div>
+                            <label for="mesurment" class="col-sm-2 col-form-label">אופן מדידה</label>
                         </div>
                     </div>
-                    <!--כמות מצרך-->
-                    <div style="width:33%;" class="col-sm">
-                        <label for="ingridiant_amount" class="col-sm-2 col-form-label">כמות מצרך: </label>
-                        <div class="col-sm-10">
-                            <input type="text" for="ingridiant_amount" id="txt_ingridiant_amount" placeholder="כמות מצרך" required class="form-control" />
-                        </div>
+                    <!--הוספת מצרך-->
+                    <div id="pluse_ingridiant" class="col-sm-10">
+                        <input type="submit" value="הוסף מצרך" class="btn btn-dark" />
                     </div>
-                    <!--אופן מדידה-->
-                    <div style="width:33%;" class="col-sm">
-                        <label for="mesurment" class="col-sm-2 col-form-label">אופן מדידה : </label>
-                        <div class="col-sm-10">
-                            <select name="mesurment" id="select_mesurment" class="custom-select">
-                                <option value="" selected disabled>אופן מדידה</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <!--הוספת מצרך-->
-                <div id="pluse_ingridiant" class="col-sm-10">
-                    <input type="submit" value="הוסף מצרך נוסף" class="btn btn-outline-secondary" />
-                </div>
-            </div>
+                <!--</div>-->
+            </form>
             <!-- תמונה -->
             <!--כפתור שליחת נתונים-->
             <div class="col-sm-10">
-                <input type="submit" value="שלח" class="btn btn-outline-primary" onclick="UpLoadRecipe()" />
+                <input type="submit" value="שלח" class="btn btn-dark" onclick="UpLoadRecipe()" />
             </div>
         </form>
     </div>

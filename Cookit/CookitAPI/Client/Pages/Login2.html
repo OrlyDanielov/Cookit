@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <title>Home</title>
+    <title>Login</title>
     <!-- Required meta tags -->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -13,26 +14,26 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!--java script code  -->
+    <script src="Login.js"></script>
     <script src="GlobalAjax.js"></script>
-    <script src="Menu_Login.js"></script>
-    <script src="Home_login.js"></script>
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
-
+    <link href="FormStyle.css" rel="stylesheet" />
 </head>
-<body >
+<body class="bg-img">
     <!--תפריט-->
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:paleturquoise">
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li>
-                        <!--התנתקות-->
-                        <!--<a for="hello_user" class="nav-link disabled" id="link_logout" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-                        <button class="btn btn-light" type="button" onclick="Logout()">התנתק</button>
+                        <!--התחברות-->
+                        <a class="nav-link" href="Login.html">התחבר</a>
+                        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Login()">Login</button>-->
                     </li>
-                    <li class="nav-item">
-                        <!--העלאת מתכון-->
-                        <a class="nav-link" href="Upload_Recipe.html">העלאת מתכון</a>
+                    <li>
+                        <!--הרשמה-->
+                        <a class="nav-link" href="Registration.html">הרשם</a>
+                        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Registration()">Registration</button>-->
                     </li>
                     <li class="nav-item">
                         <!--צפייה במתכונים-->
@@ -40,7 +41,7 @@
                     </li>
                     <li class="nav-item active">
                         <!--דף הבית-->
-                        <a class="nav-link" href="Home_login.html">דף הבית <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="Home_logout.html">דף הבית <span class="sr-only">(current)</span></a>
                     </li>
 
                     <li class="nav-item">
@@ -59,12 +60,42 @@
             </div>
         </nav>
     </div>
-    <div class="container">
-        <div class="style1">
-            <!--הודעת שלום למשתמש+ התנתקות-->
-            <label for="hello_user" class="nav-link" id="lbl_Hello_to_User"></label>
-        </div>
-    </div>
 
+    <div class="container">
+        <center>
+            <h4 class="h4 mb-3 font-weight-normal" style="color:darkblue">התחבר לחשבונך</h4>
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        <input type="email" id="inputEmail" placeholder="כתובת אימייל" required />
+                    </td>
+                </tr>
+                <tr> <td>   </td></tr>
+                <tr> <td>   </td></tr>
+                <tr>
+                    <td>
+                        <input type="password" id="inputPassword" placeholder="סיסמה" equired />
+                    </td>
+                </tr>
+            </table>
+            <div class="checkbox mb-3">
+                <button type="submit" class="btn btn-primary" onclick="LoginVerification()">התחבר</button>
+            </div>
+            <div class="checkbox mb-3">
+                <span class="psw">שכחת סיסמה? <a href="#">שחזר סיסמה</a></span>
+                <br />
+                <span class="psw">עדיין לא רשום? <a href="Registration.html">הרשם</a></span>
+            </div>
+        </center>
+    </div>
+    <footer >
+        <p class="mb-1">&copy; Cookit</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
 </body>
 </html>

@@ -1,0 +1,14 @@
+﻿
+form {
+    padding: 30px;
+    
+}
+
+label {
+    text-align: right;
+}
+
+input, textarea,select{
+    /*[type=text]*/
+    text-align: right;
+}
