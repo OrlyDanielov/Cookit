@@ -1,0 +1,47 @@
+﻿body {
+    height: 100%;
+    text-align: center;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+}
+
+.bg-img {
+    /* The image used */
+    background-image: url("/Client/Images/pic_cookies_3.jpg");
+    /*min-height: 380px;*/
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.container {
+    background-color:rgba(270, 270, 270,0.90);
+    border-radius: 30px;
+    padding:30px;
+    /*margin:30px;*/
+    position:center;
+}
+
+form{
+    padding:30px;
+}
+label {
+    text-align:right;
+}
+
+input {
+    /*[type=text]*/
+    text-align: right;
+}
+
+#footer {
+    background-color: rgba(270, 270, 270,0.90);
+    padding-top:30px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    position: page;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}

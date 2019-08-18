@@ -13,102 +13,168 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!--java script code  -->
-    <script src="GlobalAjax.js"></script>
     <script src="Registration.js"></script>
+    <script src="GlobalAjax.js"></script>
     <script src="Menu_Logout.js"></script>
+    <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
 </head>
-<body class="text-center"> 
-    <div>
-        <!--תפריט-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="Home_not_login.html">
-                <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-                Cookit
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
+<body class="bg-img">
+    <!--תפריט-->
+    <div id="menu">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:paleturquoise">
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
                     <li>
                         <!--התחברות-->
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Login()">Login</button>
+                        <a class="nav-link" href="Login.html">התחבר</a>
+                        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Login()">Login</button>-->
                     </li>
                     <li>
                         <!--הרשמה-->
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Registration()">Registration</button>
-                        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Registration2()">Registration</button>-->
+                        <a class="nav-link" href="Registration.html">הרשם</a>
+                        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="Registration()">Registration</button>-->
                     </li>
+                    <li class="nav-item">
+                        <!--צפייה במתכונים-->
+                        <a class="nav-link" href="#">צפייה במתכונים</a>
+                    </li>
+                    <li class="nav-item active">
+                        <!--דף הבית-->
+                        <a class="nav-link" href="Home_logout.html">דף הבית <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <!--איקון-->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand" href="Home_logout.html">
+                            <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                            Cookit
+                        </a>
+
+                    </li>
+
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </nav>
     </div>
-    <div style="position:center">
-        <!--טופס הרשמה-->
-        <div>
-            <h1>הרשמה</h1>
-        </div>
-        <div id="registration_details">
-            <form style="position:center">
+    <!-- טופס הרשמה -->
+    <div class="container" >
+        <form class="needs-validation" novalidate >
+            <!--<div class="py-5 text-center">-->
+            <h2>הרשמה</h2>
+            <!--</div>-->
+            <div id="div_private_details">
+                <hr class="mb-4">
+                <h4 class="mb-3">פרטים אישיים</h4>
                 <!-- שם פרטי -->
-                <div style="position:center">
-                    <label for="first_name">שם פרטי : </label>
-                    <input type="text" for="first_name" id="txt_first_name" placeholder="שם פרטי" required />
-                    <br />
+                <div class="mb-3">
+                    <label for="address">שם פרטי</label>
+                    <input type="text" class="form-control"  id="first_name" placeholder="הכנס שם פרטי" required>
+                    <!--<div class="invalid-feedback">
+                        אנא  הכנס שם פרטי.
+                    </div>-->
                 </div>
                 <!-- שם משפחה -->
-                <div>
-                    <label for="last_name">שם משפחה : </label>
-                    <input type="text" for="last_name" id="txt_last_name" placeholder="שם משפחה" required />
-                    <br />
+                <div class="mb-3">
+                    <label for="address">שם משפחה</label>
+                    <input type="text" class="form-control" id="last_name" placeholder="הכנס שם משפחה" required>
                 </div>
-                <!--אימייל-->
-                <div>
-                    <label for="email">אימייל : </label>
-                    <input type="email" for="email" id="txt_email" placeholder="אימייל" required />
-                    <br />
+                <!-- אימייל -->
+                <div class="mb-3">
+                    <label for="address">אימייל</label>
+                    <input type="email" class="form-control" id="email" placeholder="הכנס אימייל" required>
                 </div>
-                <!--מין-->
-                <div>
-                    <label for="gender">מין : </label>
-                    <br />
-                    <label for="rdio_gender_M">זכר</label>
-                    <input type="radio" name="radio-choice_gender" id="radio_gender_M" value="M" required />
-                    <label for="rdio_gender_F">נקבה</label>
-                    <input type="radio" name="radio-choice_gender" id="rdio_gender_F" value="F" required />
-                    <br />
+                <!-- מין -->
+                <label for="div_gender">מין</label>
+                <div name="div_gender" class="d-block my-3">
+                    <div class="custom-control custom-radio">
+                        <input id="female" name="gender" value="F" type="radio" class="custom-control-input" checked required>
+                        <label class="custom-control-label" for="female">נקבה</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="male" name="gender" value="M" type="radio" class="custom-control-input" required>
+                        <label class="custom-control-label" for="male">זכר</label>
+                    </div>
                 </div>
-                <!--סיסמה-->
-                <div>
-                    <label for="password">סיסמה : </label>
-                    <input type="password" for="password" id="txt_password" placeholder="סיסמה" required pattern="(?=.*\d)(?=.*[a-z]|.*[A-Z])\w.{6,12}" title="נדרש לסיסמה 6 עד 12 אותיות, מספרים או סימנים." />
-                    <br />
+                <!-- סיסמה -->
+                <div class="mb-3">
+                    <label for="address">סיסמה</label>
+                    <input type="password" class="form-control" id="password" placeholder="הכנס סיסמה" required pattern="(?=.*\d)(?=.*[a-z]|.*[A-Z])\w.{6,12}" title="נדרש לסיסמה 6 עד 12 אותיות, מספרים או סימנים.">
                 </div>
-                <input type="submit" value="הרשמה" />
-            </form>
-        </div>
+                <!-- אימות סיסמה -->
+                <div class="mb-3">
+                    <label for="address">אימות סיסמה</label>
+                    <input type="password" class="form-control" id="password_authentication" placeholder="הכנס אימות סיסמה" required pattern="(?=.*\d)(?=.*[a-z]|.*[A-Z])\w.{6,12}" title="נדרש לסיסמה 6 עד 12 אותיות, מספרים או סימנים.">
+                </div>
+                <!-- סוג משתמש (אנין טעם \ חובב \ עסקי)) -->
+                <!--<h4 class="mb-3">סוג משתמש</h4>-->
+                <div class="mb-3">
+                    <label for="div_user_type">סוג משתמש</label>
+                    <div class="col-sm-10">
+                        <select name="user_type" id="select_user_type" class="custom-select" onchange="IsProfile()">
+                            <option value="" selected disabled>סוג משתמש</option>
+                        </select>
+                    </div>
+                    <!--<div id="div_user_type" name="div_user_type" class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="Creative" name="user_type" type="radio" class="custom-control-input" value="Creative" onchange="IsProfile()" checked required>
+                            <label class="custom-control-label" for="Creative">משתמש יצירתי</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="Foodie" name="user_type" type="radio" class="custom-control-input" value="Foodie" onchange="IsProfile()" required>
+                            <label class="custom-control-label" for="Foodie">משתמש אנין טעם</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="Business" name="user_type" type="radio" class="custom-control-input" value="Business" onchange="IsProfile()" required>
+                            <label class="custom-control-label" for="Business">משתמש עסקי</label>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+            <!-- פרטי פרופיל -->
+            <div id="div_Profile_details" style="display:none">
+                <!--style="display:none"-->
+                <hr class="mb-4">
+                <h4 class="mb-3">פרטי פרופיל</h4>
+                <!-- שם פרופיל -->
+                <div class="mb-3">
+                    <label for="address2">שם פרופיל</label>
+                    <input type="text" class="form-control" id="profile_name" placeholder="הכנס שם פרופיל">
+                </div>
+                <!-- תיאור פרופיל -->
+                <div class="mb-3">
+                    <label for="address2">תיאור פרופיל</label>
+                    <input type="text" class="form-control" id="profile_description" placeholder="הכנס תיאור פרופיל">
+                </div>
+                <!-- עיר מגורים \עסק -->
+                <div class="mb-3">
+                    <label for="city">עיר מגורים \ עסק<!--<span class="text-muted">(Optional)</span>--></label>
+                    <div class="col-sm-10">
+                        <select name="city" id="select_city" class="custom-select">
+                            <option value="" selected disabled>עיר</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <hr class="mb-4">
+                <input type="button" class="btn btn-primary btn-lg" onclick="Regitration()" value="שלח" />
+                <!--<button class="btn btn-primary btn-lg " type="submit" onclick="Regitration()">שלח</button>-->
+            </div>
+        </form>
     </div>
+    <!--footer-->
+    <!--<div id="footer">
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">&copy; Cookit</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </footer>
+    </div>-->
 </body>
 </html>

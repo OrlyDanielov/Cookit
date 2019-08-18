@@ -7,6 +7,7 @@ using System.Web.Http;
 using CookitDB;
 using CookitAPI.DTO;
 
+
 namespace Cookit.Controllers
 {
     public class UserController : ApiController
@@ -57,32 +58,16 @@ namespace Cookit.Controllers
         {
         }
         */
-        [Route("api/Clothe")]
-        public void Post([FromBody]TBL_User newUser)
+        [Route("api/User/AddNewUser")]
+        public HttpResponseMessage Post ([FromBody]TBL_User newUser)
         {
-            try
-            {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-                //DB.Entry(newUser).state = System.Data.
-                
-            }
-            catch
-            {
+            Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
 
-            }
-            /*
-             * try
-            {
-                ClothesShopDBConnection db = new ClothesShopDBConnection();
-                db.Entry(newClothe).State = System.Data.Entity.EntityState.Added; //  add the new clothe to the db
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception)//(Exception e)
-            {
-                return false;
-            }
-             */
+            var is_saved = CookitDB.DB_Code.CookitQueries.AddNewUser(newUser);
+            if(is_saved == true)
+                return Request.CreateResponse(HttpStatusCode.OK, is_saved);
+            else
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the user.");
         }
 
         // PUT api/<controller>/5

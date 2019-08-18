@@ -9,6 +9,7 @@ namespace CookitDB.DB_Code
     public class CookitQueries
     {
 
+        #region Get_DB
         public static Cookit_DBConnection Get_DB()
         {
             Cookit_DBConnection db = new Cookit_DBConnection();
@@ -16,6 +17,7 @@ namespace CookitDB.DB_Code
             return db;
 
         }
+        #endregion
 
         #region LogIN
         // בודקת את האימייל והסיסמא של המשתשמש בכניסה
@@ -211,6 +213,25 @@ namespace CookitDB.DB_Code
                 //bgroup36_prodConnection db = new bgroup36_prodConnection();
                 //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.Entry(new_recipe).State = System.Data.Entity.EntityState.Added; // הוספת רשומת מתכון חדש לטבלת המתכונים
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region Add New User
+        public static bool AddNewUser(TBL_User new_user)
+        {
+            try
+            {
+                var db = Get_DB();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                db.Entry(new_user).State = System.Data.Entity.EntityState.Added; // הוספת משתמש חדש
                 db.SaveChanges();
                 return true;
             }
