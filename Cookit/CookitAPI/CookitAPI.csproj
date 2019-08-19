@@ -306,6 +306,7 @@
     <Content Include="Client\Pages\OldMenu.html" />
     <Content Include="Client\Pages\Registration.js" />
     <Content Include="Client\Pages\Registration.html" />
+    <Content Include="Client\Pages\UpdateProfile.html" />
     <Content Include="Client\Pages\Upload_Recipe.html" />
     <Content Include="Client\Pages\Upload_Recipe.js" />
     <Content Include="Content\bootstrap-grid.css" />
