@@ -17,54 +17,59 @@
     <script src="Menu_Login.js"></script>
     <script src="Home_login.js"></script>
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body >
+<body>
     <!--תפריט-->
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:paleturquoise">
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li>
-                        <!--התנתקות-->
-                        <!--<a for="hello_user" class="nav-link disabled" id="link_logout" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-                        <button class="btn btn-light" type="button" onclick="Logout()">התנתק</button>
-                    </li>
                     <li class="nav-item">
-                        <!--העלאת מתכון-->
                         <a class="nav-link" href="Upload_Recipe.html">העלאת מתכון</a>
                     </li>
                     <li class="nav-item">
-                        <!--צפייה במתכונים-->
                         <a class="nav-link" href="#">צפייה במתכונים</a>
                     </li>
                     <li class="nav-item active">
-                        <!--דף הבית-->
                         <a class="nav-link" href="Home_login.html">דף הבית <span class="sr-only">(current)</span></a>
                     </li>
-
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-fw fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="text-align:center">
+                            <a class="dropdown-item" href="#">עריכת פרטים אישיים</a>
+                            <a class="dropdown-item" href="UpdateProfile.html">עריכת פרופיל</a>
+                            <a class="dropdown-item" href="Home_logout.html" onclick="Logout()">התנתק</a>
+                        </div>
+                    </li>
                     <li class="nav-item">
-                        <!--איקון-->
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <a class="navbar-brand" href="Home_logout.html">
+                        <a class="navbar-brand" href="Home_login.html">
                             <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                             Cookit
                         </a>
-
                     </li>
-
                 </ul>
             </div>
         </nav>
     </div>
-    <div class="container">
+    <div class="container bg_brigth">
         <div class="style1">
             <!--הודעת שלום למשתמש+ התנתקות-->
             <label for="hello_user" class="nav-link" id="lbl_Hello_to_User"></label>
         </div>
     </div>
-
+    <footer>
+        <p class="mb-1">&copy; Cookit</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
 </body>
 </html>

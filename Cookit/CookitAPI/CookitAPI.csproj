@@ -299,9 +299,8 @@
     <Content Include="Client\Pages\Home_logout.html" />
     <Content Include="Client\Pages\Home_login.html" />
     <Content Include="Client\Pages\Home_logout.js" />
-    <Content Include="Client\Pages\Login.html" />
     <Content Include="Client\Pages\Login.js" />
-    <Content Include="Client\Pages\Login2.html" />
+    <Content Include="Client\Pages\Login.html" />
     <Content Include="Client\Pages\Menu_Login.js" />
     <Content Include="Client\Pages\OldMenu.html" />
     <Content Include="Client\Pages\Registration.js" />
