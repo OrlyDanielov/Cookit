@@ -306,8 +306,14 @@
     <Content Include="Client\Pages\Registration.js" />
     <Content Include="Client\Pages\Registration.html" />
     <Content Include="Client\Pages\UpdateProfile.html" />
+    <Content Include="Client\Pages\Update_UserInfo.html" />
+    <Content Include="Client\Pages\Upload_Event.html" />
+    <Content Include="Client\Pages\Upload_Event.js" />
     <Content Include="Client\Pages\Upload_Recipe.html" />
     <Content Include="Client\Pages\Upload_Recipe.js" />
+    <Content Include="Client\Pages\Upload_Workshop.html" />
+    <Content Include="Client\Pages\Upload_Workshop.js" />
+    <Content Include="Client\Pages\UserInfo.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />

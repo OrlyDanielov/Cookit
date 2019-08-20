@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Update Profile</title>
+    <title>Update Personal Info</title>
     <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -15,12 +15,12 @@
     <!--java script code  -->
     <script src="GlobalAjax.js"></script>
     <script src="Menu_Login.js"></script>
-
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
     <link href="FormStyle.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
     <!--תפריט-->
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:paleturquoise">
@@ -57,7 +57,6 @@
                             <a class="dropdown-item" href="#">חיפוש מתכון</a>
                         </div>
                     </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             אזור אישי
@@ -98,39 +97,50 @@
             </div>
         </nav>
     </div>
+
     <!--תוכן הדף-->
     <div class="container  bg_brigth">
-        <h4 class="mb-3">עדכון פרופיל</h4>
+        <h4 class="mb-3">עדכון פרטי משתמש</h4>
         <form>
+            <!--עדכון שם פרטי ושם משפחה-->
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="profile_type">סוג פרופיל</label>
-                    <select name="profile_type" id="select_profile_type" class="custom-select">
-                        <option value="" selected disabled>בחר סוג</option>
-                        <option value="100" name="יצירתי">יצירתי</option>
-                        <option value="200" name="אנין טעם">אנין טעם</option>
-                        <option value="300" name="עסקי">עסקי</option>
-                    </select>
+                    <label for="last_name">שם משפחה</label>
+                    <input type="text" for="last_name" id="txt_last_name" class="form-control" style="text-align:right" required />
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="profile_name">שם פרופיל</label>
-                    <input type="text" for="profile_name" id="txt_profile_name" class="form-control" style="text-align:right" required />
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="city">עיר</label>
-                    <select name="city" id="select_city" class="custom-select">
-                        <option value="" selected disabled>בחר עיר</option>
-                    </select>
+                    <label for="first_name">שם פרטי</label>
+                    <input type="text" for="first_name" id="txt_first_name" class="form-control" style="text-align:right" required />
                 </div>
             </div>
             <div class="row">
-                <label for="profile_description">תיאור</label>
-                <textarea rows="5" cols="50" name="profile_description" id="txt_profile_description" required class="form-control"></textarea>
+                <!-- עדכון סיסמה -->
+                <div class="col-md-6 mb-3">
+                    <label for="password">סיסמה</label>
+                    <input type="password" class="form-control" id="password" required pattern="(?=.*\d)(?=.*[a-z]|.*[A-Z])\w.{6,12}" title="נדרש לסיסמה 6 עד 12 אותיות, מספרים או סימנים.">
+                </div>
+                <!--עדכון מייל-->
+                <div class="col-md-6 mb-3">
+                    <label for="email">אימייל</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
             </div>
+            <!--עדכון סוג המשתמש-->
+            <div class=" mb-3">
+                <label for="profile_type">סוג המתשמש</label>
+                <select name="profile_type" id="select_profile_type" class="custom-select">
+                    <option value="" selected disabled>בחר סוג</option>
+                    <option value="100" name="יצירתי">יצירתי</option>
+                    <option value="200" name="אנין טעם">אנין טעם</option>
+                    <option value="300" name="עסקי">עסקי</option>
+                </select>
+            </div>
+
             <hr class="mb-4">
-            <input type="submit" value="שלח" class="btn btn-dark" onclick="UpLoadRecipe()" />
+            <input type="submit" value="שלח" class="btn btn-dark" onclick="UpdateUserInfo()" />
         </form>
     </div>
+
     <!--תחתית-->
     <footer>
         <p class="mb-1">&copy; Cookit</p>

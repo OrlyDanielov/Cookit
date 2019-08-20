@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Update Profile</title>
+    <title> העלאת סדנא קהילתית </title>
     <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -15,11 +15,11 @@
     <!--java script code  -->
     <script src="GlobalAjax.js"></script>
     <script src="Menu_Login.js"></script>
-
+    <script src="Upload_Workshop.js"></script>
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
-    <link href="FormStyle.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="FormStyle.css" rel="stylesheet" />
 </head>
+
 <body>
     <!--תפריט-->
     <div>
@@ -57,7 +57,6 @@
                             <a class="dropdown-item" href="#">חיפוש מתכון</a>
                         </div>
                     </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             אזור אישי
@@ -98,39 +97,65 @@
             </div>
         </nav>
     </div>
-    <!--תוכן הדף-->
-    <div class="container  bg_brigth">
-        <h4 class="mb-3">עדכון פרופיל</h4>
-        <form>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="profile_type">סוג פרופיל</label>
-                    <select name="profile_type" id="select_profile_type" class="custom-select">
-                        <option value="" selected disabled>בחר סוג</option>
-                        <option value="100" name="יצירתי">יצירתי</option>
-                        <option value="200" name="אנין טעם">אנין טעם</option>
-                        <option value="300" name="עסקי">עסקי</option>
-                    </select>
+
+    <!-- טופס העלאת סדנא-->
+    <div class="container bg_brigth">
+        <form class="needs-validation" novalidate>
+            <h2>העלאת סדנא קהילתית חדשה</h2>
+            <div id="div_UploadWorkshop_details">
+                <hr class="mb-4">
+                <h4 class="mb-3">:פרטי הסדנא</h4>
+                <!-- שם הסדנא -->
+                <div class="mb-3">
+                    <label for="WorkshopName">שם הסדנא</label>
+                    <input type="text" class="form-control" id="workshop_name" placeholder="הכנס שם לסדנא" required>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label for="profile_name">שם פרופיל</label>
-                    <input type="text" for="profile_name" id="txt_profile_name" class="form-control" style="text-align:right" required />
+                <!-- תאריך הסדנא -->
+                <div class="mb-3">
+                    <label for="Workshop_date">תאריך הסדנא</label>
+                    <input type="date" class="form-control" id="workshop_date" required>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label for="city">עיר</label>
-                    <select name="city" id="select_city" class="custom-select">
-                        <option value="" selected disabled>בחר עיר</option>
-                    </select>
+                <!-- שעת הסדנא -->
+                <div class="mb-3">
+                    <label for="WorkshopTime">שעת הסדנא</label>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="total_time">שעת סיום</label>
+                            <input type="time" class="form-control" id="workshop_time_finish" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="total_time">שעת התחלה</label>
+                            <input type="time" class="form-control" id="workshop_time_start" required>
+                        </div>
+                    </div>
+                </div>
+                <!-- מיקום הסדנא -->
+                <div class="mb-3">
+                    <label for="city">מקום הסדנא</label>
+                    <div class="col-sm-10">
+                        <select name="city" id="select_city" class="custom-select">
+                            <option value="" selected disabled>עיר</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- תיאור הסדנא -->
+                <div class="mb-3">
+                    <label for="Workshop_description">תיאור הסדנא</label>
+                    <textarea rows="3" cols="20" for="workshop_description" id="txt_workshop_description" required class="form-control"></textarea>
+                </div>
+                <!--מספר משתתפים מקסימלי-->
+                <div class="mb-3">
+                    <label for="Workshop_max_participants">כמות משתתפים מקסימלית</label>
+                    <input type="text" class="form-control" for="max_participants" id="Workshop_max_participants" required>
                 </div>
             </div>
-            <div class="row">
-                <label for="profile_description">תיאור</label>
-                <textarea rows="5" cols="50" name="profile_description" id="txt_profile_description" required class="form-control"></textarea>
+            <div>
+                <hr class="mb-4">
+                <input type="button" class="btn btn-primary btn-lg" onclick="UploadWorkshop()" value="שלח" />
             </div>
-            <hr class="mb-4">
-            <input type="submit" value="שלח" class="btn btn-dark" onclick="UpLoadRecipe()" />
         </form>
     </div>
+
     <!--תחתית-->
     <footer>
         <p class="mb-1">&copy; Cookit</p>
@@ -142,3 +167,4 @@
     </footer>
 </body>
 </html>
+
