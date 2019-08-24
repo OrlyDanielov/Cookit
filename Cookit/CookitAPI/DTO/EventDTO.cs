@@ -5,14 +5,14 @@ using System.Web;
 
 namespace CookitAPI.DTO
 {
-    public class ProfileDTO
+    public class EventDTO
     {
         public int id;
-        public int user_id;
-        public char type;
+        public int profile_id;
         public string name;
-        public string description;
+        public DateTime date_time;
         public CityDTO city;
-        public bool status;
+        public string description;
+        public bool statusCancel;
     }
 }

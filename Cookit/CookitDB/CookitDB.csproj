@@ -83,31 +83,31 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TBL_Barcode.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_City.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Comments.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_DishCategory.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_DishType.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_DrawerRecp.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Event.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_FavoriteRecp.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Followers.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_FoodLabel.cs">
       <DependentUpon>Model_RuppinDB.tt</DependentUpon>
@@ -116,64 +116,64 @@
       <DependentUpon>CookitModle.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_FoodType.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Holiday.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_IngridiantForRecp.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Ingridiants.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_KitchenType.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Likes.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Managers.cs">
       <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Mesurments.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_NutritionalIngridiants.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Profile.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Recipe.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_RecipeDifficultyLevel.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_RecpLevelByBU.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Region.cs">
       <DependentUpon>CookitModle.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Star.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_StarsForRecp.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_User.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_UserType.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Workshop.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_WorkshopParticipents.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@ namespace CookitDB
     public partial class TBL_RecpLevelByBU
     {
         public int Id_Recp { get; set; }
-        public string User_Email { get; set; }
+        public int Id_User { get; set; }
         public Nullable<int> Id_Level { get; set; }
     
         public virtual TBL_Recipe TBL_Recipe { get; set; }

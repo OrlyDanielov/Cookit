@@ -15,7 +15,7 @@ namespace CookitDB
     public partial class TBL_WorkshopParticipents
     {
         public int Id_Workshop { get; set; }
-        public string User_Email { get; set; }
+        public int Id_User { get; set; }
         public Nullable<bool> StatusRegistration { get; set; }
     
         public virtual TBL_User TBL_User { get; set; }

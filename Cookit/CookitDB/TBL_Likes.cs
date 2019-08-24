@@ -15,7 +15,7 @@ namespace CookitDB
     public partial class TBL_Likes
     {
         public int Id_Recp { get; set; }
-        public string User_Email { get; set; }
+        public int Id_User { get; set; }
         public bool LikeStatus { get; set; }
         public System.DateTime LikeDate { get; set; }
     

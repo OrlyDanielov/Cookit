@@ -16,7 +16,7 @@ namespace CookitDB
     {
         public int Id_Comment { get; set; }
         public int Id_Recp { get; set; }
-        public string User_Email { get; set; }
+        public int Id_User { get; set; }
         public string Comment { get; set; }
         public Nullable<System.DateTime> CommentDate { get; set; }
     

@@ -5,14 +5,11 @@ using System.Web;
 
 namespace CookitAPI.DTO
 {
-    public class ProfileDTO
+    public class LikesDTO
     {
-        public int id;
+        public int recipe_id;
         public int user_id;
-        public char type;
-        public string name;
-        public string description;
-        public CityDTO city;
         public bool status;
+        public DateTime date_like;
     }
 }

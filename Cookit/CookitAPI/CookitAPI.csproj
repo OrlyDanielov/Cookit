@@ -249,16 +249,26 @@
     <Compile Include="Controllers\UserTypeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DTO\CityDTO.cs" />
+    <Compile Include="DTO\CommentsDTO.cs" />
     <Compile Include="DTO\DifficultyLevelDTO.cs" />
     <Compile Include="DTO\DishCategoryDTO.cs" />
     <Compile Include="DTO\DishTypeDTO.cs" />
+    <Compile Include="DTO\EventDTO.cs" />
+    <Compile Include="DTO\FavoriteRecipeDTO.cs" />
+    <Compile Include="DTO\FollowersDTO.cs" />
+    <Compile Include="DTO\FoodLabelDTO.cs" />
     <Compile Include="DTO\FoodTypeDTO.cs" />
+    <Compile Include="DTO\HolidayDTO.cs" />
     <Compile Include="DTO\IngridiantsDTO.cs" />
     <Compile Include="DTO\KitchenTypeDTO.cs" />
+    <Compile Include="DTO\LikesDTO.cs" />
     <Compile Include="DTO\MesurmentsDTO.cs" />
     <Compile Include="DTO\ProfileDTO.cs" />
+    <Compile Include="DTO\RecipeDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserTypeDTO.cs" />
+    <Compile Include="DTO\WorkshopDTO.cs" />
+    <Compile Include="DTO\WorkshopParticipentsDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

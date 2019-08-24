@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\אורלי\Documents\GitHub\Cookit---Final-Project\Cookit\CookitDB\Model_RuppinDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Omer\Documents\GITHUB\Cookit---Final-Project\Cookit\CookitDB\Model_RuppinDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

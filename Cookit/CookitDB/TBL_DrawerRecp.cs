@@ -15,7 +15,7 @@ namespace CookitDB
     public partial class TBL_DrawerRecp
     {
         public int Id_DrawerRecp { get; set; }
-        public string User_Email { get; set; }
+        public int Id_User { get; set; }
         public string Name_DrawerRecp { get; set; }
     
         public virtual TBL_User TBL_User { get; set; }

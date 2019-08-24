@@ -15,7 +15,7 @@ namespace CookitDB
     public partial class TBL_FavoriteRecp
     {
         public int Id_Recp { get; set; }
-        public string User_Email { get; set; }
+        public int Id_User { get; set; }
         public bool RecpStatus { get; set; }
     
         public virtual TBL_Recipe TBL_Recipe { get; set; }
