@@ -244,6 +244,7 @@
     <Compile Include="Controllers\IngriditansController.cs" />
     <Compile Include="Controllers\KitchenTypeController.cs" />
     <Compile Include="Controllers\MesurmentsController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserTypeController.cs" />
@@ -424,6 +425,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

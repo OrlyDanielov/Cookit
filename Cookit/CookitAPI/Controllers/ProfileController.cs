@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using CookitAPI.DTO;
+using CookitDB;
+
+namespace CookitAPI.Controllers
+{
+    public class ProfileController : ApiController
+    {
+        // GET: api/Profile
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+        // GET: api/Profile/5
+        public string Get(int id)
+        {
+            return "value";
+        }
+
+        /*
+        // POST: api/Profile
+        public void Post([FromBody]string value)
+        {
+        }
+       */
+
+
+        [Route("api/Profile/AddNewProfile")]
+        public HttpResponseMessage Post([FromBody]TBL_Profile new_profile)
+        {
+            Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+
+            var is_saved = CookitDB.DB_Code.CookitQueries.AddNewProfile(new_profile);
+            if (is_saved == true)
+                return Request.CreateResponse(HttpStatusCode.OK, is_saved);
+            else
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the profile.");
+        }
+
+        // PUT: api/Profile/5
+        public void Put(int id, [FromBody]string value)
+        {
+        }
+
+        // DELETE: api/Profile/5
+        public void Delete(int id)
+        {
+        }
+    }
+}

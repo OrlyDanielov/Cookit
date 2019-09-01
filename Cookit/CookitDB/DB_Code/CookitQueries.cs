@@ -241,5 +241,24 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
+
+        #region Add New Profile
+        public static bool AddNewProfile(TBL_Profile new_profile)
+        {
+            try
+            {
+                var db = Get_DB();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                db.Entry(new_profile).State = System.Data.Entity.EntityState.Added; // הוספת פרופיל חדש
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
     }
 }
