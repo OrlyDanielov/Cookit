@@ -314,6 +314,9 @@
     <Content Include="Client\Pages\Home_logout.js" />
     <Content Include="Client\Pages\Login.js" />
     <Content Include="Client\Pages\Login.html" />
+    <Content Include="Client\Pages\Menu_Guest.html" />
+    <Content Include="Client\Pages\Menu_Logged+Profile.html" />
+    <Content Include="Client\Pages\Menu_Logged.html" />
     <Content Include="Client\Pages\Menu_Login.js" />
     <Content Include="Client\Pages\OldMenu.html" />
     <Content Include="Client\Pages\Registration.js" />

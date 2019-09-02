@@ -40,8 +40,8 @@ function AddOption_city(item) {
 
 //***************************************************************************//
 
-function UploadWorkshop() //הפונקציה שולחת את פרטי האיוע לשרת
-{ //אירוע חדש
+function UploadWorkshop() //הפונקציה שולחת את פרטי הסדנא לשרת
+{ //סדנא חדשה
     var new_workshop = {
         id: parseInt(121),
         profile_id: parseInt(11),

@@ -29,6 +29,7 @@ namespace Cookit.Controllers
         {
          */
         // POST api/<controller>
+        //הוספת מתכון לבסיס הנתונים
         [Route("api/Recipe")]
         public bool Post([FromBody]TBL_Recipe newRecipe)
         {

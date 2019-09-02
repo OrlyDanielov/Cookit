@@ -31,6 +31,7 @@ namespace CookitAPI.Controllers
         */
 
         [Route("api/Event/UploadEvent")]
+        //הוספת אירוע לבסיס הנתונים
         public HttpResponseMessage Post([FromBody]TBL_Event newEvent)
         {
             Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות

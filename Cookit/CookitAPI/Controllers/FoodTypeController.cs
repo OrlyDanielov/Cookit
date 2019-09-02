@@ -12,21 +12,21 @@ namespace Cookit.Controllers
 {
     public class FoodTypeController : ApiController
     {
-        public object CookitLibrary { get; private set; }
 
         // GET api/<controller>
+        //מחזיר את כל סוגי האוכל מבסיס הנתונים
         [Route("api/FoodType")]
         public HttpResponseMessage Get()
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
             //Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את של סוגי האוכל מהDB
+            // קורא לפונקציה שמחזירה את כל סוגי האוכל מהDB
             var foodType = CookitDB.DB_Code.CookitQueries.Get_all_FoodType();
             if (foodType == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no FoodType in DB.");
             else
             {
-                //המרה של רשימת של סוגי האוכל למבנה נתונים מסוג DTO
+                //המרה של רשימת סוגי האוכל למבנה נתונים מסוג DTO
                 List<FoodTypeDTO> result = new List<FoodTypeDTO>();
                 foreach (TBL_FoodType item in foodType)
                 {

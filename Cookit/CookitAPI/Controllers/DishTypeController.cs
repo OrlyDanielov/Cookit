@@ -11,18 +11,18 @@ namespace Cookit.Controllers
 {
     public class DishTypeController : ApiController
     {
-       
+        //מחזיר את כל הסוגי מנה מבסיס הנתונים
         [Route("api/DishType")]
         public HttpResponseMessage Get()
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
             //Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את של סוגי המנות מהDB
+            // קורא לפונקציה שמחזירה את כל הסוגי מנה מהDB
             var dishType =  CookitDB.DB_Code.CookitQueries.Get_all_DishType(); 
             if (dishType == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound,"there is no DishType in DB.");
             else {
-                //המרה של רשימת של סוגי המנות למבנה נתונים מסוג DTO
+                //המרה של רשימת הסוגי מנות למבנה נתונים מסוג DTO
                 List<DishTypeDTO> result =  new List<DishTypeDTO>();
                     foreach (TBL_DishType item in dishType)
                     {

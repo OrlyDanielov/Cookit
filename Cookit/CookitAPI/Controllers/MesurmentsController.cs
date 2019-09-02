@@ -11,19 +11,20 @@ namespace Cookit.Controllers
 {
     public class MesurmentsController : ApiController
     {
-        // GET api/<controller>        
+        // GET api/<controller>  
+        //מחזיר את כל האופייני מדידה מבסיס הנתונים      
         [Route("api/Mesurments")]
         public HttpResponseMessage Get()
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
             //Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את של אופני המדידה מהDB
+            // קורא לפונקציה שמחזירה את כל אופני המדידה מהDB
             var dishType = CookitDB.DB_Code.CookitQueries.Get_all_Mesurments();
             if (dishType == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no Mesurments in DB.");
             else
             {
-                //המרה של רשימת של אופני המדידה למבנה נתונים מסוג DTO
+                //המרה של רשימת אופני המדידה למבנה נתונים מסוג DTO
                 List<MesurmentsDTO> result = new List<MesurmentsDTO>();
                 foreach (TBL_Mesurments item in dishType)
                 {

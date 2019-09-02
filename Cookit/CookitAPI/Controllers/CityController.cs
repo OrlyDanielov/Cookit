@@ -19,7 +19,7 @@ namespace CookitAPI.Controllers
             return new string[] { "value1", "value2" };
         }
         */
-        //מחזיר את כל דרגות הקושי למתכון מבסיס הנתונים
+        //מחזיר את כל הערים מבסיס הנתונים
         [Route("api/City")]
         public HttpResponseMessage Get()
         {
@@ -31,7 +31,7 @@ namespace CookitAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no cities in DB.");
             else
             {
-                //המרה של רשימת של קטגוריות המנות למבנה נתונים מסוג DTO
+                //המרה של רשימת הערים למבנה נתונים מסוג DTO
                 List<CityDTO> result = new List<CityDTO>();
                 foreach (TBL_City item in cities)
                 {

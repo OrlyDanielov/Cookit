@@ -18,13 +18,13 @@ namespace Cookit.Controllers
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
             //Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את של דגרות הקושי מהDB
+            // קורא לפונקציה שמחזירה את דגרות הקושי של מתכון מהDB
             var diffLevel = CookitDB.DB_Code.CookitQueries.Get_all_DifficultyLevel();
             if (diffLevel == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no DifficultyLevel in DB.");
             else
             {
-                //המרה של רשימת של קטגוריות המנות למבנה נתונים מסוג DTO
+                //המרה של רשימת רמות קושי למתכון למבנה נתונים מסוג DTO
                 List<DifficultyLevelDTO> result = new List<DifficultyLevelDTO>();
                 foreach (TBL_RecipeDifficultyLevel item in diffLevel)
                 {

@@ -35,7 +35,7 @@ namespace Cookit.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound, "this user does not exist.");
             else
             {
-                //המרה של רשימת של אופני המדידה למבנה נתונים מסוג DTO
+                //המרה של רשימת נתוני משתמש למבנה נתונים מסוג DTO
                 UserDTO result = new UserDTO();
                 //result.id = user.Id_User;
                 result.user_type = user.Id_Type;
@@ -59,6 +59,7 @@ namespace Cookit.Controllers
         }
         */
         [Route("api/User/AddNewUser")]
+        //הוספת משתמש לבסיס הנתונים
         public HttpResponseMessage Post ([FromBody]TBL_User newUser)
         {
             Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות

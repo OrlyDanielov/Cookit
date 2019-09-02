@@ -12,18 +12,19 @@ namespace CookitAPI.Controllers
     public class UserTypeController : ApiController
     {
         // GET api/<controller>
+        //מחזיר את כל סוגי המשתמשים מבסיס הנתונים
         [Route("api/UserType")]
         public HttpResponseMessage Get()
         {
             //bgroup36_prodConnection db = new bgroup36_prodConnection();
             Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את של אופני המדידה מהDB
+            // קורא לפונקציה שמחזירה את כל סוגי המשתמשים מהDB
             var userType = CookitDB.DB_Code.CookitQueries.Get_all_User_Type();
             if (userType == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no user type in DB.");
             else
             {
-                //המרה של רשימת של אופני המדידה למבנה נתונים מסוג DTO
+                //המרה של רשימת סןגי משתמשים למבנה נתונים מסוג DTO
                 List<UserTypeDTO> result = new List<UserTypeDTO>();
                 foreach (TBL_UserType item in userType)
                 {

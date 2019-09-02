@@ -18,13 +18,13 @@ namespace Cookit.Controllers
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
             //Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את של סוגי המטבחים מהDB
+            // קורא לפונקציה שמחזירה את כל סוגי המטבחים מהDB
             var kitchenType = CookitDB.DB_Code.CookitQueries.Get_all_KitchenType();
             if (kitchenType == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no KitchenType in DB.");
             else
             {
-                //המרה של רשימת של סוגי המבטבחים למבנה נתונים מסוג DTO
+                //המרה של רשימת סוגי המבטבחים למבנה נתונים מסוג DTO
                 List<KitchenTypeDTO> result = new List<KitchenTypeDTO>();
                 foreach (TBL_KitchenType item in kitchenType)
                 {

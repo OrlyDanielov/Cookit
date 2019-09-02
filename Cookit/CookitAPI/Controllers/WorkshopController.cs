@@ -31,6 +31,7 @@ namespace CookitAPI.Controllers
        */
 
         [Route("api/Workshop/UploadWorkshop")]
+        //הוספת סדנא לבסיס הנתונים
         public HttpResponseMessage Post([FromBody]TBL_Workshop newWorkshop)
         {
             Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות

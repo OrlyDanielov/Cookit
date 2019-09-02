@@ -18,13 +18,13 @@ namespace Cookit.Controllers
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
             //Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את של קטגורתיות המנות מהDB
+            // קורא לפונקציה שמחזירה את כל המאפייני מנה מהDB
             var dishCategory = CookitDB.DB_Code.CookitQueries.Get_all_DishCategory();
             if (dishCategory == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no DishCategiry in DB.");
             else
             {
-                //המרה של רשימת של קטגוריות המנות למבנה נתונים מסוג DTO
+                //המרה של רשימת המאפייני מנות למבנה נתונים מסוג DTO
                 List<DishCategoryDTO> result = new List<DishCategoryDTO>();
                 foreach (TBL_DishCategory item in dishCategory)
                 {
