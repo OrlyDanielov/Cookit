@@ -9,7 +9,7 @@ using CookitDB;
 
 namespace CookitAPI.Controllers
 {
-    public class ProfileController : ApiController
+    public class EventController : ApiController
     {
         // GET api/<controller>
         public IEnumerable<string> Get()
@@ -30,16 +30,16 @@ namespace CookitAPI.Controllers
         }
         */
 
-        [Route("api/Profile/AddNewProfile")]
-        public HttpResponseMessage Post([FromBody]TBL_Profile new_profile)
+        [Route("api/Event/UploadEvent")]
+        public HttpResponseMessage Post([FromBody]TBL_Event newEvent)
         {
             Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
 
-            var is_saved = CookitDB.DB_Code.CookitQueries.AddNewProfile(new_profile);
+            var is_saved = CookitDB.DB_Code.CookitQueries.AddNewEvent(newEvent);
             if (is_saved == true)
                 return Request.CreateResponse(HttpStatusCode.OK, is_saved);
             else
-                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the profile.");
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the event.");
         }
 
         // PUT api/<controller>/5

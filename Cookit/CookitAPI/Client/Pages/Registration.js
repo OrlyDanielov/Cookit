@@ -324,7 +324,7 @@ function AddNewProfile()// הפונקציה שולחת את פרטי משתמש 
         user_id: 1,
         type: _type,
         name: $("#profile_name").val(),
-        deskription: $("#profile_description").val(),
+        description: $("#profile_description").val(),
         city: $("#select_city").options[$("#select_city").selectedIndex].value,
         status: true
     };

@@ -105,44 +105,44 @@
             <div id="div_UploadEvent_details">
                 <hr class="mb-4">
                 <h4 class="mb-3">:פרטי האירוע</h4>
-                <!-- שם האירוע -->
+              
+                  <!-- שם האירוע -->
                 <div class="mb-3">
                     <label for="EventName">שם האירוע</label>
                     <input type="text" class="form-control" id="event_name" placeholder="הכנס שם לאירוע" required>
                 </div>
-                <!-- תאריך האירוע -->
+
                 <div class="mb-3">
-                    <label for="Event_date">תאריך האירוע</label>
-                    <input type="date" class="form-control" id="event_date" required>
-                </div>
-                <!-- שעת האירוע -->
-                <div class="mb-3">
-                    <label for="EventTime">שעת האירוע</label>
                     <div class="row">
+                        <!-- שעת האירוע -->
                         <div class="col-md-6 mb-3">
-                            <label for="total_time">שעת סיום</label>
-                            <input type="time" class="form-control" id="event_time_finish" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="total_time">שעת התחלה</label>
+                            <label for="Event_time">שעת תחילת האירוע</label>
                             <input type="time" class="form-control" id="event_time_start" required>
                         </div>
-                    </div>
-                </div>
+                        <!-- תאריך האירוע -->
+                        <div class="col-md-6 mb-3">
+                            <label for="Event_date">תאריך האירוע</label>
+                            <input type="date" class="form-control" id="event_date" required>
+                        </div>
+                     </div>
+               </div>
+                
                 <!-- מיקום האירוע -->
                 <div class="mb-3">
-                    <label for="city">מקום האירוע</label>
-                    <div class="col-sm-10">
-                        <select name="city" id="select_city" class="custom-select">
-                            <option value="" selected disabled>עיר</option>
+                      <label for="city">מקום האירוע</label>
+                      <div class="col-sm-10">
+                        <select name="city" id="event_select_city" class="custom-select">
+                        <option value="" selected disabled>עיר</option>
                         </select>
-                    </div>
+                      </div>
                 </div>
-                <!-- תיאור לאירוע -->
-                <div class="mb-3">
-                    <label for="Event_description">תיאור האירוע</label>
-                    <textarea rows="3" cols="20" for="event_description" id="txt_event_description" required class="form-control"></textarea>
-                </div>
+                   
+                 <!-- תיאור לאירוע -->
+                 <div class="mb-3">
+                        <label for="Event_description">תיאור האירוע</label>
+                        <textarea rows="3" cols="20" for="event_description" id="txt_event_description" required class="form-control"></textarea>
+                 </div>
+                
             </div>
             <div>
                 <hr class="mb-4">

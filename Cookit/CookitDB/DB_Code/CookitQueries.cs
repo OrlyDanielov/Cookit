@@ -224,6 +224,7 @@ namespace CookitDB.DB_Code
         #endregion
 
         #region Add New User
+        //פונקציה של הוספת משתמש חדש לטבלת המשתמשים
         public static bool AddNewUser(TBL_User new_user)
         {
             try
@@ -243,6 +244,7 @@ namespace CookitDB.DB_Code
         #endregion
 
         #region Add New Profile
+        //פונקציה של הוספת פרופיל חדש לטבלת הפרופילים
         public static bool AddNewProfile(TBL_Profile new_profile)
         {
             try
@@ -260,5 +262,46 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
+
+        #region Add New Event
+        //פונקציה של הוספת אירוע חדש לטבלת האירועים
+        public static bool AddNewEvent(TBL_Event new_event)
+        {
+            try
+            {
+                var db = Get_DB();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                db.Entry(new_event).State = System.Data.Entity.EntityState.Added; // הוספת אירוע חדש
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region Add New Workshop
+        //פונקציה של הוספת סדנא חדשה לטבלת הסדנאות
+        public static bool AddNewWorkshop(TBL_Workshop new_workshop)
+        {
+            try
+            {
+                var db = Get_DB();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                db.Entry(new_workshop).State = System.Data.Entity.EntityState.Added; // הוספת סדנא חדשה
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
     }
 }

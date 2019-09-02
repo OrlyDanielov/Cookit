@@ -239,6 +239,7 @@
     <Compile Include="Controllers\DifficultyLevelController.cs" />
     <Compile Include="Controllers\DishCategotyController.cs" />
     <Compile Include="Controllers\DishTypeController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FoodTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngriditansController.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserTypeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WorkshopController.cs" />
     <Compile Include="DTO\CityDTO.cs" />
     <Compile Include="DTO\CommentsDTO.cs" />
     <Compile Include="DTO\DifficultyLevelDTO.cs" />
