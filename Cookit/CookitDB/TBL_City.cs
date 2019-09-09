@@ -20,10 +20,9 @@ namespace CookitDB
             this.TBL_Profile = new HashSet<TBL_Profile>();
         }
     
-        public int Id_Region { get; set; }
+        public string Region { get; set; }
         public string CityName { get; set; }
-
-        public virtual TBL_Region TBL_Region { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_Profile> TBL_Profile { get; set; }
     }

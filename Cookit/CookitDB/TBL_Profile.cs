@@ -35,8 +35,8 @@ namespace CookitDB
         public virtual ICollection<TBL_Event> TBL_Event { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_Followers> TBL_Followers { get; set; }
-        public virtual TBL_User TBL_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_Workshop> TBL_Workshop { get; set; }
+        public virtual TBL_User TBL_User { get; set; }
     }
 }

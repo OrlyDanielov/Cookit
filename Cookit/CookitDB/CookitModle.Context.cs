@@ -25,6 +25,8 @@ namespace CookitDB
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<TBL_FoodLabel> TBL_FoodLabel { get; set; }
+        public virtual DbSet<TBL_Managers> TBL_Managers { get; set; }
         public virtual DbSet<TBL_Barcode> TBL_Barcode { get; set; }
         public virtual DbSet<TBL_City> TBL_City { get; set; }
         public virtual DbSet<TBL_Comments> TBL_Comments { get; set; }
@@ -34,7 +36,6 @@ namespace CookitDB
         public virtual DbSet<TBL_Event> TBL_Event { get; set; }
         public virtual DbSet<TBL_FavoriteRecp> TBL_FavoriteRecp { get; set; }
         public virtual DbSet<TBL_Followers> TBL_Followers { get; set; }
-        public virtual DbSet<TBL_FoodLable> TBL_FoodLable { get; set; }
         public virtual DbSet<TBL_FoodType> TBL_FoodType { get; set; }
         public virtual DbSet<TBL_Holiday> TBL_Holiday { get; set; }
         public virtual DbSet<TBL_IngridiantForRecp> TBL_IngridiantForRecp { get; set; }
@@ -47,7 +48,6 @@ namespace CookitDB
         public virtual DbSet<TBL_Recipe> TBL_Recipe { get; set; }
         public virtual DbSet<TBL_RecipeDifficultyLevel> TBL_RecipeDifficultyLevel { get; set; }
         public virtual DbSet<TBL_RecpLevelByBU> TBL_RecpLevelByBU { get; set; }
-        public virtual DbSet<TBL_Region> TBL_Region { get; set; }
         public virtual DbSet<TBL_Star> TBL_Star { get; set; }
         public virtual DbSet<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
         public virtual DbSet<TBL_User> TBL_User { get; set; }

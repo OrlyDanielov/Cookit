@@ -54,8 +54,8 @@ namespace CookitDB
         public virtual ICollection<TBL_Recipe> TBL_Recipe { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_RecpLevelByBU> TBL_RecpLevelByBU { get; set; }
-        public virtual TBL_UserType TBL_UserType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_WorkshopParticipents> TBL_WorkshopParticipents { get; set; }
+        public virtual TBL_UserType TBL_UserType { get; set; }
     }
 }
