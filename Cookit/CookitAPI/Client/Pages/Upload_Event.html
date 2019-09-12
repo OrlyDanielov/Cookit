@@ -63,6 +63,12 @@
                             <i class="fa fa-fw fa-user"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="text-align:center">
+                            <div id="User_Login_Details" class="dropdown-item">
+                                <img src="../Images/user_null_fic.svg" />
+                                <p id="user_name"></p>
+                                <p id="user_type"></p>
+                                <button id="btn_logout" class="btn-dark" onclick="Logout()">התנתק</button>
+                            </div>
                             <a class="dropdown-item" href="UserInfo.html">פרטיים אישיים</a>
                             <a class="dropdown-item" href="#">המתכונים שלי</a>
                             <a class="dropdown-item" href="Upload_Recipe.html">העלאת מתכון חדש</a>
@@ -76,8 +82,6 @@
                             <a class="dropdown-item" href="Upload_Workshop.html">העלאת סדנה</a>
                             <a class="dropdown-item" href="#">האירועים שלי</a>
                             <a class="dropdown-item" href="Upload_Event.html">העלאת אירוע</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="Home_logout.html" onclick="Logout()">התנתק</a>
                         </div>
                     </li>
                     <li class="nav-item active">

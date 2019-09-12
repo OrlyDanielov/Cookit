@@ -306,6 +306,7 @@
     <Content Include="Client\Images\pic_cookies_4.jpg" />
     <Content Include="Client\Images\pic_cookies_5.jpg" />
     <Content Include="Client\Images\pic_cookies_6.jpg" />
+    <Content Include="Client\Images\user_null_fic.svg" />
     <Content Include="Client\Pages\FormStyle.css" />
     <Content Include="Client\Pages\GeneralStyle.css" />
     <Content Include="Client\Pages\GlobalAjax.js" />
