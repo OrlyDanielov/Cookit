@@ -15,6 +15,7 @@
     <!--java script code  -->
     <script src="GlobalAjax.js"></script>
     <script src="Menu_Login.js"></script>
+    <script src="UserInfo.js"></script>
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -99,36 +100,50 @@
 
     <!--תוכן הדף-->
     <div class="container  bg_brigth">
-        <h4 class="mb-3"> פרטי משתמש</h4>
+        <h4 class="mb-3">פרטים אישיים</h4>
         <!-- שם פרטי ושם משפחה-->
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="last_name">שם משפחה</label>
-                <input type="text" for="last_name" id="user_last_name" class="form-control" style="text-align:right" required />
+                <input type="text" for="last_name" id="user_last_name" disabled class="form-control text2rigth" required />
             </div>
             <div class="col-md-6 mb-3">
                 <label for="first_name">שם פרטי</label>
-                <input type="text" for="first_name" id="user_first_name" class="form-control" style="text-align:right" required />
+                <input type="text" for="first_name" id="user_first_name" disabled class="form-control text2rigth" required />
             </div>
         </div>
-
-        <!-- מייל-->
-        <div class="mb-3">
-            <label for="email">אימייל</label>
-            <input type="email" class="form-control" id="user_email" required>
+        <div class="row">
+            <!-- מייל-->
+            <div class="col-md-6 mb-3">
+                <label for="email">אימייל</label>
+                <input type="email" id="user_email" class="form-control text2rigth" disabled required>
+            </div>
+            <!-- סוג המשתמש-->
+            <div class="col-md-6 mb-3">
+                <label for="user_type">סוג המשתמש</label>
+                <div class="col-sm-10">
+                    <select name="user_type" id="select_user_type" class="custom-select" disabled>
+                        <option value="" disabled>סוג משתמש</option>
+                    </select>
+                </div>
+            </div>
         </div>
-
         <!-- מין -->
-        <div class="mb-3">
-            <label for="user_type">מין</label>
-            <input type="text" class="form-control" id="user_gender" required>
+        <label for="user_gender">מין</label>
+        <div id="user_gender" class="row">
+            <div class="custom-control custom-radio">
+                <input id="female" name="gender" value="F" type="radio" class="custom-control-input" disabled required><!--checked-->
+                <label class="custom-control-label" for="female">נקבה</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input id="male" name="gender" value="M" type="radio" class="custom-control-input" disabled required>
+                <label class="custom-control-label" for="male">זכר</label>
+            </div>
         </div>
+        <hr class="mb-4">
+        <input type="button" id="btnEdit" class="btn btn-primary btn-lg" onclick="Edit()" value="ערוך" />
+        <input type="button" id="btnSave" class="btn btn-primary btn-lg" disabled onclick="SaveChanges()" value="שמור" /> <!--style="visibility:hidden"-->
 
-        <!-- סוג המשתמש-->
-        <div class=" mb-3">
-            <label for="user_type">סוג המשתמש</label>
-            <input type="text" class="form-control" id="user_type" required>
-        </div>
     </div>
 
     <!--תחתית-->

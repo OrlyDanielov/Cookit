@@ -18,6 +18,10 @@
     margin-bottom: 30px;
 }
 
+.text2rigth {
+    text-align:right;
+}
+
 footer {
     background-color: rgba(270, 270, 270,1);  
     position: relative;

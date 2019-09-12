@@ -16,7 +16,6 @@ function LoginVerification() {
     var pass = $("#inputPassword").val();  
 
     // בדיקה בשרת של זיהוי הלקוח
-    //GlobalAjax("/api/User/", "GET", JSON.stringify(user), SuccessLogin, FailLogin);
     GlobalAjax("/api/User/" + email + '/' + pass, "GET", "", SuccessLogin, FailLogin);
 
 }

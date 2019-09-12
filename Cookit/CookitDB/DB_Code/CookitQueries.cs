@@ -19,6 +19,80 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region Get User By Email
+        public static TBL_User GetUserByEmail(string email)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
+                return user;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Update User Info
+        public static bool UpdateUserInfo(TBL_User newUser)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(newUser).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+            //#region Get User Info        
+            ////פונקציה שבודקת האם קיים מייל כזה
+            //public static bool GetUserInfo(string email)
+            //{
+            //    try
+            //    {
+            //        var db = Get_DB();
+            //        TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
+            //        if (user == null)
+            //            return false;
+            //        else
+            //            return true;
+            //    }
+            //    catch (Exception)
+            //    {
+            //        return false;
+            //    }
+            //}
+            //#endregion
+
+        #region Check Mail
+            //פונקציה שבודקת האם קיים מייל כזה
+            public static bool CheckMail(string email)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
+                if (user == null) 
+                    return false;
+                else
+                    return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
         #region LogIN
         // בודקת את האימייל והסיסמא של המשתשמש בכניסה
         public static TBL_User LogIn(string email, string pass)

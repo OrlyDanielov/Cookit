@@ -3,7 +3,7 @@ $(document).ready(function () {
     //רשימת הערים ממסד הנתונים
     var arry_city = new Array();
     // הבאת הערים
-    GetCities()
+    GetCities();
 });
 
 
@@ -49,18 +49,18 @@ function UploadEvent() //הפונקציה שולחת את פרטי האיוע ל
         name: $('#event_name').val(),
         /*
         var d = new Date("2015-03-25T12:00:00Z");*/
-       // date_time: $('#event_date') + $('#event_time_start'),//תאריך ושעת התחלה
-        date_time: Date($('#event_date')+'T'+$('#event_time_start')),
-        city: $("#event_select_city").options[$("#event_select_city").selectedIndex].value,
+        // date_time: $('#event_date') + $('#event_time_start'),//תאריך ושעת התחלה
+        date_time: Date($('#event_date') + 'T' + $('#event_time_start')),
+        city: null,//$("#event_select_city").options[$("#event_select_city").selectedIndex].value,
         description: $('#txt_event_description').val(),
         statusCancel: false
-    }
+    };
     
     //שמירת האובייקטים בsseion storage
     sessionStorage.setItem("newEvent", JSON.stringify(new_event));
     
     //שליחת הנתונים לשרת
-    GlobalAjax("/api/Event", "POST", JSON.stringify(new_event), SuccessEvent, FailEvent);
+    GlobalAjax("/api/Event", "POST", new_event, SuccessEvent, FailEvent);
 
 }
 

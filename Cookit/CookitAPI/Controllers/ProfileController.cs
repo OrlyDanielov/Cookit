@@ -30,8 +30,8 @@ namespace CookitAPI.Controllers
         }
         */
 
+        //add new profile
         [Route("api/Profile/AddNewProfile")]
-        //הוספת פרופיל לבסיס הנתונים
         public HttpResponseMessage Post([FromBody]TBL_Profile new_profile)
         {
             Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות

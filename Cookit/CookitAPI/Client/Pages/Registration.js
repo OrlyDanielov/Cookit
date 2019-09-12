@@ -32,8 +32,9 @@ function FailUserType() {
     console.log("שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.");
     alert('שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.');
 }
+function initUserType(data)
 //הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
-function initUserType(data) {
+{
     var str;
     for (i in data) {
         if (data[i].user_type !== "מנהל")
@@ -291,20 +292,24 @@ function AddNewUser()// הפונקציה שולחת את פרטי המשתמש �
         status: true,
         number_of_draw_recipe: 0
     };
-        
-        //שליחת הנתונים לשרת
-        GlobalAjax("/api/User", "POST", JSON.stringify(new_user), SuccessUser, FailUser);
-    
+    //שליחת הנתונים לשרת
+    GlobalAjax("api/User", "POST", new_user, SuccessUser, FailUser);
 }
 
-function SuccessUser() // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
+function SuccessUser(isHasProfile) // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
 {
     console.log("המשתמש נוסף לשרת בהצלחה.");
+    if (!(isHasProfile)) {
+        alert('ההרשמה בוצעה בהצלחה.\n אנא התחבר לחשבונך.');
+        window.location.replace("Home_logout.html");
+    }
+
 }
 
-function FailUser()// פונקציה המתבצעת אחרי כישלון הוספה  של משתמש
+function FailUser(data)// פונקציה המתבצעת אחרי כישלון הוספה  של משתמש
 {
     console.log("שגיאה בהוספת המשתמש לשרת.");
+    console.log(data.T);
     alert('שגיאה בהוספת המשתמש לשרת.');
 }
 //***************************************************************************//
@@ -329,12 +334,15 @@ function AddNewProfile()// הפונקציה שולחת את פרטי משתמש 
         status: true
     };
     //שליחת הנתונים לשרת
-    GlobalAjax("/api/Profile", "POST", JSON.stringify(new_profile), SuccessProfile, FailProfile);
+    GlobalAjax("api/Profile/AddNewProfile", "POST", new_profile, SuccessProfile, FailProfile);
 }
 
 function SuccessProfile() // פונקציה המתבצעת אחרי הוספה מוצלחת של פרופיל
 {
     console.log("הפרופיל נוסף לשרת בהצלחה.");
+
+    alert('ההרשמה בוצעה בהצלחה.\n אנא התחבר לחשבונך.');
+    window.location.replace("Home_logout.html");
 }
 
 function FailProfile()// פונקציה המתבצעת אחרי כישלון הוספה  של פרופיל
@@ -342,5 +350,3 @@ function FailProfile()// פונקציה המתבצעת אחרי כישלון ה�
     console.log("שגיאה בהוספת הפרופיל לשרת.");
     alert('שגיאה בהוספת הפרופיל לשרת.');
 }
-
-
