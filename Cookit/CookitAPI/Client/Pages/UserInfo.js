@@ -83,27 +83,30 @@ function Edit()
 function SaveChanges()
 //שמירת שינויים בפרטים אישיים
 {
-    //שמירת הפרטים המעודכנים בsesstion storage
-    userInfo.first_name = $("#user_first_name").val();
-    userInfo.last_name = $("#user_last_name").val();
-    userInfo.email = $("#user_email").val();
-    userInfo.gender = $("input[name='gender']:checked").val();
-    userInfo.user_type = $('#select_user_type').find(":selected").val();
-    sessionStorage.setItem("Login_User", JSON.stringify(userInfo));
-    
-    //עדכון פרטים אישיים בשרת
-    GlobalAjax("api/User/UpdateUserInfo", "POST", userInfo, SuccessUpdate, FailUpdate);
+    if (confirm("האם אתה רוצה לשמור את השינוי?")) {
 
-    //שינוי מצב הכפתורים והקלטים
-    $("#user_first_name").prop('disabled', true);
-    $("#user_last_name").prop('disabled', true);
-    $("#user_email").prop('disabled', true);
-    $("#select_user_type").prop('disabled', true);
-    $("#female").prop('disabled', true);
-    $("#male").prop('disabled', true); 
+        //שמירת הפרטים המעודכנים בsesstion storage
+        userInfo.first_name = $("#user_first_name").val();
+        userInfo.last_name = $("#user_last_name").val();
+        userInfo.email = $("#user_email").val();
+        userInfo.gender = $("input[name='gender']:checked").val();
+        userInfo.user_type = $('#select_user_type').find(":selected").val();
+        sessionStorage.setItem("Login_User", JSON.stringify(userInfo));
 
-    $("#btnSave").prop('disabled', true);
-    $("#btnEdit").prop('disabled', false);
+        //עדכון פרטים אישיים בשרת
+        GlobalAjax("api/User/UpdateUserInfo", "POST", userInfo, SuccessUpdate, FailUpdate);
+
+        //שינוי מצב הכפתורים והקלטים
+        $("#user_first_name").prop('disabled', true);
+        $("#user_last_name").prop('disabled', true);
+        $("#user_email").prop('disabled', true);
+        $("#select_user_type").prop('disabled', true);
+        $("#female").prop('disabled', true);
+        $("#male").prop('disabled', true);
+
+        $("#btnSave").prop('disabled', true);
+        $("#btnEdit").prop('disabled', false);
+    }
 }
 
 function SuccessUpdate(isHasProfile) // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
