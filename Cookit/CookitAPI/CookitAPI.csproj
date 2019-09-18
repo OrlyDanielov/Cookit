@@ -307,7 +307,11 @@
     <Content Include="Client\Images\pic_cookies_5.jpg" />
     <Content Include="Client\Images\pic_cookies_6.jpg" />
     <Content Include="Client\Images\user_null_fic.svg" />
+    <Content Include="Client\Pages\Footer.html" />
+    <Content Include="Client\Pages\Footer.js" />
     <Content Include="Client\Pages\FormStyle.css" />
+    <Content Include="Client\Pages\Form_Directions.css" />
+    <Content Include="Client\Pages\Form_Directions.js" />
     <Content Include="Client\Pages\GeneralStyle.css" />
     <Content Include="Client\Pages\GlobalAjax.js" />
     <Content Include="Client\Pages\Home_login.js" />
@@ -316,11 +320,10 @@
     <Content Include="Client\Pages\Home_logout.js" />
     <Content Include="Client\Pages\Login.js" />
     <Content Include="Client\Pages\Login.html" />
-    <Content Include="Client\Pages\Menu_Guest.html" />
-    <Content Include="Client\Pages\Menu_Logged+Profile.html" />
-    <Content Include="Client\Pages\Menu_Logged.html" />
+    <Content Include="Client\Pages\Menu_Login.html" />
     <Content Include="Client\Pages\Menu_Login.js" />
-    <Content Include="Client\Pages\OldMenu.html" />
+    <Content Include="Client\Pages\Menu_Logout.html" />
+    <Content Include="Client\Pages\Menu_Logout.js" />
     <Content Include="Client\Pages\Registration.js" />
     <Content Include="Client\Pages\Registration.html" />
     <Content Include="Client\Pages\Reset_Password.html" />
@@ -437,7 +440,9 @@
     <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>

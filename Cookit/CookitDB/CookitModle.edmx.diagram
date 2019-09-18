@@ -21,7 +21,7 @@
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_IngridiantForRecp" Width="1.5" PointX="8.25" PointY="8.875" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_Ingridiants" Width="1.5" PointX="6" PointY="15.375" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_KitchenType" Width="1.5" PointX="0.75" PointY="23.375" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Likes" Width="1.5" PointX="8.25" PointY="6" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Likes" Width="1.5" PointX="9.625" PointY="6.25" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_Mesurments" Width="1.5" PointX="6" PointY="2.875" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_NutritionalIngridiants" Width="1.5" PointX="11.25" PointY="9.125" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_Profile" Width="1.5" PointX="7" PointY="18.25" />

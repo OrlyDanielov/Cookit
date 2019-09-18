@@ -1,21 +1,15 @@
-﻿// הפונקציה מתרחשת בטעינת הדף
-$(document).ready(function () {
-    // העלמת הLoading spinner
-    //$("#loading_spinner").style.display = "none";
-});
+﻿//// הפונקציה מתרחשת בטעינת הדף
+//$(document).ready(function () {
+
+//});
 
 
 var user = new Array();
 //פונקצית התחברות
 function LoginVerification() {
-    // הופעת ה Loading spinner
-    //$("#loading_spinner").style.display = "true";
-
-    // פרטי המשתמש הנכנס
+      // פרטי המשתמש הנכנס
     var email = $("#inputEmail").val();
     var pass = $("#inputPassword").val();  
-
-    // בדיקה בשרת של זיהוי הלקוח
     GlobalAjax("/api/User/" + email + '/' + pass, "GET", "", SuccessLogin, FailLogin);
 
 }

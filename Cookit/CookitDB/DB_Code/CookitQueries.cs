@@ -377,5 +377,32 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region Send Mail
+        public static bool SendMail(string user_mail)
+        {
+            try
+            {
+                //get the user password
+                var db = Get_DB();
+                string user_password = db.TBL_User.SingleOrDefault(x => x.Email == user_mail).UserPass.ToString();
+                if (user_password == null)
+                    return false;
+                else
+                {
+                    //SendMail to user with password
+                    bool isSent = Mail.SendMail("orlydanielov@gmail.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password+".");
+                    if (isSent)
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
     }
 }

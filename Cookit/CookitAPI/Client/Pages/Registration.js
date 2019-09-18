@@ -283,17 +283,25 @@ function SuccessRegistration() {
 function AddNewUser()// הפונקציה שולחת את פרטי המשתמש לשרת
 {    //משתמש חדש
     var new_user = {
-        user_type: $('#select_user_type').find(":selected").val(),//$("input[name='user_type']:checked").val(),
-        first_name: $("#first_name").val(),
-        last_name: $("#last_name").val(),
-        email: $("#email").val(),
-        gender: $("input[name='gender']:checked").val(),
-        pasword: $("#password").val(),
+        Id_Type: parseInt($('#select_user_type').find(":selected").val()),
+        FirstName: ($("#first_name").val()).toString(),
+        LastName: ($("#last_name").val()).toString(),
+        Email: ($("#email").val()).toString(),
+        Gender: ($("input[name='gender']:checked").val()).toString(),
+        UserPass: ($("#password").val()).toString(),
         status: true,
         number_of_draw_recipe: 0
+        //user_type: $('#select_user_type').find(":selected").val(),//$("input[name='user_type']:checked").val(),
+        //first_name: $("#first_name").val(),
+        //last_name: $("#last_name").val(),
+        //email: $("#email").val(),
+        //gender: $("input[name='gender']:checked").val(),
+        //pasword: $("#password").val(),
+        //status: true,
+        //number_of_draw_recipe: 0
     };
     //שליחת הנתונים לשרת
-    GlobalAjax("api/User", "POST", new_user, SuccessUser, FailUser);
+    GlobalAjax("api/User/AddNewUser", "POST", new_user, SuccessUser, FailUser);
 }
 
 function SuccessUser(isHasProfile) // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש

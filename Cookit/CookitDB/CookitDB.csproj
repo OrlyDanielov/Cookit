@@ -66,6 +66,7 @@
       <DependentUpon>CookitModle.edmx</DependentUpon>
     </Compile>
     <Compile Include="DB_Code\CookitQueries.cs" />
+    <Compile Include="DB_Code\Mail.cs" />
     <Compile Include="Model_RuppinDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
