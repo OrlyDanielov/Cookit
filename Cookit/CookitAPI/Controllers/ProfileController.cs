@@ -9,6 +9,7 @@ using CookitDB;
 
 namespace CookitAPI.Controllers
 {
+    [RoutePrefix("api/Profile")]
     public class ProfileController : ApiController
     {
         // GET api/<controller>
@@ -31,17 +32,25 @@ namespace CookitAPI.Controllers
         */
 
         //add new profile
-        [Route("api/Profile/AddNewProfile")]
-        public HttpResponseMessage Post([FromBody]TBL_Profile new_profile)
+        [Route("AddNewProfile")]
+        [HttpPost]
+        public HttpResponseMessage AddNewProfile([FromBody]TBL_Profile new_profile)
         {
-            Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
 
-            var is_saved = CookitDB.DB_Code.CookitQueries.AddNewProfile(new_profile);
-            if (is_saved == true)
-                return Request.CreateResponse(HttpStatusCode.OK, is_saved);
-            else
-                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the profile.");
-        }
+                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewProfile(new_profile);
+                if (is_saved == true)
+                    return Request.CreateResponse(HttpStatusCode.OK, is_saved);
+                else
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the profile.");
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+}
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)

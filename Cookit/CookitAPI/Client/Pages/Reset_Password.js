@@ -12,8 +12,9 @@ function SuccessCheckMail() {
 
 }
 
-function FailCheckMail() {
+function FailCheckMail(data) {
     console.log("that mail doesn't exsist.");
+    console.log(data.T);
     alert("אימייל זה לא קיים. אנא נסה שנית.");
 }
 

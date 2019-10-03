@@ -1,15 +1,26 @@
 ﻿//משתנים גלובליים
 //רשימת הערים ממסד הנתונים
 var arry_city = new Array();
-//דגל האם כבר הבנו את הערים
-var isCity = false;
+// רשימת סוגי המשתמשים
+var arry_userType = null;
 //האם למשתמש יש פרופיל
 var isHasProfile = false;
+
 //האם נתוני ההרשמה תקינים
-var password_valitadion = false;
-var form_validation = false;
-// רשימת סוגי המשתמשים
-var arry_userType = new Array();
+//var password_valitadion = false;
+// האם הסיסמה תקינה
+var form_validation = true;
+//רשימת הנתונים התקינים בטופס
+var arry_form_validation = {
+    first_name: false,
+    last_name: false,
+    email: false, password: false,
+    pass_auth: false,
+    user_type: false,
+};
+
+//תז משתמש
+var user_id;
 //***************************************************************************//
 // הפונקציה קוראת בתחילת הקריאה לדף
 $(document).ready(function () {
@@ -20,11 +31,18 @@ $(document).ready(function () {
 function GetUserType()
 // הפונקציה מביאה את סוגי המשתמשים מהמסד נתונים
 {
-    GlobalAjax("/api/UserType", "GET", "", SuccessUserType, FailUserType);
+    if (sessionStorage.getItem('arry_userType') == null)
+    // כדי לקורא רק פעם אחת
+    {
+        GlobalAjax("/api/UserType/GetAll", "GET", "", SuccessUserType, FailUserType);
+    }
+    else
+        SuccessUserType(sessionStorage.getItem("arry_userType"));
 }
 
 function SuccessUserType(arry_userType) {
-    sessionStorage.setItem("arry_userType", arry_userType);//JSON.stringify(arry_userType));
+    console.log(arry_userType);
+    sessionStorage.setItem("arry_userType", arry_userType);
     initUserType(arry_userType);
 }
 
@@ -50,12 +68,13 @@ function AddOption_UserType(item) {
 function GetCities()
 //הפונקציה מביאה את רשימת הערים ממסד הנתונים
 {
-    if (isCity === false)     //כדי שיקרא רק פעם אחת
+    if (sessionStorage.getItem('arry_city') == null)
+    // כדי לקורא רק פעם אחת
     {
-        isCity = true;
-        // קריאה לפונקצית ajax של Get מהשרת עבור נתוני cities
         GlobalAjax("/api/City", "GET", "", SuccessCity, FailCity);
     }
+    else
+        SuccessCity(sessionStorage.getItem("arry_city"));
 }
 
 function SuccessCity(arry_city) {
@@ -84,17 +103,14 @@ function AddOption_city(item) {
 // פונקציה שבודקת האם הלקוח הוא מסוג שדורש פרופיל
 // אם כן - מציגה בטופס את החלק אותו צריך למלא
 function IsProfile() {
-    //var user_type = $("input[name='user_type']:checked").val();
     var user_type = $('#select_user_type').find(":selected").text();
     if(user_type === "אנין טעם" || user_type === "עסקי") 
     {
         isHasProfile = true;
         //הבאת הערים ממסד הנתונים
-        GetCities();
+        GetCities();        
         //הצגת פרטי הפרופיל
         document.getElementById("div_Profile_details").style.display = "block";
-        //$("#div_Profile_details").style.display = "block";
-        // location.reload(); // טעינת הדף מחדש
         document.getElementById("div_Profile_details").reload;
     }
     else {
@@ -104,88 +120,109 @@ function IsProfile() {
     }
 }
 //***************************************************************************//
-/*
-function CheckPassword() // פונקציה בודקת שהסיסמה זהה לאימות סיסמה
+function CheckIfMailExsist()
+//בודק האם כבר קיים מייל כזה במערכת
 {
-    // When the user starts to type something inside the password field
-    //myInput.onkeyup = function () {
-        let password = $("#password").val(); //הסיסמה
+    var email = $("#email").val();
+    GlobalAjax("/api/User/CheckMail/" + email, "GET", "", Success_CheckMail, Fail_CheckMail);
+}
 
-        // Validate lowercase letters
+function Success_CheckMail()
+//מייל זה לא קיים במערכת
+{
+  
+}
+
+function Fail_CheckMail(data)
+// כבר קיים מייל כזה במערכת
+{
+    console.log(data.T);
+    console.log("מייל זה כבר קיים במערכת " + $("#email").val());
+    if (confirm("אימייל זה כבר קיים במערכת. האם אתה רוצה להתחבר עם מייל זה ?"))
+        location.replace("Login.html");
+    }
+//***************************************************************************//
+function Check_Password() // פונקציה בודקת שהסיסמה זהה לאימות סיסמה
+{
+    //When the user starts to type something inside the password field
+    //myInput.onkeyup = function () {
+    let password = $("#password").val(); //הסיסמה
+    let flag = true;
+    //Validate length
+    if (password.length >= 6 && password.length <= 12) {
+        form_validation = true;        
+        //length.classList.remove("invalid");
+        //length.classList.add("valid");
+    }
+    else {
+        form_validation = false;
+        flag = false;
+        //length.classList.remove("valid");
+        //length.classList.add("invalid");
+    }
+    if (flag) {
+        //Validate lowercase and  letters
         var lowerCaseLetters = /[a-z]/g;
-    if (password.match(lowerCaseLetters)) {
-            //if
-            password_valitadion = false;
-            //break;
+        var upperCaseLetters = /[A-Z]/g;
+        if (password.match(lowerCaseLetters) || password.match(upperCaseLetters)) {
+            form_validation == true;
             //letter.classList.remove("invalid");
             //letter.classList.add("valid");
         }
-        //else {
-        //    //letter.classList.remove("valid");
-        //    //letter.classList.add("invalid");
-        //}
-
-        // Validate capital letters
+        else {
+            form_validation = false;
+            flag = false;
+            //letter.classList.remove("valid");
+            //letter.classList.add("invalid");
+        }
+        /*
+        //Validate capital letters
         var upperCaseLetters = /[A-Z]/g;
         if (password.match(upperCaseLetters)) {
-            password_valitadion = false;
+            form_validation = true;
             //break;
             //capital.classList.remove("invalid");
             //capital.classList.add("valid");
         }
-        //else {
-        //    capital.classList.remove("valid");
-        //    capital.classList.add("invalid");
-        //}
-
-        // Validate numbers
-        var numbers = /[0-9]/g;
-        if (password.match(numbers)) {
-            password_valitadion = false;
-            //break;
-            //number.classList.remove("invalid");
-            //number.classList.add("valid");
-        }
-        //else {
-        //    number.classList.remove("valid");
-        //    number.classList.add("invalid");
-        //}
-
-        // Validate length
-        if (!(password.length >= 6 && password.length <= 12)) {
-            password_valitadion = false;
-            //break;
-            //length.classList.remove("invalid");
-            //length.classList.add("valid");
-        }
         else {
-            password_valitadion = true;
+            form_validation = false;
+            //capital.classList.remove("valid");
+            //capital.classList.add("invalid");
         }
-        //else {
-        //    length.classList.remove("valid");
-        //    length.classList.add("invalid");
-        //}
-
-    //}
-    /*
-    let pass1 = $("#password").val();
-    let pass2 = $("#password_authentication").val();
-    if (pass1 === pass2)
-        password_valitadion = true;
-    else {
-        password_valitadion = false;
-        //alert("אנא וודא שהסיסמה זהה לאימות סיסמה.");
-  }    
-  
+        */
+        if (flag) {
+            //Validate numbers
+            var numbers = /[0-9]/g;
+            if (password.match(numbers)) {
+                form_validation = true;
+                //number.classList.remove("invalid");
+                //number.classList.add("valid");
+            }
+            else {
+                form_validation = false;
+                flag = false;
+                //number.classList.remove("valid");
+                //number.classList.add("invalid");
+            }
+            if (flag) {
+                //if password equal to password authentication
+                let pass1 = $("#password").val();
+                let pass2 = $("#password_authentication").val();
+                if (pass1 === pass2)
+                    form_validation = true;
+                else {
+                    form_validation = false;
+                    alert("אנא וודא שהסיסמה זהה לאימות סיסמה.");
+                }
+            }
+        }
+    }
 }
-*/
-
 //***************************************************************************//
-/*
-function IsFormValid() // הפונקציה בודקת הנתוני הטופס תקינים 
+function Check_Personal_Data()
+//בודק את תקינות הפרטים האישיים
 {
-    // פרטים איישים
-    let personalData = {
+    var personalData = {
         first_name: $("#first_name").val(),
         last_name: $("#last_name").val(),
         email: $("#email").val(),
@@ -194,167 +231,206 @@ function IsFormValid() // הפונקציה בודקת הנתוני הטופס ת
         pass2: $("#password_authentication").val(),
         user_type: $('#select_user_type').find(":selected").val()
     };
-    let i = 0;
-    let flag = false;
-    while (i < personalData.length && form_validation === true) {
-        if (personalData[i].val() === "") {
+    let degel = true;
+    for (var i in personalData) {
+        if (personalData[i] == "") {
             form_validation = false;
-            alert('אנא מלא את הפרטים האיישים.');
-        }
-        else
-            i++;
-    }
-    if (i === personalData.length)
-        flag = true;
-    if (flag === true) {
-        // האם הסיסמה מכילה מספרים ואותיות באנגלית ובאורך 6 עד 12
-        CheckPassword();
-        if (password_valitadion == false) {
-            alert('אנא וודא שהסיסמה זהה לאימות הסיסמה');
-            break; // עצור בדיקה
-        }
-       // האם סיסמה זהה לאימות סיסמה
-        if (personalData.pasword !== personalData.pass2) {
-            form_validation = false;
-            alert('אנא וודא שהסיסמה זהה לאימות הסיסמה');
-            break; // עצור בדיקה
-        }
-        if (personalData.user_type !== "יצירתי") //אם יש גם פרופיל
-        {
-            //פרטי פרופיל
-            let profilelData = {
-                name: $("#profile_name").val(),
-                deskription: $("#profile_description").val(),
-                city: $("#select_city").find(":selected").val(),
-                type: $('#select_user_type').find(":selected").val()
-            };
-            let i = 0;
-            while (i < profilelData.length) {
-                if (profilelData[i].val() === null) {
-                    form_validation = false;
-                    alert('אנא מלא את פרטי הפרופיל .');
-                }
-                else
-                    i++;
-            }
-            if (i == profilelData.length) {
-                form_validation = true;
-            }
-        }
-        else {
-            form_validation = true;
+            degel = false;
+            console.log(i + " is missing.");
+            // לרשומות החסרות יופיעו תוויות הערה למשתמש
         }
     }
-    }
-    */
-//***************************************************************************//
-//פונקצית הרשמה
-function Registration() {
-    //בדיקת תקינות הטופס
-    //IsFormValid();
-    //ביצוע ההרשמה
-   // if (password_valitadion === true) {
-        //הוספת משתמש חדש
-    AddNewUser();
-        //הוספת פרופיל חדש
-        if (isHasProfile === true)
-            AddNewProfile();
-  //  }    
+    if (degel == true)
+        form_validation = true;
 }
 //***************************************************************************//
-function SuccessRegistration() {
-    //כאשר ההרשמה בוצע בהצלחה
-    console.log("הרשמה בוצעה בהצלחה!.");
-    alert("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
-    window.location.replace("Home_logout.html");
-
-    //window.confirm("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
-    //if (confirm("Press a button!")) {
-    //    txt = "You pressed OK!";
-    //} else {
-    //    txt = "You pressed Cancel!";
-    //}
-}
-
-
-
-//***************************************************************************//
-
-function AddNewUser()// הפונקציה שולחת את פרטי המשתמש לשרת
-{    //משתמש חדש
-    var new_user = {
-        Id_Type: parseInt($('#select_user_type').find(":selected").val()),
-        FirstName: ($("#first_name").val()).toString(),
-        LastName: ($("#last_name").val()).toString(),
-        Email: ($("#email").val()).toString(),
-        Gender: ($("input[name='gender']:checked").val()).toString(),
-        UserPass: ($("#password").val()).toString(),
-        status: true,
-        number_of_draw_recipe: 0
-        //user_type: $('#select_user_type').find(":selected").val(),//$("input[name='user_type']:checked").val(),
-        //first_name: $("#first_name").val(),
-        //last_name: $("#last_name").val(),
-        //email: $("#email").val(),
-        //gender: $("input[name='gender']:checked").val(),
-        //pasword: $("#password").val(),
-        //status: true,
-        //number_of_draw_recipe: 0
-    };
-    //שליחת הנתונים לשרת
-    GlobalAjax("api/User/AddNewUser", "POST", new_user, SuccessUser, FailUser);
-}
-
-function SuccessUser(isHasProfile) // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
+function Check_Profile_Data()
+//בודק את תקינות הפרטים האישיים
 {
-    console.log("המשתמש נוסף לשרת בהצלחה.");
-    if (!(isHasProfile)) {
-        alert('ההרשמה בוצעה בהצלחה.\n אנא התחבר לחשבונך.');
-        window.location.replace("Home_logout.html");
-    }
-
-}
-
-function FailUser(data)// פונקציה המתבצעת אחרי כישלון הוספה  של משתמש
-{
-    console.log("שגיאה בהוספת המשתמש לשרת.");
-    console.log(data.T);
-    alert('שגיאה בהוספת המשתמש לשרת.');
-}
-//***************************************************************************//
-function AddNewProfile()// הפונקציה שולחת את פרטי משתמש לשרת
-{
-    var user_type = $('#select_user_type').find(":selected").text();
-    if (user_type === "אנין טעם" || user_type === "עסקי") 
-    var profile_type = ("input[name='user_type']:checked").val(); // סוג פרופיל
-    let _type;
-    if (profile_type === 'משתמש עסקי')
-        _type = 'B';
-    else 
-        _type = 'F';    
-    //פרופיל חדש
-    var new_profile = {
-        id: 1,
-        user_id: 1,
-        type: _type,
+    var profileData = {
         name: $("#profile_name").val(),
         description: $("#profile_description").val(),
-        city: $("#select_city").options[$("#select_city").selectedIndex].value,
-        status: true
+        city: $("#select_city").find(":selected").val(),
+        type: $('#select_user_type').find(":selected").val()
     };
-    //שליחת הנתונים לשרת
-    GlobalAjax("api/Profile/AddNewProfile", "POST", new_profile, SuccessProfile, FailProfile);
+    let degel = true;
+    for (var i in profileData) {
+        if (profileData[i] == "") {
+            form_validation = false;
+            degel = false;
+            console.log(i + " is missing.");
+            // לרשומות החסרות יופיעו תוויות הערה למשתמש
+        }
+    }
+    if (degel == true)
+        form_validation = true;
+}
+//***************************************************************************//
+
+//function Form_Validation() {
+//    window.addEventListener('load', function () {
+//        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+//        var forms = document.getElementsByClassName('needs-validation');
+
+//        // Loop over them and prevent submission
+//        Array.prototype.filter.call(forms, function (form) {
+//            form.addEventListener('submit', function (event) {
+//                if (form.checkValidity() === false) {
+//                    event.preventDefault();
+//                    event.stopPropagation();
+//                }
+//                form.classList.add('was-validated');
+//            }, false);
+//        });
+//    }, false);
+//}
+
+//***************************************************************************//
+    function IsFormValid() // הפונקציה בודקת הנתוני הטופס תקינים 
+    {
+        //בדיקת פרטים אישיים
+        Check_Personal_Data();  
+        //CheckIfMailExsist();
+        if (form_validation == true) {
+            //בדיקת תקינות סיסמה
+            Check_Password();
+            if (form_validation == true) {
+                // האם יש פרופיל
+                let user_type = $('#select_user_type').find(":selected").val();
+                if (user_type !== "1") //אם יש גם פרופיל //יצירתי
+                {
+                    //פרטי פרופיל
+                    Check_Profile_Data();
+                }
+            }
+        }
+    }
+
+    //***************************************************************************//
+    //פונקצית הרשמה
+function Registration() {
+    //Form_Validation();
+        //בדיקת תקינות הטופס
+        IsFormValid();
+        //ביצוע ההרשמה
+        if (form_validation === true) {
+            //הוספת משתמש חדש
+            AddNewUser();
+            //הוספת פרופיל חדש
+            if (isHasProfile === true)
+                AddNewProfile();
+        }
+        else {
+            alert("אנא תקן את פרטי ההרשמה במקומות המסומנים.");
+        }
+    }
+    //***************************************************************************//
+    function SuccessRegistration() {
+        //כאשר ההרשמה בוצע בהצלחה
+        console.log("הרשמה בוצעה בהצלחה!.");
+        alert("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
+        //window.location.replace("Home_logout.html");
+
+        //window.confirm("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
+        //if (confirm("Press a button!")) {
+        //    txt = "You pressed OK!";
+        //} else {
+        //    txt = "You pressed Cancel!";
+        //}
+    }
+
+
+
+    //***************************************************************************//
+
+    function AddNewUser()// הפונקציה שולחת את פרטי המשתמש לשרת
+    {    //משתמש חדש
+        var new_user = {
+            Id_Type: parseInt($('#select_user_type').find(":selected").val()),
+            FirstName: ($("#first_name").val()).toString(),
+            LastName: ($("#last_name").val()).toString(),
+            Email: ($("#email").val()).toString(),
+            Gender: ($("input[name='gender']:checked").val()).toString(),
+            UserPass: ($("#password").val()).toString(),
+            status: 1,
+            number_of_draw_recipe: 0
+        };
+        //שליחת הנתונים לשרת
+        GlobalAjax("/api/User/AddNewUser", "POST", new_user, SuccessUser, FailUser);
+    }
+
+    function SuccessUser(userId)//isHasProfile) // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
+    {
+        user_id = userId;
+        console.log("המשתמש נוסף לשרת בהצלחה.");
+        if (!(isHasProfile)) {
+            alert('ההרשמה בוצעה בהצלחה.\n אנא התחבר לחשבונך.');
+            window.location.replace("Home_logout.html");
+        }
+
+    }
+
+    function FailUser(data)// פונקציה המתבצעת אחרי כישלון הוספה  של משתמש
+    {
+        console.log("שגיאה בהוספת המשתמש לשרת.");
+        console.log(data.T);
+        alert('שגיאה בהוספת המשתמש לשרת.');
+    }
+    //***************************************************************************//
+    function AddNewProfile()// הפונקציה שולחת את פרטי משתמש לשרת
+    {
+        var profile_type = $('#select_user_type').find(":selected").text(); // סוג פרופיל
+        let _type;
+        if (profile_type === 'עסקי')
+            _type = 'B';
+        else
+            _type = 'F';
+        //פרופיל חדש
+        var new_profile = {
+            Id_User:8,// user_id,
+            ProfType: _type,
+            Name_Prof: $("#profile_name").val(),
+            ProfDescription: $("#profile_description").val(),
+            CityName: $('#select_city').find(":selected").val(),
+            ProfStatus: 1
+        };
+        //שליחת הנתונים לשרת
+        GlobalAjax("/api/Profile/AddNewProfile", "POST", new_profile, SuccessProfile, FailProfile);
+    }
+
+    function SuccessProfile() // פונקציה המתבצעת אחרי הוספה מוצלחת של פרופיל
+    {
+        console.log("הפרופיל נוסף לשרת בהצלחה.");
+        alert('ההרשמה בוצעה בהצלחה.\n אנא התחבר לחשבונך.');
+        //window.location.replace("Home_logout.html");
+    }
+
+    function FailProfile()// פונקציה המתבצעת אחרי כישלון הוספה  של פרופיל
+    {
+        console.log("שגיאה בהוספת הפרופיל לשרת.");
+        alert('שגיאה בהוספת הפרופיל לשרת.');
+}
+//***************************************************************************//
+function DisplayFormDirection(btn_cliked_id) {
+    // get the id of the mutch span
+    var span_name = "div_question";
+    var words = btn_cliked_id.split('_');
+    for (var i = 0; i < words.length; i++) {
+        if (i !== 0) {
+            span_name = span_name.concat("_"+words[i]);
+        }
+    }
+    /* יש בעיה בהצגה, בכל פעם מרענן את כל הדף ומחק מידע שנרשם
+    //display on\off the span
+    var display_state = $("#" + span_name).css('display');
+    if (display_state == 'none')
+        //$("#" + span_name).show('slow');
+        $("#" + span_name).style.display = "block";
+    else
+        //$("#" + span_name).hide('slow');    
+        $("#" + span_name).style.display = "none";
+    //$("#" + span_name).reload; // טעינת הדף מחדש
+    */
 }
 
-function SuccessProfile() // פונקציה המתבצעת אחרי הוספה מוצלחת של פרופיל
-{
-    console.log("הפרופיל נוסף לשרת בהצלחה.");
 
-    alert('ההרשמה בוצעה בהצלחה.\n אנא התחבר לחשבונך.');
-    window.location.replace("Home_logout.html");
-}
-
-function FailProfile()// פונקציה המתבצעת אחרי כישלון הוספה  של פרופיל
-{
-    console.log("שגיאה בהוספת הפרופיל לשרת.");
-    alert('שגיאה בהוספת הפרופיל לשרת.');
-}

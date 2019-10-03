@@ -18,8 +18,8 @@
     <script src="Login.js"></script>
     <script src="GlobalAjax.js"></script>
     <script src="Form_Directions.js"></script>
-    <script src="Menu_Logout.js"></script>
-    <script src="Footer.js"></script>
+    <!--<script src="Menu_Logout.js"></script>
+    <script src="Footer.js"></script>-->
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
     <link rel="stylesheet" type="text/css" href="Form_Directions.css">
@@ -27,7 +27,38 @@
 </head>
 <body>
     <!--תפריט-->
-    <header id="menu"></header>
+    <!--<header id="menu"></header>-->
+    <!--תפריט-->
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        <a class="nav-link" href="Login.html">התחבר</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">צפייה במתכונים</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">חיפוש מתכון</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="Home_logout.html">דף הבית <span class="sr-only">(current)</span></a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- Hamborger navbar -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="Home_logout.html">
+                <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Cookit
+            </a>
+        </nav>
+    </header>
     <!--תוכן הדף-->
     <main role="main" class="flex-shrink-0">
         <div class="container bg_brigth">
@@ -58,12 +89,23 @@
                 <div class="checkbox mb-3">
                     <span class="psw">שכחת סיסמה? <a href="Reset_Password.html">שחזר סיסמה</a></span>
                     <br />
+
                     <span class="psw">עדיין לא רשום? <a href="Registration.html">הרשם</a></span>
                 </div>
             </center>
         </div>
     </main>
     <!--תחתית-->
-    <footer id="footer"></footer>
+    <!--<footer id="footer"></footer>-->
+    <footer class="footer mt-auto py-3 fixed-bottom ">
+        <div class="container">
+            <p class="mb-1">&copy; Cookit</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

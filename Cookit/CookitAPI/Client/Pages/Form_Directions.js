@@ -9,5 +9,4 @@
         $("#" + span_name).show('slow');
     else
         $("#" + span_name).hide('slow');
-
 }

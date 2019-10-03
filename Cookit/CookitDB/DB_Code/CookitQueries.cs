@@ -53,40 +53,40 @@ namespace CookitDB.DB_Code
 
         #endregion
 
-            //#region Get User Info        
-            ////פונקציה שבודקת האם קיים מייל כזה
-            //public static bool GetUserInfo(string email)
-            //{
-            //    try
-            //    {
-            //        var db = Get_DB();
-            //        TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-            //        if (user == null)
-            //            return false;
-            //        else
-            //            return true;
-            //    }
-            //    catch (Exception)
-            //    {
-            //        return false;
-            //    }
-            //}
-            //#endregion
+        //#region Get User Info        
+        ////פונקציה שבודקת האם קיים מייל כזה
+        //public static bool GetUserInfo(string email)
+        //{
+        //    try
+        //    {
+        //        var db = Get_DB();
+        //        TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
+        //        if (user == null)
+        //            return false;
+        //        else
+        //            return true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
+        //}
+        //#endregion
 
         #region Check Mail
-            //פונקציה שבודקת האם קיים מייל כזה
-            public static bool CheckMail(string email)
+        //פונקציה שבודקת האם קיים מייל כזה
+        public static bool CheckMail(string email)
         {
             try
             {
                 var db = Get_DB();
                 TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-                if (user == null) 
-                    return false;
-                else
+                if (user == null)
                     return true;
+                else
+                    return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -299,7 +299,8 @@ namespace CookitDB.DB_Code
 
         #region Add New User
         //פונקציה של הוספת משתמש חדש לטבלת המשתמשים
-        public static bool AddNewUser(TBL_User new_user)
+        //public static bool AddNewUser(TBL_User new_user)
+        public static int AddNewUser(TBL_User new_user)
         {
             try
             {
@@ -308,11 +309,15 @@ namespace CookitDB.DB_Code
                 //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.Entry(new_user).State = System.Data.Entity.EntityState.Added; // הוספת משתמש חדש
                 db.SaveChanges();
-                return true;
+
+                int id = db.TBL_User.SingleOrDefault(x => x.Email == new_user.Email && x.UserPass == new_user.UserPass).Id_User;
+                return id;
+                //return true;
             }
             catch (Exception)
             {
-                return false;
+                //return false;
+                return -1;
             }
         }
         #endregion
