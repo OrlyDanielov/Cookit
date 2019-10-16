@@ -7,20 +7,25 @@ var arry_userType = null;
 var isHasProfile = false;
 
 //האם נתוני ההרשמה תקינים
-//var password_valitadion = false;
-// האם הסיסמה תקינה
 var form_validation = true;
 //רשימת הנתונים התקינים בטופס
-var arry_form_validation = {
+var user_validation = {
     first_name: false,
     last_name: false,
-    email: false, password: false,
+    email: false,
+    password: false,
+    pass_2: false,
     pass_auth: false,
-    user_type: false,
+    user_type: false
+};
+var profile_validation = {
+    prof_name: false,
+    prof_description: false,
+    city: false
 };
 
 //תז משתמש
-var user_id;
+var user_id = -1;
 //***************************************************************************//
 // הפונקציה קוראת בתחילת הקריאה לדף
 $(document).ready(function () {
@@ -316,28 +321,30 @@ function Registration() {
         if (form_validation === true) {
             //הוספת משתמש חדש
             AddNewUser();
-            //הוספת פרופיל חדש
-            if (isHasProfile === true)
-                AddNewProfile();
+            //קבלת תז המשתמש החדש שהוסף
+            //GetUserIdByEmail();
+            ////הוספת פרופיל חדש
+            //if (isHasProfile === true)
+            //    AddNewProfile();
         }
         else {
             alert("אנא תקן את פרטי ההרשמה במקומות המסומנים.");
         }
     }
     //***************************************************************************//
-    function SuccessRegistration() {
-        //כאשר ההרשמה בוצע בהצלחה
-        console.log("הרשמה בוצעה בהצלחה!.");
-        alert("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
-        //window.location.replace("Home_logout.html");
+    //function SuccessRegistration() {
+    //    //כאשר ההרשמה בוצע בהצלחה
+    //    console.log("הרשמה בוצעה בהצלחה!.");
+    //    alert("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
+    //    //window.location.replace("Home_logout.html");
 
-        //window.confirm("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
-        //if (confirm("Press a button!")) {
-        //    txt = "You pressed OK!";
-        //} else {
-        //    txt = "You pressed Cancel!";
-        //}
-    }
+    //    //window.confirm("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
+    //    //if (confirm("Press a button!")) {
+    //    //    txt = "You pressed OK!";
+    //    //} else {
+    //    //    txt = "You pressed Cancel!";
+    //    //}
+    //}
 
 
 
@@ -352,20 +359,25 @@ function Registration() {
             Email: ($("#email").val()).toString(),
             Gender: ($("input[name='gender']:checked").val()).toString(),
             UserPass: ($("#password").val()).toString(),
-            status: 1,
+            status: parseInt(1),
             number_of_draw_recipe: 0
         };
         //שליחת הנתונים לשרת
         GlobalAjax("/api/User/AddNewUser", "POST", new_user, SuccessUser, FailUser);
     }
 
-    function SuccessUser(userId)//isHasProfile) // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
+    function SuccessUser()//isHasProfile) // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
     {
-        user_id = userId;
         console.log("המשתמש נוסף לשרת בהצלחה.");
+        
         if (!(isHasProfile)) {
             alert('ההרשמה בוצעה בהצלחה.\n אנא התחבר לחשבונך.');
             window.location.replace("Home_logout.html");
+        }
+        else        //אם יש גם פרופיל
+        {
+            //get user id
+            GetUserIdByEmail();
         }
 
     }
@@ -375,19 +387,39 @@ function Registration() {
         console.log("שגיאה בהוספת המשתמש לשרת.");
         console.log(data.T);
         alert('שגיאה בהוספת המשתמש לשרת.');
-    }
+}
+//***************************************************************************//
+function GetUserIdByEmail()
+//משיג את התז של המשתמש לפי האימייל שלו
+{
+    var user_email = ($("#email").val()).toString();
+    GlobalAjax("/api/User/" + user_email + "/GetIdByEmail", "GET", "", Success_GetId, Fail_GetId);
+}
+
+function Success_GetId(data) {
+    user_id = data;
+    console.log("user id :" + user_id);
+    //add the new profile
+    AddNewProfile();
+}
+
+function Fail_GetId(data) {
+    console.log("cant get user id");
+    console.log(data);
+}
     //***************************************************************************//
     function AddNewProfile()// הפונקציה שולחת את פרטי משתמש לשרת
     {
+        //בודק את סוג הפרופיל
         var profile_type = $('#select_user_type').find(":selected").text(); // סוג פרופיל
         let _type;
         if (profile_type === 'עסקי')
             _type = 'B';
         else
-            _type = 'F';
+            _type = 'F';       
         //פרופיל חדש
         var new_profile = {
-            Id_User:8,// user_id,
+            Id_User: user_id,
             ProfType: _type,
             Name_Prof: $("#profile_name").val(),
             ProfDescription: $("#profile_description").val(),
@@ -402,7 +434,7 @@ function Registration() {
     {
         console.log("הפרופיל נוסף לשרת בהצלחה.");
         alert('ההרשמה בוצעה בהצלחה.\n אנא התחבר לחשבונך.');
-        //window.location.replace("Home_logout.html");
+        window.location.replace("Home_logout.html");
     }
 
     function FailProfile()// פונקציה המתבצעת אחרי כישלון הוספה  של פרופיל

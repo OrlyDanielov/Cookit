@@ -14,11 +14,11 @@ namespace Cookit.Controllers
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
-        
+
         #region Login
         [Route("{email}/{pass}")]
         [HttpGet]
-        public HttpResponseMessage Login(string email,string pass)
+        public HttpResponseMessage Login(string email, string pass)
         {
             //bgroup36_prodConnection db = new bgroup36_prodConnection();
             Cookit_DBConnection db = new Cookit_DBConnection();
@@ -39,28 +39,27 @@ namespace Cookit.Controllers
                 result.pasword = user.UserPass;
                 result.status = user.UserStatus;
                 result.number_of_draw_recipe = user.NumDrawRecp;
-             
+
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
         #endregion
-        
 
         #region Check Mail Exsist
         //check if mail exsist
-        [Route("CheckMail/{email}")]
+        //[Route("CheckMail/{email}")]
         //[HttpGet]
-        public HttpResponseMessage Get(string email)
-        {
-            Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-            bool flag = CookitDB.DB_Code.CookitQueries.CheckMail(email);
-            //string mail = CookitDB.DB_Code.CookitQueries.CheckMail(email);
-            if (flag)
-                //if(mail == null)
-                return Request.CreateResponse(HttpStatusCode.OK,"");
-            else
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "this email already exsist.");
-        }
+        //public HttpResponseMessage CheckMail(string email)
+        //{
+        //    Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+        //    bool flag = CookitDB.DB_Code.CookitQueries.CheckMail(email);
+        //    //string mail = CookitDB.DB_Code.CookitQueries.CheckMail(email);
+        //    if (flag)
+        //        //if(mail == null)
+        //        return Request.CreateResponse(HttpStatusCode.OK,"");
+        //    else
+        //        return Request.CreateResponse(HttpStatusCode.BadRequest, "this email already exsist.");
+        //}
         #endregion
 
         #region send mail with the password
@@ -99,6 +98,25 @@ namespace Cookit.Controllers
         //}
         #endregion
 
+        #region Get UserId By Email
+        //get user id by email, becuse mail is unique
+        //[Route("GetIdByEmail/{email}")]
+        //[Route("GetIdByEmail")]
+        [Route("{user_email}/GetIdByEmail")]
+        [HttpGet]
+        public HttpResponseMessage GetIdByEmail(string user_email)//)
+        {
+            //string email = "dana@gmail.com";
+
+            Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+            int id = CookitDB.DB_Code.CookitQueries.GetUserIdByEmail(user_email);
+            if(id != -1)
+                return Request.CreateResponse(HttpStatusCode.OK,id);
+            else
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "the server could not find the user by this email.");
+        }
+        #endregion
+
 
         #region Add New User
         [Route("AddNewUser")]
@@ -109,11 +127,11 @@ namespace Cookit.Controllers
             {
                 Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
 
-                var user_id = CookitDB.DB_Code.CookitQueries.AddNewUser(newUser);
-                //var is_saved = CookitDB.DB_Code.CookitQueries.AddNewUser(newUser);
-                //if (is_saved == true)
-                if(user_id != -1)
-                    return Request.CreateResponse(HttpStatusCode.OK, user_id);
+                //var user_id = CookitDB.DB_Code.CookitQueries.AddNewUser(newUser);
+                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewUser(newUser);
+                if (is_saved == true)
+                    //if(user_id != -1)
+                    return Request.CreateResponse(HttpStatusCode.OK, "the user added seccussfully.");
                 else
                     return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the user.");
 

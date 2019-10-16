@@ -44,7 +44,7 @@ namespace CookitAPI.Controllers
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, is_saved);
                 else
-                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the profile.");
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, "the server can't add the profile.");
             }
             catch (Exception e)
             {

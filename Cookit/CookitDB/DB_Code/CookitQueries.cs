@@ -99,10 +99,8 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                var db = Get_DB();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                ////bgroup36_prodConnection db = new bgroup36_prodConnection();
-                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email && x.UserPass == pass);//x => x.Email = user_details.Email && x.UserPass == user_details.Pass)
+                var db = Get_DB();                
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email && x.UserPass == pass);
                 if (user == null) // אם אין משתמש אם פרטים כאלה
                     return null;
                 else return user;
@@ -299,8 +297,8 @@ namespace CookitDB.DB_Code
 
         #region Add New User
         //פונקציה של הוספת משתמש חדש לטבלת המשתמשים
-        //public static bool AddNewUser(TBL_User new_user)
-        public static int AddNewUser(TBL_User new_user)
+        public static bool AddNewUser(TBL_User new_user)
+        //public static int AddNewUser(TBL_User new_user)
         {
             try
             {
@@ -309,14 +307,30 @@ namespace CookitDB.DB_Code
                 //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.Entry(new_user).State = System.Data.Entity.EntityState.Added; // הוספת משתמש חדש
                 db.SaveChanges();
+                return true;
 
-                int id = db.TBL_User.SingleOrDefault(x => x.Email == new_user.Email && x.UserPass == new_user.UserPass).Id_User;
-                return id;
-                //return true;
+                //int id = db.TBL_User.SingleOrDefault(x => x.Email == new_user.Email && x.UserPass == new_user.UserPass).Id_User;
+                //return id;
             }
             catch (Exception)
             {
-                //return false;
+                return false;
+                //return -1;
+            }
+        }
+        #endregion
+
+        #region Get User Id By Email
+        public static int GetUserIdByEmail(string email)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
+                return user.Id_User;
+            }
+            catch (Exception)
+            {
                 return -1;
             }
         }
