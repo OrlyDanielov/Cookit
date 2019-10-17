@@ -45,7 +45,7 @@ namespace Cookit.Controllers
         }
         #endregion
 
-        #region Check Mail Exsist
+        #region Check Mail Available
         //check if mail available. if available return true, else return false.
         [Route("{new_email}/CheckMailAvailable")]
         [HttpGet]

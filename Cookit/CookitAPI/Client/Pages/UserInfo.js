@@ -98,55 +98,87 @@ function Check_valid_Email() {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (re.test(String(new_email).toLowerCase()) == true)
                 valid_user_info.email = true;
-            else
+            else {
                 valid_user_info.email = false;
+                console.log("email is not valid");
+            }
         }
     }
-    else 
+    else {
         valid_user_info.email = false;
+        console.log("email is not valid");
+    }
 }
 
-function Check_Free_Email() {
+function Check_EmailFree() {
     var new_email = $("#user_email").val();
-    GlobalAjax("/api/User/" + email + "/CheckMailAvailable", "GET", "", Success_CheckMail, Fail_CheckMail);
+    GlobalAjax("/api/User/" + new_email + "/CheckMailAvailable", "GET", "", Success_CheckMailFree, Fail_CheckMailFree);
 }
 
-function Success_CheckMail() {
+function Success_CheckMailFree() {
     valid_user_info.email = true;
-
+    console.log("the email " + $("#user_email").val() + " is free");
+    //
+    SaveChanges();
 }
 
-function Fail_CheckMail() {
+function Fail_CheckMailFree() {
     valid_user_info.email = false;
+    console.log("the email " + $("#user_email").val() + " is not free");
+}
+
+function Check_validation()
+//הפונקציה בודקת את התקינות של שדות הטופס
+{
+    //בודק האם ריק
+    var new_user_info = {
+        first_name: $("#user_first_name").val(),
+        last_name: $("#user_last_name").val(),
+        email: $("#user_email").val()
+    };
+    for (var i in new_user_info) {
+        if (new_user_info[i] == "") {
+            valid_user_info[i] = false;
+            console.log(i + " is missing.");
+            // לרשומות החסרות יופיעו תוויות הערה למשתמש
+        }
+        else
+            valid_user_info[i] = true;
+
+    }
+    //בודק האם חוקי
+    Check_valid_Email();
+    if (valid_user_info.email == true)
+            Check_EmailFree();
 }
 
 function SaveChanges()
 //שמירת שינויים בפרטים אישיים
 {
-    if (confirm("האם אתה רוצה לשמור את השינוי?")) {
+        if (confirm("האם אתה רוצה לשמור את השינוי?")) {
 
-        //שמירת הפרטים המעודכנים בsesstion storage
-        userInfo.first_name = $("#user_first_name").val();
-        userInfo.last_name = $("#user_last_name").val();
-        userInfo.email = $("#user_email").val();
-        userInfo.gender = $("input[name='gender']:checked").val();
-        //userInfo.user_type = $('#select_user_type').find(":selected").val();
-        sessionStorage.setItem("Login_User", JSON.stringify(userInfo));
+            //שמירת הפרטים המעודכנים בsesstion storage
+            userInfo.first_name = $("#user_first_name").val();
+            userInfo.last_name = $("#user_last_name").val();
+            userInfo.email = $("#user_email").val();
+            userInfo.gender = $("input[name='gender']:checked").val();
+            //userInfo.user_type = $('#select_user_type').find(":selected").val();
+            sessionStorage.setItem("Login_User", JSON.stringify(userInfo));
 
-        //עדכון פרטים אישיים בשרת
-        GlobalAjax("/api/User/UpdateUserInfo", "PUT", userInfo, SuccessUpdate, FailUpdate);
+            //עדכון פרטים אישיים בשרת
+            GlobalAjax("/api/User/UpdateUserInfo", "PUT", userInfo, SuccessUpdate, FailUpdate);
 
-        //שינוי מצב הכפתורים והקלטים
-        $("#user_first_name").prop('disabled', true);
-        $("#user_last_name").prop('disabled', true);
-        $("#user_email").prop('disabled', true);
-        //$("#select_user_type").prop('disabled', true);
-        $("#female").prop('disabled', true);
-        $("#male").prop('disabled', true);
+            //שינוי מצב הכפתורים והקלטים
+            $("#user_first_name").prop('disabled', true);
+            $("#user_last_name").prop('disabled', true);
+            $("#user_email").prop('disabled', true);
+            //$("#select_user_type").prop('disabled', true);
+            $("#female").prop('disabled', true);
+            $("#male").prop('disabled', true);
 
-        $("#btnSave").prop('disabled', true);
-        $("#btnEdit").prop('disabled', false);
-    }
+            $("#btnSave").prop('disabled', true);
+            $("#btnEdit").prop('disabled', false);
+        }
 }
 
 function SuccessUpdate(isHasProfile) // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש

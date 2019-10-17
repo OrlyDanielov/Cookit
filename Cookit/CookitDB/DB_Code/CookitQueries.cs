@@ -63,28 +63,8 @@ namespace CookitDB.DB_Code
         }
 
         #endregion
-
-        //#region Get User Info        
-        ////פונקציה שבודקת האם קיים מייל כזה
-        //public static bool GetUserInfo(string email)
-        //{
-        //    try
-        //    {
-        //        var db = Get_DB();
-        //        TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-        //        if (user == null)
-        //            return false;
-        //        else
-        //            return true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return false;
-        //    }
-        //}
-        //#endregion
-
-        #region Check Mail Exsist
+           
+        #region Check Mail Available
         //check if email Available, then return true. else return false.
         public static bool CheckMailAvailable(string email)
         {
