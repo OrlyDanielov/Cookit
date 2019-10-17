@@ -89,30 +89,25 @@ function Edit()
 }
 
 function Check_valid_Email() {
-    var old_email = userInfo.email;
     var new_email = $("#user_email").val();
-    if (new_email != null) {
-        if (new_email == old_email)
-            valid_user_info.email = true;
-        else {
-            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (re.test(String(new_email).toLowerCase()) == true)
-                valid_user_info.email = true;
-            else {
-                valid_user_info.email = false;
-                console.log("email is not valid");
-            }
-        }
-    }
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(String(new_email).toLowerCase()) == true)
+        valid_user_info.email = true;
     else {
         valid_user_info.email = false;
         console.log("email is not valid");
+        return false;
     }
+    return true;   
 }
 
 function Check_EmailFree() {
     var new_email = $("#user_email").val();
-    GlobalAjax("/api/User/" + new_email + "/CheckMailAvailable", "GET", "", Success_CheckMailFree, Fail_CheckMailFree);
+    var old_email = userInfo.email;
+    if (new_email != old_email)
+        GlobalAjax("/api/User/" + new_email + "/CheckMailAvailable", "GET", "", Success_CheckMailFree, Fail_CheckMailFree);
+    else
+        Success_CheckMailFree();
 }
 
 function Success_CheckMailFree() {
@@ -125,13 +120,13 @@ function Success_CheckMailFree() {
 function Fail_CheckMailFree() {
     valid_user_info.email = false;
     console.log("the email " + $("#user_email").val() + " is not free");
-}
+    alert("כתובת אימייל זו כבר שייכת למשתמש אחר, אנא הכנס אימייל אחר.");
+} 
 
-function Check_validation()
-//הפונקציה בודקת את התקינות של שדות הטופס
+function Check_ifEmpty()
+// הפונקציה בודקת האם השדות לא ריקים
 {
-    //בודק האם ריק
-    var new_user_info = {
+var new_user_info = {
         first_name: $("#user_first_name").val(),
         last_name: $("#user_last_name").val(),
         email: $("#user_email").val()
@@ -141,15 +136,68 @@ function Check_validation()
             valid_user_info[i] = false;
             console.log(i + " is missing.");
             // לרשומות החסרות יופיעו תוויות הערה למשתמש
+            return false;
+        }
+        else 
+            valid_user_info[i] = true;
+        
+    }
+    return true;
+}
+
+function Check_Length()
+//הפונקציה בודקת האם השדות באורך בנכון
+{
+    var new_user_info = {
+        first_name: $("#user_first_name").val(),
+        last_name: $("#user_last_name").val(),
+        email: $("#user_email").val()
+    };
+//שם פרטי
+    if (new_user_info.first_name.length >= 2 && new_user_info.first_name.length <= 20)
+        valid_user_info.first_name = true;
+    else {
+        valid_user_info.first_name = false;
+        return false;
+    }
+    //שם משפחה
+    if (new_user_info.last_name.length >= 2 && new_user_info.last_name.length <= 30)
+        valid_user_info.last_name = true;
+    else {
+        valid_user_info.last_name = false;
+        return false;
+    }
+    //אימייל
+    if (new_user_info.email.length >= 2 && new_user_info.email.length <= 30)
+        valid_user_info.email = true;
+    else {
+        valid_user_info.email = false;
+        return false;
+    }
+    //הכל טוב
+    return true;
+}
+
+function Check_validation()
+//הפונקציה בודקת את התקינות של שדות הטופס
+{
+    //בודק האם ריק
+    if (!(Check_ifEmpty()))
+        alert("אנא מלא את השדות הריקים!.");
+    else {
+        //בודק האם התוכן באורך הנכון
+        if (Check_Length()) {
+            //בודק האם חוקי
+            if (Check_valid_Email()) {
+                //if (valid_user_info.email == true)
+                Check_EmailFree();
+            }
+            else
+                alert("אנא הכנס אימייל חוקי");
         }
         else
-            valid_user_info[i] = true;
-
+            alert("שם פרטי ושם משפחה חייבים להיות באורך של לפחות 2 תווים");
     }
-    //בודק האם חוקי
-    Check_valid_Email();
-    if (valid_user_info.email == true)
-            Check_EmailFree();
 }
 
 function SaveChanges()
