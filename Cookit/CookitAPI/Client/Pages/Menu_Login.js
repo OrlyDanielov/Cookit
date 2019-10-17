@@ -1,18 +1,11 @@
-﻿$(document).ready(function ()
-//מתרחש בתחילת טעינת הדף
-// הפונקציה טוענת את התפריט בצורה דינמית לתוך הדף
-{
-    $('#menu').load("Menu_Login.html");
-});
+﻿//$(document).ready(function ()
+////מתרחש בתחילת טעינת הדף
+//// הפונקציה טוענת את התפריט בצורה דינמית לתוך הדף
+//{
+//    //$('#menu').load("Menu_Login.html");
+//});
 
 //פונקציות של דפים של משתמש מחובר
-// פונקצית התנתקות
-function Logout() {
-       //ניקוי של הערכים בזיכרון
-    sessionStorage.clear();
-    //מעבר לדף הבית הלא מחובר
-    window.location.replace("Home_logout.html");
-}
 
 
 var arry_userType = new Array();
@@ -20,8 +13,8 @@ var arry_userType = new Array();
 $(document).ready(function ()
 // הפונקציה קוראת בתחילת הקריאה לדף
 {
-    HelloToLoginUser();
     GetUserType();
+    HelloToLoginUser();
 });
 
 function HelloToLoginUser()
@@ -35,14 +28,14 @@ function HelloToLoginUser()
 function GetUserType()
 //משיכת סוגי המשתמשים
 {
-    if (JSON.parse(sessionStorage.getItem("arry_userType")) === null)
-        GlobalAjax("/api/UserType", "GET", "", SuccessUserType, FailUserType);
-    else
-        SuccessUserType(arry_userType);
+    //if (JSON.parse(sessionStorage.getItem("arry_userType")) === null)
+    GlobalAjax("/api/UserType/GetAll", "GET", "", SuccessUserType, FailUserType);
+    //else
+    //    SuccessUserType(arry_userType);
 }
 
 function SuccessUserType(arry_userType) {
-    sessionStorage.setItem("arry_userType", arry_userType);
+    sessionStorage.setItem("arry_userType", JSON.stringify(arry_userType));
     var user_type = JSON.parse(sessionStorage.getItem("Login_User")).user_type;
     for (var i = 0; i < arry_userType.length; i++) {
         if (arry_userType[i].id === user_type)
@@ -54,4 +47,14 @@ function SuccessUserType(arry_userType) {
 
 function FailUserType() {
     console.log("שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.");
+}
+
+//*********************************************************************************
+
+// פונקצית התנתקות
+function Logout() {
+       //ניקוי של הערכים בזיכרון
+    sessionStorage.clear();
+    //מעבר לדף הבית הלא מחובר
+    window.location.replace("Home_logout.html");
 }

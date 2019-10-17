@@ -41,9 +41,20 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
-                db.Entry(newUser).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return true;
+                TBL_User u = db.TBL_User.SingleOrDefault(x => x.Id_User == newUser.Id_User);
+                if (u != null)
+                {
+                    //change only private user details
+                    u.FirstName = newUser.FirstName;
+                    u.LastName = newUser.LastName;
+                    u.Gender = newUser.Gender;
+                    u.Email = newUser.Email;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
             }
             catch (Exception)
             {
@@ -73,9 +84,9 @@ namespace CookitDB.DB_Code
         //}
         //#endregion
 
-        #region Check Mail
-        //פונקציה שבודקת האם קיים מייל כזה
-        public static bool CheckMail(string email)
+        #region Check Mail Exsist
+        //check if email Available, then return true. else return false.
+        public static bool CheckMailAvailable(string email)
         {
             try
             {
@@ -86,7 +97,7 @@ namespace CookitDB.DB_Code
                 else
                     return false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

@@ -125,11 +125,11 @@ function IsProfile() {
     }
 }
 //***************************************************************************//
-function CheckIfMailExsist()
+function CheckIfMailAvailable()
 //בודק האם כבר קיים מייל כזה במערכת
 {
     var email = $("#email").val();
-    GlobalAjax("/api/User/CheckMail/" + email, "GET", "", Success_CheckMail, Fail_CheckMail);
+    GlobalAjax("/api/User/"+email+"/CheckMailAvailable", "GET", "", Success_CheckMail, Fail_CheckMail);
 }
 
 function Success_CheckMail()
@@ -140,12 +140,11 @@ function Success_CheckMail()
 
 function Fail_CheckMail(data)
 // כבר קיים מייל כזה במערכת
-{
-    console.log(data.T);
+{  console.log(data.T);
     console.log("מייל זה כבר קיים במערכת " + $("#email").val());
     if (confirm("אימייל זה כבר קיים במערכת. האם אתה רוצה להתחבר עם מייל זה ?"))
         location.replace("Login.html");
-    }
+}
 //***************************************************************************//
 function Check_Password() // פונקציה בודקת שהסיסמה זהה לאימות סיסמה
 {
@@ -320,34 +319,12 @@ function Registration() {
         //ביצוע ההרשמה
         if (form_validation === true) {
             //הוספת משתמש חדש
-            AddNewUser();
-            //קבלת תז המשתמש החדש שהוסף
-            //GetUserIdByEmail();
-            ////הוספת פרופיל חדש
-            //if (isHasProfile === true)
-            //    AddNewProfile();
-        }
+            AddNewUser();           
         else {
             alert("אנא תקן את פרטי ההרשמה במקומות המסומנים.");
         }
     }
-    //***************************************************************************//
-    //function SuccessRegistration() {
-    //    //כאשר ההרשמה בוצע בהצלחה
-    //    console.log("הרשמה בוצעה בהצלחה!.");
-    //    alert("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
-    //    //window.location.replace("Home_logout.html");
-
-    //    //window.confirm("ההרשמה בוצעה בהצלחה. כעת את יכול להתחבר לחשבונך.");
-    //    //if (confirm("Press a button!")) {
-    //    //    txt = "You pressed OK!";
-    //    //} else {
-    //    //    txt = "You pressed Cancel!";
-    //    //}
-    //}
-
-
-
+   
     //***************************************************************************//
 
     function AddNewUser()// הפונקציה שולחת את פרטי המשתמש לשרת

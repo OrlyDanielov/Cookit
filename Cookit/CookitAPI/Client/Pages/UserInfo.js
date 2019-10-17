@@ -1,42 +1,51 @@
-﻿var userInfo = new Array();
+﻿var valid_user_info = {
+    first_name: false,
+    last_name: false,
+    email: false};
+
+var userInfo = new Array();
 userInfo = JSON.parse(sessionStorage.getItem("Login_User"));
-var arry_userType = new Array();
+//var arry_userType = new Array();
 
 $(document).ready(function ()
 //בטעינת הדף
 {
     //$("#btnEdit").style.visibility = "none";
     //$("#btnSave").style.visibility = "hidden";
-    GetUserType();
+    //GetUserType();
+    //sessionStorage.setItem("arry_userType", JSON.stringify(arry_userType));
+    //arry_userType = JSON.parse(sessionStorage.getItem("arry_userType"));
+    //initUserType();
     ViewUserInfo();
+
+
 });
 
-function GetUserType()
-// הפונקציה מביאה את סוגי המשתמשים מהמסד נתונים
-{
-    GlobalAjax("/api/UserType", "GET", "", SuccessUserType, FailUserType);
-}
+//function GetUserType()
+//// הפונקציה מביאה את סוגי המשתמשים מהמסד נתונים
+//{
+//    GlobalAjax("/api/UserType/GetAll", "GET", "", SuccessUserType, FailUserType);
+//}
 
-function SuccessUserType(arry_userType) {
-    console.log(arry_userType);
-    sessionStorage.setItem("arry_userType",arry_userType);
-    initUserType(arry_userType);
-}
+//function SuccessUserType(arry_userType) {
+//    console.log(arry_userType);
+//    sessionStorage.setItem("arry_userType", JSON.stringify(arry_userType));
+//    initUserType();
+//}
 
-function FailUserType() {
-    console.log("שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.");
-    alert('שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.');
-}
+//function FailUserType() {
+//    console.log("שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.");
+//    alert('שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.');
+//}
 
-function initUserType(data)
-//הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
-{
-    var str;
-    for (i in data) {
-        if (data[i].user_type !== "מנהל")
-            $("#select_user_type").append(AddOption_UserType(data[i]));
-    }
-}
+//function initUserType()//data)
+////הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
+//{
+//    for (i in arry_userType) {
+//        if (arry_userType[i].user_type !== "מנהל")
+//            $("#select_user_type").append(AddOption_UserType(arry_userType[i]));
+//    }
+//}
 
 function AddOption_UserType(item)
 //הפונקציה מוסיפה אופציה לרשימה הנגללת
@@ -60,8 +69,7 @@ function ViewUserInfo()
         $("#male").prop('checked', true);         
     }
     //סוג משתמש
-    //$("#user_type").val(userInfo.user_type);
-    $('#select_user_type[value="' + userInfo.user_type + '"]').attr('selected', true);
+    //$('#select_user_type[value="' + userInfo.user_type + '"]').attr('selected', true);
 }
 
 function Edit()
@@ -71,13 +79,45 @@ function Edit()
     $("#user_first_name").prop('disabled', false); 
     $("#user_last_name").prop('disabled', false); 
     $("#user_email").prop('disabled', false); 
-    $("#select_user_type").prop('disabled', false); 
+    //$("#select_user_type").prop('disabled', false); 
     $("#female").prop('disabled', false); 
     $("#male").prop('disabled', false); 
     //משנה את כפתור העריכה לשמירה עבור השינויים
     //$("#btnEdit").style.display = 'none';//.prop('visibility', 'hidden');//.style.visibility = "hidden";
     //$("#btnSave").style.display = 'inline';//.visibility = "visible";//$("#btnSave").prop('visibility', 'visible');  
     $("#btnSave").prop('disabled', false);
+}
+
+function Check_valid_Email() {
+    var old_email = userInfo.email;
+    var new_email = $("#user_email").val();
+    if (new_email != null) {
+        if (new_email == old_email)
+            valid_user_info.email = true;
+        else {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (re.test(String(new_email).toLowerCase()) == true)
+                valid_user_info.email = true;
+            else
+                valid_user_info.email = false;
+        }
+    }
+    else 
+        valid_user_info.email = false;
+}
+
+function Check_Free_Email() {
+    var new_email = $("#user_email").val();
+    GlobalAjax("/api/User/" + email + "/CheckMailAvailable", "GET", "", Success_CheckMail, Fail_CheckMail);
+}
+
+function Success_CheckMail() {
+    valid_user_info.email = true;
+
+}
+
+function Fail_CheckMail() {
+    valid_user_info.email = false;
 }
 
 function SaveChanges()
@@ -90,17 +130,17 @@ function SaveChanges()
         userInfo.last_name = $("#user_last_name").val();
         userInfo.email = $("#user_email").val();
         userInfo.gender = $("input[name='gender']:checked").val();
-        userInfo.user_type = $('#select_user_type').find(":selected").val();
+        //userInfo.user_type = $('#select_user_type').find(":selected").val();
         sessionStorage.setItem("Login_User", JSON.stringify(userInfo));
 
         //עדכון פרטים אישיים בשרת
-        GlobalAjax("api/User/UpdateUserInfo", "POST", userInfo, SuccessUpdate, FailUpdate);
+        GlobalAjax("/api/User/UpdateUserInfo", "PUT", userInfo, SuccessUpdate, FailUpdate);
 
         //שינוי מצב הכפתורים והקלטים
         $("#user_first_name").prop('disabled', true);
         $("#user_last_name").prop('disabled', true);
         $("#user_email").prop('disabled', true);
-        $("#select_user_type").prop('disabled', true);
+        //$("#select_user_type").prop('disabled', true);
         $("#female").prop('disabled', true);
         $("#male").prop('disabled', true);
 
