@@ -103,6 +103,25 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region GetProfileByUserId
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Profile GetProfileByUserId(int userId)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
+                if (prof == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return prof;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Get All User Type
         // הפוקנציה מביאה מהמסד את כל סוגי המשתמשים
         public static List<TBL_UserType> Get_all_User_Type()

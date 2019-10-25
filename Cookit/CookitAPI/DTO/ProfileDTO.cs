@@ -9,10 +9,10 @@ namespace CookitAPI.DTO
     {
         public int id;
         public int user_id;
-        public char type;
+        public string type;
         public string name;
         public string description;
-        public CityDTO city;
+        public string city;
         public bool status;
     }
 }

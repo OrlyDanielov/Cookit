@@ -13,16 +13,43 @@ namespace CookitAPI.Controllers
     public class ProfileController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET api/<controller>/5
-        public string Get(int id)
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
+
+        #region LogGetProfileByUserIdin
+        [Route("GetProfileByUserId/{userId}")]
+        [HttpGet]
+        public HttpResponseMessage GetProfileByUserId(int userId)
         {
-            return "value";
+            Cookit_DBConnection db = new Cookit_DBConnection();
+            TBL_Profile profile = CookitDB.DB_Code.CookitQueries.GetProfileByUserId(userId); 
+
+            if (profile == null) // אם אין משתמש שכזה
+                return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
+            else
+            {
+                //המרה של רשימת נתוני משתמש למבנה נתונים מסוג DTO
+                ProfileDTO result = new ProfileDTO();
+                result.id = profile.Id_Prof;
+                result.user_id = profile.Id_User;
+                result.type = profile.ProfType;
+                result.name = profile.Name_Prof;
+                result.description = profile.ProfDescription;
+                result.city = profile.CityName;
+                result.status = profile.ProfStatus;
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
         }
+        #endregion
 
         /*
         // POST api/<controller>

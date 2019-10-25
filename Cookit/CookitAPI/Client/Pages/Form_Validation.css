@@ -1,0 +1,23 @@
+﻿body {
+}
+
+
+/*input:valid {
+    border-bottom: 1px solid red ;
+}
+
+input:invalid {
+    border-bottom: 1px solid green;
+}*/
+
+/*.valid {*/
+    /*border-bottom: 1px solid green;*/
+    /*border : 2px solid ;*/
+    /*background-color : green;*/
+/*}*/
+
+.not_valid {
+    /*border-bottom: 1px solid red;*/
+    border: 2px solid red;
+    background-color: rgba(201,76,76,0.5);
+}

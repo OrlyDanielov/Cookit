@@ -3,6 +3,8 @@
     var span_name = "span_question_";
     var words = btn_cliked_id.split('_');
     span_name = span_name.concat(words[2]);
+    if (words.length > 3)
+        span_name = span_name.concat("_"+words[3]);
     //display on\off the span
     var display_state = $("#" + span_name).css('display');
     if (display_state == 'none')

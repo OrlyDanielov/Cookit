@@ -149,74 +149,63 @@ function Fail_CheckMail(data)
 function Check_Password() // פונקציה בודקת שהסיסמה זהה לאימות סיסמה
 {
     //When the user starts to type something inside the password field
-    //myInput.onkeyup = function () {
     let password = $("#password").val(); //הסיסמה
     let flag = true;
     //Validate length
     if (password.length >= 6 && password.length <= 12) {
-        form_validation = true;        
-        //length.classList.remove("invalid");
-        //length.classList.add("valid");
+        form_validation = true; 
+        if ($("#password").hasClass("not_valid"))
+            $("#password").removeClass("not_valid");
     }
     else {
         form_validation = false;
         flag = false;
-        //length.classList.remove("valid");
-        //length.classList.add("invalid");
-    }
+        $("#password").addClass(" not_valid");
+        alert("הסיסמה צריכה להיות באורך 6 עד 12 תווים עם מספרים ואותיות קטנות או גדולות באנגלית.");
+
+    }     
     if (flag) {
         //Validate lowercase and  letters
         var lowerCaseLetters = /[a-z]/g;
         var upperCaseLetters = /[A-Z]/g;
         if (password.match(lowerCaseLetters) || password.match(upperCaseLetters)) {
             form_validation == true;
-            //letter.classList.remove("invalid");
-            //letter.classList.add("valid");
+            if ($("#password").hasClass("not_valid"))
+                $("#password").removeClass("not_valid");
         }
         else {
             form_validation = false;
             flag = false;
-            //letter.classList.remove("valid");
-            //letter.classList.add("invalid");
+            $("#password").addClass(" not_valid");
+            alert("הסיסמה צריכה להיות באורך 6 עד 12 תווים עם מספרים ואותיות קטנות או גדולות באנגלית.");
         }
-        /*
-        //Validate capital letters
-        var upperCaseLetters = /[A-Z]/g;
-        if (password.match(upperCaseLetters)) {
-            form_validation = true;
-            //break;
-            //capital.classList.remove("invalid");
-            //capital.classList.add("valid");
-        }
-        else {
-            form_validation = false;
-            //capital.classList.remove("valid");
-            //capital.classList.add("invalid");
-        }
-        */
         if (flag) {
             //Validate numbers
             var numbers = /[0-9]/g;
             if (password.match(numbers)) {
                 form_validation = true;
-                //number.classList.remove("invalid");
-                //number.classList.add("valid");
+                if ($("#password").hasClass("not_valid"))
+                    $("#password").removeClass("not_valid");
             }
             else {
                 form_validation = false;
                 flag = false;
-                //number.classList.remove("valid");
-                //number.classList.add("invalid");
+                $("#password").addClass(" not_valid");
+                alert("הסיסמה צריכה להיות באורך 6 עד 12 תווים עם מספרים ואותיות קטנות או גדולות באנגלית.");
             }
             if (flag) {
                 //if password equal to password authentication
                 let pass1 = $("#password").val();
                 let pass2 = $("#password_authentication").val();
-                if (pass1 === pass2)
+                if (pass1 === pass2) {
                     form_validation = true;
+                    if ($("#password_authentication").hasClass("not_valid"))
+                        $("#password_authentication").removeClass("not_valid");
+                }
                 else {
                     form_validation = false;
                     alert("אנא וודא שהסיסמה זהה לאימות סיסמה.");
+                    $("#password_authentication").addClass(" not_valid");
                 }
             }
         }
@@ -226,6 +215,15 @@ function Check_Password() // פונקציה בודקת שהסיסמה זהה ל�
 function Check_Personal_Data()
 //בודק את תקינות הפרטים האישיים
 {
+    var x = {
+        first_name: $("#first_name"),
+        last_name: $("#last_name"),
+        email: $("#email"),
+        gender: $("input[name='gender']:checked"),
+        pasword: $("#password"),
+        pass2: $("#password_authentication"),
+        user_type: $('#select_user_type')
+    };
     var personalData = {
         first_name: $("#first_name").val(),
         last_name: $("#last_name").val(),
@@ -241,7 +239,14 @@ function Check_Personal_Data()
             form_validation = false;
             degel = false;
             console.log(i + " is missing.");
-            // לרשומות החסרות יופיעו תוויות הערה למשתמש
+            x[i].addClass(" not_valid");
+
+        }
+        else {
+            if (x[i].hasClass("not_valid"))
+                x[i].removeClass("not_valid");
+            //if (i == "email")
+
         }
     }
     if (degel == true)
@@ -251,6 +256,12 @@ function Check_Personal_Data()
 function Check_Profile_Data()
 //בודק את תקינות הפרטים האישיים
 {
+    var x = {
+        name: $("#profile_name"),
+        description: $("#profile_description"),
+        city: $("#select_city").find(":selected"),
+        type: $('#select_user_type').find(":selected")
+    };
     var profileData = {
         name: $("#profile_name").val(),
         description: $("#profile_description").val(),
@@ -263,7 +274,12 @@ function Check_Profile_Data()
             form_validation = false;
             degel = false;
             console.log(i + " is missing.");
-            // לרשומות החסרות יופיעו תוויות הערה למשתמש
+            x[i].addClass(" not_valid");
+
+        }
+        else {
+            if (x[i].hasClass("not_valid"))
+                x[i].removeClass("not_valid");
         }
     }
     if (degel == true)
@@ -271,24 +287,42 @@ function Check_Profile_Data()
 }
 //***************************************************************************//
 
-//function Form_Validation() {
-//    window.addEventListener('load', function () {
-//        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-//        var forms = document.getElementsByClassName('needs-validation');
+function Check_valid_Email() {
+    var new_email = $("#email").val();
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(String(new_email).toLowerCase()) == true)
+        //valid_user_info.email = true;
+        form_validation = true;
+    if ($("#email").hasClass("not_valid"))
+        $("#email").removeClass("not_valid");
+    else {
+        //valid_user_info.email = false;
+        form_validation = false;
+        console.log("אנא הכנס אימייל תקין");
+        $("#email").addClass(" not_valid");
 
-//        // Loop over them and prevent submission
-//        Array.prototype.filter.call(forms, function (form) {
-//            form.addEventListener('submit', function (event) {
-//                if (form.checkValidity() === false) {
-//                    event.preventDefault();
-//                    event.stopPropagation();
-//                }
-//                form.classList.add('was-validated');
-//            }, false);
-//        });
-//    }, false);
-//}
+        //return false;
+    }
+    //return true;
+}
 
+function Check_EmailFree() {
+    var new_email = $("#email").val();
+    GlobalAjax("/api/User/" + new_email + "/CheckMailAvailable", "GET", "", Success_CheckMailFree, Fail_CheckMailFree);    
+}
+
+function Success_CheckMailFree() {
+    valid_user_info.email = true;
+    console.log("the email " + $("#user_email").val() + " is free");
+    //
+    SaveChanges();
+}
+
+function Fail_CheckMailFree() {
+    valid_user_info.email = false;
+    console.log("the email " + $("#user_email").val() + " is not free");
+    alert("כתובת אימייל זו כבר שייכת למשתמש אחר, אנא הכנס אימייל אחר.");
+} 
 //***************************************************************************//
     function IsFormValid() // הפונקציה בודקת הנתוני הטופס תקינים 
     {
@@ -317,9 +351,10 @@ function Registration() {
         //בדיקת תקינות הטופס
         IsFormValid();
         //ביצוע ההרשמה
-        if (form_validation === true) {
-            //הוספת משתמש חדש
-            AddNewUser();           
+    if (form_validation === true) {
+        //הוספת משתמש חדש
+        AddNewUser();
+    }
         else {
             alert("אנא תקן את פרטי ההרשמה במקומות המסומנים.");
         }

@@ -1,7 +1,15 @@
 ﻿var valid_user_info = {
     first_name: false,
     last_name: false,
-    email: false};
+    email: false
+};
+
+var form_inputs =
+{
+    first_name: $("#user_first_name"),
+    last_name: $("#user_last_name"),
+    email: $("#user_email")
+};
 
 var userInfo = new Array();
 userInfo = JSON.parse(sessionStorage.getItem("Login_User"));
@@ -96,8 +104,11 @@ function Check_valid_Email() {
     else {
         valid_user_info.email = false;
         console.log("email is not valid");
+        alert("אנא הכנס אימייל חוקי");
+        //Change_style_by_validation();
         return false;
     }
+    //Change_style_by_validation();
     return true;   
 }
 
@@ -112,8 +123,10 @@ function Check_EmailFree() {
 
 function Success_CheckMailFree() {
     valid_user_info.email = true;
+    //Change_style_by_validation();
     console.log("the email " + $("#user_email").val() + " is free");
     //
+    Change_style_by_validation();
     SaveChanges();
 }
 
@@ -121,28 +134,41 @@ function Fail_CheckMailFree() {
     valid_user_info.email = false;
     console.log("the email " + $("#user_email").val() + " is not free");
     alert("כתובת אימייל זו כבר שייכת למשתמש אחר, אנא הכנס אימייל אחר.");
+    //Change_style_by_validation();
 } 
 
 function Check_ifEmpty()
 // הפונקציה בודקת האם השדות לא ריקים
 {
+    var form_inputs = {
+        first_name: $("#user_first_name"),
+        last_name: $("#user_last_name"),
+        email: $("#user_email")
+    };
 var new_user_info = {
         first_name: $("#user_first_name").val(),
         last_name: $("#user_last_name").val(),
         email: $("#user_email").val()
     };
+    var flag =true;
     for (var i in new_user_info) {
         if (new_user_info[i] == "") {
             valid_user_info[i] = false;
             console.log(i + " is missing.");
             // לרשומות החסרות יופיעו תוויות הערה למשתמש
-            return false;
+            //form_inputs[i].addClass(" not_valid");
+            //return false;
+            flag = false;
         }
-        else 
+        else {
             valid_user_info[i] = true;
-        
+            //if (form_inputs[i].hasClass("not_valid"))
+            //    form_inputs[i].removeClass("not_valid");
+        }
     }
-    return true;
+    //Change_style_by_validation();
+    //return true;
+    return flag;
 }
 
 function Check_Length()
@@ -153,38 +179,69 @@ function Check_Length()
         last_name: $("#user_last_name").val(),
         email: $("#user_email").val()
     };
+    var flag = true;
 //שם פרטי
     if (new_user_info.first_name.length >= 2 && new_user_info.first_name.length <= 20)
         valid_user_info.first_name = true;
     else {
         valid_user_info.first_name = false;
-        return false;
+        alert("שם פרטי ושם משפחה חייבים להיות באורך של לפחות 2 תווים");
+        //return false;
+        flag = false;
     }
     //שם משפחה
     if (new_user_info.last_name.length >= 2 && new_user_info.last_name.length <= 30)
         valid_user_info.last_name = true;
     else {
         valid_user_info.last_name = false;
-        return false;
+        alert("שם פרטי ושם משפחה חייבים להיות באורך של לפחות 2 תווים");
+        //return false;
+        flag = false;
     }
     //אימייל
     if (new_user_info.email.length >= 2 && new_user_info.email.length <= 30)
         valid_user_info.email = true;
     else {
         valid_user_info.email = false;
-        return false;
+        alert("שם פרטי, שם משפחה ואימייל חייבים להיות באורך של לפחות 2 תווים");
+        //return false;
+        flag = false;
     }
     //הכל טוב
-    return true;
+    //return true;
+    //Change_style_by_validation();
+    return flag;
+}
+
+function Change_style_by_validation()
+//הפונקציה בודקת איזה פריט לא תקין ומסמנת אותו
+{
+    var form_inputs =
+    {
+        first_name: $("#user_first_name"),
+        last_name: $("#user_last_name"),
+        email: $("#user_email")
+    };
+    for (var i in valid_user_info)
+    {
+        if (valid_user_info[i] == false)
+            form_inputs[i].addClass(" not_valid");
+        else
+        {
+            if (form_inputs[i].hasClass("not_valid"))
+                form_inputs[i].removeClass("not_valid");
+        }
+    }    
 }
 
 function Check_validation()
 //הפונקציה בודקת את התקינות של שדות הטופס
 {
-    //בודק האם ריק
-    if (!(Check_ifEmpty()))
-        alert("אנא מלא את השדות הריקים!.");
-    else {
+        //בודק האם ריק
+    //if (!(Check_ifEmpty()))
+    //alert("אנא מלא את השדות הריקים!.");
+    if (Check_ifEmpty()) {
+    //else {
         //בודק האם התוכן באורך הנכון
         if (Check_Length()) {
             //בודק האם חוקי
@@ -192,12 +249,13 @@ function Check_validation()
                 //if (valid_user_info.email == true)
                 Check_EmailFree();
             }
-            else
-                alert("אנא הכנס אימייל חוקי");
+            //else
+            //    alert("אנא הכנס אימייל חוקי");
         }
-        else
-            alert("שם פרטי ושם משפחה חייבים להיות באורך של לפחות 2 תווים");
+        //else
+        //    alert("שם פרטי ושם משפחה חייבים להיות באורך של לפחות 2 תווים");
     }
+    Change_style_by_validation();
 }
 
 function SaveChanges()
