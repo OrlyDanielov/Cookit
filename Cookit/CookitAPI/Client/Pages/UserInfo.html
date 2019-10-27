@@ -17,8 +17,10 @@
     <script src="Menu_Login.js"></script>
     <script src="Footer.js"></script>
     <script src="UserInfo.js"></script>
+    <!--<script src="Form_Directions.js"></script>-->
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
+    <link rel="stylesheet" type="text/css" href="Form_Directions.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -26,6 +28,7 @@
     <!--תפריט-->
     <header id="menu"></header>
     <!--תוכן דף -->
+<<<<<<< Updated upstream
     <main role="main" class="flex-shrink-0">
         <div class="container  bg_brigth">
             <h4 class="mb-3">פרטים אישיים</h4>
@@ -55,6 +58,91 @@
                         </select>
                     </div>
                 </div>
+=======
+    <main role="main" class="flex-shrink-0  container  bg_brigth">
+        <form id="User_Info" novalidate>
+            <fieldset id="user_view">
+                <legend>פרטים אישיים</legend>
+                <!-- שם פרטי ושם משפחה-->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="last_name">שם משפחה</label>
+                        <input type="text" for="last_name" id="user_last_name" disabled class="form-control text2rigth" required maxlength="30" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="first_name">שם פרטי</label>
+                        <input type="text" for="first_name" id="user_first_name" disabled class="form-control text2rigth " required data-value-missing="אנא הכנס שם פרטי" maxlength="20" />
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- מייל-->
+                    <div class="col-md-6 mb-3">
+                        <label for="email">אימייל</label>
+                        <input type="email" id="user_email" class="form-control text2rigth" disabled required>
+                    </div>
+                    <!--מין-->
+                    <div class="col-md-6 mb-3">
+                        <label for="user_gender">מין</label>
+                        <div class="custom-control custom-radio">
+                            <input id="female" name="gender" value="F" type="radio" class="custom-control-input" disabled required>
+                            <label class="custom-control-label" for="female">נקבה</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="male" name="gender" value="M" type="radio" class="custom-control-input" disabled required>
+                            <label class="custom-control-label" for="male">זכר</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- סוג המשתמש-->
+                <div class="col-md-6 mb-3">
+                    <label for="user_type">סוג המשתמש</label>
+                    <div class="col-sm-10">
+                        <select name="user_type" id="select_user_type" class="custom-select form-control" disabled required onchange="CheckUserType()">
+                            <option value="" selected>סוג משתמש</option>
+                        </select>
+                    </div>
+                    <button id="btn_user_type" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
+                    <!--<div id="div_question_user_type" >-->
+                        <span id="span_question_user_type" class="form-directions" style="display:none">
+                            למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.
+                            למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף יכול להעלות סדנאות לקהילה באתר.
+                            למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר.
+                        </span>
+                    <!--</div>-->
+                </div>
+            </fieldset>
+            <hr class="mb-4">
+            <fieldset id="profile_view" style="display:none">
+                <legend>פרטי פרופיל</legend>
+                <div class="row">
+                    <!-- שם פרופיל -->
+                    <div class="col-md-6 mb-3">
+                        <label for="profile_name">שם פרופיל</label>
+                        <input type="text" id="profile_name" class="form-control text2rigth" disabled required>
+                    </div>
+                    <!-- תיאור פרופיל -->
+                    <div class="col-md-6 mb-3">
+                        <label for="profile_description">תיאור פרופיל</label>
+                        <input type="text" id="profile_description" class="form-control text2rigth" disabled required>
+                    </div>
+                    <!--<div class="row">-->
+                    <!-- עיר מגורים \עסק -->
+                    <div class="col-md-6 mb-3">
+                        <label for="profile_city">עיר מגורים \ עסק</label>
+                        <div class="col-sm-10">
+                            <select name="city" id="profile_city" class="custom-select form-control" disabled required>
+                                <option value="" selected>עיר</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--</div>-->
+                </div>       
+                <hr class="mb-4">
+            </fieldset>
+            <div class="row d-block my-3">
+                <input type="button" id="btnEdit" class="btn btn-primary btn-lg" onclick="Edit()" value="ערוך" />
+                <input type="button" id="btnSave" class="btn btn-primary btn-lg" disabled onclick="Check_validation()" value="שמור" />
+>>>>>>> Stashed changes
             </div>
             <!-- מין -->
             <label for="user_gender">מין</label>

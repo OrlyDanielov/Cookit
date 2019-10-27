@@ -53,9 +53,40 @@ namespace CookitAPI.Controllers
 }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
+
+        #region Update Profile Info
+        [Route("UpdateProfileInfo")]
+        [HttpPut]
+        public HttpResponseMessage UpdateProfileInfo([FromBody]ProfileDTO profile)
         {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                TBL_Profile p = new TBL_Profile()
+                {
+                    Id_Prof = profile.id,
+                    Id_User = profile.user_id,
+                    ProfType = profile.type,
+                    Name_Prof = profile.name,
+                    ProfDescription = profile.description,
+                    CityName = profile.city,
+                    ProfStatus = profile.status
+                };
+                var is_saved = CookitDB.DB_Code.CookitQueries.UpdateProfileInfo(p);
+                if (is_saved == true)
+                    return Request.CreateResponse(HttpStatusCode.OK, "the profile information updated seccussfully.");
+                else
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't update profile information.");
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
         }
+        #endregion
 
         // DELETE api/<controller>/5
         public void Delete(int id)

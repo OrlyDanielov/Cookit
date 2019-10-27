@@ -41,9 +41,26 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
+<<<<<<< Updated upstream
                 db.Entry(newUser).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return true;
+=======
+                TBL_User u = db.TBL_User.SingleOrDefault(x => x.Id_User == newUser.Id_User);
+                if (u != null)
+                {
+                    u.FirstName = newUser.FirstName;
+                    u.LastName = newUser.LastName;
+                    u.Gender = newUser.Gender;
+                    u.Email = newUser.Email;
+                    u.Id_Type = newUser.Id_Type;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+>>>>>>> Stashed changes
             }
             catch (Exception)
             {
@@ -53,6 +70,7 @@ namespace CookitDB.DB_Code
 
         #endregion
 
+<<<<<<< Updated upstream
         //#region Get User Info        
         ////פונקציה שבודקת האם קיים מייל כזה
         //public static bool GetUserInfo(string email)
@@ -76,6 +94,40 @@ namespace CookitDB.DB_Code
         #region Check Mail
         //פונקציה שבודקת האם קיים מייל כזה
         public static bool CheckMail(string email)
+=======
+        #region Update Profile Info
+        public static bool UpdateProfileInfo(TBL_Profile newProfile)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile p = db.TBL_Profile.SingleOrDefault(x => x.Id_Prof == newProfile.Id_Prof);
+                if (p != null)
+                {
+                    p.ProfType = newProfile.ProfType;
+                    p.Name_Prof = newProfile.Name_Prof;
+                    p.ProfDescription = newProfile.ProfDescription;
+                    p.CityName = newProfile.CityName;
+                    p.ProfStatus = newProfile.ProfStatus;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Check Mail Available
+        //check if email Available, then return true. else return false.
+        public static bool CheckMailAvailable(string email)
+>>>>>>> Stashed changes
         {
             try
             {
