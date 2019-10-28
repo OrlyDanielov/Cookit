@@ -16,13 +16,15 @@ function LoginVerification() {
 
 // פןנקציה של הצלחת זיהוי המשתמש
 function SuccessLogin(user) {
-       // שמירת המשתמש המחובר והעברה לדף הבית
+    //console.log("login success!.");
+    //alert("login success!.");
+    // שמירת המשתמש המחובר והעברה לדף הבית
     sessionStorage.setItem("Login_User", JSON.stringify(user));
     //בדיקה האם למשתמש יש גם פרופיל, אז להביא גם את הפרטים האלה
     if (user.user_type == 2 || user.user_type == 3)
         GlobalAjax("/api/Profile/GetProfileByUserId/" + user.id, "GET", "", SuccessProfile, FailProfile);
-    else
-        window.location.replace("Home_login.html"); //מעבר לדף הבית המחובר
+    else   //מעבר לדף הבית המחובר
+        window.location.replace("Home_login.html");
 
 }
 
@@ -41,6 +43,4 @@ function FailProfile() {
     console.log("cant find match profile!.");
 
 }
-
-
 

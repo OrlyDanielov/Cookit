@@ -14,11 +14,11 @@ namespace Cookit.Controllers
     [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
-
+        
         #region Login
         [Route("{email}/{pass}")]
         [HttpGet]
-        public HttpResponseMessage Login(string email, string pass)
+        public HttpResponseMessage Login(string email,string pass)
         {
             //bgroup36_prodConnection db = new bgroup36_prodConnection();
             Cookit_DBConnection db = new Cookit_DBConnection();
@@ -39,22 +39,24 @@ namespace Cookit.Controllers
                 result.pasword = user.UserPass;
                 result.status = user.UserStatus;
                 result.number_of_draw_recipe = user.NumDrawRecp;
-
+             
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
-        #endregion
+        #endregion        
 
         #region Check Mail Available
-        //check if mail available. if available return true, else return false.
-        [Route("{new_email}/CheckMailAvailable")]
-        [HttpGet]
-        public HttpResponseMessage CheckMailAvailable(string new_email)
+        //check if mail exsist
+        [Route("CheckMail/{email}")]
+        //[HttpGet]
+        public HttpResponseMessage Get(string email)
         {
             Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-            bool flag = CookitDB.DB_Code.CookitQueries.CheckMailAvailable(new_email);
+            bool flag = CookitDB.DB_Code.CookitQueries.CheckMailAvailable(email);
+            //string mail = CookitDB.DB_Code.CookitQueries.CheckMail(email);
             if (flag)
-                return Request.CreateResponse(HttpStatusCode.OK, "");
+                //if(mail == null)
+                return Request.CreateResponse(HttpStatusCode.OK,"");
             else
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "this email already exsist.");
         }
@@ -96,21 +98,6 @@ namespace Cookit.Controllers
         //}
         #endregion
 
-        #region Get UserId By Email
-        //get user id by email, becuse mail is unique
-        [Route("{user_email}/GetIdByEmail")]
-        [HttpGet]
-        public HttpResponseMessage GetIdByEmail(string user_email)//)
-        {
-            Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-            int id = CookitDB.DB_Code.CookitQueries.GetUserIdByEmail(user_email);
-            if(id != -1)
-                return Request.CreateResponse(HttpStatusCode.OK,id);
-            else
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "the server could not find the user by this email.");
-        }
-        #endregion
-
         #region Add New User
         [Route("AddNewUser")]
         [HttpPost]
@@ -119,9 +106,10 @@ namespace Cookit.Controllers
             try
             {
                 Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+
                 var is_saved = CookitDB.DB_Code.CookitQueries.AddNewUser(newUser);
                 if (is_saved == true)
-                    return Request.CreateResponse(HttpStatusCode.OK, "the user added seccussfully.");
+                    return Request.CreateResponse(HttpStatusCode.OK, "the user added Successfully.");
                 else
                     return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the user.");
 
@@ -131,7 +119,7 @@ namespace Cookit.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
             }
         }
-        #endregion        
+        #endregion
 
         #region Update User Info
         [Route("UpdateUserInfo")]
@@ -141,7 +129,8 @@ namespace Cookit.Controllers
             try
             {
                 Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-                TBL_User u = new TBL_User() {
+                TBL_User u  = new TBL_User()
+                {
                     Id_User = user.id,
                     Id_Type = user.user_type,
                     FirstName = user.first_name,
@@ -149,8 +138,8 @@ namespace Cookit.Controllers
                     Email = user.email,
                     Gender = user.gender,
                     UserPass = user.pasword,
-                    UserStatus = true,
-                    NumDrawRecp = 0
+                    UserStatus = user.status,
+                    NumDrawRecp = user.number_of_draw_recipe
                 };
                 var is_saved = CookitDB.DB_Code.CookitQueries.UpdateUserInfo(u);
                 if (is_saved == true)
@@ -163,10 +152,10 @@ namespace Cookit.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
             }
         }
-            #endregion
+        #endregion
 
-            // DELETE api/<controller>/5
-            public void Delete(int id)
+        // DELETE api/<controller>/5
+        public void Delete(int id)
         {
         }
     }

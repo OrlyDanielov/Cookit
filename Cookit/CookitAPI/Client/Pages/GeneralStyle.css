@@ -8,6 +8,10 @@
     position: relative;
 }
 
+main{
+    margin : 10px;
+}
+
 
 .bg_brigth {
     background-color: rgba(270, 270, 270,0.90);
@@ -24,13 +28,14 @@
 
 footer {
     background-color: rgba(270, 270, 270,1);
-    position :relative;   
+    position :relative; 
+    margin-top : 10px;
     bottom: 0;
     width: 100%;
-    height: 100px;
+    /*height: 100px;*/
     /*margin-bottom: 0;*/
 }
-    .footer > .container {
+    /*.footer > .container {
         padding-right: 15px;
         padding-left: 15px;
-    }
+    }*/

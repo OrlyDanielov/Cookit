@@ -35,20 +35,42 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+
+        #region GetProfileByUserId
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Profile GetProfileByUserId(int userId)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
+                if (prof == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return prof;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Update User Info
         public static bool UpdateUserInfo(TBL_User newUser)
         {
             try
             {
-                var db = Get_DB();
+                var db = Get_DB();               
                 TBL_User u = db.TBL_User.SingleOrDefault(x => x.Id_User == newUser.Id_User);
                 if (u != null)
                 {
-                    //change only private user details
                     u.FirstName = newUser.FirstName;
                     u.LastName = newUser.LastName;
                     u.Gender = newUser.Gender;
                     u.Email = newUser.Email;
+                    u.Id_Type = newUser.Id_Type;
+                    //u.UserStatus = newUser.UserStatus;
+                    //u.NumDrawRecp = newUser.NumDrawRecp;
 
                     db.SaveChanges();
                     return true;
@@ -63,9 +85,57 @@ namespace CookitDB.DB_Code
         }
 
         #endregion
-           
+
+        #region Update Profile Info
+        public static bool UpdateProfileInfo(TBL_Profile newProfile)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile p = db.TBL_Profile.SingleOrDefault(x => x.Id_Prof == newProfile.Id_Prof);
+                if (p != null)
+                {
+                    p.ProfType = newProfile.ProfType;
+                    p.Name_Prof = newProfile.Name_Prof;
+                    p.ProfDescription = newProfile.ProfDescription;
+                    p.CityName = newProfile.CityName;
+                    p.ProfStatus = newProfile.ProfStatus;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Check Profile Exsist By User Id
+        // בודקת את האימייל והסיסמא של המשתשמש בכניסה
+        public static TBL_Profile CheckProfileExsistByUserId(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile profile = db.TBL_Profile.SingleOrDefault(x => x.Id_User == user_id);
+                if (profile == null) 
+                    return null;
+                else
+                    return profile;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Check Mail Available
-        //check if email Available, then return true. else return false.
         public static bool CheckMailAvailable(string email)
         {
             try
@@ -77,7 +147,7 @@ namespace CookitDB.DB_Code
                 else
                     return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -90,30 +160,13 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                var db = Get_DB();                
-                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email && x.UserPass == pass);
+                var db = Get_DB();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
+                ////bgroup36_prodConnection db = new bgroup36_prodConnection();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email && x.UserPass == pass);//x => x.Email = user_details.Email && x.UserPass == user_details.Pass)
                 if (user == null) // אם אין משתמש אם פרטים כאלה
                     return null;
                 else return user;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region GetProfileByUserId
-        // מביאה את הפרופיל לפי תז של משתמש
-        public static TBL_Profile GetProfileByUserId(int userId)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
-                if (prof == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return prof;
             }
             catch (Exception)
             {
@@ -308,40 +361,17 @@ namespace CookitDB.DB_Code
         #region Add New User
         //פונקציה של הוספת משתמש חדש לטבלת המשתמשים
         public static bool AddNewUser(TBL_User new_user)
-        //public static int AddNewUser(TBL_User new_user)
         {
             try
             {
                 var db = Get_DB();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.Entry(new_user).State = System.Data.Entity.EntityState.Added; // הוספת משתמש חדש
                 db.SaveChanges();
                 return true;
-
-                //int id = db.TBL_User.SingleOrDefault(x => x.Email == new_user.Email && x.UserPass == new_user.UserPass).Id_User;
-                //return id;
             }
             catch (Exception)
             {
                 return false;
-                //return -1;
-            }
-        }
-        #endregion
-
-        #region Get User Id By Email
-        public static int GetUserIdByEmail(string email)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-                return user.Id_User;
-            }
-            catch (Exception)
-            {
-                return -1;
             }
         }
         #endregion
@@ -353,8 +383,6 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.Entry(new_profile).State = System.Data.Entity.EntityState.Added; // הוספת פרופיל חדש
                 db.SaveChanges();
                 return true;
