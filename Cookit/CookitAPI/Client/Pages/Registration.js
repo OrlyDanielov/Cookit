@@ -352,7 +352,7 @@ function Registration() {
             Email: ($("#email").val()).toString(),
             Gender: ($("input[name='gender']:checked").val()).toString(),
             UserPass: ($("#password").val()).toString(),
-            status: 1,
+            status: true,
             number_of_draw_recipe: 0
         };
         //שליחת הנתונים לשרת

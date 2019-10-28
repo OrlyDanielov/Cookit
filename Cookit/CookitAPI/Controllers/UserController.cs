@@ -43,8 +43,7 @@ namespace Cookit.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
-        #endregion
-        
+        #endregion        
 
         #region Check Mail Available
         //check if mail exsist
@@ -108,11 +107,9 @@ namespace Cookit.Controllers
             {
                 Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
 
-                var user_id = CookitDB.DB_Code.CookitQueries.AddNewUser(newUser);
-                //var is_saved = CookitDB.DB_Code.CookitQueries.AddNewUser(newUser);
-                //if (is_saved == true)
-                if(user_id != -1)
-                    return Request.CreateResponse(HttpStatusCode.OK, user_id);
+                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewUser(newUser);
+                if (is_saved == true)
+                    return Request.CreateResponse(HttpStatusCode.OK, "the user added Successfully.");
                 else
                     return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the user.");
 
@@ -133,7 +130,7 @@ namespace Cookit.Controllers
             {
                 Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_User u  = new TBL_User()
-                { 
+                {
                     Id_User = user.id,
                     Id_Type = user.user_type,
                     FirstName = user.first_name,
@@ -141,7 +138,7 @@ namespace Cookit.Controllers
                     Email = user.email,
                     Gender = user.gender,
                     UserPass = user.pasword,
-                    UserStatus = true,//user.status,
+                    UserStatus = user.status,
                     NumDrawRecp = user.number_of_draw_recipe
                 };
                 var is_saved = CookitDB.DB_Code.CookitQueries.UpdateUserInfo(u);

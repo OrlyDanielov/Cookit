@@ -35,6 +35,26 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+
+        #region GetProfileByUserId
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Profile GetProfileByUserId(int userId)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
+                if (prof == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return prof;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Update User Info
         public static bool UpdateUserInfo(TBL_User newUser)
         {
@@ -49,7 +69,8 @@ namespace CookitDB.DB_Code
                     u.Gender = newUser.Gender;
                     u.Email = newUser.Email;
                     u.Id_Type = newUser.Id_Type;
-                    u.UserStatus = newUser.UserStatus;
+                    //u.UserStatus = newUser.UserStatus;
+                    //u.NumDrawRecp = newUser.NumDrawRecp;
 
                     db.SaveChanges();
                     return true;
@@ -339,25 +360,18 @@ namespace CookitDB.DB_Code
 
         #region Add New User
         //פונקציה של הוספת משתמש חדש לטבלת המשתמשים
-        //public static bool AddNewUser(TBL_User new_user)
-        public static int AddNewUser(TBL_User new_user)
+        public static bool AddNewUser(TBL_User new_user)
         {
             try
             {
                 var db = Get_DB();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.Entry(new_user).State = System.Data.Entity.EntityState.Added; // הוספת משתמש חדש
                 db.SaveChanges();
-
-                int id = db.TBL_User.SingleOrDefault(x => x.Email == new_user.Email && x.UserPass == new_user.UserPass).Id_User;
-                return id;
-                //return true;
+                return true;
             }
             catch (Exception)
             {
-                //return false;
-                return -1;
+                return false;
             }
         }
         #endregion
@@ -369,8 +383,6 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.Entry(new_profile).State = System.Data.Entity.EntityState.Added; // הוספת פרופיל חדש
                 db.SaveChanges();
                 return true;

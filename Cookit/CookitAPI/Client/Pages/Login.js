@@ -20,8 +20,11 @@ function SuccessLogin(user) {
     //alert("login success!.");
     // שמירת המשתמש המחובר והעברה לדף הבית
     sessionStorage.setItem("Login_User", JSON.stringify(user));
-    //מעבר לדף הבית המחובר
-    window.location.replace("Home_login.html");
+    //בדיקה האם למשתמש יש גם פרופיל, אז להביא גם את הפרטים האלה
+    if (user.user_type == 2 || user.user_type == 3)
+        GlobalAjax("/api/Profile/GetProfileByUserId/" + user.id, "GET", "", SuccessProfile, FailProfile);
+    else   //מעבר לדף הבית המחובר
+        window.location.replace("Home_login.html");
 
 }
 
@@ -29,5 +32,15 @@ function SuccessLogin(user) {
 function FailLogin() {
     console.log("login fail!.");
     alert("אימייל או סיסמה לא נכונים. אנא נסה שנית.");
+}
+
+function SuccessProfile(profile) {
+    sessionStorage.setItem("Login_Profile", JSON.stringify(profile));
+    window.location.replace("Home_login.html"); //מעבר לדף הבית המחובר
+}
+
+function FailProfile() {
+    console.log("cant find match profile!.");
+
 }
 

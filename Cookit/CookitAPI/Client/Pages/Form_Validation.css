@@ -1,0 +1,8 @@
+﻿body {
+}
+
+.not_valid {
+    /*border-bottom: 1px solid red;*/
+    border: 2px solid red;
+    background-color: rgba(201,76,76,0.5);
+}
