@@ -36,13 +36,13 @@ function GetUserType()
 //משיכת סוגי המשתמשים
 {
     if (JSON.parse(sessionStorage.getItem("arry_userType")) === null)
-        GlobalAjax("/api/UserType", "GET", "", SuccessUserType, FailUserType);
+        GlobalAjax("/api/UserType/GetAll", "GET", "", SuccessUserType, FailUserType);
     else
         SuccessUserType(arry_userType);
 }
 
 function SuccessUserType(arry_userType) {
-    sessionStorage.setItem("arry_userType", arry_userType);
+    sessionStorage.setItem("arry_userType", JSON.stringify(arry_userType));
     var user_type = JSON.parse(sessionStorage.getItem("Login_User")).user_type;
     for (var i = 0; i < arry_userType.length; i++) {
         if (arry_userType[i].id === user_type)

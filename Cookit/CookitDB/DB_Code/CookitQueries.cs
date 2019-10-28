@@ -40,12 +40,7 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                var db = Get_DB();
-<<<<<<< Updated upstream
-                db.Entry(newUser).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-                return true;
-=======
+                var db = Get_DB();               
                 TBL_User u = db.TBL_User.SingleOrDefault(x => x.Id_User == newUser.Id_User);
                 if (u != null)
                 {
@@ -54,13 +49,13 @@ namespace CookitDB.DB_Code
                     u.Gender = newUser.Gender;
                     u.Email = newUser.Email;
                     u.Id_Type = newUser.Id_Type;
+                    u.UserStatus = newUser.UserStatus;
 
                     db.SaveChanges();
                     return true;
                 }
                 else
                     return false;
->>>>>>> Stashed changes
             }
             catch (Exception)
             {
@@ -70,31 +65,6 @@ namespace CookitDB.DB_Code
 
         #endregion
 
-<<<<<<< Updated upstream
-        //#region Get User Info        
-        ////פונקציה שבודקת האם קיים מייל כזה
-        //public static bool GetUserInfo(string email)
-        //{
-        //    try
-        //    {
-        //        var db = Get_DB();
-        //        TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-        //        if (user == null)
-        //            return false;
-        //        else
-        //            return true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return false;
-        //    }
-        //}
-        //#endregion
-
-        #region Check Mail
-        //פונקציה שבודקת האם קיים מייל כזה
-        public static bool CheckMail(string email)
-=======
         #region Update Profile Info
         public static bool UpdateProfileInfo(TBL_Profile newProfile)
         {
@@ -124,10 +94,28 @@ namespace CookitDB.DB_Code
 
         #endregion
 
+        #region Check Profile Exsist By User Id
+        // בודקת את האימייל והסיסמא של המשתשמש בכניסה
+        public static TBL_Profile CheckProfileExsistByUserId(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile profile = db.TBL_Profile.SingleOrDefault(x => x.Id_User == user_id);
+                if (profile == null) 
+                    return null;
+                else
+                    return profile;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Check Mail Available
-        //check if email Available, then return true. else return false.
         public static bool CheckMailAvailable(string email)
->>>>>>> Stashed changes
         {
             try
             {

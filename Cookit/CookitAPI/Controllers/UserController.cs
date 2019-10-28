@@ -46,14 +46,14 @@ namespace Cookit.Controllers
         #endregion
         
 
-        #region Check Mail Exsist
+        #region Check Mail Available
         //check if mail exsist
         [Route("CheckMail/{email}")]
         //[HttpGet]
         public HttpResponseMessage Get(string email)
         {
             Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-            bool flag = CookitDB.DB_Code.CookitQueries.CheckMail(email);
+            bool flag = CookitDB.DB_Code.CookitQueries.CheckMailAvailable(email);
             //string mail = CookitDB.DB_Code.CookitQueries.CheckMail(email);
             if (flag)
                 //if(mail == null)
@@ -99,7 +99,6 @@ namespace Cookit.Controllers
         //}
         #endregion
 
-
         #region Add New User
         [Route("AddNewUser")]
         [HttpPost]
@@ -125,58 +124,37 @@ namespace Cookit.Controllers
         }
         #endregion
 
-        // PUT api/<controller>/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
         #region Update User Info
-        //[Route("api/User/UpdateUserInfo")]
-        //public void Post([FromBody]string email)
-        //{
-        //    try
-        //    {
-        //        Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-        //    }
-        //    catch(Exception e)
-        //    {
-        //        //return Request.CreateErrorResponse(HttpStatusCode.BadRequest, e);
-        //    }
-        //}
-
-        //update user info
-        //[HttpPost]
-        //[Route("api/User/UpdateUserInfo")]
-        //public HttpResponseMessage UpdateUserInfo([FromBody]UserDTO newUser)
-        //{
-        //    Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-        //    TBL_User new_TBL_User = CookitDB.DB_Code.CookitQueries.GetUserByEmail(newUser.email);
-        //    if (new_TBL_User != null)
-        //    {
-        //        new_TBL_User.FirstName = newUser.first_name;
-        //        new_TBL_User.LastName = newUser.last_name;
-        //        new_TBL_User.Email = newUser.email;
-        //        new_TBL_User.Gender = newUser.gender;
-        //        new_TBL_User.Id_Type = newUser.user_type;
-        //        //TBL_User new_TBL_User = new TBL_User()
-        //        //{
-        //        //    Id_User = newUser.id,
-        //        //    Id_Type = newUser.user_type,
-        //        //    FirstName = newUser.first_name,
-        //        //    LastName = newUser.last_name,
-        //        //    Email = newUser.email,
-        //        //    Gender = newUser.gender,
-        //        //};
-
-        //        var is_saved = CookitDB.DB_Code.CookitQueries.UpdateUserInfo(new_TBL_User);
-        //        if (is_saved == true)
-        //            return Request.CreateResponse(HttpStatusCode.OK, is_saved);
-        //        else
-        //            return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't update user information.");
-        //    }
-        //    else
-        //        return Request.CreateResponse(HttpStatusCode.NotFound, "server can't fount the current user.");
-        //}
+        [Route("UpdateUserInfo")]
+        [HttpPut]
+        public HttpResponseMessage UpdateUserInfo([FromBody]UserDTO user)
+        {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                TBL_User u  = new TBL_User()
+                { 
+                    Id_User = user.id,
+                    Id_Type = user.user_type,
+                    FirstName = user.first_name,
+                    LastName = user.last_name,
+                    Email = user.email,
+                    Gender = user.gender,
+                    UserPass = user.pasword,
+                    UserStatus = true,//user.status,
+                    NumDrawRecp = user.number_of_draw_recipe
+                };
+                var is_saved = CookitDB.DB_Code.CookitQueries.UpdateUserInfo(u);
+                if (is_saved == true)
+                    return Request.CreateResponse(HttpStatusCode.OK, "the user information updated seccussfully.");
+                else
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't update user information.");
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
         #endregion
 
         // DELETE api/<controller>/5

@@ -1,9 +1,11 @@
-<<<<<<< Updated upstream
-﻿var userInfo = new Array();
-userInfo = JSON.parse(sessionStorage.getItem("Login_User"));
-var arry_userType = new Array();
-=======
-﻿var valid_user_info = {
+﻿var userInfo = JSON.parse(sessionStorage.getItem("Login_User"));
+var profileInfo = JSON.parse(sessionStorage.getItem("Login_Profile"));
+var arry_userType = JSON.parse(sessionStorage.getItem("arry_userType"));//= JSON.parse(sessionStorage.getItem("arry_userType")); 
+
+var isProfile = false;
+var old_user_type;
+
+var valid_user_info = {
     first_name: false,
     last_name: false,
     email: false
@@ -16,65 +18,37 @@ var profile_validation = {
 };
 
 var cityArray = null;
-
-var userInfo = JSON.parse(sessionStorage.getItem("Login_User"));
-
-var profileInfo = JSON.parse(sessionStorage.getItem("Login_Profile"));
-
-var arry_userType = JSON.parse(sessionStorage.getItem("arry_userType")); 
-
-var isProfile = false;
->>>>>>> Stashed changes
-
+//*****************************************************************************************//
 $(document).ready(function ()
 //בטעינת הדף
 {
-    //$("#btnEdit").style.visibility = "none";
-    //$("#btnSave").style.visibility = "hidden";
-<<<<<<< Updated upstream
-    GetUserType();
-    ViewUserInfo();
-});
-
-function GetUserType()
-// הפונקציה מביאה את סוגי המשתמשים מהמסד נתונים
-{
-    GlobalAjax("/api/UserType", "GET", "", SuccessUserType, FailUserType);
-}
-
-function SuccessUserType(arry_userType) {
-    console.log(arry_userType);
-    sessionStorage.setItem("arry_userType",arry_userType);
-    initUserType(arry_userType);
-}
-
-function FailUserType() {
-    console.log("שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.");
-    alert('שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.');
-}
-
-function initUserType(data)
-//הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
-{
-    var str;
-    for (i in data) {
-        if (data[i].user_type !== "מנהל")
-            $("#select_user_type").append(AddOption_UserType(data[i]));
-=======
-    //GetUserType();
-    //sessionStorage.setItem("arry_userType", JSON.stringify(arry_userType));
-    //arry_userType = JSON.parse(sessionStorage.getItem("arry_userType"));
     initUserType();
     ViewUserInfo();
     if (userInfo.user_type != 4 && userInfo.user_type != 1) {
         isProfile = true;
         GetCity();
         document.getElementById("profile_view").style.display = "block";
-        document.getElementById("profile_view").reload;        
+        document.getElementById("profile_view").reload;
         ViewProfileInfo();
     }
-
 });
+//*****************************************************************************************//
+function initUserType()
+//הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
+{
+    var arry_userType = JSON.parse(sessionStorage.getItem("arry_userType"));
+    for (var i in arry_userType) {
+        if (arry_userType[i].user_type !== "מנהל")
+            $("#select_user_type").append(AddOption_UserType(arry_userType[i]));
+    }
+}
+
+function AddOption_UserType(item)
+//הפונקציה מוסיפה אופציה לרשימה הנגללת
+{
+    return '<option value="' + item.id + '">' + item.user_type + '</option>';
+}   
+//*****************************************************************************************//
 
 
 function CheckUserType() {
@@ -96,7 +70,7 @@ function CheckUserType() {
         document.getElementById("profile_view").reload;
     }   
 }
-
+//*****************************************************************************************//
 function GetCity() {
     if (cityArray == null)
             GlobalAjax("/api/City", "GET", "", SuccessCity, FailCity);
@@ -123,22 +97,7 @@ function initCities(data) {
 function AddOption_city(item) {
     return '<option value="' + item.city_name + '">' + item.city_name + '</option>';
 }
-
-function initUserType()
-//הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
-{
-    for (i in arry_userType) {
-        if (arry_userType[i].user_type !== "מנהל")
-            $("#select_user_type").append(AddOption_UserType(arry_userType[i]));
->>>>>>> Stashed changes
-    }
-}
-
-function AddOption_UserType(item)
-//הפונקציה מוסיפה אופציה לרשימה הנגללת
-{
-    return '<option value="' + item.id + '">' + item.user_type + '</option>';
-}
+//*****************************************************************************************//
 
 function ViewUserInfo()
 //הצגת פרטים אישיים
@@ -146,7 +105,6 @@ function ViewUserInfo()
     $("#user_first_name").val(userInfo.first_name);
     $("#user_last_name").val(userInfo.last_name);
     $("#user_email").val(userInfo.email);
-    //מין המשתמש
     if (userInfo.gender === "F") {
         $("#female").prop('checked', true);
         $("#male").prop('checked', false); 
@@ -155,11 +113,7 @@ function ViewUserInfo()
         $("#female").prop('checked', false);
         $("#male").prop('checked', true);         
     }
-    //סוג משתמש
-<<<<<<< Updated upstream
     //$("#user_type").val(userInfo.user_type);
-    $('#select_user_type[value="' + userInfo.user_type + '"]').attr('selected', true);
-=======
     //$('#select_user_type[value="' + userInfo.user_type + '"]').attr('selected', true);
     $('#select_user_type[value="' + userInfo.user_type + '"]').prop('selected', true);
 
@@ -171,13 +125,11 @@ function ViewProfileInfo()
     $("#profile_name").val(profileInfo.name);
     $("#profile_description").val(profileInfo.description);
     $('#profile_city[value="' + profileInfo.city + '"]').prop('selected', true);   
->>>>>>> Stashed changes
 }
-
+//*****************************************************************************************//
 function Edit()
 //עריכת פרטים אישיים
 {
-<<<<<<< Updated upstream
     //מאפשר את הקלטים לצורך עריכה
     $("#user_first_name").prop('disabled', false); 
     $("#user_last_name").prop('disabled', false); 
@@ -186,24 +138,15 @@ function Edit()
     $("#female").prop('disabled', false); 
     $("#male").prop('disabled', false); 
     //משנה את כפתור העריכה לשמירה עבור השינויים
-=======
     Edit_User_info();
     if (isProfile)
         Edit_Profile_info();
   //משנה את כפתור העריכה לשמירה עבור השינויים
->>>>>>> Stashed changes
     //$("#btnEdit").style.display = 'none';//.prop('visibility', 'hidden');//.style.visibility = "hidden";
     //$("#btnSave").style.display = 'inline';//.visibility = "visible";//$("#btnSave").prop('visibility', 'visible');  
     $("#btnSave").prop('disabled', false);
 }
 
-<<<<<<< Updated upstream
-function SaveChanges()
-//שמירת שינויים בפרטים אישיים
-{
-    if (confirm("האם אתה רוצה לשמור את השינוי?")) {
-
-=======
 function Edit_User_info() {
     //מאפשר את הקלטים לצורך עריכה
     $("#user_first_name").prop('disabled', false);
@@ -219,6 +162,7 @@ function Edit_Profile_info() {
     $("#profile_description").prop('disabled', false);
     $("#profile_city").prop('disabled', false);
 }
+//*****************************************************************************************//
 
 function Check_valid_Email() {
     var new_email = $("#user_email").val();
@@ -260,6 +204,7 @@ function Fail_CheckMailFree() {
     alert("כתובת אימייל זו כבר שייכת למשתמש אחר, אנא הכנס אימייל אחר.");
     //Change_style_by_validation();
 } 
+//*****************************************************************************************//
 
 function Check_ifEmpty()
 // הפונקציה בודקת האם השדות לא ריקים
@@ -294,6 +239,7 @@ var new_user_info = {
     //return true;
     return flag;
 }
+//*****************************************************************************************//
 
 function Check_Length()
 //הפונקציה בודקת האם השדות באורך בנכון
@@ -352,6 +298,7 @@ function Check_Length()
     }
     return flag;
 }
+//*****************************************************************************************//
 
 function Change_style_by_validation()
 //הפונקציה בודקת איזה פריט לא תקין ומסמנת אותו
@@ -385,6 +332,7 @@ function Change_style_by_validation()
         }
     }
 }
+//*****************************************************************************************//
 
 function Check_validation()
 //הפונקציה בודקת את התקינות של שדות הטופס
@@ -409,7 +357,7 @@ function Check_validation()
     }
     //Change_style_by_validation();
 }
-
+//*****************************************************************************************//
 function Block_Profile_btn()
 //לא מאפשר את לעריכה את פרטי פרופיל
 {
@@ -428,116 +376,155 @@ function Block_User_btn()
     $("#female").prop('disabled', true);
     $("#male").prop('disabled', true);
 }
+/*function Save_User() {
+    //שמירת הפרטים המעודכנים בsesstion storage
+    userInfo.first_name = $("#user_first_name").val();
+    userInfo.last_name = $("#user_last_name").val();
+    userInfo.email = $("#user_email").val();
+    userInfo.gender = $("input[name='gender']:checked").val();
+    userInfo.user_type = $('#select_user_type').find(":selected").val();
 
+    sessionStorage.setItem("Login_User", JSON.stringify(userInfo));
+
+    //עדכון פרטים אישיים בשרת
+    GlobalAjax("/api/User/UpdateUserInfo", "POST", userInfo, SuccessUpdateUser, FailUpdateUser);
+}*/
+
+function Save_Profile() {
+    var new_user_type = $('#select_user_type').find(":selected").val();
+    //מקרה של הוספת פרופיל
+    if (old_user_type == 1 && (new_user_type == 2 || new_user_type == 3)) {
+        var user_id = userInfo.user_id;
+        //אם קיים למתשמש פרופיל לא פעיל
+        //צריך לבדוק אם קיים פרופיל לא פעיל של משתמש זה ולעדכן אותו אחרת הוספה
+        GlobalAjax("api/Profile/" + user_id+"/CheckProfileExsistByUserId", "GET", "", UpdateUnactiveProfile, AddNewProfile);
+    }
+    //עדכון פרופיל
+    else if ((old_user_type == 2 && new_user_type == 3) || (old_user_type == 3 && new_user_type == 2))
+        Update_profile();
+    //הסרת פרופיל - כלומר עדכון הסטאטוס
+    else if ((old_user_type == 2 || old_user_type == 3) && new_user_type == 1)
+        UpdateProfileStatus();
+}
+
+function UpdateProfileStatus() {//הסרת פרופיל - כלומר עדכון הסטאטוס ללא פעיל
+    profileInfo.status = 0;
+    sessionStorage.removeItem("Login_Profile");
+    GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", profileInfo, SuccessUpdateProfile, FailUpdateProfile);
+}
+
+function AddNewProfile() {//הוספת פרופיל חדש לחלוטין
+    var new_user_type = $('#select_user_type').find(":selected").val();
+    var type;
+    if (new_user_type == 2)
+        type = "F";
+    else
+        type = "B";
+    var new_profile = {
+        user_id: userInfo.id,
+        type: type,
+        name: $("#profile_name").val(),
+        description: $("#profile_description").val(),
+        city: $('#profile_city').find(":selected").val(),
+        status: true
+    };
+    sessionStorage.setItem("Login_Profile", JSON.stringify(new_profile));
+
+    GlobalAjax("/api/Profile/AddNewProfile", "POST", new_profile, SuccessUpdateProfile, FailUpdateProfile);
+}
+
+function UpdateUnactiveProfile(profile) {//עדכון פרופיל לא פעי ע םי נתונים מהשרת
+    var p = { id, user_id, type, name, description, city, status };
+    var new_user_type = $('#select_user_type').find(":selected").val();
+    if (new_user_type == 2)
+        p.type = "F";
+    else
+        p.type = "B";
+    p.id = profile.id;
+    p.user_id = profile.user_id;
+    p.name = profile.name;
+    p.description = profile.description;
+    p.city = profile.city;
+    p.status = true;
+
+    sessionStorage.setItem("Login_Profile", JSON.stringify(p));
+
+    GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", p, SuccessUpdateProfile, FailUpdateProfile);
+}
+
+function Update_profile() {//עדכון פרופיל לפי נתוני האתר
+    var new_user_type = $('#select_user_type').find(":selected").val();
+        if (new_user_type == 2)
+        profileInfo.type = "F";
+    else
+        profileInfo.type = "B";
+    profileInfo.name = $("#profile_name").val();
+    profileInfo.description = $("#profile_description").val();
+    profileInfo.city = $('#profile_city').find(":selected").val();
+
+    sessionStorage.setItem("Login_Profile", JSON.stringify(profileInfo));
+
+    GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", profileInfo, SuccessUpdateProfile, FailUpdateProfile);
+}
 
 function SaveChanges()
 //שמירת שינויים בפרטים אישיים
 {
-    var old_user_type = userInfo.user_type;
+    old_user_type = userInfo.user_type;
     if (confirm("האם אתה רוצה לשמור את השינוי?")) {
         //user
->>>>>>> Stashed changes
+        //Save_User();
+        /**/ 
         //שמירת הפרטים המעודכנים בsesstion storage
         userInfo.first_name = $("#user_first_name").val();
         userInfo.last_name = $("#user_last_name").val();
         userInfo.email = $("#user_email").val();
         userInfo.gender = $("input[name='gender']:checked").val();
         userInfo.user_type = $('#select_user_type').find(":selected").val();
+
         sessionStorage.setItem("Login_User", JSON.stringify(userInfo));
-<<<<<<< Updated upstream
 
         //עדכון פרטים אישיים בשרת
-        GlobalAjax("api/User/UpdateUserInfo", "POST", userInfo, SuccessUpdate, FailUpdate);
-
+        GlobalAjax("/api/User/UpdateUserInfo", "POST", userInfo, SuccessUpdateUser, FailUpdateUser);
+        /**/
         //שינוי מצב הכפתורים והקלטים
-        $("#user_first_name").prop('disabled', true);
-        $("#user_last_name").prop('disabled', true);
-        $("#user_email").prop('disabled', true);
-        $("#select_user_type").prop('disabled', true);
-        $("#female").prop('disabled', true);
-        $("#male").prop('disabled', true);
-
+        Block_User_btn();              
         $("#btnSave").prop('disabled', true);
         $("#btnEdit").prop('disabled', false);
-    }
-=======
-        //עדכון פרטים אישיים בשרת
-        GlobalAjax("/api/User/UpdateUserInfo", "PUT", userInfo, SuccessUpdateUser, FailUpdateUser);
-        //שינוי מצב הכפתורים והקלטים
-        Block_User_btn();
-    }
-    
-    if (isProfile) {
-        //Profile
-        var new_user_type = $('#select_user_type').find(":selected").val();
-        //הסרת פרופיל
-        if (new_user_type == 1 && (old_user_type == 2 || old_user_type == 3)) {
-            profileInfo.status = 0; // לא פעיל
-            //sessionStorage.setItem("Login_Profile", JSON.stringify(profileInfo));
-            sessionStorage.removeItem("Login_Profile");
-            GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", profileInfo, SuccessUpdateProfile, FailUpdateProfile);
+/*
+        if (isProfile) {
+            //Profile
+            Block_Profile_btn();
+            Save_Profile(old_user_type);
         }
-
-        //הוספת פרופיל
-
-        //מעבר בין סוגים 2 ל 3 ולהפך או עדכון אותו הסוג
-        //שמירת הפרטים המעודכנים בsesstion storage
-        if (new_user_type == 2)
-            profileInfo.type = "F";
-        else
-            profileInfo.type = "B";
-        profileInfo.name = $("#profile_name").val();
-        profileInfo.description = $("#profile_description").val();
-        profileInfo.city = $('#profile_city').find(":selected").val();
-        sessionStorage.setItem("Login_Profile", JSON.stringify(profileInfo));
-        //עדכון פרטים אישיים בשרת
-        GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", profileInfo, SuccessUpdateProfile, FailUpdateProfile);
-        //שינוי מצב הכפתורים והקלטים
-        Block_Profile_btn();
-
-        
+        */
     }
-    
-    //שינוי כפתורים
-    $("#btnSave").prop('disabled', true);
-    $("#btnEdit").prop('disabled', false);
->>>>>>> Stashed changes
 }
 
 function SuccessUpdateUser() // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
 {
-    console.log('הפרטים האישיים עודכני בהצלחה!.');
-    if (!isProfile)
-        AlertSuccsses2User();
-    else {//אם יש פרופיל
-        var old_user_type = userInfo.user_type;
-        var new_user_type = $('#select_user_type').find(":selected").val();
-        // עדכון הפרופיל
-        if (new_user_type == 2)
-            profileInfo.type = "F";
-        else
-            profileInfo.type = "B";
-        profileInfo.name = $("#profile_name").val();
-        profileInfo.description = $("#profile_description").val();
-        profileInfo.city = $('#profile_city').find(":selected").val();
-        //הסרת פרופיל
-        if (new_user_type == 1 && (old_user_type == 2 || old_user_type == 3)) {
-            profileInfo.status = 0; // לא פעיל
-            sessionStorage.removeItem("Login_Profile");
-        }
-        else
-            sessionStorage.setItem("Login_Profile", JSON.stringify(profileInfo));
+    console.log('הפרטים האישיים עודכני בהצלחה!.');   
 
-        GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", profileInfo, SuccessUpdateProfile, FailUpdateProfile);
+    var new_user_type = $('#select_user_type').find(":selected").val();
+    //עבור הסרת פרופיל- מעדכנים סטאטוס ללא פעיל
+    if ((old_user_type == 2 || old_user_type == 3) && new_user_type == 1)
+        UpdateProfileStatus();
+    //מקרה של הוספת פרופיל
+    else if (old_user_type == 1 && (new_user_type == 2 || new_user_type == 3)) {
+        var user_id = userInfo.user_id;
+        //אם קיים למתשמש פרופיל לא פעיל
+        //צריך לבדוק אם קיים פרופיל לא פעיל של משתמש זה ולעדכן אותו אחרת הוספה
+        GlobalAjax("api/Profile/" + user_id + "/CheckProfileExsistByUserId", "GET", "", UpdateUnactiveProfile, AddNewProfile);
     }
-        //הוספת פרופיל
-        else if (old_user_type == 1 && (new_user_type == 2 || new_user_type == 3))
-        {
-
-        }
-        //שינוי מצב הכפתורים והקלטים
+    //עדכון פרופיל
+    else if ((old_user_type == 2 && new_user_type == 3) || (old_user_type == 3 && new_user_type == 2))
+        Update_profile();
+    /*
+    if (isProfile) {
         Block_Profile_btn();
+        Save_Profile();
     }
+    */
 }
 
 function FailUpdateUser(data)// פונקציה המתבצעת אחרי כישלון הוספה  של משתמש

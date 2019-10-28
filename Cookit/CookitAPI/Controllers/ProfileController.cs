@@ -18,11 +18,39 @@ namespace CookitAPI.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        /*
+         // GET api/<controller>/5
+         public string Get(int id)
+         {
+             return "value";
+         }
+         */
+
+        #region Check if Profile Exsist 
+        //check if exsist profile match to user id
+        [Route("{user_id}/CheckProfileExsistByUserId")]
+        [HttpGet]
+        public HttpResponseMessage CheckProfileExsistByUserId(int user_id)
         {
-            return "value";
+            Cookit_DBConnection DB = new Cookit_DBConnection();
+            TBL_Profile p = CookitDB.DB_Code.CookitQueries.CheckProfileExsistByUserId(user_id);
+            if (p == null)
+                return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
+            else
+            {
+                ProfileDTO result = new ProfileDTO();
+                result.id = p.Id_Prof;
+                result.user_id = p.Id_User;
+                result.type = p.ProfType;
+                result.name = p.Name_Prof;
+                result.description = p.ProfDescription;
+                result.city = p.CityName;
+                result.status = p.ProfStatus;
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
         }
+        #endregion
 
         /*
         // POST api/<controller>
@@ -31,6 +59,7 @@ namespace CookitAPI.Controllers
         }
         */
 
+        #region Add New Profile
         //add new profile
         [Route("AddNewProfile")]
         [HttpPost]
@@ -51,6 +80,7 @@ namespace CookitAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
             }
 }
+        #endregion
 
         // PUT api/<controller>/5
         //public void Put(int id, [FromBody]string value)

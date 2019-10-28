@@ -26,39 +26,37 @@
 
 <body>
     <!--תפריט-->
-    <header id="menu"></header>
-    <!--תוכן דף -->
-<<<<<<< Updated upstream
-    <main role="main" class="flex-shrink-0">
-        <div class="container  bg_brigth">
-            <h4 class="mb-3">פרטים אישיים</h4>
-            <!-- שם פרטי ושם משפחה-->
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="last_name">שם משפחה</label>
-                    <input type="text" for="last_name" id="user_last_name" disabled class="form-control text2rigth" required />
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="first_name">שם פרטי</label>
-                    <input type="text" for="first_name" id="user_first_name" disabled class="form-control text2rigth" required />
-                </div>
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        <a class="nav-link" href="Login.html">התחבר</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">צפייה במתכונים</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">חיפוש מתכון</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="Home_logout.html">דף הבית <span class="sr-only">(current)</span></a>
+                    </li>
+
+                </ul>
             </div>
-            <div class="row">
-                <!-- מייל-->
-                <div class="col-md-6 mb-3">
-                    <label for="email">אימייל</label>
-                    <input type="email" id="user_email" class="form-control text2rigth" disabled required>
-                </div>
-                <!-- סוג המשתמש-->
-                <div class="col-md-6 mb-3">
-                    <label for="user_type">סוג המשתמש</label>
-                    <div class="col-sm-10">
-                        <select name="user_type" id="select_user_type" class="custom-select" disabled>
-                            <option value="" disabled>סוג משתמש</option>
-                        </select>
-                    </div>
-                </div>
-=======
+            <!-- Hamborger navbar -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="Home_logout.html">
+                <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Cookit
+            </a>
+        </nav>
+    </header> 
+    <!--תוכן דף -->
     <main role="main" class="flex-shrink-0  container  bg_brigth">
         <form id="User_Info" novalidate>
             <fieldset id="user_view">
@@ -103,11 +101,11 @@
                     </div>
                     <button id="btn_user_type" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
                     <!--<div id="div_question_user_type" >-->
-                        <span id="span_question_user_type" class="form-directions" style="display:none">
-                            למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.
-                            למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף יכול להעלות סדנאות לקהילה באתר.
-                            למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר.
-                        </span>
+                    <span id="span_question_user_type" class="form-directions" style="display:none">
+                        למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.
+                        למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף יכול להעלות סדנאות לקהילה באתר.
+                        למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר.
+                    </span>
                     <!--</div>-->
                 </div>
             </fieldset>
@@ -136,33 +134,24 @@
                         </div>
                     </div>
                     <!--</div>-->
-                </div>       
+                </div>
                 <hr class="mb-4">
             </fieldset>
             <div class="row d-block my-3">
                 <input type="button" id="btnEdit" class="btn btn-primary btn-lg" onclick="Edit()" value="ערוך" />
-                <input type="button" id="btnSave" class="btn btn-primary btn-lg" disabled onclick="Check_validation()" value="שמור" />
->>>>>>> Stashed changes
+                <input type="button" id="btnSave" class="btn btn-primary btn-lg" disabled onclick="SaveChanges()" value="שמור" />
             </div>
-            <!-- מין -->
-            <label for="user_gender">מין</label>
-            <div id="user_gender" class="row">
-                <div class="custom-control custom-radio">
-                    <input id="female" name="gender" value="F" type="radio" class="custom-control-input" disabled required><!--checked-->
-                    <label class="custom-control-label" for="female">נקבה</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input id="male" name="gender" value="M" type="radio" class="custom-control-input" disabled required>
-                    <label class="custom-control-label" for="male">זכר</label>
-                </div>
-            </div>
-            <hr class="mb-4">
-            <input type="button" id="btnEdit" class="btn btn-primary btn-lg" onclick="Edit()" value="ערוך" />
-            <input type="button" id="btnSave" class="btn btn-primary btn-lg" disabled onclick="SaveChanges()" value="שמור" /> <!--style="visibility:hidden"-->
-
-        </div>
+        </form>
         </main>
         <!--תחתית-->
-        <footer id="footer"></footer>
-</body>
+    <footer class="footer mt-auto py-3 fixed-bottom ">
+        <div class="container">
+            <p class="mb-1">&copy; Cookit</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </div>
+    </footer></body>
 </html>

@@ -328,6 +328,8 @@
     <Content Include="Client\Pages\Registration.html" />
     <Content Include="Client\Pages\Reset_Password.html" />
     <Content Include="Client\Pages\Reset_Password.js" />
+    <Content Include="Client\Pages\test.html" />
+    <Content Include="Client\Pages\test.js" />
     <Content Include="Client\Pages\UpdateProfile.html" />
     <Content Include="Client\Pages\Upload_Event.html" />
     <Content Include="Client\Pages\Upload_Event.js" />
