@@ -10,6 +10,7 @@ using CookitDB;
 
 namespace CookitAPI.Controllers
 {
+    [RoutePrefix("api/City")]
     public class CityController : ApiController
     {
         /*
@@ -20,8 +21,9 @@ namespace CookitAPI.Controllers
         }
         */
         //מחזיר את כל הערים מבסיס הנתונים
-        [Route("api/City")]
-        public HttpResponseMessage Get()
+        [Route("GetAllCities")]
+        [HttpGet]
+        public HttpResponseMessage GetAllCities()
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
             //Cookit_DBConnection db = new Cookit_DBConnection();

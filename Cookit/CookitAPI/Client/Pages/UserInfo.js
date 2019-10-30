@@ -78,7 +78,7 @@ function CheckUserType() {
 //*****************************************************************************************//
 function GetCity() {
     if (cityArray == null)
-            GlobalAjax("/api/City", "GET", "", SuccessCity, FailCity);
+        GlobalAjax("/api/City/GetAllCities", "GET", "", SuccessCity, FailCity);
 }
 
 function SuccessCity(arry_city) {
@@ -196,7 +196,6 @@ function Fail_CheckMailFree() {
     user_validation.email = false;
     console.log("the email " + $("#user_email").val() + " is not free");
     alert("כתובת אימייל זו כבר שייכת למשתמש אחר, אנא הכנס אימייל אחר.");
-    //Change_style_by_validation();
 } 
 //*****************************************************************************************//
 

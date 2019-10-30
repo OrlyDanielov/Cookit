@@ -20,17 +20,20 @@ namespace CookitDB.DB_Code
         #endregion
 
         #region Get User By Email
-        public static TBL_User GetUserByEmail(string email)
+        public static int GetUserByEmail(string email)
         {
             try
             {
                 var db = Get_DB();
                 TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-                return user;
+                if (user == null) // אם אין משתמש אם פרטים כאלה
+                    return -1;
+                else
+                    return user.Id_User;
             }
             catch (Exception)
             {
-                return null;
+                return -2;
             }
         }
         #endregion
@@ -136,6 +139,7 @@ namespace CookitDB.DB_Code
         #endregion
 
         #region Check Mail Available
+        //check if mail exsist. if exsist - return false, else return true.
         public static bool CheckMailAvailable(string email)
         {
             try
@@ -161,8 +165,6 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                ////bgroup36_prodConnection db = new bgroup36_prodConnection();
                 TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email && x.UserPass == pass);//x => x.Email = user_details.Email && x.UserPass == user_details.Pass)
                 if (user == null) // אם אין משתמש אם פרטים כאלה
                     return null;
