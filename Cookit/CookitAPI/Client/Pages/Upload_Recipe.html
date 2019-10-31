@@ -101,92 +101,100 @@
                 Cookit
             </a>
         </nav>
-    </header>    <!--טופס העלאת מתכון-->
-    <main role="main" class="flex-shrink-0">
-        <div class="container  bg_brigth">
-            <h4 class="mb-3">מתכון</h4>
-            <form>
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        <input type="text" for="name_recipe" id="txt_name_recipe" class="form-control" style="text-align:right" required />
+    </header>    
+    <!--טופס העלאת מתכון-->
+    <main role="main" class="flex-shrink-0 container  bg_brigth">
+        <h4 class="mb-3">מתכון</h4>
+        <form id="User_Info">
+            <fieldset>
+                <legend>מאפייני מתכון</legend>
+                <div class="form-row">
+                    <div class="col">
+                        <label for="work_time" class="col-sm-4 col-form-label">דרגת קושי</label>
+                        <select name="work_time" id="select_work_time" class="custom-select text2rigth">
+                            <option value="" selected disabled>דרגת קושי</option>
+                        </select>
                     </div>
-                    <label for="name_recipe" class="col-sm-2 col-form-label">שם מתכון</label>
-
+                    <div class="col">
+                        <label for="name_recipe" class="col-sm-4 col-form-label">שם מתכון</label>
+                        <input type="text" id="txt_name_recipe" class="form-control text2rigth" required />
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="dish_type">סוג מנה</label>
-                        <select name="dish_type" id="select_dish_type" class="custom-select">
+                <!--קטגוריות-->
+                <div class="form-row">
+                    <div class="col">
+                        <label for="dish_type" class="col-sm-6 col-form-label">סוג מנה</label>
+                        <select name="dish_type" id="select_dish_type" class="custom-select text2rigth">
                             <option value="" selected disabled>סוג מנה</option>
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="dish_category">מאפיין מנה</label>
-                        <select name="dish_category" id="select_dish_category" class="custom-select">
+                    <div class="col">
+                        <label for="dish_category" class="col-sm-6 col-form-label">מאפיין מנה</label>
+                        <select name="dish_category" id="select_dish_category" class="custom-select text2rigth">
                             <option value="" selected disabled>מאפיין אוכל</option>
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="food_type">סוג אוכל</label>
-                        <select name="food_type" id="select_food_type" class="custom-select">
+                    <div class="col">
+                        <label for="food_type" class="col-sm-6 col-form-label">סוג אוכל</label>
+                        <select name="food_type" id="select_food_type" class="custom-select text2rigth">
                             <option value="" selected disabled>סוג אוכל</option>
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="kitchen_type">סגנון מטבח</label>
-                        <select name="kitchen_type" id="select_kitchen_type" class="custom-select">
+                    <div class="col">
+                        <label for="kitchen_type" class="col-sm-6 col-form-label">סגנון מטבח</label>
+                        <select name="kitchen_type" id="select_kitchen_type" class="custom-select text2rigth">
                             <option value="" selected disabled>סגנון מטבח</option>
                         </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="total_time">זמן כולל</label>
-                        <input type="text" for="total_time" id="txt_total_time" required class="form-control" />
+                <!--זמנים-->
+                <div class="form-row">
+                    <div class="col">
+                        <label for="total_time" class="col-sm-4 col-form-label">זמן כולל</label>
+                        <input type="text" for="total_time" id="txt_total_time" required class="form-control text2rigth" />
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="work_time">זמן עבודה</label>
-                        <input type="text" for="work_time" id="txt_work_time" required class="form-control" />
+                    <div class="col">
+                        <label for="work_time" class="col-sm-4 col-form-label">זמן עבודה</label>
+                        <input type="text" for="work_time" id="txt_work_time" required class="form-control text2rigth" />
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="work_time" class="col-sm-2 col-form-label">דרגת קושי</label>
-                    <select name="work_time" id="select_work_time" class="custom-select">
-                        <option value="" selected disabled>דרגת קושי</option>
-                    </select>
-                </div>
-                <div class="form-group row">
-                    <label for="preparation_steps" class="col-sm-2 col-form-label">אופן הכנה</label>
-                    <textarea rows="5" cols="50" for="preparation_steps" id="txt_preparation_steps" required class="form-control"></textarea>
-                </div>
+
+            </fieldset>
+            <hr class="mb-4">
+            <fieldset>
+                <legend>מצרכים</legend>
                 <!--מצרכים למתכון -->
-                <hr class="mb-4">
-                <h4 class="mb-3">מצרכים</h4>
-                <div name="ingridiant_for_recipe" class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="ingridiant_name">שם מצרך</label>
-                        <select name="ingridiant_name" id="select_ingridiant_name" class="custom-select d-block w-100">
+                <div class="form-row">
+                    <div class="col">
+                        <label for="select_ingridiant_name" class="col-sm-4 col-form-label">שם מצרך</label>
+                        <select id="select_ingridiant_name" class="form-control">
                             <option value="" selected disabled>שם מצרך</option>
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="ingridiant_amount">כמות מצרך</label>
-                        <input type="text" for="ingridiant_amount" id="txt_ingridiant_amount" required class="form-control" />
+                    <div class="col">
+                        <label for="txt_ingridiant_amount" class="col-sm-4 col-form-label">כמות מצרך</label>
+                        <input type="text" id="txt_ingridiant_amount" required class="form-control text2rigth" />
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="mesurment">אופן מדידה</label>
-                        <select name="mesurment" id="select_mesurment" class="custom-select">
+                    <div class="col">
+                        <label for="select_mesurment" class="col-sm-4 col-form-label">אופן מדידה</label>
+                        <select id="select_mesurment" class="form-control">
                             <option value="" selected disabled>אופן מדידה</option>
                         </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <input type="submit" value="הוסף מצרך" class="btn btn-dark" />
-                    </div>
+
                 </div>
-                <hr class="mb-4">
-                <input type="submit" value="שלח" class="btn btn-dark" onclick="UpLoadRecipe()" />
-            </form>
-        </div>
+                <input type="submit" value="הוסף מצרך" class="btn btn-dark" onclick="" />
+            </fieldset>
+            <hr class="mb-4">
+            <fieldset>
+                <legend>שלבי הכנה</legend>
+                <div class="form-group row">
+                    <textarea rows="5" cols="50" for="preparation_steps" id="txt_preparation_steps" required class="form-control"></textarea>
+                </div>
+            </fieldset>
+            <hr class="mb-4">
+            <input type="submit" value="שלח" class="btn btn-dark" onclick="UpLoadRecipe()" />
+        </form>
     </main>
     <!--תחתית-->
     <!--<footer id="footer"></footer>-->
