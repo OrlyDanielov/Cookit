@@ -18,6 +18,7 @@ namespace CookitAPI.Controllers
             return new string[] { "value1", "value2" };
         }
 
+<<<<<<< HEAD
         /*
          // GET api/<controller>/5
          public string Get(int id)
@@ -57,6 +58,11 @@ namespace CookitAPI.Controllers
         [Route("CheckProfileExsistByUserId/{user_id}")]
         [HttpGet]
         public HttpResponseMessage CheckProfileExsistByUserId(int user_id)
+=======
+        
+        // GET api/<controller>/5
+        public string Get(int id)
+>>>>>>> omer-to-do-list
         {
             try
             {
@@ -92,6 +98,7 @@ namespace CookitAPI.Controllers
         }
         */
 
+<<<<<<< HEAD
         #region Add New Profile
         //add new profile
         [Route("AddNewProfile")]
@@ -111,6 +118,19 @@ namespace CookitAPI.Controllers
                     ProfStatus = new_profile.status
                 };
                 var is_saved = CookitDB.DB_Code.CookitQueries.AddNewProfile(p);
+=======
+        //add new profile
+        [Route("AddNewProfile")]
+        [HttpPost]
+        public HttpResponseMessage AddNewProfile([FromBody]TBL_Profile new_profile)
+        {
+            try
+            {
+                bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+
+                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewProfile(new_profile);
+>>>>>>> omer-to-do-list
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, is_saved);
                 else
@@ -118,10 +138,31 @@ namespace CookitAPI.Controllers
             }
             catch (Exception e)
             {
+<<<<<<< HEAD
                 return Request.CreateResponse(HttpStatusCode.Forbidden, e.Message);
             }
 }
         #endregion
+=======
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+
+
+
+        [Route("{user_id}/GetProfileIDByUserID")]
+        [HttpGet]
+        public HttpResponseMessage GetProfileIDByUserID(int id)
+        {
+            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+            int p_id = CookitDB.DB_Code.CookitQueries.GetProfileIDOfUserByID(id);
+            if (p_id != -1)
+                return Request.CreateResponse(HttpStatusCode.OK, p_id);
+            else
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "the server could not find the profile number of user by user id.");
+        }
+>>>>>>> omer-to-do-list
 
         // PUT api/<controller>/5
         //public void Put(int id, [FromBody]string value)
