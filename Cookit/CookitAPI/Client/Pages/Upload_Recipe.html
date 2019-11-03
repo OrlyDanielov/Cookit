@@ -168,6 +168,9 @@
                 <!--מצרכים למתכון -->
                 <div class="form-row" id="ingridiant_1">
                     <div class="col">
+                        <input type="submit" id="btn_remove_ingridiant_1" value="הסר מצרך" class="btn btn-group" onclick="RemoveIngridiant(this.id)" />
+                    </div>
+                    <div class="col">
                         <label for="select_ingridiant_name_1" class="col-sm-4 col-form-label">שם מצרך</label>
                         <select id="select_ingridiant_name_1" class="form-control">
                             <option value="" selected disabled>שם מצרך</option>
@@ -183,11 +186,12 @@
                             <option value="" selected disabled>אופן מדידה</option>
                         </select>
                     </div>
+                    
                     <hr class="mb-4">
                 </div>
-                
-                <input type="submit" id="btn_add_ingridiant" value="הוסף מצרך" class="btn btn-dark" onclick="AddIngridiant()" />
-            </fieldset>
+
+                    <input type="submit" id="btn_add_ingridiant" value="הוסף מצרך" class="btn btn-dark" onclick="AddIngridiant()" />
+</fieldset>
             <hr class="mb-4">
             <!--אופן הכנה-->
             <fieldset id="recipe_preparation_steps">

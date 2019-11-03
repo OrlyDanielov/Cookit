@@ -21,12 +21,13 @@ var RECIPE_VALIDATION = {
     recp_work_time: false,
     recp_steps: false
 };
-var INGRIDIANTS_VALIDATION = {//[{
+var INGRIDIANTS_VALIDATION =//{
+    [{
     ing_name: false,
     ing_amount: false,
     ing_mesurment: false
-};
-//}];
+//};
+}];
 //מונה מספר מצרכים
 var COUNT_INGRIDIANTS = 1;
 
@@ -214,7 +215,21 @@ function AddIngridiant()
 
     var new_ingridiant = document.createElement('div');
     new_ingridiant.id = "ingridiant_" + COUNT_INGRIDIANTS;
-    new_ingridiant.className="form-row";
+    new_ingridiant.className = "form-row";
+    //כפתור הסרה
+    var btn_div = document.createElement("div");
+    btn_div.className = "col";
+
+    var btn_remove = document.createElement("input");
+    btn_remove.type = "submit";
+    btn_remove.id = "btn_remove_ingridiant_" + COUNT_INGRIDIANTS;
+    btn_remove.value = "הסר מצרך";
+    btn_remove.className = "btn btn-group";
+    btn_remove.setAttribute("onClick", "RemoveIngridiant(this.id)");
+
+
+    btn_div.appendChild(btn_remove);
+    new_ingridiant.appendChild(btn_div);
     //שם מצרך
     var name_div = document.createElement("div");
     name_div.className = "col";
@@ -297,6 +312,27 @@ function AddIngridiant()
         ing_mesurment: false
     });
 }
+//*******************************************************************************************
+// REMOVE INGRIDIANT
+//*******************************************************************************************
+function RemoveIngridiant(btn_remove_ing)
+//מסיר את המצרך הנבחר
+{
+    var child = (document.getElementById(btn_remove_ing).parentNode).parentNode;//.id;
+    if (COUNT_INGRIDIANTS == 1) // חייב להיות לפחות מצרך אחד במתכון
+    {
+        alert("חייב להיות לפחות מצרך אחד במתכון!.");
+    }
+    else {
+        COUNT_INGRIDIANTS = COUNT_INGRIDIANTS-1;
+        // search the index of the removig item
+        var all_ingridiants = document.getElementById("recipe_ingridiants");
+        console.log(all_ingridiants.children);
+        var index = Array.from(all_ingridiants.children).indexOf(child);
+        INGRIDIANTS_VALIDATION.splice(index, 1);
+        all_ingridiants.removeChild(child);
+    }
+}
 
 //*******************************************************************************************
 // CHECK FORM VALIDATION
@@ -338,7 +374,7 @@ function Change_style_by_validation()
     };
     for (var i = 1; i <= COUNT_INGRIDIANTS; i++) {
         for (var h in INGRIDIANTS_VALIDATION[i]) {
-    //for (var h in INGRIDIANTS_VALIDATION) {
+            //for (var h in INGRIDIANTS_VALIDATION) {
             /*
             if (h == 1)
                 ingridiants_inputs[h] = $("#select_ingridiant_name_" + COUNT_INGRIDIANTS);
@@ -347,16 +383,18 @@ function Change_style_by_validation()
             else
                 ingridiants_inputs[h] = $("#select_mesurment_" + COUNT_INGRIDIANTS);
                 */
-            if ((INGRIDIANTS_VALIDATION[i])[h] == false) 
-            //if (INGRIDIANTS_VALIDATION[h] == false) 
+            if ((INGRIDIANTS_VALIDATION[i])[h] == false)
+                //if (INGRIDIANTS_VALIDATION[h] == false) 
                 ingridiants_inputs[h].addClass(" not_valid");
             else {
                 if (ingridiants_inputs[h].hasClass("not_valid"))
                     ingridiants_inputs[h].removeClass("not_valid");
             }
-        //}
+            //}
+        }
     }
 }
+   
 //*******************************************************************************************
 // ADD NEW RECIPE
 //*******************************************************************************************
