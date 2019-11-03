@@ -11,7 +11,7 @@ var ARRY_INGRIDIANTS = new Array();
 var ARRY_MESURMENTS = new Array();
 //בדיקת תקינות
 var RECIPE_VALIDATION = {
-    name: false ,
+    recp_name: false ,
     recp_dish_type: false,
     recp_dish_category: false,
     recp_food_type: false,
@@ -21,6 +21,12 @@ var RECIPE_VALIDATION = {
     recp_work_time: false,
     recp_steps: false
 };
+var INGRIDIANTS_VALIDATION = {//[{
+    ing_name: false,
+    ing_amount: false,
+    ing_mesurment: false
+};
+//}];
 //מונה מספר מצרכים
 var COUNT_INGRIDIANTS = 1;
 
@@ -171,7 +177,7 @@ function GetIngridiants() {
 function SuccessIngridiants(arry_ingridiants) {
     ARRY_INGRIDIANTS = arry_ingridiants;
     sessionStorage.setItem("Ingridiants", JSON.stringify(arry_ingridiants));
-    EnterData2DDList(arry_ingridiants,"select_ingridiant_name");
+    EnterData2DDList(arry_ingridiants,"select_ingridiant_name_1");
 }
 
 function FailIngridiants() {
@@ -191,7 +197,7 @@ function GetMesurments() {
 function SuccessMesurments(arry_Mesurments) {
     ARRY_MESURMENTS = arry_Mesurments;
     sessionStorage.setItem("Mesurments", JSON.stringify(arry_Mesurments));
-    EnterData2DDList(arry_Mesurments,"select_mesurment");
+    EnterData2DDList(arry_Mesurments,"select_mesurment_1");
 }
 
 function FailMesurments() {
@@ -208,25 +214,24 @@ function AddIngridiant()
 
     var new_ingridiant = document.createElement('div');
     new_ingridiant.id = "ingridiant_" + COUNT_INGRIDIANTS;
-    new_ingridiant.class="form-row";
-    //new_ingridiant.innerHTML = "היי!!";
+    new_ingridiant.className="form-row";
     //שם מצרך
     var name_div = document.createElement("div");
-    name_div.class = "col";
+    name_div.className = "col";
 
     var name_lbl = document.createElement("label");
     name_lbl.for = "select_ingridiant_name_" + COUNT_INGRIDIANTS;
-    name_lbl.class = "col-sm-4 col-form-label";
+    name_lbl.className = "col-sm-4 col-form-label";
     name_lbl.innerHTML = "שם מצרך";
 
     var name_select = document.createElement("select");
-    name_select.is = "select_ingridiant_name_" + COUNT_INGRIDIANTS;
-    name_select.class = "form-control";
+    name_select.id = "select_ingridiant_name_" + COUNT_INGRIDIANTS;
+    name_select.className = "form-control";
 
     var name_opt = document.createElement("option");
     name_opt.value = "";
-    //name_opt.selected = true;
-    //name_opt.disabled = true;
+    name_opt.selected = true;
+    name_opt.disabled = true;
     name_opt.innerHTML = "שם מצרך";
 
     name_select.appendChild(name_opt);
@@ -236,38 +241,38 @@ function AddIngridiant()
     new_ingridiant.appendChild(name_div);
     //כמות מצרך
     var count_div = document.createElement("div");
-    count_div.class = "col";
+    count_div.className = "col";
 
     var count_lbl = document.createElement("label");
     count_lbl.for = "txt_ingridiant_amount_" + COUNT_INGRIDIANTS;
-    count_lbl.class = "col-sm-4 col-form-label";
+    count_lbl.className = "col-sm-4 col-form-label";
     count_lbl.innerHTML = "שם מצרך";
 
     var count_input = document.createElement("input");
     count_input.type = "text";
-    count_input.is = "txt_ingridiant_amount_" + COUNT_INGRIDIANTS;
-    count_input.class = "form-control text2rigth";
+    count_input.id = "txt_ingridiant_amount_" + COUNT_INGRIDIANTS;
+    count_input.className = "form-control text2rigth";
     
     count_div.appendChild(count_lbl);
     count_div.appendChild(count_input);
     new_ingridiant.appendChild(count_div);
     //אופן מדידה
     var mesurment_div = document.createElement("div");
-    mesurment_div.class = "col";
+    mesurment_div.className = "col";
 
     var mesurment_lbl = document.createElement("label");
     mesurment_lbl.for = "select_mesurment_" + COUNT_INGRIDIANTS;
-    mesurment_lbl.class = "col-sm-4 col-form-label";
+    mesurment_lbl.className = "col-sm-4 col-form-label";
     mesurment_lbl.innerHTML = "שם מצרך";
 
     var mesurment_select = document.createElement("select");
-    mesurment_select.is = "select_mesurment_" + COUNT_INGRIDIANTS;
-    mesurment_select.class = "form-control";
+    mesurment_select.id = "select_mesurment_" + COUNT_INGRIDIANTS;
+    mesurment_select.className = "form-control";
 
     var mesurment_opt = document.createElement("option");
     mesurment_opt.value = "";
-    //mesurment_opt.selected = true;
-    //mesurment_opt.disabled = true;
+    mesurment_opt.selected = true;
+    mesurment_opt.disabled = true;
     mesurment_opt.innerHTML ="אופן מדידה";
 
     mesurment_select.appendChild(mesurment_opt);
@@ -282,7 +287,17 @@ function AddIngridiant()
     //document.getElementById("recipe_ingridiants").appendChild(new_ingridiant);
     document.getElementById("recipe_ingridiants").insertBefore(new_ingridiant, document.getElementById("btn_add_ingridiant"));
     console.log("ingridiant " + COUNT_INGRIDIANTS);
+    //מוסיף מידע לרשימות החדשות שיצרנו למצרך
+    EnterData2DDList(ARRY_INGRIDIANTS, "select_ingridiant_name_" + COUNT_INGRIDIANTS);
+    EnterData2DDList(ARRY_MESURMENTS, "select_mesurment_" + COUNT_INGRIDIANTS);
+    //מוסיף אוביקט נוסף של ולידציה של מצרך לרשימה
+    INGRIDIANTS_VALIDATION.push({
+        ing_name: false,
+        ing_amount: false,
+        ing_mesurment: false
+    });
 }
+
 //*******************************************************************************************
 // CHECK FORM VALIDATION
 //*******************************************************************************************
@@ -296,18 +311,18 @@ function Change_style_by_validation()
 {
     var recipe_inputs =
     {
-        name: $("#user_first_name"),
+        recp_name: $("#txt_name_recipe"),
         recp_dish_type: $("#select_dish_type"),
-        recp_dish_category: $("#select_dish_category"),        
+        recp_dish_category: $("#select_dish_category"),
         recp_food_type: $("#select_food_type"),
         recp_kitchen_type: $("#select_kitchen_type"),
         recp_level: $("#select_difficulty_level"),
         recp_total_time: $("#txt_total_time"),
-        recp_work_time: $("#select_work_time"),
+        recp_work_time: $("#txt_work_time"),
         recp_steps: $("#txt_preparation_steps")
     };
-    for (var i in user_validation) {
-        if (recipe_validation[i] == false)
+    for (var i in RECIPE_VALIDATION) {
+        if (RECIPE_VALIDATION[i] == false)
             recipe_inputs[i].addClass(" not_valid");
         else {
             if (recipe_inputs[i].hasClass("not_valid"))
@@ -315,6 +330,32 @@ function Change_style_by_validation()
         }
     }
     //צריך לעבור על כך המצרכים במתכון
+    var ingridiants_inputs =
+    {
+        ing_name: $("#select_ingridiant_name_1"),
+        ing_amount: $("#txt_ingridiant_amount_1"),
+        ing_mesurment: $("#select_mesurment_1")
+    };
+    for (var i = 1; i <= COUNT_INGRIDIANTS; i++) {
+        for (var h in INGRIDIANTS_VALIDATION[i]) {
+    //for (var h in INGRIDIANTS_VALIDATION) {
+            /*
+            if (h == 1)
+                ingridiants_inputs[h] = $("#select_ingridiant_name_" + COUNT_INGRIDIANTS);
+            else if (h == 2)
+                ingridiants_inputs[h] = $("#txt_ingridiant_amount_" + COUNT_INGRIDIANTS);
+            else
+                ingridiants_inputs[h] = $("#select_mesurment_" + COUNT_INGRIDIANTS);
+                */
+            if ((INGRIDIANTS_VALIDATION[i])[h] == false) 
+            //if (INGRIDIANTS_VALIDATION[h] == false) 
+                ingridiants_inputs[h].addClass(" not_valid");
+            else {
+                if (ingridiants_inputs[h].hasClass("not_valid"))
+                    ingridiants_inputs[h].removeClass("not_valid");
+            }
+        //}
+    }
 }
 //*******************************************************************************************
 // ADD NEW RECIPE
