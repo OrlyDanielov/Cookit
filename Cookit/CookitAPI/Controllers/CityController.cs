@@ -10,6 +10,7 @@ using CookitDB;
 
 namespace CookitAPI.Controllers
 {
+    
     public class CityController : ApiController
     {
         /*
@@ -21,12 +22,13 @@ namespace CookitAPI.Controllers
         */
         //מחזיר את כל הערים מבסיס הנתונים
         [Route("api/City")]
+        [HttpGet]
         public HttpResponseMessage Get()
         {
-            bgroup36_prodConnection db = new bgroup36_prodConnection();
+           bgroup36_prodConnection db = new bgroup36_prodConnection();
             //Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את של הערים מהDB
-            var cities = CookitDB.DB_Code.CookitQueries.Get_all_cities();
+            // קורא לפונקציה שמחזירה את שם הערים מהDB
+            var cities = CookitDB.DB_Code.CookitQueries.Get_all_Cities();
             if (cities == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no cities in DB.");
             else
@@ -38,8 +40,64 @@ namespace CookitAPI.Controllers
 
                     result.Add(new CityDTO
                     {
-                        region_id = item.Id_Region,
+                       region = item.Region.ToString(),
                         city_name = item.CityName.ToString()
+                    });
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+        }
+ 
+        //מחזיר את כל הערים לפי מחוז
+        [Route("api/City/{c_reg}/GetCitiesByRegion")] //c_reg= choosen region
+        [HttpGet]
+        public HttpResponseMessage GetCitiesByRegion(string c_reg)
+        {
+            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
+            // קורא לפונקציה שמחזירה את שם הערים מהDB
+            var cities = CookitDB.DB_Code.CookitQueries.Get_all_Cities().Where(a => a.Region== c_reg);//מסנן את הערים רק לפי מחוז רצוי
+            if (cities == null) // אם אין נתונים במסד נתונים
+                return Request.CreateResponse(HttpStatusCode.NotFound, "there is no cities in DB.");
+            else
+            {
+                //המרה של רשימת הערים למבנה נתונים מסוג DTO
+                List<CityDTO> result = new List<CityDTO>();
+                foreach (TBL_City item in cities)
+                {
+
+                    result.Add(new CityDTO
+                    {
+                        region = item.Region.ToString(),
+                        city_name = item.CityName.ToString()
+                    });
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+        }
+
+
+        //מחזיר את כל המחוזות מבסיס הנתונים
+        [Route("api/City/GetRegions")]
+        [HttpGet]
+        public HttpResponseMessage GetRegions()
+        {
+            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
+            // קורא לפונקציה שמחזירה את רשימת מחוזות בשם מהDB
+            var regs = CookitDB.DB_Code.CookitQueries.Get_all_Regions();
+            if (regs == null) // אם אין נתונים במסד נתונים
+                return Request.CreateResponse(HttpStatusCode.NotFound, "did not manage to get regions from DB.");
+            else
+            {
+                //המרה של רשימת המחוזות לערים למבנה נתונים מסוג DTO
+                List<RegionDTO> result = new List<RegionDTO>;
+                foreach (TBL_City item in regs)
+                {
+
+                    result.Add(new RegionDTO
+                    {
+                        name = item.Region.ToString()
                     });
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, result);

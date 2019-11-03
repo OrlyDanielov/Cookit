@@ -13,4 +13,7 @@ input, textarea,select{
     text-align: right;
 }
 
-
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
