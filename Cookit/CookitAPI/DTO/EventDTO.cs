@@ -14,6 +14,5 @@ namespace CookitAPI.DTO
         public CityDTO city;
         public string description;
         public bool statusCancel;
-        public string address;
     }
 }

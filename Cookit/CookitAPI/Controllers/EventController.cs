@@ -9,7 +9,6 @@ using CookitDB;
 
 namespace CookitAPI.Controllers
 {
-    [RoutePrefix("api/Event")]
     public class EventController : ApiController
     {
         // GET api/<controller>
@@ -31,13 +30,11 @@ namespace CookitAPI.Controllers
         }
         */
 
-        [Route("AddNewEvent")]
+        [Route("api/Event/UploadEvent")]
         //הוספת אירוע לבסיס הנתונים
-        [HttpPost]
-        public HttpResponseMessage AddNewEvent([FromBody]TBL_Event newEvent)
+        public HttpResponseMessage Post([FromBody]TBL_Event newEvent)
         {
-            bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+            Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
 
             var is_saved = CookitDB.DB_Code.CookitQueries.AddNewEvent(newEvent);
             if (is_saved == true)

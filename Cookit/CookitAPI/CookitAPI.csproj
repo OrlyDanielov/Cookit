@@ -268,11 +268,7 @@
     <Compile Include="DTO\MesurmentsDTO.cs" />
     <Compile Include="DTO\ProfileDTO.cs" />
     <Compile Include="DTO\RecipeDTO.cs" />
-<<<<<<< HEAD
     <Compile Include="DTO\StarDTO.cs" />
-=======
-    <Compile Include="DTO\RegionDTO.cs" />
->>>>>>> omer-to-do-list
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserTypeDTO.cs" />
     <Compile Include="DTO\WorkshopDTO.cs" />
@@ -327,13 +323,8 @@
     <Content Include="Client\Pages\Login.html" />
     <Content Include="Client\Pages\Menu_Login.html" />
     <Content Include="Client\Pages\Menu_Login.js" />
-<<<<<<< HEAD
     <Content Include="Client\Pages\Menu_Logout.html" />
     <Content Include="Client\Pages\Menu_Logout.js" />
-=======
-    <Content Include="Client\Pages\OldMenu.html" />
-    <Content Include="Client\Pages\Omer_MENU.html" />
->>>>>>> omer-to-do-list
     <Content Include="Client\Pages\Registration.js" />
     <Content Include="Client\Pages\Registration.html" />
     <Content Include="Client\Pages\Reset_Password.html" />

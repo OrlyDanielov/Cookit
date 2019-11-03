@@ -32,78 +32,43 @@
             <div id="div_UploadWorkshop_details">
                 <hr class="mb-4">
                 <h4 class="mb-3">:פרטי הסדנא</h4>
-<<<<<<< HEAD
 
                 <!-- שם הסדנא -->
                 <div class="mb-3">
                     <label for="WorkshopName">שם הסדנא</label>
-=======
-               
-                 <!-- שם הסדנא -->
-                <div class="mb-3 w-75  col-centered">
-                    <label for="div_Workshop_Name">שם הסדנא</label>
->>>>>>> omer-to-do-list
                     <input type="text" class="form-control" id="workshop_name" placeholder="הכנס שם לסדנא" required>
                 </div>
 
                 <div class="mb-3">
-                    <div class="row d-flex flex-row-reverse">
+                    <div class="row">
                         <!-- שעת הסדנא -->
-                        <div class="col-md-4 mb-3">
-                            <label for="div_Workshop_Time">שעת תחילת הסדנא</label>
+                        <div class="col-md-6 mb-3">
+                            <label for="Workshop_time">שעת תחילת הסדנא</label>
                             <input type="time" class="form-control" id="workshop_time_start" required>
                         </div>
                         <!-- תאריך הסדנא -->
-                        <div class="col-md-4 mb-3">
-                            <label for="div_Workshop_Date">תאריך הסדנא</label>
+                        <div class="col-md-6 mb-3">
+                            <label for="Workshop_date">תאריך הסדנא</label>
                             <input type="date" class="form-control" id="workshop_date" required>
                         </div>
-                        <!--מספר משתתפים מקסימלי-->
-                        <div class="col-md-4 mb-3 ">
-                            <label for="div_Workshop_Max_Participants">כמות משתתפים מקסימלית</label>
-                            <input type="number" class="form-control" for="max_participants" id="workshop_max_participants" placeholder="הכנס מספר" required>
-                        </div>
-                        
                     </div>
                 </div>
 
-
                 <!-- מיקום הסדנא -->
                 <div class="mb-3">
-                    <label for="div_Workshop_place">פרטי מיקום הסדנא</label>
-                    <div class="row">
-                        <!--בחירת העיר-->
-                        <div class="col-md-6 mb-3">
-                            <label for="div_Workshop_City">עיר</label>
-                            <div class="col-sm-10">
-                                <select name="workshop_city" id="select_workshop_city" class="custom-select">
-                                    <option value="" selected disabled>בחר עיר</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!--בחירת מחוז-->
-                        <div class="col-md-6 mb-3">
-                            <label for="div_Workshop_Region">מחוז</label>
-                            <div class="col-sm-10">
-                                <select name="workshop_region" id="select_workshop_region" class="custom-select">
-                                    <option value="" selected disabled>קודם בחר מחוז</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!--כתובת לאירוע-->
-                    <div class="mb-5">
-                        <label for="div_Workshop_Address">כתובת</label>
-                        <input type="text" class="form-control" id="workshop_address" placeholder="הכנס כתובת מלאה לסדנא" required>
+                    <label for="city">מקום הסדנא</label>
+                    <div class="col-sm-10">
+                        <select name="city" id="workshop_select_city" class="custom-select">
+                            <option value="" selected disabled>עיר</option>
+                        </select>
                     </div>
                 </div>
 
                 <!-- תיאור הסדנא -->
                 <div class="mb-3">
-                    <label for="Workshop_Description">תיאור הסדנא</label>
+                    <label for="Workshop_description">תיאור הסדנא</label>
                     <textarea rows="3" cols="20" for="workshop_description" id="txt_workshop_description" required class="form-control"></textarea>
                 </div>
-<<<<<<< HEAD
 
                 <!--מספר משתתפים מקסימלי-->
                 <div class="mb-3">
@@ -111,9 +76,6 @@
                     <input type="text" class="form-control" for="max_participants" id="workshop_max_participants" required>
 
                 </div>
-=======
-               
->>>>>>> omer-to-do-list
             </div>
             <div>
                 <hr class="mb-4">

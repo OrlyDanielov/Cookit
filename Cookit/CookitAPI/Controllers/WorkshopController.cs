@@ -9,7 +9,6 @@ using CookitDB;
 
 namespace CookitAPI.Controllers
 {
-    [RoutePrefix("api/Workshop")]
     public class WorkshopController : ApiController
     {
         // GET api/<controller>
@@ -31,19 +30,17 @@ namespace CookitAPI.Controllers
        }
        */
 
-        [Route("AddNewWorkshop")]
+        [Route("api/Workshop/UploadWorkshop")]
         //הוספת סדנא לבסיס הנתונים
-        [HttpPost]
-        public HttpResponseMessage AddNewWorkshop([FromBody]TBL_Workshop newWorkshop)
+        public HttpResponseMessage Post([FromBody]TBL_Workshop newWorkshop)
         {
-            bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+            Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
 
             var is_saved = CookitDB.DB_Code.CookitQueries.AddNewWorkshop(newWorkshop);
             if (is_saved == true)
                 return Request.CreateResponse(HttpStatusCode.OK, is_saved);
             else
-                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the workshop.");
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the event.");
         }
 
         // PUT api/<controller>/5

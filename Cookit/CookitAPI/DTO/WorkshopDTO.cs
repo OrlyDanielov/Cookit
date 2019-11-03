@@ -16,6 +16,5 @@ namespace CookitAPI.DTO
         public int max_participants;
         public bool statusCancel;
         public bool status_available;
-        public string address;
     }
 }
