@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Update Profile</title>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!--java script code  -->
+    <script src="GlobalAjax.js"></script>
+    <script src="Menu_Login.js"></script>
+    <script src="Footer.js"></script>
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
+    <link href="FormStyle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <!--תפריט-->
+    <header id="menu"></header>
+    <!--תוכן הדף-->
+    <main role="main" class="flex-shrink-0">
+        <div class="container  bg_brigth">
+            <h4 class="mb-3">עדכון פרופיל</h4>
+            <form>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="profile_type">סוג פרופיל</label>
+                        <select name="profile_type" id="select_profile_type" class="custom-select">
+                            <option value="" selected disabled>בחר סוג</option>
+                            <option value="100" name="יצירתי">יצירתי</option>
+                            <option value="200" name="אנין טעם">אנין טעם</option>
+                            <option value="300" name="עסקי">עסקי</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="profile_name">שם פרופיל</label>
+                        <input type="text" for="profile_name" id="txt_profile_name" class="form-control" style="text-align:right" required />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="city">עיר</label>
+                        <select name="city" id="select_city" class="custom-select">
+                            <option value="" selected disabled>בחר עיר</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="profile_description">תיאור</label>
+                    <textarea rows="5" cols="50" name="profile_description" id="txt_profile_description" required class="form-control"></textarea>
+                </div>
+                <hr class="mb-4">
+                <input type="submit" value="שלח" class="btn btn-dark" onclick="UpLoadRecipe()" />
+            </form>
+        </div>
+    </main>
+    <!--תחתית-->
+    <footer id="footer"></footer>
+</body>
+</html>

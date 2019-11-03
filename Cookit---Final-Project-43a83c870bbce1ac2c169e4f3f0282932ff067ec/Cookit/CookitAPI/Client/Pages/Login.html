@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!--java script code  -->
+    <script src="Login.js"></script>
+    <script src="GlobalAjax.js"></script>
+    <script src="Form_Directions.js"></script>
+    <!--<script src="Menu_Logout.js"></script>
+    <script src="Footer.js"></script>-->
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
+    <link rel="stylesheet" type="text/css" href="Form_Directions.css">
+    <link href="FormStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <!--תפריט-->
+    <!--<header id="menu"></header>-->
+    <!--תפריט-->
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        <a class="nav-link" href="Login.html">התחבר</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">צפייה במתכונים</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">חיפוש מתכון</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="Home_logout.html">דף הבית <span class="sr-only">(current)</span></a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- Hamborger navbar -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="Home_logout.html">
+                <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Cookit
+            </a>
+        </nav>
+    </header>
+    <!--תוכן הדף-->
+    <main role="main" class="flex-shrink-0">
+        <div class="container bg_brigth">
+            <center>
+                <h4 class="h4 mb-3 font-weight-normal" style="color:darkblue">התחבר לחשבונך</h4>
+                <br />
+                <table>
+                    <tr>
+                        <td>
+                            <input type="email" id="inputEmail" placeholder="כתובת אימייל" required />
+                            <button id="btn_question_email" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
+                            <span id="span_question_email" class="form-directions" style="display:none;">אימייל צריך להיות באנגלית ועם הסימנים @ו .</span>
+                        </td>
+                    </tr>
+                    <tr> <td>   </td></tr>
+                    <tr> <td>   </td></tr>
+                    <tr>
+                        <td>
+                            <input type="password" id="inputPassword" placeholder="סיסמה" equired />
+                            <button id="btn_question_password" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
+                            <span id="span_question_password" class="form-directions" style="display:none;">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="checkbox mb-3">
+                    <button type="submit" class="btn btn-primary" onclick="LoginVerification()">התחבר</button>
+                </div>
+                <div class="checkbox mb-3">
+                    <span class="psw">שכחת סיסמה? <a href="Reset_Password.html">שחזר סיסמה</a></span>
+                    <br />
+
+                    <span class="psw">עדיין לא רשום? <a href="Registration.html">הרשם</a></span>
+                </div>
+            </center>
+        </div>
+    </main>
+    <!--תחתית-->
+    <!--<footer id="footer"></footer>-->
+    <footer class="footer mt-auto py-3 fixed-bottom ">
+        <div class="container">
+            <p class="mb-1">&copy; Cookit</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,36 @@
+﻿body {
+    height: 100%;
+    text-align: center;
+    background-image: url("/Client/Images/pic_cookies_6.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+
+.bg_brigth {
+    background-color: rgba(270, 270, 270,0.90);
+    border-radius: 30px;
+    padding: 30px;
+    position: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.text2rigth {
+    text-align:right;
+}
+
+footer {
+    background-color: rgba(270, 270, 270,1);
+    position :relative;   
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    /*margin-bottom: 0;*/
+}
+    .footer > .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }

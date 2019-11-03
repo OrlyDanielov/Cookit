@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>  העלאת אירוע </title>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!--java script code  -->
+    <script src="GlobalAjax.js"></script>
+    <script src="Menu_Login.js"></script>
+    <script src="Footer.js"></script>
+    <script src="Upload_Event.js"></script>
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
+    <link href="FormStyle.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!--תפריט-->
+    <header id="menu"></header>
+    <!-- טופס העלאת אירוע-->
+    <div class="container bg_brigth">
+        <form class="needs-validation" novalidate>
+            <h2>העלאת אירוע חדש</h2>
+            <div id="div_UploadEvent_details">
+                <hr class="mb-4">
+                <h4 class="mb-3">:פרטי האירוע</h4>
+
+                <!-- שם האירוע -->
+                <div class="mb-3">
+                    <label for="EventName">שם האירוע</label>
+                    <input type="text" class="form-control" id="event_name" placeholder="הכנס שם לאירוע" required>
+                </div>
+
+                <div class="mb-3">
+                    <div class="row">
+                        <!-- שעת האירוע -->
+                        <div class="col-md-6 mb-3">
+                            <label for="Event_time">שעת תחילת האירוע</label>
+                            <input type="time" class="form-control" id="event_time_start" required>
+                        </div>
+                        <!-- תאריך האירוע -->
+                        <div class="col-md-6 mb-3">
+                            <label for="Event_date">תאריך האירוע</label>
+                            <input type="date" class="form-control" id="event_date" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- מיקום האירוע -->
+                <div class="mb-3">
+                    <label for="city">מקום האירוע</label>
+                    <div class="col-sm-10">
+                        <select name="city" id="event_select_city" class="custom-select">
+                            <option value="" selected disabled>עיר</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- תיאור לאירוע -->
+                <div class="mb-3">
+                    <label for="Event_description">תיאור האירוע</label>
+                    <textarea rows="3" cols="20" for="event_description" id="txt_event_description" required class="form-control"></textarea>
+                </div>
+
+            </div>
+            <div>
+                <hr class="mb-4">
+                <input type="button" class="btn btn-primary btn-lg" onclick="UploadEvent()" value="שלח" />
+            </div>
+        </form>
+    </div>
+    <!--תחתית-->
+    <footer id="footer"></footer>
+</body>
+</html>
+
+
