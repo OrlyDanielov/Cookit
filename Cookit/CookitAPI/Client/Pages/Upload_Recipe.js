@@ -30,6 +30,7 @@ var INGRIDIANTS_VALIDATION =//{
 }];
 //מונה מספר מצרכים
 var COUNT_INGRIDIANTS = 1;
+var NAME_INGRIDIANTS = 1;
 
 //*******************************************************************************************
 // page load
@@ -212,9 +213,10 @@ function AddIngridiant()
 //מוסיף עוד שורה במתכון עבור מצרך נוסף
 {
     COUNT_INGRIDIANTS = COUNT_INGRIDIANTS + 1;
+    NAME_INGRIDIANTS = NAME_INGRIDIANTS + 1;
 
     var new_ingridiant = document.createElement('div');
-    new_ingridiant.id = "ingridiant_" + COUNT_INGRIDIANTS;
+    new_ingridiant.id = "ingridiant_" + NAME_INGRIDIANTS;
     new_ingridiant.className = "form-row";
     //כפתור הסרה
     var btn_div = document.createElement("div");
@@ -222,7 +224,7 @@ function AddIngridiant()
 
     var btn_remove = document.createElement("input");
     btn_remove.type = "submit";
-    btn_remove.id = "btn_remove_ingridiant_" + COUNT_INGRIDIANTS;
+    btn_remove.id = "btn_remove_ingridiant_" + NAME_INGRIDIANTS;
     btn_remove.value = "הסר מצרך";
     btn_remove.className = "btn btn-group";
     btn_remove.setAttribute("onClick", "RemoveIngridiant(this.id)");
@@ -235,12 +237,12 @@ function AddIngridiant()
     name_div.className = "col";
 
     var name_lbl = document.createElement("label");
-    name_lbl.for = "select_ingridiant_name_" + COUNT_INGRIDIANTS;
+    name_lbl.for = "select_ingridiant_name_" + NAME_INGRIDIANTS;
     name_lbl.className = "col-sm-4 col-form-label";
     name_lbl.innerHTML = "שם מצרך";
 
     var name_select = document.createElement("select");
-    name_select.id = "select_ingridiant_name_" + COUNT_INGRIDIANTS;
+    name_select.id = "select_ingridiant_name_" + NAME_INGRIDIANTS;
     name_select.className = "form-control";
 
     var name_opt = document.createElement("option");
@@ -259,13 +261,13 @@ function AddIngridiant()
     count_div.className = "col";
 
     var count_lbl = document.createElement("label");
-    count_lbl.for = "txt_ingridiant_amount_" + COUNT_INGRIDIANTS;
+    count_lbl.for = "txt_ingridiant_amount_" + NAME_INGRIDIANTS;
     count_lbl.className = "col-sm-4 col-form-label";
     count_lbl.innerHTML = "שם מצרך";
 
     var count_input = document.createElement("input");
     count_input.type = "text";
-    count_input.id = "txt_ingridiant_amount_" + COUNT_INGRIDIANTS;
+    count_input.id = "txt_ingridiant_amount_" + NAME_INGRIDIANTS;
     count_input.className = "form-control text2rigth";
     
     count_div.appendChild(count_lbl);
@@ -276,12 +278,12 @@ function AddIngridiant()
     mesurment_div.className = "col";
 
     var mesurment_lbl = document.createElement("label");
-    mesurment_lbl.for = "select_mesurment_" + COUNT_INGRIDIANTS;
+    mesurment_lbl.for = "select_mesurment_" + NAME_INGRIDIANTS;
     mesurment_lbl.className = "col-sm-4 col-form-label";
     mesurment_lbl.innerHTML = "שם מצרך";
 
     var mesurment_select = document.createElement("select");
-    mesurment_select.id = "select_mesurment_" + COUNT_INGRIDIANTS;
+    mesurment_select.id = "select_mesurment_" + NAME_INGRIDIANTS;
     mesurment_select.className = "form-control";
 
     var mesurment_opt = document.createElement("option");
@@ -303,8 +305,8 @@ function AddIngridiant()
     document.getElementById("recipe_ingridiants").insertBefore(new_ingridiant, document.getElementById("btn_add_ingridiant"));
     console.log("ingridiant " + COUNT_INGRIDIANTS);
     //מוסיף מידע לרשימות החדשות שיצרנו למצרך
-    EnterData2DDList(ARRY_INGRIDIANTS, "select_ingridiant_name_" + COUNT_INGRIDIANTS);
-    EnterData2DDList(ARRY_MESURMENTS, "select_mesurment_" + COUNT_INGRIDIANTS);
+    EnterData2DDList(ARRY_INGRIDIANTS, "select_ingridiant_name_" + NAME_INGRIDIANTS);
+    EnterData2DDList(ARRY_MESURMENTS, "select_mesurment_" + NAME_INGRIDIANTS);
     //מוסיף אוביקט נוסף של ולידציה של מצרך לרשימה
     INGRIDIANTS_VALIDATION.push({
         ing_name: false,
@@ -329,8 +331,9 @@ function RemoveIngridiant(btn_remove_ing)
         var all_ingridiants = document.getElementById("recipe_ingridiants");
         console.log(all_ingridiants.children);
         var index = Array.from(all_ingridiants.children).indexOf(child);
-        INGRIDIANTS_VALIDATION.splice(index, 1);
+        INGRIDIANTS_VALIDATION.splice(index-1, 1);
         all_ingridiants.removeChild(child);
+        console.log("ingridiant " + COUNT_INGRIDIANTS);
     }
 }
 
@@ -338,7 +341,6 @@ function RemoveIngridiant(btn_remove_ing)
 // CHECK FORM VALIDATION
 //*******************************************************************************************
 function CheckFormValidation() {
-    //
     Change_style_by_validation();
 }
 
@@ -365,33 +367,33 @@ function Change_style_by_validation()
                 recipe_inputs[i].removeClass("not_valid");
         }
     }
-    //צריך לעבור על כך המצרכים במתכון
+    //מצרכים
+    var all_ingridiants = document.getElementById("recipe_ingridiants").children;
+    var ingridiants_data;
+    var index;
     var ingridiants_inputs =
     {
         ing_name: $("#select_ingridiant_name_1"),
         ing_amount: $("#txt_ingridiant_amount_1"),
         ing_mesurment: $("#select_mesurment_1")
     };
-    for (var i = 1; i <= COUNT_INGRIDIANTS; i++) {
-        for (var h in INGRIDIANTS_VALIDATION[i]) {
-            //for (var h in INGRIDIANTS_VALIDATION) {
-            /*
-            if (h == 1)
-                ingridiants_inputs[h] = $("#select_ingridiant_name_" + COUNT_INGRIDIANTS);
-            else if (h == 2)
-                ingridiants_inputs[h] = $("#txt_ingridiant_amount_" + COUNT_INGRIDIANTS);
-            else
-                ingridiants_inputs[h] = $("#select_mesurment_" + COUNT_INGRIDIANTS);
-                */
-            if ((INGRIDIANTS_VALIDATION[i])[h] == false)
-                //if (INGRIDIANTS_VALIDATION[h] == false) 
-                ingridiants_inputs[h].addClass(" not_valid");
-            else {
-                if (ingridiants_inputs[h].hasClass("not_valid"))
-                    ingridiants_inputs[h].removeClass("not_valid");
+    var names, temp,x,y;
+    for (var i = 1; i < all_ingridiants.length - 1; i++) {     
+        ingridiants_data = all_ingridiants[i].children;
+        for (var h = 1; h <= 3; h++) {
+            names = Object.keys(ingridiants_inputs);
+            temp = (ingridiants_data[h]).children[1].id;
+            x = names[h - 1];
+            ingridiants_inputs.x = $("#" + temp);
+            y = INGRIDIANTS_VALIDATION[i - 1];
+                    if (y[x] == false) {
+                        ingridiants_inputs.x.addClass(" not_valid");
+                    }
+                    else {
+                        if (ingridiants_inputs.x.hasClass("not_valid"))
+                            ingridiants_inputs.x.removeClass("not_valid");
+                        }
             }
-            //}
-        }
     }
 }
    
