@@ -154,13 +154,13 @@ function FailKitchenType() {
 //*******************************************************************************************
 // פונקציה מביאה את כל דרגות הקושי של מתכון
 function GetDifficultyLevel() {
-    GlobalAjax("/api/DifficultyLevel", "GET", "", SuccessDifficultyLevel,FailDifficultyLevel);
+    GlobalAjax("/api/DifficultyLevel/GetAll", "GET", "", SuccessDifficultyLevel,FailDifficultyLevel);
 }
 
 function SuccessDifficultyLevel(arry_difficulty_level) {
     ARRY_DIFFICULTY_LEVEL = arry_difficulty_level;
     sessionStorage.setItem("Difficulty_Level", JSON.stringify(arry_difficulty_level));
-    EnterData2DDList(arry_difficulty_level,"select_kitchen_type");
+    EnterData2DDList(arry_difficulty_level,"select_difficulty_level");
 }
 
 function FailDifficultyLevel() {
@@ -251,10 +251,15 @@ function AddIngridiant()
     name_opt.disabled = true;
     name_opt.innerHTML = "שם מצרך";
 
+    var name_feedback = document.createElement("div");
+    name_feedback.id = "feedback_ingridiant_name_" + NAME_INGRIDIANTS;
+    name_feedback.className = "not_valid_feedback";
+
     name_select.appendChild(name_opt);
 
     name_div.appendChild(name_lbl);
     name_div.appendChild(name_select);
+    name_div.appendChild(name_feedback);
     new_ingridiant.appendChild(name_div);
     //כמות מצרך
     var count_div = document.createElement("div");
@@ -266,12 +271,18 @@ function AddIngridiant()
     count_lbl.innerHTML = "שם מצרך";
 
     var count_input = document.createElement("input");
-    count_input.type = "text";
+    count_input.type = "number";
     count_input.id = "txt_ingridiant_amount_" + NAME_INGRIDIANTS;
     count_input.className = "form-control text2rigth";
+    count_input.min = "0";
+
+    var count_feedback = document.createElement("div");
+    count_feedback.id = "feedback_ingridiant_amount_" + NAME_INGRIDIANTS;
+    count_feedback.className = "not_valid_feedback";
     
     count_div.appendChild(count_lbl);
     count_div.appendChild(count_input);
+    count_div.appendChild(count_feedback);
     new_ingridiant.appendChild(count_div);
     //אופן מדידה
     var mesurment_div = document.createElement("div");
@@ -294,14 +305,18 @@ function AddIngridiant()
 
     mesurment_select.appendChild(mesurment_opt);
 
+    var mesurment_feedback = document.createElement("div");
+    mesurment_feedback.id = "feedback_mesurment_" + NAME_INGRIDIANTS;
+    mesurment_feedback.className = "not_valid_feedback";
+
     mesurment_div.appendChild(mesurment_lbl);
     mesurment_div.appendChild(mesurment_select);
+    mesurment_div.appendChild(mesurment_feedback);
     new_ingridiant.appendChild(mesurment_div);
 
     var hr = document.createElement("hr");
     hr.class = "mb - 4";
     new_ingridiant.appendChild(hr);
-    //document.getElementById("recipe_ingridiants").appendChild(new_ingridiant);
     document.getElementById("recipe_ingridiants").insertBefore(new_ingridiant, document.getElementById("btn_add_ingridiant"));
     console.log("ingridiant " + COUNT_INGRIDIANTS);
     //מוסיף מידע לרשימות החדשות שיצרנו למצרך
@@ -338,15 +353,238 @@ function RemoveIngridiant(btn_remove_ing)
 }
 
 //*******************************************************************************************
+// CHECK INGRIDIANTS INPUTS
+//*******************************************************************************************
+
+function CheckIngridiantsInputs()
+//בודק את הרשומות של המצרכים
+{
+    var all_ingridiants = document.getElementById("recipe_ingridiants").children;
+    var ingridiants_feedback = {
+        ing_name: document.getElementById("feedback_ingridiant_name_1"),
+        ing_amount: document.getElementById("feedback_ingridiant_amount_1"),
+        ing_mesurment: document.getElementById("feedback_mesurment_1")
+    };
+    var ingridiants_data;
+    var index;
+    var ingridiants_inputs =
+    {
+        ing_name: $("#select_ingridiant_name_1").find(":selected").val(),
+        ing_amount: $("#txt_ingridiant_amount_1").val(),
+        ing_mesurment: $("#select_mesurment_1").find(":selected").val()
+    };
+    var names, temp, z,num;//x, y,
+    for (var i = 1; i < all_ingridiants.length - 1; i++) {
+        ingridiants_data = all_ingridiants[i].children;
+        for (var h = 1; h <= 3; h++) {
+            names = Object.keys(ingridiants_inputs);
+            temp = (ingridiants_data[h]).children[1].id;
+            //x = names[h - 1];
+            z = temp.split("_");
+            num = z[z.length - 1];
+            //y = INGRIDIANTS_VALIDATION[i - 1];
+            //ingridiant name
+            if (h == 1) {
+                ingridiants_inputs.ing_name = $("#" + temp).find(":selected").val();
+                ingridiants_feedback.ing_name = document.getElementById("feedback_ingridiant_name_" + num);
+                if (ingridiants_inputs.ing_name == "") {
+                    INGRIDIANTS_VALIDATION[i-1].ing_name = false;
+                    ingridiants_feedback.ing_name.innerHTML = "אנא בחר שם מצרך!";
+                }
+                else {
+                    INGRIDIANTS_VALIDATION[i - 1].ing_name = true;
+                    ingridiants_feedback.ing_name.innerHTML = "";
+                }
+            }
+            //Ingridiant amount
+            if (h == 2) {
+                ingridiants_inputs.ing_amount = $("#" + temp).val();
+                ingridiants_feedback.ing_amount = document.getElementById("feedback_ingridiant_amount_" + num);
+                if (ingridiants_inputs.ing_amount == "") {
+                    INGRIDIANTS_VALIDATION[i - 1].ing_amount = false;
+                    ingridiants_feedback.ing_amount.innerHTML = "אנא הכנס כמות מצרך!";
+                }
+               else if (ingridiants_inputs.ing_amount == 0) {
+                    INGRIDIANTS_VALIDATION[i - 1].ing_amount = false;
+                    ingridiants_feedback.ing_amount.innerHTML = "אנא הכנס כמות מצרך גדולה מ0!";
+                }
+                else {
+                    INGRIDIANTS_VALIDATION[i - 1].ing_amount = true;
+                    ingridiants_feedback.ing_amount.innerHTML = "";
+                }
+            }
+            //ingridiant mesurment
+            if (h == 3) {
+                ingridiants_inputs.ing_mesurment = $("#" + temp).find(":selected").val();
+                ingridiants_feedback.ing_mesurment = document.getElementById("feedback_mesurment_" + num);
+                if (ingridiants_inputs.ing_mesurment == "") {
+                    INGRIDIANTS_VALIDATION[i - 1].ing_mesurment = false;
+                    ingridiants_feedback.ing_mesurment.innerHTML = "אנא בחר אופן מדידה!";
+                }
+                else {
+                    INGRIDIANTS_VALIDATION[i - 1].ing_mesurment = true;
+                    ingridiants_feedback.ing_mesurment.innerHTML = "";
+                }
+            }
+        }
+    }
+}
+
+//*******************************************************************************************
+// CHECK RECIPE INPUTS
+//*******************************************************************************************
+function CheckRecipeInputs()
+//בודק את הרשומות של המתכון
+{
+    var recipe_inputs = {
+        recp_name: $("#txt_name_recipe").val(),
+        recp_dish_type: $("#select_dish_type").find(":selected").val(),
+        recp_dish_category: $("#select_dish_category").find(":selected").val(),
+        recp_food_type: $("#select_food_type").find(":selected").val(),
+        recp_kitchen_type: $("#select_kitchen_type").find(":selected").val(),
+        recp_level: $("#select_difficulty_level").find(":selected").val(),
+        recp_total_time: $("#txt_total_time").val(),
+        recp_work_time: $("#txt_work_time").val(),
+        recp_steps: $("#txt_preparation_steps").val()
+};
+    var recipe_feedback = {
+        recp_name: document.getElementById("feedback_name_recipe"),
+        recp_dish_type: document.getElementById("feedback_dish_type"),
+        recp_dish_category: document.getElementById("feedback_dish_category"),
+        recp_food_type: document.getElementById("feedback_food_type"),
+        recp_kitchen_type: document.getElementById("feedback_kitchen_type"),
+        recp_level: document.getElementById("feedback_difficulty_level"),
+        recp_total_time: document.getElementById("feedback_total_time"),
+        recp_work_time: document.getElementById("feedback_work_time"),
+        recp_steps: document.getElementById("feedback_preparation_steps")
+};
+// recp_name
+if (recipe_inputs.recp_name == "") {
+    RECIPE_VALIDATION.recp_name = false;
+    recipe_feedback.recp_name.innerHTML = "אנא הכנס שם מתכון!";
+}
+else if (!(recipe_inputs.recp_name.length >= 2 && recipe_inputs.recp_name.length <= 60)) {
+    RECIPE_VALIDATION.recp_name = false;
+    recipe_feedback.recp_name.innerHTML = "אנא הכנס שם מתכון באורך 2 עד 60 תווים!";
+}
+else {
+    RECIPE_VALIDATION.recp_name = true;
+    recipe_feedback.recp_name.innerHTML = "";
+    }
+    // recp_dish_type
+    if (recipe_inputs.recp_dish_type == "") {
+        RECIPE_VALIDATION.recp_dish_type = false;
+        recipe_feedback.recp_dish_type.innerHTML = "אנא בחר סוג מנה!";
+    }
+    else {
+        RECIPE_VALIDATION.recp_dish_type = true;
+        recipe_feedback.recp_dish_type.innerHTML = "";
+    }
+    // recp_dish_category
+    if (recipe_inputs.recp_dish_category == "") {
+        RECIPE_VALIDATION.recp_dish_category = false;
+        recipe_feedback.recp_dish_category.innerHTML = "אנא בחר מאפיין מנה!";
+    }
+    else {
+        RECIPE_VALIDATION.recp_dish_category = true;
+        recipe_feedback.recp_dish_category.innerHTML = "";
+    }
+    // recp_food_type
+    if (recipe_inputs.recp_food_type == "") {
+        RECIPE_VALIDATION.recp_food_type = false;
+        recipe_feedback.recp_food_type.innerHTML = "אנא בחר סוג אוכל!";
+    }
+    else {
+        RECIPE_VALIDATION.recp_food_type = true;
+        recipe_feedback.recp_food_type.innerHTML = "";
+    }
+    // recp_kitchen_type
+    if (recipe_inputs.recp_kitchen_type == "") {
+        RECIPE_VALIDATION.recp_kitchen_type = false;
+        recipe_feedback.recp_kitchen_type.innerHTML = "אנא בחר סגנון מטבח!";
+    }
+    else {
+        RECIPE_VALIDATION.recp_kitchen_type = true;
+        recipe_feedback.recp_kitchen_type.innerHTML = "";
+    }
+    // recp_level
+    if (recipe_inputs.recp_level == "") {
+        RECIPE_VALIDATION.recp_level = false;
+        recipe_feedback.recp_level.innerHTML = "אנא בחר דרגת קושי!";
+    }
+    else {
+        RECIPE_VALIDATION.recp_level = true;
+        recipe_feedback.recp_level.innerHTML = "";
+    }
+    // recp_work_time
+    if (recipe_inputs.recp_work_time == "") {
+        RECIPE_VALIDATION.recp_work_time = false;
+        recipe_feedback.recp_work_time.innerHTML = "אנא הכנס זמן עבודה!";
+    }
+    else if (recipe_inputs.recp_work_time == "00:00") {
+        RECIPE_VALIDATION.recp_work_time = false;
+        recipe_feedback.recp_work_time.innerHTML = "אנא הכנס זמן עבודה שונה מ 00:00!";
+    }
+    else {
+        RECIPE_VALIDATION.recp_work_time = true;
+        recipe_feedback.recp_work_time.innerHTML = "";
+    }
+    // recp_total_time
+    if (recipe_inputs.recp_total_time == "") {
+        RECIPE_VALIDATION.recp_total_time = false;
+        recipe_feedback.recp_total_time.innerHTML = "אנא הכנס זמן כולל!";
+    }
+    else if (recipe_inputs.recp_total_time == "00:00")
+    {
+        RECIPE_VALIDATION.recp_total_time = false;
+        recipe_feedback.recp_total_time.innerHTML = "אנא הכנס זמן כולל שונה מ 00:00!";
+    }
+    else if (!(recipe_inputs.recp_total_time >= recipe_inputs.recp_work_time))
+    {
+        RECIPE_VALIDATION.recp_total_time = false;
+        recipe_feedback.recp_total_time.innerHTML = "אנא הכנס זמן כולל לפחות בגודל זמן העבודה";
+    }
+    else {
+        RECIPE_VALIDATION.recp_total_time = true;
+        recipe_feedback.recp_total_time.innerHTML = "";
+    }   
+    // recp_steps
+    if (recipe_inputs.recp_steps == "") {
+        RECIPE_VALIDATION.recp_steps = false;
+        recipe_feedback.recp_steps.innerHTML = "אנא הכנס אופן הכנה!";
+    }
+    else if (!(recipe_inputs.recp_steps.length >= 50 )) {
+        RECIPE_VALIDATION.recp_steps = false;
+        recipe_feedback.recp_steps.innerHTML = "אנא הכנס שם מתכון באורך 50 תווים לפחות!";
+    }
+    else {
+        RECIPE_VALIDATION.recp_steps = true;
+        recipe_feedback.recp_steps.innerHTML = "";
+    }
+
+}
+//*******************************************************************************************
 // CHECK FORM VALIDATION
 //*******************************************************************************************
+
 function CheckFormValidation() {
-    Change_style_by_validation();
+    CheckRecipeInputs();
+    CheckIngridiantsInputs();
+    if (Change_style_by_validation())
+        AddNewRecipe();
+    else
+        alert("אנא תקן את המקומות המסומנים");
 }
+
+//*******************************************************************************************
+// CHANGE STYLE BY VALIDATION
+//*******************************************************************************************
 
 function Change_style_by_validation()
 //הפונקציה בודקת איזה פריט לא תקין ומסמנת אותו
 {
+    var flag = true;
+    //פרטי מתכון
     var recipe_inputs =
     {
         recp_name: $("#txt_name_recipe"),
@@ -360,8 +598,10 @@ function Change_style_by_validation()
         recp_steps: $("#txt_preparation_steps")
     };
     for (var i in RECIPE_VALIDATION) {
-        if (RECIPE_VALIDATION[i] == false)
+        if (RECIPE_VALIDATION[i] == false) {
+            flag = false;
             recipe_inputs[i].addClass(" not_valid");
+        }
         else {
             if (recipe_inputs[i].hasClass("not_valid"))
                 recipe_inputs[i].removeClass("not_valid");
@@ -386,17 +626,37 @@ function Change_style_by_validation()
             x = names[h - 1];
             ingridiants_inputs.x = $("#" + temp);
             y = INGRIDIANTS_VALIDATION[i - 1];
-                    if (y[x] == false) {
-                        ingridiants_inputs.x.addClass(" not_valid");
-                    }
-                    else {
-                        if (ingridiants_inputs.x.hasClass("not_valid"))
-                            ingridiants_inputs.x.removeClass("not_valid");
-                        }
+            if (y[x] == false) {
+                flag = false;
+                ingridiants_inputs.x.addClass(" not_valid");
+            }
+            else {
+                if (ingridiants_inputs.x.hasClass("not_valid"))
+                    ingridiants_inputs.x.removeClass("not_valid");
+            }
             }
     }
+    return flag;
 }
    
 //*******************************************************************************************
 // ADD NEW RECIPE
 //*******************************************************************************************
+function AddNewRecipe()
+//הוספת מתכון חדש
+{
+    var new_recipe = {
+        user_id: (JSON.parse(sessionStorage.getItem("Login_User"))).id,
+        recp_name: $("#txt_name_recipe").val(),
+        recp_dish_type: $("#select_dish_type").find(":selected").val(),
+        recp_dish_category: $("#select_dish_category").find(":selected").val(),
+        recp_food_type: $("#select_food_type").find(":selected").val(),
+        recp_kitchen_type: $("#select_kitchen_type").find(":selected").val(),
+        recp_level: $("#select_difficulty_level").find(":selected").val(),
+        recp_total_time: $("#txt_total_time").val(),
+        recp_work_time: $("#txt_work_time").val(),
+        recp_steps: $("#txt_preparation_steps").val()
+    };
+    GlobalAjax("/api//AddNewUser", "POST", new_user, SuccessUser, FailUser);
+
+}

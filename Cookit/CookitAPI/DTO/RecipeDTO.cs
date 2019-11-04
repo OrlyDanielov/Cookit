@@ -7,9 +7,9 @@ namespace CookitAPI.DTO
 {
     public class RecipeDTO
     {
-        public int id;
+        public int recp_id;
         public int user_id;
-        public string name;
+        public string recp_name;
         public int recp_dish_type;
         public int recp_dish_category;
         public int recp_food_type;

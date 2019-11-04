@@ -107,58 +107,66 @@
     <!--טופס העלאת מתכון-->
     <main role="main" class="flex-shrink-0 container  bg_brigth">
         <h4 class="mb-3">מתכון</h4>
-        <form id="recipe_form" method="post">
+        <form id="recipe_form" method="post" >
             <!--הגדרות מתכון-->
             <fieldset id="recipe_categories">
                 <legend>מאפייני מתכון</legend>
                 <div class="form-row">
                     <div class="col">
                         <label for="work_time" class="col-sm-4 col-form-label">דרגת קושי</label>
-                        <select id="select_difficulty_level" name="difficulty_level" class="custom-select text2rigth">
+                        <select id="select_difficulty_level" name="difficulty_level" class="custom-select text2rigth" required>
                             <option value="" selected disabled>דרגת קושי</option>
                         </select>
+                        <div id="feedback_difficulty_level" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="name_recipe" class="col-sm-4 col-form-label">שם מתכון</label>
                         <input type="text" id="txt_name_recipe" name="name_recipe" class="form-control text2rigth" required />
+                        <div id="feedback_name_recipe" class="not_valid_feedback"></div>
                     </div>
                 </div>
                 <!--קטגוריות-->
                 <div class="form-row">
                     <div class="col">
                         <label for="dish_type" class="col-sm-6 col-form-label">סוג מנה</label>
-                        <select id="select_dish_type" name="dish_type" class="custom-select text2rigth">
+                        <select id="select_dish_type" name="dish_type" class="custom-select text2rigth" required>
                             <option value="" selected disabled>סוג מנה</option>
                         </select>
+                        <div id="feedback_dish_type"  class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="dish_category" class="col-sm-6 col-form-label">מאפיין מנה</label>
-                        <select name="dish_category" id="select_dish_category" class="custom-select text2rigth">
+                        <select name="dish_category" id="select_dish_category" class="custom-select text2rigth" required>
                             <option value="" selected disabled>מאפיין אוכל</option>
-                        </select>
+                        </select>                       
+                        <div id="feedback_dish_category" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="food_type" class="col-sm-6 col-form-label">סוג אוכל</label>
-                        <select name="food_type" id="select_food_type" class="custom-select text2rigth">
+                        <select name="food_type" id="select_food_type" class="custom-select text2rigth" required>
                             <option value="" selected disabled>סוג אוכל</option>
                         </select>
+                        <div id="feedback_food_type" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="kitchen_type" class="col-sm-6 col-form-label">סגנון מטבח</label>
-                        <select name="kitchen_type" id="select_kitchen_type" class="custom-select text2rigth">
+                        <select name="kitchen_type" id="select_kitchen_type" class="custom-select text2rigth" required>
                             <option value="" selected disabled>סגנון מטבח</option>
                         </select>
+                        <div id="feedback_kitchen_type" class="not_valid_feedback"></div>
                     </div>
                 </div>
                 <!--זמנים-->
                 <div class="form-row">
                     <div class="col">
                         <label for="total_time" class="col-sm-4 col-form-label">זמן כולל</label>
-                        <input type="text" for="total_time" id="txt_total_time" name="total_time" required class="form-control text2rigth" />
+                        <input type="time" for="total_time" id="txt_total_time" name="total_time" class="form-control text2rigth" required />
+                        <div id="feedback_total_time" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="work_time" class="col-sm-4 col-form-label">זמן עבודה</label>
-                        <input type="text" for="work_time" id="txt_work_time" name="work_time" required class="form-control text2rigth" />
+                        <input type="time" for="work_time" id="txt_work_time" name="work_time" class="form-control text2rigth" required />
+                        <div id="feedback_work_time" class="not_valid_feedback"></div>
                     </div>
                 </div>
 
@@ -176,16 +184,19 @@
                         <select id="select_ingridiant_name_1" name="ingridiant_name_1" class="form-control">
                             <option value="" selected disabled>שם מצרך</option>
                         </select>
+                        <div id="feedback_ingridiant_name_1" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="txt_ingridiant_amount_1" class="col-sm-4 col-form-label">כמות מצרך</label>
-                        <input type="text" id="txt_ingridiant_amount_1" name="ingridiant_amount_1" required class="form-control text2rigth" />
+                        <input type="number" id="txt_ingridiant_amount_1" name="ingridiant_amount_1" required class="form-control text2rigth" min="0" />
+                        <div id="feedback_ingridiant_amount_1" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="select_mesurment_1" class="col-sm-4 col-form-label">אופן מדידה</label>
                         <select id="select_mesurment_1" name="mesurment_1" class="form-control">
                             <option value="" selected disabled>אופן מדידה</option>
                         </select>
+                        <div id="feedback_mesurment_1" class="not_valid_feedback"></div>
                     </div>
 
                     <hr class="mb-4">
@@ -199,6 +210,7 @@
                 <legend>שלבי הכנה</legend>
                 <div class="form-group row">
                     <textarea rows="5" cols="50" id="txt_preparation_steps" name="preparation_steps" required class="form-control"></textarea>
+                    <div id="feedback_preparation_steps" class="not_valid_feedback"></div>
                 </div>
             </fieldset>
             <hr class="mb-4">

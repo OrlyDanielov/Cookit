@@ -5,10 +5,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CookitDB;
+using CookitAPI.DTO;
 
 namespace Cookit.Controllers
 {
-    //[RoutePrefix("api/recipe")]
+    [RoutePrefix("api/Recipe")]
     public class RecipeController : ApiController
     {
         // GET api/<controller>
@@ -23,43 +24,38 @@ namespace Cookit.Controllers
             return "value";
         }
 
-        /*
-        // POST api/<controller>
-         public void Post([FromBody]string value)
-        {
-         */
-        // POST api/<controller>
-        //הוספת מתכון לבסיס הנתונים
-        [Route("api/Recipe")]
-        public bool Post([FromBody]TBL_Recipe newRecipe)
+        #region Add New Recipe
+        [Route("AddNewRecipe")]
+        [HttpPost]
+        public HttpResponseMessage AddNewRecipe([FromBody]RecipeDTO newRecipe)
         {
             try
             {
-                bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                db.TBL_Recipe.Add(newRecipe); // הוספת רשומת מתכון חדש לטבלת המתכונים
-                db.SaveChanges();
-                return true;
-            }
-            catch(Exception)
-            {
-                return false;
-            }
-        }
-         
-       
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                TBL_Recipe r = new TBL_Recipe()
+                {
+                    Id_Recipe_User = newRecipe.user_id,
+                    Name_Recipe = newRecipe.recp_name,
+                    Id_Recipe_DishType = newRecipe.recp_dish_type,
+                    Id_Recipe_DishCategory = newRecipe.recp_dish_category,
+                    TBL_FoodType = newRecipe.recp_food_type,
 
-        //[Route("api/recipe")]
-            /*
-        public HttpResponseMessage Post([FromBody]TBL_Recipe newRecipe)
-        {
-            var isSaved = CookitQuery.AddNewRecipe(newRecipe);
-            if (isSaved == true)
-                return Request.CreateResponse(HttpStatusCode.OK, isSaved);
-            else
-                return Request.CreateResponse(HttpStatusCode.NotImplemented, "");
+                    //NumDrawRecp = newUser.number_of_draw_recipe
+
+                };
+                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewUser(u);
+                if (is_saved == true)
+                    return Request.CreateResponse(HttpStatusCode.OK, "the user added Successfully.");
+                else
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the user.");
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
         }
-        */
+        #endregion
 
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]string value)
