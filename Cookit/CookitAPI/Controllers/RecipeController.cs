@@ -38,16 +38,18 @@ namespace Cookit.Controllers
                     Name_Recipe = newRecipe.recp_name,
                     Id_Recipe_DishType = newRecipe.recp_dish_type,
                     Id_Recipe_DishCategory = newRecipe.recp_dish_category,
-                    TBL_FoodType = newRecipe.recp_food_type,
-
-                    //NumDrawRecp = newUser.number_of_draw_recipe
-
+                    Id_Recipe_FoodType = newRecipe.recp_food_type,
+                    Id_Recipe_KitchenType = newRecipe.recp_kitchen_type,
+                    RecipeTotalTime = newRecipe.recp_total_time, //TimeSpan.Parse(newRecipe.recp_total_time),
+                    RecipeWorkTime = newRecipe.recp_work_time,//TimeSpan(newRecipe.recp_work_time),
+                    Id_Recipe_Level = newRecipe.recp_level,
+                    PreparationSteps = newRecipe.recp_steps
                 };
-                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewUser(u);
+                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewRecipe(r);
                 if (is_saved == true)
-                    return Request.CreateResponse(HttpStatusCode.OK, "the user added Successfully.");
+                    return Request.CreateResponse(HttpStatusCode.OK, "the recipe added Successfully.");
                 else
-                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the user.");
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the recipe.");
 
             }
             catch (Exception e)

@@ -340,6 +340,38 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region Get All Holidays
+        // הפוקנציה מביאה מהמסד את כל אופני המדידה למתכון
+        public static List<TBL_Holiday> Get_all_Holidays()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Holiday.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get All fOOD Lable
+        // הפוקנציה מביאה מהמסד את כל אופני המדידה למתכון
+        public static List<TBL_FoodLabel> Get_all_FoodLable()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_FoodLabel.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Add New Recipe
         //פונקציה של הוספת מתכון חדש לטבלת המתכונים
         public static bool AddNewRecipe(TBL_Recipe new_recipe)
@@ -347,8 +379,6 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
                 db.Entry(new_recipe).State = System.Data.Entity.EntityState.Added; // הוספת רשומת מתכון חדש לטבלת המתכונים
                 db.SaveChanges();
                 return true;

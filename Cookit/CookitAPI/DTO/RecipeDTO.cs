@@ -15,8 +15,8 @@ namespace CookitAPI.DTO
         public int recp_food_type;
         public int recp_kitchen_type;
         public int recp_level;
-        public DateTime recp_total_time;
-        public DateTime recp_work_time;
+        public TimeSpan recp_total_time;        //public DateTime recp_total_time;
+        public TimeSpan recp_work_time;//        public DateTime recp_work_time;
         public string recp_steps;
 
     }

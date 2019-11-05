@@ -9,6 +9,9 @@ var ARRY_KITCHEN_TYPE = new Array();
 var ARRY_DIFFICULTY_LEVEL = new Array();
 var ARRY_INGRIDIANTS = new Array();
 var ARRY_MESURMENTS = new Array();
+var ARRY_HOLIDAYS = new Array();
+var ARRY_FOOD_LABLE = new Array();
+
 //בדיקת תקינות
 var RECIPE_VALIDATION = {
     recp_name: false ,
@@ -19,7 +22,9 @@ var RECIPE_VALIDATION = {
     recp_level: false,
     recp_total_time: false,
     recp_work_time: false,
-    recp_steps: false
+    recp_steps: false,
+    recp_food_lable: false,
+    recp_holiday: false
 };
 var INGRIDIANTS_VALIDATION =//{
     [{
@@ -52,6 +57,10 @@ $(document).ready(function () {
     GetIngridiants();
     //עדכון אופן מדידה של מצרך
     GetMesurments();
+    //עדכון חגים
+    GetHoliday();
+    //עדכון תוויות
+    GetFoodLable();
 });
 //*******************************************************************************************
 // INIT DATA INTO DROP DOWN LIST
@@ -207,6 +216,43 @@ function FailMesurments() {
     alert('שגיאה במשיכת נתוני אופן המדידה מהשרת.');
 }
 //*******************************************************************************************
+//  GET HOLIDAY
+//*******************************************************************************************
+function GetHoliday() {
+    // קריאה לפונקצית ajax של Get מהשרת עבור נתוני Mesurments
+    GlobalAjax("/api/Holiday/GetAll", "GET", "", SuccessHoliday, FailHoliday);
+}
+
+function SuccessHoliday(arry_Holidays) {
+    ARRY_HOLIDAYS = arry_Holidays;
+    sessionStorage.setItem("Holidays", JSON.stringify(arry_Holidays));
+    EnterData2DDList(arry_Holidays, "select_holiday");
+}
+
+function FailHoliday() {
+    console.log("שגיאה במשיכת נתוני חגים מהשרת.");
+    alert('שגיאה במשיכת נתוני חגים מהשרת.');
+}
+
+//*******************************************************************************************
+//  GET FOOD LABLE
+//*******************************************************************************************
+function GetFoodLable() {
+    // קריאה לפונקצית ajax של Get מהשרת עבור נתוני Mesurments
+    GlobalAjax("/api/FoodLable/GetAll", "GET", "", SuccessFoodLable, FailFoodLable);
+}
+
+function SuccessFoodLable(arry_FoodLabe) {
+    ARRY_FOOD_LABLE = arry_FoodLabe;
+    sessionStorage.setItem("Food_Lables", JSON.stringify(arry_FoodLabe));
+    EnterData2DDList(arry_FoodLabe, "select_food_lable");
+}
+
+function FailFoodLable() {
+    console.log("שגיאה במשיכת נתוני תווית מהשרת.");
+    alert('שגיאה במשיכת נתוני תוויות מהשרת.');
+}
+//*******************************************************************************************
 // ADD INGRIDIANT
 //*******************************************************************************************
 function AddIngridiant()
@@ -223,7 +269,7 @@ function AddIngridiant()
     btn_div.className = "col";
 
     var btn_remove = document.createElement("input");
-    btn_remove.type = "submit";
+    btn_remove.type = "button";
     btn_remove.id = "btn_remove_ingridiant_" + NAME_INGRIDIANTS;
     btn_remove.value = "הסר מצרך";
     btn_remove.className = "btn btn-group";
@@ -445,7 +491,9 @@ function CheckRecipeInputs()
         recp_level: $("#select_difficulty_level").find(":selected").val(),
         recp_total_time: $("#txt_total_time").val(),
         recp_work_time: $("#txt_work_time").val(),
-        recp_steps: $("#txt_preparation_steps").val()
+        recp_steps: $("#txt_preparation_steps").val(),
+        recp_food_lable: $("#select_food_lable").val(),
+        recp_holiday: $("#select_holiday").val()
 };
     var recipe_feedback = {
         recp_name: document.getElementById("feedback_name_recipe"),
@@ -456,7 +504,9 @@ function CheckRecipeInputs()
         recp_level: document.getElementById("feedback_difficulty_level"),
         recp_total_time: document.getElementById("feedback_total_time"),
         recp_work_time: document.getElementById("feedback_work_time"),
-        recp_steps: document.getElementById("feedback_preparation_steps")
+        recp_steps: document.getElementById("feedback_preparation_steps"),
+        recp_food_lable: document.getElementById("feedback_food_lable"),
+        recp_holiday: document.getElementById("feedback_holiday")
 };
 // recp_name
 if (recipe_inputs.recp_name == "") {
@@ -561,7 +611,26 @@ else {
         RECIPE_VALIDATION.recp_steps = true;
         recipe_feedback.recp_steps.innerHTML = "";
     }
-
+    //recp_holiday
+    if (recipe_inputs.recp_holiday == "") {
+        RECIPE_VALIDATION.recp_holiday = false;
+        recipe_feedback.recp_holiday.innerHTML = "אנא בחר לפחות חג אחד!";
+    }
+    else {
+        RECIPE_VALIDATION.recp_holiday = true;
+        recipe_feedback.recp_holiday.innerHTML = "";
+        console.log("holiday: " + recipe_inputs.recp_holiday);
+    }
+    //recp_food_lable
+    if (recipe_inputs.recp_food_lable == "") {
+        RECIPE_VALIDATION.recp_food_lable = false;
+        recipe_feedback.recp_food_lable.innerHTML = "אנא בחר לפחות תוויות אחת!";
+    }
+    else {
+        RECIPE_VALIDATION.recp_food_lable = true;
+        recipe_feedback.recp_food_lable.innerHTML = "";
+        console.log("food lable: "+recipe_inputs.recp_food_lable);
+    }
 }
 //*******************************************************************************************
 // CHECK FORM VALIDATION
@@ -595,16 +664,18 @@ function Change_style_by_validation()
         recp_level: $("#select_difficulty_level"),
         recp_total_time: $("#txt_total_time"),
         recp_work_time: $("#txt_work_time"),
-        recp_steps: $("#txt_preparation_steps")
+        recp_steps: $("#txt_preparation_steps"),
+        recp_food_lable: $("#select_food_lable"),
+        recp_holiday: $("#select_holiday")
     };
-    for (var i in RECIPE_VALIDATION) {
-        if (RECIPE_VALIDATION[i] == false) {
+    for (var j in RECIPE_VALIDATION) {
+        if (RECIPE_VALIDATION[j] == false) {
             flag = false;
-            recipe_inputs[i].addClass(" not_valid");
+            recipe_inputs[j].addClass(" not_valid");
         }
         else {
-            if (recipe_inputs[i].hasClass("not_valid"))
-                recipe_inputs[i].removeClass("not_valid");
+            if (recipe_inputs[j].hasClass("not_valid"))
+                recipe_inputs[j].removeClass("not_valid");
         }
     }
     //מצרכים

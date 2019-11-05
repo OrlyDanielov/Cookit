@@ -240,7 +240,9 @@
     <Compile Include="Controllers\DishCategotyController.cs" />
     <Compile Include="Controllers\DishTypeController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\FoodLableController.cs" />
     <Compile Include="Controllers\FoodTypeController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngriditansController.cs" />
     <Compile Include="Controllers\KitchenTypeController.cs" />
@@ -259,7 +261,7 @@
     <Compile Include="DTO\EventDTO.cs" />
     <Compile Include="DTO\FavoriteRecipeDTO.cs" />
     <Compile Include="DTO\FollowersDTO.cs" />
-    <Compile Include="DTO\FoodLabelDTO.cs" />
+    <Compile Include="DTO\FoodLableDTO.cs" />
     <Compile Include="DTO\FoodTypeDTO.cs" />
     <Compile Include="DTO\HolidayDTO.cs" />
     <Compile Include="DTO\IngridiantsDTO.cs" />
