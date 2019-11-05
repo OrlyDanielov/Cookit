@@ -33,14 +33,14 @@
           <Key>
             <PropertyRef Name="Id_DishCategory" />
           </Key>
-          <Property Name="Id_DishCategory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_DishCategory" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name_DishCategory" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_DishType">
           <Key>
             <PropertyRef Name="Id_DishType" />
           </Key>
-          <Property Name="Id_DishType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_DishType" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name_DishType" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_DrawerRecp">
@@ -48,7 +48,7 @@
             <PropertyRef Name="Id_DrawerRecp" />
             <PropertyRef Name="Id_User" />
           </Key>
-          <Property Name="Id_DrawerRecp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_DrawerRecp" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Id_User" Type="int" Nullable="false" />
           <Property Name="Name_DrawerRecp" Type="nvarchar" MaxLength="30" />
         </EntityType>
@@ -56,13 +56,14 @@
           <Key>
             <PropertyRef Name="Id_Event" />
           </Key>
-          <Property Name="Id_Event" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Event" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Id_Prof" Type="int" Nullable="false" />
           <Property Name="Name_Event" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Event_Date" Type="datetime" Nullable="false" />
           <Property Name="Place_Event" Type="nvarchar" MaxLength="30" />
           <Property Name="Description_Event" Type="nvarchar" MaxLength="100" />
           <Property Name="StatusCancelation" Type="bit" />
+          <Property Name="Event_Address" Type="nvarchar" MaxLength="120" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_FavoriteRecp">
           <Key>
@@ -86,21 +87,21 @@
           <Key>
             <PropertyRef Name="Id_FoodLabel" />
           </Key>
-          <Property Name="Id_FoodLabel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_FoodLabel" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name_FoodLabel" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_FoodType">
           <Key>
             <PropertyRef Name="Id_FoodType" />
           </Key>
-          <Property Name="Id_FoodType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_FoodType" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name_FoodType" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Holiday">
           <Key>
             <PropertyRef Name="Id_Holiday" />
           </Key>
-          <Property Name="Id_Holiday" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Holiday" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name_Holiday" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_HolidaysForRecp">
@@ -108,7 +109,7 @@
             <PropertyRef Name="Id_Recp" />
             <PropertyRef Name="Id_Holiday" />
           </Key>
-          <Property Name="Id_Recp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_Holiday" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_IngridiantForRecp">
@@ -117,7 +118,7 @@
             <PropertyRef Name="Id_Ingridiants" />
             <PropertyRef Name="Id_Mesurment" />
           </Key>
-          <Property Name="Id_Recp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_Ingridiants" Type="int" Nullable="false" />
           <Property Name="Id_Mesurment" Type="int" Nullable="false" />
           <Property Name="Amount" Type="float" />
@@ -126,14 +127,14 @@
           <Key>
             <PropertyRef Name="Id_Ingridiants" />
           </Key>
-          <Property Name="Id_Ingridiants" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Ingridiants" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name_Ingridiants" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_KitchenType">
           <Key>
             <PropertyRef Name="Id_Kitchen" />
           </Key>
-          <Property Name="Id_Kitchen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Kitchen" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Kitchen_Name" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_LabelsForRecp">
@@ -141,7 +142,7 @@
             <PropertyRef Name="Id_Recp" />
             <PropertyRef Name="Id_FoodLabel" />
           </Key>
-          <Property Name="Id_Recp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_FoodLabel" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Likes">
@@ -165,7 +166,7 @@
           <Key>
             <PropertyRef Name="Id_Mesurment" />
           </Key>
-          <Property Name="Id_Mesurment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Mesurment" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name_Mesurment" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_NutritionalIngridiants">
@@ -181,7 +182,7 @@
           <Key>
             <PropertyRef Name="Id_Prof" />
           </Key>
-          <Property Name="Id_Prof" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Prof" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Id_User" Type="int" Nullable="false" />
           <Property Name="ProfType" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Name_Prof" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -193,7 +194,7 @@
           <Key>
             <PropertyRef Name="Id_Recipe" />
           </Key>
-          <Property Name="Id_Recipe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Recipe" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Id_Recipe_User" Type="int" Nullable="false" />
           <Property Name="Name_Recipe" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="Id_Recipe_DishType" Type="int" Nullable="false" />
@@ -209,7 +210,7 @@
           <Key>
             <PropertyRef Name="Id_Level" />
           </Key>
-          <Property Name="Id_Level" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Level" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name_Level" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_RecpLevelByBU">
@@ -225,7 +226,7 @@
           <Key>
             <PropertyRef Name="Id_Star" />
           </Key>
-          <Property Name="Id_Star" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Star" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="StarLevel" Type="nvarchar" MaxLength="10" />
           <Property Name="StarNum" Type="int" />
         </EntityType>
@@ -242,7 +243,7 @@
           <Key>
             <PropertyRef Name="Id_User" />
           </Key>
-          <Property Name="Id_User" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Id_Type" Type="int" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -256,14 +257,14 @@
           <Key>
             <PropertyRef Name="Id_Type" />
           </Key>
-          <Property Name="Id_Type" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Type" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name_Type" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Workshop">
           <Key>
             <PropertyRef Name="Id_Workshop" />
           </Key>
-          <Property Name="Id_Workshop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Workshop" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Id_Prof" Type="int" Nullable="false" />
           <Property Name="Name_Workshop" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Workshop_Date" Type="datetime" Nullable="false" />
@@ -272,6 +273,7 @@
           <Property Name="MaxParticipents" Type="int" Nullable="false" />
           <Property Name="StatusCancelation" Type="bit" />
           <Property Name="StatusAvailable" Type="bit" Nullable="false" />
+          <Property Name="Workshop_Address" Type="nvarchar" MaxLength="120" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_WorkshopParticipents">
           <Key>
@@ -281,6 +283,7 @@
           <Property Name="Id_Workshop" Type="int" Nullable="false" />
           <Property Name="Id_User" Type="int" Nullable="false" />
           <Property Name="StatusRegistration" Type="bit" />
+          <Property Name="WaitList" Type="bit" />
         </EntityType>
         <Association Name="FK_City">
           <End Role="TBL_City" Type="Self.TBL_City" Multiplicity="1" />
@@ -1142,6 +1145,7 @@
           <Property Name="Description_Event" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StatusCancelation" Type="Boolean" />
           <NavigationProperty Name="TBL_Profile" Relationship="Cookit_DBModel.FK_Profile2" FromRole="TBL_Event" ToRole="TBL_Profile" />
+          <Property Name="Event_Address" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TBL_FavoriteRecp">
           <Key>
@@ -1379,6 +1383,7 @@
           <Property Name="StatusAvailable" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TBL_Profile" Relationship="Cookit_DBModel.FK_Profile1" FromRole="TBL_Workshop" ToRole="TBL_Profile" />
           <NavigationProperty Name="TBL_WorkshopParticipents" Relationship="Cookit_DBModel.FK_Workshop" FromRole="TBL_Workshop" ToRole="TBL_WorkshopParticipents" />
+          <Property Name="Workshop_Address" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TBL_WorkshopParticipents">
           <Key>
@@ -1390,6 +1395,7 @@
           <Property Name="StatusRegistration" Type="Boolean" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User7" FromRole="TBL_WorkshopParticipents" ToRole="TBL_User" />
           <NavigationProperty Name="TBL_Workshop" Relationship="Cookit_DBModel.FK_Workshop" FromRole="TBL_WorkshopParticipents" ToRole="TBL_Workshop" />
+          <Property Name="WaitList" Type="Boolean" />
         </EntityType>
         <Association Name="FK_City">
           <End Type="Cookit_DBModel.TBL_City" Role="TBL_City" Multiplicity="1" />
@@ -1860,6 +1866,7 @@
           <EntitySetMapping Name="TBL_Event">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Event">
               <MappingFragment StoreEntitySet="TBL_Event">
+                <ScalarProperty Name="Event_Address" ColumnName="Event_Address" />
                 <ScalarProperty Name="StatusCancelation" ColumnName="StatusCancelation" />
                 <ScalarProperty Name="Description_Event" ColumnName="Description_Event" />
                 <ScalarProperty Name="Place_Event" ColumnName="Place_Event" />
@@ -2048,6 +2055,7 @@
           <EntitySetMapping Name="TBL_Workshop">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Workshop">
               <MappingFragment StoreEntitySet="TBL_Workshop">
+                <ScalarProperty Name="Workshop_Address" ColumnName="Workshop_Address" />
                 <ScalarProperty Name="StatusAvailable" ColumnName="StatusAvailable" />
                 <ScalarProperty Name="StatusCancelation" ColumnName="StatusCancelation" />
                 <ScalarProperty Name="MaxParticipents" ColumnName="MaxParticipents" />
@@ -2063,6 +2071,7 @@
           <EntitySetMapping Name="TBL_WorkshopParticipents">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_WorkshopParticipents">
               <MappingFragment StoreEntitySet="TBL_WorkshopParticipents">
+                <ScalarProperty Name="WaitList" ColumnName="WaitList" />
                 <ScalarProperty Name="StatusRegistration" ColumnName="StatusRegistration" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="Id_Workshop" ColumnName="Id_Workshop" />
