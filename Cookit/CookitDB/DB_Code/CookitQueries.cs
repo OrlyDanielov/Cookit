@@ -19,163 +19,7 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
-        #region Get User By Email
-        public static int GetUserByEmail(string email)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-                if (user == null) // אם אין משתמש אם פרטים כאלה
-                    return -1;
-                else
-                    return user.Id_User;
-            }
-            catch (Exception)
-            {
-                return -2;
-            }
-        }
-        #endregion
-
-
-        #region GetProfileByUserId
-        // מביאה את הפרופיל לפי תז של משתמש
-        public static TBL_Profile GetProfileByUserId(int userId)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
-                if (prof == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return prof;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region Update User Info
-        public static bool UpdateUserInfo(TBL_User newUser)
-        {
-            try
-            {
-                var db = Get_DB();               
-                TBL_User u = db.TBL_User.SingleOrDefault(x => x.Id_User == newUser.Id_User);
-                if (u != null)
-                {
-                    u.FirstName = newUser.FirstName;
-                    u.LastName = newUser.LastName;
-                    u.Gender = newUser.Gender;
-                    u.Email = newUser.Email;
-                    u.Id_Type = newUser.Id_Type;
-                    //u.UserStatus = newUser.UserStatus;
-                    //u.NumDrawRecp = newUser.NumDrawRecp;
-
-                    db.SaveChanges();
-                    return true;
-                }
-                else
-                    return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        #endregion
-
-        #region Update Profile Info
-        public static bool UpdateProfileInfo(TBL_Profile newProfile)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_Profile p = db.TBL_Profile.SingleOrDefault(x => x.Id_Prof == newProfile.Id_Prof);
-                if (p != null)
-                {
-                    p.ProfType = newProfile.ProfType;
-                    p.Name_Prof = newProfile.Name_Prof;
-                    p.ProfDescription = newProfile.ProfDescription;
-                    p.CityName = newProfile.CityName;
-                    p.ProfStatus = newProfile.ProfStatus;
-
-                    db.SaveChanges();
-                    return true;
-                }
-                else
-                    return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        #endregion
-
-        #region Check Profile Exsist By User Id
-        // בודקת את האימייל והסיסמא של המשתשמש בכניסה
-        public static TBL_Profile CheckProfileExsistByUserId(int user_id)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_Profile profile = db.TBL_Profile.SingleOrDefault(x => x.Id_User == user_id);
-                if (profile == null) 
-                    return null;
-                else
-                    return profile;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region Check Mail Available
-        //check if mail exsist. if exsist - return false, else return true.
-        public static bool CheckMailAvailable(string email)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-                if (user == null)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-        #endregion
-
-        #region LogIN
-        // בודקת את האימייל והסיסמא של המשתשמש בכניסה
-        public static TBL_User LogIn(string email, string pass)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email && x.UserPass == pass);//x => x.Email = user_details.Email && x.UserPass == user_details.Pass)
-                if (user == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return user;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
+        //שליפת נתונים סטטים 
 
         #region Get All User Type
         // הפוקנציה מביאה מהמסד את כל סוגי המשתמשים
@@ -212,7 +56,26 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-                
+
+        #region Get All City_Regions
+        // הפוקנציה מביאה מחוזות
+        public static List<TBL_City> Get_all_Regions()
+        {
+            try
+            {
+                var db = Get_DB();
+                // Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                return db.TBL_City.GroupBy(o => new { o.Region }).Select(o => o.FirstOrDefault()).ToList(); //returns distinct regions
+            }
+
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Get all dish type
         // הפוקנציה מביאה מהמסד את כל סוגי המנות
         public static List<TBL_DishType> Get_all_DishType()
@@ -340,6 +203,8 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        //הוספת אובייקטים חדשים
+
         #region Add New Recipe
         //פונקציה של הוספת מתכון חדש לטבלת המתכונים
         public static bool AddNewRecipe(TBL_Recipe new_recipe)
@@ -436,6 +301,132 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        //עדכוני אובייקטים קיימים
+
+        #region Update User Info
+        public static bool UpdateUserInfo(TBL_User newUser)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User u = db.TBL_User.SingleOrDefault(x => x.Id_User == newUser.Id_User);
+                if (u != null)
+                {
+                    u.FirstName = newUser.FirstName;
+                    u.LastName = newUser.LastName;
+                    u.Gender = newUser.Gender;
+                    u.Email = newUser.Email;
+                    u.Id_Type = newUser.Id_Type;
+                    //u.UserStatus = newUser.UserStatus;
+                    //u.NumDrawRecp = newUser.NumDrawRecp;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Update Profile Info
+        public static bool UpdateProfileInfo(TBL_Profile newProfile)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile p = db.TBL_Profile.SingleOrDefault(x => x.Id_Prof == newProfile.Id_Prof);
+                if (p != null)
+                {
+                    p.ProfType = newProfile.ProfType;
+                    p.Name_Prof = newProfile.Name_Prof;
+                    p.ProfDescription = newProfile.ProfDescription;
+                    p.CityName = newProfile.CityName;
+                    p.ProfStatus = newProfile.ProfStatus;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        //הירשמות למערכת-בדיקת מייל
+        #region Check Mail Available
+        //check if mail exsist. if exsist - return false, else return true.
+        public static bool CheckMailAvailable(string email)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
+                if (user == null)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+
+        //התחברות למערכת
+        #region LogIN
+        // בודקת את האימייל והסיסמא של המשתשמש בכניסה
+        public static TBL_User LogIn(string email, string pass)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email && x.UserPass == pass);//x => x.Email = user_details.Email && x.UserPass == user_details.Pass)
+                if (user == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return user;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Check Profile Exsist By User Id
+        // בודקת את האימייל והסיסמא של המשתשמש בכניסה
+        public static TBL_Profile CheckProfileExsistByUserId(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile profile = db.TBL_Profile.SingleOrDefault(x => x.Id_User == user_id);
+                if (profile == null)
+                    return null;
+                else
+                    return profile;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+
+        //שליחת מייל
         #region Send Mail
         public static bool SendMail(string user_mail)
         {
@@ -459,6 +450,104 @@ namespace CookitDB.DB_Code
             catch(Exception)
             {
                 return false;
+            }
+        }
+        #endregion
+
+        //שליפת אובייקטים מסויימים
+        #region Get User By Email
+        public static int GetUserByEmail(string email)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
+                if (user == null) // אם אין משתמש אם פרטים כאלה
+                    return -1;
+                else
+                    return user.Id_User;
+            }
+            catch (Exception)
+            {
+                return -2;
+            }
+        }
+        #endregion
+
+
+        #region GetProfileByUserId
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Profile GetProfileByUserId(int userId)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
+                if (prof == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return prof;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+
+        #region Get ProfileID Of User 
+        public static int GetProfileIDOfUserByID(int ID)
+        {
+            try
+            {
+                var db = Get_DB();
+                // Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                TBL_Profile user_prof = db.TBL_Profile.SingleOrDefault(a => a.Id_User == ID);
+                return user_prof.Id_Prof;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+        #endregion
+
+
+        //שליפת אירועים וסדנאות
+
+        #region Get All Events
+        // הפוקנציה מביאה אירועים מהמסד נתונים
+        public static List<TBL_Event> Get_all_Events()
+        {
+            try
+            {
+                var db = Get_DB();
+              //  Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                return db.TBL_Event.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get All Workshops
+        // הפוקנציה מביאה סדנאות מהמסד נתונים
+        public static List<TBL_Workshop> Get_all_Workshops()
+        {
+            try
+            {
+                var db = Get_DB();
+              //  Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                return db.TBL_Workshop.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
         #endregion

@@ -159,6 +159,19 @@ namespace CookitAPI.Controllers
         }
         #endregion
 
+        [Route("{user_id}/GetProfileIDByUserID")]
+        [HttpGet]
+        public HttpResponseMessage GetProfileIDByUserID(int id)
+        {
+            //bgroup36_prodConnection db = new bgroup36_prodConnection();
+            Cookit_DBConnection db = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+            int p_id = CookitDB.DB_Code.CookitQueries.GetProfileIDOfUserByID(id);
+            if (p_id != -1)
+                return Request.CreateResponse(HttpStatusCode.OK, p_id);
+            else
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "the server could not find the profile number of user by user id.");
+        }
+
         // DELETE api/<controller>/5
         public void Delete(int id)
         {

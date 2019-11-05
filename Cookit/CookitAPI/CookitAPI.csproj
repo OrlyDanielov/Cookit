@@ -268,6 +268,7 @@
     <Compile Include="DTO\MesurmentsDTO.cs" />
     <Compile Include="DTO\ProfileDTO.cs" />
     <Compile Include="DTO\RecipeDTO.cs" />
+    <Compile Include="DTO\RegionDTO.cs" />
     <Compile Include="DTO\StarDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserTypeDTO.cs" />

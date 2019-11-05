@@ -10,5 +10,6 @@ namespace CookitAPI.DTO
         public int workshop_id;
         public int user_id;
         public bool status_register;
-      }
+        public bool status_waitingList;
+    }
 }
