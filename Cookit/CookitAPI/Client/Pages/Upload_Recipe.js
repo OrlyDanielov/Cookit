@@ -713,9 +713,8 @@ function Change_style_by_validation()
 //*******************************************************************************************
 // ADD NEW RECIPE
 //*******************************************************************************************
-function AddNewRecipe()
 //הוספת מתכון חדש
-{
+function AddNewRecipe() {
     var new_recipe = {
         user_id: (JSON.parse(sessionStorage.getItem("Login_User"))).id,
         recp_name: $("#txt_name_recipe").val(),
@@ -728,6 +727,96 @@ function AddNewRecipe()
         recp_work_time: $("#txt_work_time").val(),
         recp_steps: $("#txt_preparation_steps").val()
     };
-    GlobalAjax("/api//AddNewUser", "POST", new_user, SuccessUser, FailUser);
+    GlobalAjax("/api/Recipe/AddNewRecipe", "POST", new_recipe, SuccessAddRecipe, FailAddRecipe);
+}
+
+function SuccessAddRecipe(id_recipe)
+// פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
+{
+    console.log("המתכון נוסף לשרת בהצלחה.");
+    console.log("id recipe: " + id_recipe);
+    //הוספת המתצרכים התוויות והחגים
+    AddIngridiantForRecipe(id_recipe);
+}
+
+function FailAddRecipe(data)
+// פונקציה המתבצעת אחרי כישלון הוספה  של משתמש
+{
+    console.log("שגיאה בהוספת המתכון לשרת.");
+    console.log(data.T);
+    alert('שגיאה בהוספת המתכון לשרת.');
+}
+
+//*******************************************************************************************
+// ADD FOOD LABLE FOR RECIPE
+//*******************************************************************************************
+/*
+function AddFoodLableForRecipe(_id_recipe)
+// מוסיף אץ התוויות למתכון
+{
+    var new_food_lable = $("#select_food_lable").val();
+    var arry_fl = new_food_lable.split(",");
+    var new_foodLable_2_recipe = new Array();
+    for (var i in arry_fl) {
+        new_foodLable_2_recipe.push({
+            id_food_lable: i,
+            id_recipe: _id_recipe
+        });
+    }
+    GlobalAjax("/api/FoodLable2Recipe/AddNewFoodLable2Recipe", "POST", new_foodLable_2_recipe, SuccessAddRecipe, FailAddRecipe);
+
+}
+*/
+//*******************************************************************************************
+// ADD HOLIDAYS FOR RECIPE
+//*******************************************************************************************
+
+
+//*******************************************************************************************
+// ADD INGRIDIANTS FOR RECIPE
+//*******************************************************************************************
+function AddIngridiantForRecipe(id_recipe)
+//מוסיף את המצרכים למתכון החדש
+{
+    var list_ing_2_recp = new Array();
+    var all_ingridiants = document.getElementById("recipe_ingridiants").children;
+    var ingridiants_data;
+    var index;
+    var names, temp, z, num;
+    for (var i = 1; i < all_ingridiants.length - 1; i++) {
+        var ing_2_recp =
+        {
+            id_recp: id_recipe,
+            id_ingridiants: $("#select_ingridiant_name_1").find(":selected").val(),
+            amount: $("#txt_ingridiant_amount_1").val(),
+            id_mesurment: $("#select_mesurment_1").find(":selected").val()
+        };
+        ingridiants_data = all_ingridiants[i].children;
+        for (var h = 1; h <= 3; h++) {
+            names = Object.keys(ing_2_recp);
+            temp = (ingridiants_data[h]).children[1].id;
+            z = temp.split("_");
+            num = z[z.length - 1];
+            //ingridiant name
+            if (h == 1) 
+                ing_2_recp.id_ingridiants = $("#" + temp).find(":selected").val();
+            //Ingridiant amount
+            if (h == 2)
+                ing_2_recp.amount = $("#" + temp).val();  
+            //ingridiant mesurment
+            if (h == 3)
+                ing_2_recp.id_mesurment = $("#" + temp).find(":selected").val();
+        }
+        list_ing_2_recp.push(ing_2_recp);
+    }
+    GlobalAjax("/api/IngridiantForRecp/AddNewIng2Recp", "POST", list_ing_2_recp, SuccessAddIngridiantForRecipe, FailAddIngridiantForRecipe);
+}
+
+function SuccessAddIngridiantForRecipe() {
+    console.log("המצרכים נוספו למתכון בהצלחה!.");
+}
+
+function FailAddIngridiantForRecipe() {
+    console.log("שגיאה, המצרכים לא נוספו למתכון.");
 
 }

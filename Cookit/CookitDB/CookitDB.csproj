@@ -152,6 +152,9 @@
     <Compile Include="TBL_RecpLevelByBU.cs">
       <DependentUpon>CookitModle.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_Region.cs">
+      <DependentUpon>CookitModle.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_Star.cs">
       <DependentUpon>CookitModle.tt</DependentUpon>
     </Compile>

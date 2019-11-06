@@ -14,10 +14,11 @@ namespace CookitDB
     
     public partial class TBL_IngridiantForRecp
     {
+        public int Id { get; set; }
         public int Id_Recp { get; set; }
         public int Id_Ingridiants { get; set; }
         public int Id_Mesurment { get; set; }
-        public Nullable<double> Amount { get; set; }
+        public double Amount { get; set; }
     
         public virtual TBL_Ingridiants TBL_Ingridiants { get; set; }
         public virtual TBL_Mesurments TBL_Mesurments { get; set; }

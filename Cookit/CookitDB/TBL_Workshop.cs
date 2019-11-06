@@ -29,6 +29,7 @@ namespace CookitDB
         public int MaxParticipents { get; set; }
         public Nullable<bool> StatusCancelation { get; set; }
         public bool StatusAvailable { get; set; }
+        public string Workshop_Address { get; set; }
     
         public virtual TBL_Profile TBL_Profile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

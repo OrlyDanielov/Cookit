@@ -12,20 +12,18 @@ namespace CookitDB
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_City
+    public partial class TBL_Region
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TBL_City()
+        public TBL_Region()
         {
-            this.TBL_Profile = new HashSet<TBL_Profile>();
+            this.TBL_City = new HashSet<TBL_City>();
         }
     
-        public string CityName { get; set; }
-        public int Id_City { get; set; }
         public int Id_Region { get; set; }
+        public string Region { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_Profile> TBL_Profile { get; set; }
-        public virtual TBL_Region TBL_Region { get; set; }
+        public virtual ICollection<TBL_City> TBL_City { get; set; }
     }
 }

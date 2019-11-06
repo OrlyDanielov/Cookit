@@ -21,6 +21,7 @@ namespace CookitDB
         public string Place_Event { get; set; }
         public string Description_Event { get; set; }
         public Nullable<bool> StatusCancelation { get; set; }
+        public string Event_Address { get; set; }
     
         public virtual TBL_Profile TBL_Profile { get; set; }
     }

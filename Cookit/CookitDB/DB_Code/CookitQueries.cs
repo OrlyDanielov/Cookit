@@ -11,7 +11,7 @@ namespace CookitDB.DB_Code
 
         #region Get_DB
         public static Cookit_DBConnection Get_DB()
-        {
+        {          
             Cookit_DBConnection db = new Cookit_DBConnection();
             //bgroup36_prodConnection db = new bgroup36_prodConnection();
             return db;
@@ -184,8 +184,6 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
                 return db.TBL_UserType.ToList();
             }
             catch (Exception e)
@@ -202,8 +200,6 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
                 return db.TBL_City.ToList();
             }
             catch (Exception e)
@@ -374,18 +370,20 @@ namespace CookitDB.DB_Code
 
         #region Add New Recipe
         //פונקציה של הוספת מתכון חדש לטבלת המתכונים
-        public static bool AddNewRecipe(TBL_Recipe new_recipe)
+        //public static bool AddNewRecipe(TBL_Recipe new_recipe)
+        public static int AddNewRecipe(TBL_Recipe new_recipe)
         {
             try
             {
                 var db = Get_DB();
                 db.Entry(new_recipe).State = System.Data.Entity.EntityState.Added; // הוספת רשומת מתכון חדש לטבלת המתכונים
                 db.SaveChanges();
-                return true;
+                //להחזיר את התז של המתכון שהוסף
+                return new_recipe.Id_Recipe;
             }
             catch (Exception)
             {
-                return false;
+                return -1;
             }
         }
         #endregion
@@ -464,6 +462,44 @@ namespace CookitDB.DB_Code
                 return false;
             }
         }
+        #endregion
+
+        #region Add New Ingridiants 2 Recipe
+        //פונקציה של הוספת מצרכים למתכון
+        /*public static bool AddNewIngridiants2Recipe(TBL_IngridiantForRecp new_ing2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(new_ing2rcp).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }*/
+        
+    public static bool AddNewIngridiants2Recipe(List<TBL_IngridiantForRecp> new_ing2rcp)
+    {
+        try
+        {
+            var db = Get_DB();
+            //לעבור על כל הרשימה
+            foreach (TBL_IngridiantForRecp i in new_ing2rcp)
+            {
+                db.Entry(i).State = System.Data.Entity.EntityState.Added;
+            }
+            db.SaveChanges();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+    
         #endregion
 
         #region Send Mail
