@@ -244,6 +244,7 @@
     <Compile Include="Controllers\FoodLabelsForRecpController.cs" />
     <Compile Include="Controllers\FoodTypeController.cs" />
     <Compile Include="Controllers\HolidayController.cs" />
+    <Compile Include="Controllers\HolidaysForRecpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngridiantForRecpController.cs" />
     <Compile Include="Controllers\IngriditansController.cs" />
@@ -267,6 +268,7 @@
     <Compile Include="DTO\FoodLableDTO.cs" />
     <Compile Include="DTO\FoodTypeDTO.cs" />
     <Compile Include="DTO\HolidayDTO.cs" />
+    <Compile Include="DTO\Holidays2RecipeDTO.cs" />
     <Compile Include="DTO\IngridiantsDTO.cs" />
     <Compile Include="DTO\Ingridinats2RecipeDTO.cs" />
     <Compile Include="DTO\KitchenTypeDTO.cs" />

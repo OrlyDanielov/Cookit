@@ -37,6 +37,9 @@ var INGRIDIANTS_VALIDATION =//{
 var COUNT_INGRIDIANTS = 1;
 var NAME_INGRIDIANTS = 1;
 
+//תז המתכון החדש
+var ID_RECIPE;
+
 //*******************************************************************************************
 // page load
 //*******************************************************************************************
@@ -733,11 +736,11 @@ function AddNewRecipe() {
 function SuccessAddRecipe(id_recipe)
 // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
 {
+    ID_RECIPE = id_recipe;
     console.log("המתכון נוסף לשרת בהצלחה.");
     console.log("id recipe: " + id_recipe);
     //הוספת המתצרכים התוויות והחגים
-    //AddIngridiantForRecipe(id_recipe);
-    AddFoodLableForRecipe(id_recipe);
+    AddIngridiantForRecipe(id_recipe);   
 }
 
 function FailAddRecipe(data)
@@ -756,7 +759,6 @@ function AddFoodLableForRecipe(_id_recipe)
 // מוסיף אץ התוויות למתכון
 {
     var new_food_lable = $("#select_food_lable").val();
-    //var arry_fl = new_food_lable.split(",");
     var new_foodLable_2_recipe = new Array();
     for (var i in new_food_lable) {
         new_foodLable_2_recipe.push({
@@ -769,6 +771,8 @@ function AddFoodLableForRecipe(_id_recipe)
 
 function SuccessAddFoodLableForRecipe() {
     console.log("התוויות נוספו למתכון בהצלחה!.");
+    //הוספת החגים
+    AddHolidaysForRecipe(ID_RECIPE);
 }
 
 function FailAddFoodLableForRecipe() {
@@ -780,6 +784,29 @@ function FailAddFoodLableForRecipe() {
 // ADD HOLIDAYS FOR RECIPE
 //*******************************************************************************************
 
+function AddHolidaysForRecipe(_id_recipe)
+// מוסיף אץ התוויות למתכון
+{
+    var new_holidays = $("#select_holiday").val();
+    var new_holidays_2_recipe = new Array();
+    for (var i in new_holidays) {
+        new_holidays_2_recipe.push({
+            id_holiday: new_holidays[i],
+            id_recp: _id_recipe
+        });
+    }
+    GlobalAjax("/api/HolidaysForRecpController/AddNewHoliday2Recipe", "POST", new_holidays_2_recipe, SuccessAddHolidayForRecipe, FailAddHolidaysForRecipe);
+}
+
+function SuccessAddHolidayForRecipe() {
+    console.log("החגים נוספו למתכון בהצלחה!.");
+    alert("המתכון נוסף בהצלחה!.");
+}
+
+function FailAddHolidaysForRecipe() {
+    console.log("שגיאה, החגים לא נוספו למתכון.");
+
+}
 
 //*******************************************************************************************
 // ADD INGRIDIANTS FOR RECIPE
@@ -823,6 +850,8 @@ function AddIngridiantForRecipe(id_recipe)
 
 function SuccessAddIngridiantForRecipe() {
     console.log("המצרכים נוספו למתכון בהצלחה!.");
+    //הוספת התוויות
+    AddFoodLableForRecipe(ID_RECIPE);
 }
 
 function FailAddIngridiantForRecipe() {

@@ -119,6 +119,9 @@
     <Compile Include="TBL_Holiday.cs">
       <DependentUpon>CookitModle.tt</DependentUpon>
     </Compile>
+    <Compile Include="TBL_HolidaysForRecp.cs">
+      <DependentUpon>CookitModle.tt</DependentUpon>
+    </Compile>
     <Compile Include="TBL_IngridiantForRecp.cs">
       <DependentUpon>CookitModle.tt</DependentUpon>
     </Compile>

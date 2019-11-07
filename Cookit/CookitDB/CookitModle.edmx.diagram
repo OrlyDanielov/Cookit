@@ -71,6 +71,9 @@
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_LabelsForRecp" Width="1.5" PointX="8.25" PointY="3.25" />
         <AssociationConnector Association="Cookit_DBModel.FK_Label" />
         <AssociationConnector Association="Cookit_DBModel.FK_Recp7" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_HolidaysForRecp" Width="1.5" PointX="5.25" PointY="10.75" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Label3" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recp8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

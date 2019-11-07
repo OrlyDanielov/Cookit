@@ -12,18 +12,13 @@ namespace CookitDB
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_Holiday
+    public partial class TBL_HolidaysForRecp
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TBL_Holiday()
-        {
-            this.TBL_HolidaysForRecp = new HashSet<TBL_HolidaysForRecp>();
-        }
-    
+        public int Id { get; set; }
+        public int Id_Recp { get; set; }
         public int Id_Holiday { get; set; }
-        public string Name_Holiday { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_HolidaysForRecp> TBL_HolidaysForRecp { get; set; }
+        public virtual TBL_Holiday TBL_Holiday { get; set; }
+        public virtual TBL_Recipe TBL_Recipe { get; set; }
     }
 }

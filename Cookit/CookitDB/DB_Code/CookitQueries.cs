@@ -487,6 +487,29 @@ namespace CookitDB.DB_Code
 
         #endregion
 
+        #region Add Holidays 2 Recipe
+        //פונקציה של הוספת חגים למתכון
+        public static bool AddHolidays2Recipe(List<TBL_HolidaysForRecp> new_hd2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                //לעבור על כל הרשימה
+                foreach (TBL_HolidaysForRecp i in new_hd2rcp)
+                {
+                    db.Entry(i).State = System.Data.Entity.EntityState.Added;
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
         #region Add New Ingridiants 2 Recipe
         //פונקציה של הוספת מצרכים למתכון
         public static bool AddNewIngridiants2Recipe(List<TBL_IngridiantForRecp> new_ing2rcp)

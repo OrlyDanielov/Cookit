@@ -58,6 +58,7 @@ namespace CookitDB
         public virtual DbSet<TBL_Workshop> TBL_Workshop { get; set; }
         public virtual DbSet<TBL_WorkshopParticipents> TBL_WorkshopParticipents { get; set; }
         public virtual DbSet<TBL_LabelsForRecp> TBL_LabelsForRecp { get; set; }
+        public virtual DbSet<TBL_HolidaysForRecp> TBL_HolidaysForRecp { get; set; }
     
         public virtual int FullBackUp_CookitDB(string file_path)
         {
