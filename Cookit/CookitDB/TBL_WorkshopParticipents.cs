@@ -15,6 +15,7 @@ namespace CookitDB
 using System;
     using System.Collections.Generic;
     
+<<<<<<< HEAD
 public partial class TBL_WorkshopParticipents
 {
 
@@ -34,4 +35,16 @@ public partial class TBL_WorkshopParticipents
 
 }
 
+=======
+    public partial class TBL_WorkshopParticipents
+    {
+        public int Id_Workshop { get; set; }
+        public int Id_User { get; set; }
+        public Nullable<bool> StatusRegistration { get; set; }
+        public Nullable<bool> WaitList { get; set; }
+    
+        public virtual TBL_User TBL_User { get; set; }
+        public virtual TBL_Workshop TBL_Workshop { get; set; }
+    }
+>>>>>>> orly
 }

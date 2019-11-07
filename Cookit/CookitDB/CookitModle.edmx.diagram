@@ -5,36 +5,38 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="fdee1d436b844299871c9ea175681471" Name="Diagram1" ZoomLevel="83">
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_FoodLabel" Width="1.5" PointX="7.375" PointY="5.875" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Managers" Width="1.5" PointX="8.375" PointY="0.75" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Barcode" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_City" Width="1.5" PointX="4.75" PointY="27.125" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Comments" Width="1.5" PointX="5.25" PointY="8.875" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishCategory" Width="1.5" PointX="0.75" PointY="25.625" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishType" Width="1.5" PointX="0.75" PointY="1.875" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_DrawerRecp" Width="1.5" PointX="3" PointY="23.875" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Event" Width="1.5" PointX="9.25" PointY="20.5" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_FavoriteRecp" Width="1.5" PointX="8.25" PointY="12.125" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Followers" Width="1.5" PointX="4" PointY="18.875" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_FoodType" Width="1.5" PointX="0.75" PointY="21" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Holiday" Width="1.5" PointX="0.75" PointY="4.25" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_IngridiantForRecp" Width="1.5" PointX="8.25" PointY="8.875" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Ingridiants" Width="1.5" PointX="6" PointY="15.375" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_KitchenType" Width="1.5" PointX="0.75" PointY="23.375" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Likes" Width="1.5" PointX="9.625" PointY="6.25" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Mesurments" Width="1.5" PointX="6" PointY="2.875" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Barcode" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_City" Width="1.5" PointX="13" PointY="5.125" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Comments" Width="1.5" PointX="5.25" PointY="13.5" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishCategory" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishType" Width="1.5" PointX="0.75" PointY="13.375" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_DrawerRecp" Width="1.5" PointX="3" PointY="19.5" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Event" Width="1.5" PointX="17.5" PointY="14.5" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_FavoriteRecp" Width="1.5" PointX="5.25" PointY="7.625" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Followers" Width="1.5" PointX="17.5" PointY="18.5" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_FoodLabel" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_FoodType" Width="1.5" PointX="0.75" PointY="15.625" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Holiday" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_IngridiantForRecp" Width="1.5" PointX="8.25" PointY="10.375" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Ingridiants" Width="1.5" PointX="6" PointY="17" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_KitchenType" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Likes" Width="1.5" PointX="8.25" PointY="6.625" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Managers" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Mesurments" Width="1.5" PointX="6" PointY="1.5" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_NutritionalIngridiants" Width="1.5" PointX="11.25" PointY="9.125" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Profile" Width="1.5" PointX="7" PointY="18.25" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Recipe" Width="1.5" PointX="3" PointY="7.125" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_RecipeDifficultyLevel" Width="1.5" PointX="0.75" PointY="9.125" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_RecpLevelByBU" Width="1.5" PointX="5.25" PointY="6" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Star" Width="1.5" PointX="3" PointY="14.125" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_StarsForRecp" Width="1.5" PointX="5.25" PointY="12.125" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_User" Width="1.5" PointX="0.75" PointY="12.5" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_UserType" Width="1.5" PointX="1.5" PointY="18.125" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Workshop" Width="1.5" PointX="9.25" PointY="16.625" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_WorkshopParticipents" Width="1.5" PointX="11.5" PointY="15.125" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Profile" Width="1.5" PointX="15.25" PointY="12.25" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Recipe" Width="1.5" PointX="3" PointY="8.875" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_RecipeDifficultyLevel" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_RecpLevelByBU" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Region" Width="1.5" PointX="10.75" PointY="5.25" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Star" Width="1.5" PointX="6" PointY="19.75" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_StarsForRecp" Width="1.5" PointX="8.25" PointY="13.625" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_User" Width="1.5" PointX="0.75" PointY="18" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_UserType" Width="1.5" PointX="1.5" PointY="23.5" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Workshop" Width="1.5" PointX="17.5" PointY="10.5" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_WorkshopParticipents" Width="1.5" PointX="19.75" PointY="15.5" />
         <AssociationConnector Association="Cookit_DBModel.FK_City" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Id_Region" />
         <AssociationConnector Association="Cookit_DBModel.FK_Recp3" />
         <AssociationConnector Association="Cookit_DBModel.FK_User3" />
         <AssociationConnector Association="Cookit_DBModel.FK_DishCategory" />
@@ -66,9 +68,13 @@
         <AssociationConnector Association="Cookit_DBModel.FK_User7" />
         <AssociationConnector Association="Cookit_DBModel.FK_UserType" />
         <AssociationConnector Association="Cookit_DBModel.FK_Workshop" />
-        <AssociationConnector Association="Cookit_DBModel.TBL_HolidaysForRecp" />
-        <AssociationConnector Association="Cookit_DBModel.TBL_LabelsForRecp" />
-        </Diagram>
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_LabelsForRecp" Width="1.5" PointX="8.25" PointY="3.25" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Label" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recp7" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_HolidaysForRecp" Width="1.5" PointX="5.25" PointY="10.75" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Label3" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recp8" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

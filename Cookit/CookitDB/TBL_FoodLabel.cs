@@ -21,9 +21,23 @@ public partial class TBL_FoodLabel
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
     public TBL_FoodLabel()
     {
+<<<<<<< HEAD
 
         this.TBL_Recipe = new HashSet<TBL_Recipe>();
 
+=======
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBL_FoodLabel()
+        {
+            this.TBL_LabelsForRecp = new HashSet<TBL_LabelsForRecp>();
+        }
+    
+        public int Id_FoodLabel { get; set; }
+        public string Name_FoodLabel { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_LabelsForRecp> TBL_LabelsForRecp { get; set; }
+>>>>>>> orly
     }
 
 

@@ -21,9 +21,32 @@ public partial class TBL_Workshop
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
     public TBL_Workshop()
     {
+<<<<<<< HEAD
 
         this.TBL_WorkshopParticipents = new HashSet<TBL_WorkshopParticipents>();
 
+=======
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBL_Workshop()
+        {
+            this.TBL_WorkshopParticipents = new HashSet<TBL_WorkshopParticipents>();
+        }
+    
+        public int Id_Workshop { get; set; }
+        public int Id_Prof { get; set; }
+        public string Name_Workshop { get; set; }
+        public System.DateTime Workshop_Date { get; set; }
+        public string Place_Workshop { get; set; }
+        public string Description_Workshop { get; set; }
+        public int MaxParticipents { get; set; }
+        public Nullable<bool> StatusCancelation { get; set; }
+        public bool StatusAvailable { get; set; }
+        public string Workshop_Address { get; set; }
+    
+        public virtual TBL_Profile TBL_Profile { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_WorkshopParticipents> TBL_WorkshopParticipents { get; set; }
+>>>>>>> orly
     }
 
 

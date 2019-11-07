@@ -290,14 +290,14 @@ function Check_ifEmpty() {
             description: $("#profile_description").val(),
             city: $('#select_city').find(":selected").val()
         };
-        for (var i in profile_info) {
-            if (profile_info[i] == "") {
-                profile_validation[i] = false;
+        for (var j in profile_info) {
+            if (profile_info[j] == "") {
+                profile_validation[j] = false;
                 console.log(i + " is missing.");
                 flag = false;
             }
             else {
-                profile_validation[i] = true;
+                profile_validation[j] = true;
             }
         }
     }
@@ -395,12 +395,12 @@ function Change_style_by_validation()
                 description: $("#profile_description"),
             city: $('#select_city')
         };
-        for (var i in profile_validation) {
-            if (profile_validation[i] == false)
-                profile_inputs[i].addClass(" not_valid");
+        for (var j in profile_validation) {
+            if (profile_validation[j] == false)
+                profile_inputs[j].addClass(" not_valid");
             else {
-                if (profile_inputs[i].hasClass("not_valid"))
-                    profile_inputs[i].removeClass("not_valid");
+                if (profile_inputs[j].hasClass("not_valid"))
+                    profile_inputs[j].removeClass("not_valid");
             }
         }
     }

@@ -13,9 +13,18 @@ input, textarea,select{
     text-align: right;
 }
 
+<<<<<<< HEAD
 .col-centered{
     float: none;
     margin: 0 auto;
 }
+=======
+    input[type=text]:focus {
+        /*background-color: lightblue;*/
+        /*border: 3px solid #555;*/
+    }
+
+
+>>>>>>> orly
 
 

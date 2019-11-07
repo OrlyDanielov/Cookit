@@ -15,6 +15,7 @@ namespace CookitDB
 using System;
     using System.Collections.Generic;
     
+<<<<<<< HEAD
 public partial class TBL_IngridiantForRecp
 {
 
@@ -36,4 +37,18 @@ public partial class TBL_IngridiantForRecp
 
 }
 
+=======
+    public partial class TBL_IngridiantForRecp
+    {
+        public int Id { get; set; }
+        public int Id_Recp { get; set; }
+        public int Id_Ingridiants { get; set; }
+        public int Id_Mesurment { get; set; }
+        public double Amount { get; set; }
+    
+        public virtual TBL_Ingridiants TBL_Ingridiants { get; set; }
+        public virtual TBL_Mesurments TBL_Mesurments { get; set; }
+        public virtual TBL_Recipe TBL_Recipe { get; set; }
+    }
+>>>>>>> orly
 }
