@@ -9,45 +9,37 @@ using CookitDB;
 
 namespace Cookit.Controllers
 {
-    [RoutePrefix("api/DifficultyLevel")]
     public class DifficultyLevelController : ApiController
     {
-        #region Get All Difficulty Level
+        // GET api/<controller>
         //מחזיר את כל דרגות הקושי למתכון מבסיס הנתונים
-        [Route("GetAll")]
-        [HttpGet]
-        public HttpResponseMessage GetAllDifficultyLevel()
+        [Route("api/DifficultyLevel")]
+        public HttpResponseMessage Get()
         {
-            try
+            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
+            // קורא לפונקציה שמחזירה את דגרות הקושי של מתכון מהDB
+            var diffLevel = CookitDB.DB_Code.CookitQueries.Get_all_DifficultyLevel();
+            if (diffLevel == null) // אם אין נתונים במסד נתונים
+                return Request.CreateResponse(HttpStatusCode.NotFound, "there is no DifficultyLevel in DB.");
+            else
             {
-                bgroup36_prodConnection db = new bgroup36_prodConnection();
-                var diffLevel = CookitDB.DB_Code.CookitQueries.Get_all_DifficultyLevel();
-                if (diffLevel == null) // אם אין נתונים במסד נתונים
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "there is no DifficultyLevel in DB.");
-                else
+                //המרה של רשימת רמות קושי למתכון למבנה נתונים מסוג DTO
+                List<DifficultyLevelDTO> result = new List<DifficultyLevelDTO>();
+                foreach (TBL_RecipeDifficultyLevel item in diffLevel)
                 {
-                    //המרה של רשימת רמות קושי למתכון למבנה נתונים מסוג DTO
-                    List<DifficultyLevelDTO> result = new List<DifficultyLevelDTO>();
-                    foreach (TBL_RecipeDifficultyLevel item in diffLevel)
+                    result.Add(new DifficultyLevelDTO
                     {
-                        result.Add(new DifficultyLevelDTO
-                        {
-                            id = item.Id_Level,
-                            difficulty_level = item.Name_Level.ToString()
-                        });
-                    }
-                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                        id = item.Id_Level,
+                        difficulty_level = item.Name_Level.ToString()
+                    });
                 }
-            }
-            catch (Exception e)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+                return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
-    #endregion
 
-    // GET api/<controller>/5
-    public string Get(int id)
+        // GET api/<controller>/5
+        public string Get(int id)
         {
             return "value";
         }

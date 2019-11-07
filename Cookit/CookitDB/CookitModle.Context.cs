@@ -12,7 +12,6 @@
 
 namespace CookitDB
 {
-<<<<<<< HEAD
 
 using System;
 using System.Data.Entity;
@@ -30,89 +29,6 @@ public partial class Cookit_DBConnection : DbContext
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
         throw new UnintentionalCodeFirstException();
-=======
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
-    
-    public partial class Cookit_DBConnection : DbContext
-    {
-        public Cookit_DBConnection()
-            : base("name=Cookit_DBConnection")
-        {
-        }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
-        public virtual DbSet<TBL_Barcode> TBL_Barcode { get; set; }
-        public virtual DbSet<TBL_City> TBL_City { get; set; }
-        public virtual DbSet<TBL_Comments> TBL_Comments { get; set; }
-        public virtual DbSet<TBL_DishCategory> TBL_DishCategory { get; set; }
-        public virtual DbSet<TBL_DishType> TBL_DishType { get; set; }
-        public virtual DbSet<TBL_DrawerRecp> TBL_DrawerRecp { get; set; }
-        public virtual DbSet<TBL_Event> TBL_Event { get; set; }
-        public virtual DbSet<TBL_FavoriteRecp> TBL_FavoriteRecp { get; set; }
-        public virtual DbSet<TBL_Followers> TBL_Followers { get; set; }
-        public virtual DbSet<TBL_FoodLabel> TBL_FoodLabel { get; set; }
-        public virtual DbSet<TBL_FoodType> TBL_FoodType { get; set; }
-        public virtual DbSet<TBL_Holiday> TBL_Holiday { get; set; }
-        public virtual DbSet<TBL_IngridiantForRecp> TBL_IngridiantForRecp { get; set; }
-        public virtual DbSet<TBL_Ingridiants> TBL_Ingridiants { get; set; }
-        public virtual DbSet<TBL_KitchenType> TBL_KitchenType { get; set; }
-        public virtual DbSet<TBL_Likes> TBL_Likes { get; set; }
-        public virtual DbSet<TBL_Managers> TBL_Managers { get; set; }
-        public virtual DbSet<TBL_Mesurments> TBL_Mesurments { get; set; }
-        public virtual DbSet<TBL_NutritionalIngridiants> TBL_NutritionalIngridiants { get; set; }
-        public virtual DbSet<TBL_Profile> TBL_Profile { get; set; }
-        public virtual DbSet<TBL_Recipe> TBL_Recipe { get; set; }
-        public virtual DbSet<TBL_RecipeDifficultyLevel> TBL_RecipeDifficultyLevel { get; set; }
-        public virtual DbSet<TBL_RecpLevelByBU> TBL_RecpLevelByBU { get; set; }
-        public virtual DbSet<TBL_Region> TBL_Region { get; set; }
-        public virtual DbSet<TBL_Star> TBL_Star { get; set; }
-        public virtual DbSet<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
-        public virtual DbSet<TBL_User> TBL_User { get; set; }
-        public virtual DbSet<TBL_UserType> TBL_UserType { get; set; }
-        public virtual DbSet<TBL_Workshop> TBL_Workshop { get; set; }
-        public virtual DbSet<TBL_WorkshopParticipents> TBL_WorkshopParticipents { get; set; }
-        public virtual DbSet<TBL_LabelsForRecp> TBL_LabelsForRecp { get; set; }
-        public virtual DbSet<TBL_HolidaysForRecp> TBL_HolidaysForRecp { get; set; }
-    
-        public virtual int FullBackUp_CookitDB(string file_path)
-        {
-            var file_pathParameter = file_path != null ?
-                new ObjectParameter("file_path", file_path) :
-                new ObjectParameter("file_path", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FullBackUp_CookitDB", file_pathParameter);
-        }
-    
-        public virtual int Import_All_From_Excel(string full_Path)
-        {
-            var full_PathParameter = full_Path != null ?
-                new ObjectParameter("Full_Path", full_Path) :
-                new ObjectParameter("Full_Path", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Import_All_From_Excel", full_PathParameter);
-        }
-    
-        public virtual int Import_From_Excel(string table_Name, string full_File_Name)
-        {
-            var table_NameParameter = table_Name != null ?
-                new ObjectParameter("Table_Name", table_Name) :
-                new ObjectParameter("Table_Name", typeof(string));
-    
-            var full_File_NameParameter = full_File_Name != null ?
-                new ObjectParameter("Full_File_Name", full_File_Name) :
-                new ObjectParameter("Full_File_Name", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Import_From_Excel", table_NameParameter, full_File_NameParameter);
-        }
->>>>>>> orly
     }
 
 

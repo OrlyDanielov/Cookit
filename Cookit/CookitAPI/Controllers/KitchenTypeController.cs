@@ -17,6 +17,8 @@ namespace Cookit.Controllers
         public HttpResponseMessage Get()
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
+            // קורא לפונקציה שמחזירה את כל סוגי המטבחים מהDB
             var kitchenType = CookitDB.DB_Code.CookitQueries.Get_all_KitchenType();
             if (kitchenType == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no KitchenType in DB.");

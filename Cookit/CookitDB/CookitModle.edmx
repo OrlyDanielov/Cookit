@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Cookit_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TBL_Barcode">
           <Key>
             <PropertyRef Name="Barcode" />
@@ -16,9 +16,8 @@
           <Key>
             <PropertyRef Name="CityName" />
           </Key>
+          <Property Name="Region" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="CityName" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Id_City" Type="int" Nullable="false" />
-          <Property Name="Id_Region" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Comments">
           <Key>
@@ -107,27 +106,22 @@
         </EntityType>
         <EntityType Name="TBL_HolidaysForRecp">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_Holiday" />
           </Key>
-<<<<<<< HEAD
-=======
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
->>>>>>> orly
           <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_Holiday" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_IngridiantForRecp">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_Ingridiants" />
+            <PropertyRef Name="Id_Mesurment" />
           </Key>
-<<<<<<< HEAD
-=======
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
->>>>>>> orly
           <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_Ingridiants" Type="int" Nullable="false" />
           <Property Name="Id_Mesurment" Type="int" Nullable="false" />
-          <Property Name="Amount" Type="float" Nullable="false" />
+          <Property Name="Amount" Type="float" />
         </EntityType>
         <EntityType Name="TBL_Ingridiants">
           <Key>
@@ -145,12 +139,9 @@
         </EntityType>
         <EntityType Name="TBL_LabelsForRecp">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_FoodLabel" />
           </Key>
-<<<<<<< HEAD
-=======
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
->>>>>>> orly
           <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_FoodLabel" Type="int" Nullable="false" />
         </EntityType>
@@ -230,13 +221,6 @@
           <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_User" Type="int" Nullable="false" />
           <Property Name="Id_Level" Type="int" />
-        </EntityType>
-        <EntityType Name="TBL_Region">
-          <Key>
-            <PropertyRef Name="Id_Region" />
-          </Key>
-          <Property Name="Id_Region" Type="int" Nullable="false" />
-          <Property Name="Region" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Star">
           <Key>
@@ -349,15 +333,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Id_Region">
-          <End Role="TBL_Region" Type="Self.TBL_Region" Multiplicity="1" />
-          <End Role="TBL_City" Type="Self.TBL_City" Multiplicity="*" />
+        <Association Name="FK_Holiday">
+          <End Role="TBL_Holiday" Type="Self.TBL_Holiday" Multiplicity="1" />
+          <End Role="TBL_HolidaysForRecp" Type="Self.TBL_HolidaysForRecp" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TBL_Region">
-              <PropertyRef Name="Id_Region" />
+            <Principal Role="TBL_Holiday">
+              <PropertyRef Name="Id_Holiday" />
             </Principal>
-            <Dependent Role="TBL_City">
-              <PropertyRef Name="Id_Region" />
+            <Dependent Role="TBL_HolidaysForRecp">
+              <PropertyRef Name="Id_Holiday" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -406,18 +390,6 @@
             </Principal>
             <Dependent Role="TBL_LabelsForRecp">
               <PropertyRef Name="Id_FoodLabel" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Label3">
-          <End Role="TBL_Holiday" Type="Self.TBL_Holiday" Multiplicity="1" />
-          <End Role="TBL_HolidaysForRecp" Type="Self.TBL_HolidaysForRecp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_Holiday">
-              <PropertyRef Name="Id_Holiday" />
-            </Principal>
-            <Dependent Role="TBL_HolidaysForRecp">
-              <PropertyRef Name="Id_Holiday" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -517,6 +489,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Recp1">
+          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
+          <End Role="TBL_HolidaysForRecp" Type="Self.TBL_HolidaysForRecp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_HolidaysForRecp">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Recp2">
           <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
           <End Role="TBL_Likes" Type="Self.TBL_Likes" Multiplicity="*" />
@@ -585,18 +569,6 @@
               <PropertyRef Name="Id_Recipe" />
             </Principal>
             <Dependent Role="TBL_LabelsForRecp">
-              <PropertyRef Name="Id_Recp" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Recp8">
-          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
-          <End Role="TBL_HolidaysForRecp" Type="Self.TBL_HolidaysForRecp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_Recipe">
-              <PropertyRef Name="Id_Recipe" />
-            </Principal>
-            <Dependent Role="TBL_HolidaysForRecp">
               <PropertyRef Name="Id_Recp" />
             </Dependent>
           </ReferentialConstraint>
@@ -745,17 +717,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="FullBackUp_CookitDB" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="file_path" Type="varchar(max)" Mode="In" />
-        </Function>
-        <Function Name="Import_All_From_Excel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Full_Path" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="Import_From_Excel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Table_Name" Type="varchar" Mode="In" />
-          <Parameter Name="Full_File_Name" Type="varchar" Mode="In" />
-        </Function>
-        <EntityContainer Name="StoreContainer">
+        <EntityContainer Name="Cookit_DBModelStoreContainer">
           <EntitySet Name="TBL_Barcode" EntityType="Self.TBL_Barcode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_City" EntityType="Self.TBL_City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Comments" EntityType="Self.TBL_Comments" Schema="dbo" store:Type="Tables" />
@@ -781,7 +743,6 @@
           <EntitySet Name="TBL_Recipe" EntityType="Self.TBL_Recipe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RecipeDifficultyLevel" EntityType="Self.TBL_RecipeDifficultyLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RecpLevelByBU" EntityType="Self.TBL_RecpLevelByBU" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TBL_Region" EntityType="Self.TBL_Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Star" EntityType="Self.TBL_Star" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_StarsForRecp" EntityType="Self.TBL_StarsForRecp" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_User" EntityType="Self.TBL_User" Schema="dbo" store:Type="Tables" />
@@ -804,9 +765,9 @@
             <End Role="TBL_FoodType" EntitySet="TBL_FoodType" />
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
           </AssociationSet>
-          <AssociationSet Name="FK_Id_Region" Association="Self.FK_Id_Region">
-            <End Role="TBL_Region" EntitySet="TBL_Region" />
-            <End Role="TBL_City" EntitySet="TBL_City" />
+          <AssociationSet Name="FK_Holiday" Association="Self.FK_Holiday">
+            <End Role="TBL_Holiday" EntitySet="TBL_Holiday" />
+            <End Role="TBL_HolidaysForRecp" EntitySet="TBL_HolidaysForRecp" />
           </AssociationSet>
           <AssociationSet Name="FK_Ingridiants" Association="Self.FK_Ingridiants">
             <End Role="TBL_Ingridiants" EntitySet="TBL_Ingridiants" />
@@ -823,10 +784,6 @@
           <AssociationSet Name="FK_Label" Association="Self.FK_Label">
             <End Role="TBL_FoodLabel" EntitySet="TBL_FoodLabel" />
             <End Role="TBL_LabelsForRecp" EntitySet="TBL_LabelsForRecp" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Label3" Association="Self.FK_Label3">
-            <End Role="TBL_Holiday" EntitySet="TBL_Holiday" />
-            <End Role="TBL_HolidaysForRecp" EntitySet="TBL_HolidaysForRecp" />
           </AssociationSet>
           <AssociationSet Name="FK_Level" Association="Self.FK_Level">
             <End Role="TBL_RecipeDifficultyLevel" EntitySet="TBL_RecipeDifficultyLevel" />
@@ -860,6 +817,10 @@
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
             <End Role="TBL_IngridiantForRecp" EntitySet="TBL_IngridiantForRecp" />
           </AssociationSet>
+          <AssociationSet Name="FK_Recp1" Association="Self.FK_Recp1">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_HolidaysForRecp" EntitySet="TBL_HolidaysForRecp" />
+          </AssociationSet>
           <AssociationSet Name="FK_Recp2" Association="Self.FK_Recp2">
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
             <End Role="TBL_Likes" EntitySet="TBL_Likes" />
@@ -883,10 +844,6 @@
           <AssociationSet Name="FK_Recp7" Association="Self.FK_Recp7">
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
             <End Role="TBL_LabelsForRecp" EntitySet="TBL_LabelsForRecp" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Recp8" Association="Self.FK_Recp8">
-            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
-            <End Role="TBL_HolidaysForRecp" EntitySet="TBL_HolidaysForRecp" />
           </AssociationSet>
           <AssociationSet Name="FK_Star" Association="Self.FK_Star">
             <End Role="TBL_Star" EntitySet="TBL_Star" />
@@ -942,16 +899,8 @@
     <edmx:ConceptualModels>
       <Schema Namespace="Cookit_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Cookit_DBConnection" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="FullBackUp_CookitDB">
-          <Parameter Name="file_path" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Import_All_From_Excel">
-          <Parameter Name="Full_Path" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Import_From_Excel">
-            <Parameter Name="Table_Name" Mode="In" Type="String" />
-            <Parameter Name="Full_File_Name" Mode="In" Type="String" />
-          </FunctionImport>
+          <EntitySet Name="TBL_FoodLabel" EntityType="Cookit_DBModel.TBL_FoodLabel" />
+          <EntitySet Name="TBL_Managers" EntityType="Cookit_DBModel.TBL_Managers" />
           <EntitySet Name="TBL_Barcode" EntityType="Cookit_DBModel.TBL_Barcode" />
           <EntitySet Name="TBL_City" EntityType="Cookit_DBModel.TBL_City" />
           <EntitySet Name="TBL_Comments" EntityType="Cookit_DBModel.TBL_Comments" />
@@ -961,21 +910,18 @@
           <EntitySet Name="TBL_Event" EntityType="Cookit_DBModel.TBL_Event" />
           <EntitySet Name="TBL_FavoriteRecp" EntityType="Cookit_DBModel.TBL_FavoriteRecp" />
           <EntitySet Name="TBL_Followers" EntityType="Cookit_DBModel.TBL_Followers" />
-          <EntitySet Name="TBL_FoodLabel" EntityType="Cookit_DBModel.TBL_FoodLabel" />
           <EntitySet Name="TBL_FoodType" EntityType="Cookit_DBModel.TBL_FoodType" />
           <EntitySet Name="TBL_Holiday" EntityType="Cookit_DBModel.TBL_Holiday" />
           <EntitySet Name="TBL_IngridiantForRecp" EntityType="Cookit_DBModel.TBL_IngridiantForRecp" />
           <EntitySet Name="TBL_Ingridiants" EntityType="Cookit_DBModel.TBL_Ingridiants" />
           <EntitySet Name="TBL_KitchenType" EntityType="Cookit_DBModel.TBL_KitchenType" />
           <EntitySet Name="TBL_Likes" EntityType="Cookit_DBModel.TBL_Likes" />
-          <EntitySet Name="TBL_Managers" EntityType="Cookit_DBModel.TBL_Managers" />
           <EntitySet Name="TBL_Mesurments" EntityType="Cookit_DBModel.TBL_Mesurments" />
           <EntitySet Name="TBL_NutritionalIngridiants" EntityType="Cookit_DBModel.TBL_NutritionalIngridiants" />
           <EntitySet Name="TBL_Profile" EntityType="Cookit_DBModel.TBL_Profile" />
           <EntitySet Name="TBL_Recipe" EntityType="Cookit_DBModel.TBL_Recipe" />
           <EntitySet Name="TBL_RecipeDifficultyLevel" EntityType="Cookit_DBModel.TBL_RecipeDifficultyLevel" />
           <EntitySet Name="TBL_RecpLevelByBU" EntityType="Cookit_DBModel.TBL_RecpLevelByBU" />
-          <EntitySet Name="TBL_Region" EntityType="Cookit_DBModel.TBL_Region" />
           <EntitySet Name="TBL_Star" EntityType="Cookit_DBModel.TBL_Star" />
           <EntitySet Name="TBL_StarsForRecp" EntityType="Cookit_DBModel.TBL_StarsForRecp" />
           <EntitySet Name="TBL_User" EntityType="Cookit_DBModel.TBL_User" />
@@ -985,10 +931,6 @@
           <AssociationSet Name="FK_City" Association="Cookit_DBModel.FK_City">
             <End Role="TBL_City" EntitySet="TBL_City" />
             <End Role="TBL_Profile" EntitySet="TBL_Profile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Id_Region" Association="Cookit_DBModel.FK_Id_Region">
-            <End Role="TBL_Region" EntitySet="TBL_Region" />
-            <End Role="TBL_City" EntitySet="TBL_City" />
           </AssociationSet>
           <AssociationSet Name="FK_Recp3" Association="Cookit_DBModel.FK_Recp3">
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
@@ -1114,25 +1056,30 @@
             <End Role="TBL_Workshop" EntitySet="TBL_Workshop" />
             <End Role="TBL_WorkshopParticipents" EntitySet="TBL_WorkshopParticipents" />
           </AssociationSet>
-          <EntitySet Name="TBL_LabelsForRecp" EntityType="Cookit_DBModel.TBL_LabelsForRecp" />
-          <AssociationSet Name="FK_Label" Association="Cookit_DBModel.FK_Label">
-            <End Role="TBL_FoodLabel" EntitySet="TBL_FoodLabel" />
-            <End Role="TBL_LabelsForRecp" EntitySet="TBL_LabelsForRecp" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Recp7" Association="Cookit_DBModel.FK_Recp7">
-            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
-            <End Role="TBL_LabelsForRecp" EntitySet="TBL_LabelsForRecp" />
-          </AssociationSet>
-          <EntitySet Name="TBL_HolidaysForRecp" EntityType="Cookit_DBModel.TBL_HolidaysForRecp" />
-          <AssociationSet Name="FK_Label3" Association="Cookit_DBModel.FK_Label3">
+          <AssociationSet Name="TBL_HolidaysForRecp" Association="Cookit_DBModel.TBL_HolidaysForRecp">
             <End Role="TBL_Holiday" EntitySet="TBL_Holiday" />
-            <End Role="TBL_HolidaysForRecp" EntitySet="TBL_HolidaysForRecp" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Recp8" Association="Cookit_DBModel.FK_Recp8">
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
-            <End Role="TBL_HolidaysForRecp" EntitySet="TBL_HolidaysForRecp" />
+          </AssociationSet>
+          <AssociationSet Name="TBL_LabelsForRecp" Association="Cookit_DBModel.TBL_LabelsForRecp">
+            <End Role="TBL_FoodLabel" EntitySet="TBL_FoodLabel" />
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
           </AssociationSet>
           </EntityContainer>
+        <EntityType Name="TBL_FoodLabel">
+          <Key>
+            <PropertyRef Name="Id_FoodLabel" />
+          </Key>
+          <Property Name="Id_FoodLabel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_FoodLabel" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.TBL_LabelsForRecp" FromRole="TBL_FoodLabel" ToRole="TBL_Recipe" />
+        </EntityType>
+        <EntityType Name="TBL_Managers">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="pass" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="TBL_Barcode">
           <Key>
             <PropertyRef Name="Barcode" />
@@ -1144,11 +1091,9 @@
           <Key>
             <PropertyRef Name="CityName" />
           </Key>
+          <Property Name="Region" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CityName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Id_City" Type="Int32" Nullable="false" />
-          <Property Name="Id_Region" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TBL_Profile" Relationship="Cookit_DBModel.FK_City" FromRole="TBL_City" ToRole="TBL_Profile" />
-          <NavigationProperty Name="TBL_Region" Relationship="Cookit_DBModel.FK_Id_Region" FromRole="TBL_City" ToRole="TBL_Region" />
         </EntityType>
         <EntityType Name="TBL_Comments">
           <Key>
@@ -1199,7 +1144,6 @@
           <Property Name="Place_Event" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Description_Event" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StatusCancelation" Type="Boolean" />
-          <Property Name="Event_Address" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBL_Profile" Relationship="Cookit_DBModel.FK_Profile2" FromRole="TBL_Event" ToRole="TBL_Profile" />
           <Property Name="Event_Address" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -1225,14 +1169,6 @@
           <NavigationProperty Name="TBL_Profile" Relationship="Cookit_DBModel.FK_Profile" FromRole="TBL_Followers" ToRole="TBL_Profile" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User6" FromRole="TBL_Followers" ToRole="TBL_User" />
         </EntityType>
-        <EntityType Name="TBL_FoodLabel">
-          <Key>
-            <PropertyRef Name="Id_FoodLabel" />
-          </Key>
-          <Property Name="Id_FoodLabel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name_FoodLabel" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TBL_LabelsForRecp" Relationship="Cookit_DBModel.FK_Label" FromRole="TBL_FoodLabel" ToRole="TBL_LabelsForRecp" />
-        </EntityType>
         <EntityType Name="TBL_FoodType">
           <Key>
             <PropertyRef Name="Id_FoodType" />
@@ -1247,17 +1183,18 @@
           </Key>
           <Property Name="Id_Holiday" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name_Holiday" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TBL_HolidaysForRecp" Relationship="Cookit_DBModel.FK_Label3" FromRole="TBL_Holiday" ToRole="TBL_HolidaysForRecp" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.TBL_HolidaysForRecp" FromRole="TBL_Holiday" ToRole="TBL_Recipe" />
         </EntityType>
         <EntityType Name="TBL_IngridiantForRecp">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Id_Recp" />
+            <PropertyRef Name="Id_Ingridiants" />
+            <PropertyRef Name="Id_Mesurment" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
+          <Property Name="Id_Recp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Id_Ingridiants" Type="Int32" Nullable="false" />
           <Property Name="Id_Mesurment" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Double" Nullable="false" />
+          <Property Name="Amount" Type="Double" />
           <NavigationProperty Name="TBL_Ingridiants" Relationship="Cookit_DBModel.FK_Ingridiants1" FromRole="TBL_IngridiantForRecp" ToRole="TBL_Ingridiants" />
           <NavigationProperty Name="TBL_Mesurments" Relationship="Cookit_DBModel.FK_Mesurment1" FromRole="TBL_IngridiantForRecp" ToRole="TBL_Mesurments" />
           <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp" FromRole="TBL_IngridiantForRecp" ToRole="TBL_Recipe" />
@@ -1290,13 +1227,6 @@
           <Property Name="LikeDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp2" FromRole="TBL_Likes" ToRole="TBL_Recipe" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User2" FromRole="TBL_Likes" ToRole="TBL_User" />
-        </EntityType>
-        <EntityType Name="TBL_Managers">
-          <Key>
-            <PropertyRef Name="name" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="pass" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TBL_Mesurments">
           <Key>
@@ -1362,8 +1292,8 @@
           <NavigationProperty Name="TBL_RecpLevelByBU" Relationship="Cookit_DBModel.FK_Recp4" FromRole="TBL_Recipe" ToRole="TBL_RecpLevelByBU" />
           <NavigationProperty Name="TBL_StarsForRecp" Relationship="Cookit_DBModel.FK_Recp5" FromRole="TBL_Recipe" ToRole="TBL_StarsForRecp" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User1" FromRole="TBL_Recipe" ToRole="TBL_User" />
-          <NavigationProperty Name="TBL_LabelsForRecp" Relationship="Cookit_DBModel.FK_Recp7" FromRole="TBL_Recipe" ToRole="TBL_LabelsForRecp" />
-          <NavigationProperty Name="TBL_HolidaysForRecp" Relationship="Cookit_DBModel.FK_Recp8" FromRole="TBL_Recipe" ToRole="TBL_HolidaysForRecp" />
+          <NavigationProperty Name="TBL_Holiday" Relationship="Cookit_DBModel.TBL_HolidaysForRecp" FromRole="TBL_Recipe" ToRole="TBL_Holiday" />
+          <NavigationProperty Name="TBL_FoodLabel" Relationship="Cookit_DBModel.TBL_LabelsForRecp" FromRole="TBL_Recipe" ToRole="TBL_FoodLabel" />
         </EntityType>
         <EntityType Name="TBL_RecipeDifficultyLevel">
           <Key>
@@ -1385,14 +1315,6 @@
           <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp4" FromRole="TBL_RecpLevelByBU" ToRole="TBL_Recipe" />
           <NavigationProperty Name="TBL_RecipeDifficultyLevel" Relationship="Cookit_DBModel.FK_Level1" FromRole="TBL_RecpLevelByBU" ToRole="TBL_RecipeDifficultyLevel" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User4" FromRole="TBL_RecpLevelByBU" ToRole="TBL_User" />
-        </EntityType>
-        <EntityType Name="TBL_Region">
-          <Key>
-            <PropertyRef Name="Id_Region" />
-          </Key>
-          <Property Name="Id_Region" Type="Int32" Nullable="false" />
-          <Property Name="Region" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TBL_City" Relationship="Cookit_DBModel.FK_Id_Region" FromRole="TBL_Region" ToRole="TBL_City" />
         </EntityType>
         <EntityType Name="TBL_Star">
           <Key>
@@ -1459,7 +1381,6 @@
           <Property Name="MaxParticipents" Type="Int32" Nullable="false" />
           <Property Name="StatusCancelation" Type="Boolean" />
           <Property Name="StatusAvailable" Type="Boolean" Nullable="false" />
-          <Property Name="Workshop_Address" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBL_Profile" Relationship="Cookit_DBModel.FK_Profile1" FromRole="TBL_Workshop" ToRole="TBL_Profile" />
           <NavigationProperty Name="TBL_WorkshopParticipents" Relationship="Cookit_DBModel.FK_Workshop" FromRole="TBL_Workshop" ToRole="TBL_WorkshopParticipents" />
           <Property Name="Workshop_Address" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
@@ -1472,7 +1393,6 @@
           <Property Name="Id_Workshop" Type="Int32" Nullable="false" />
           <Property Name="Id_User" Type="Int32" Nullable="false" />
           <Property Name="StatusRegistration" Type="Boolean" />
-          <Property Name="WaitList" Type="Boolean" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User7" FromRole="TBL_WorkshopParticipents" ToRole="TBL_User" />
           <NavigationProperty Name="TBL_Workshop" Relationship="Cookit_DBModel.FK_Workshop" FromRole="TBL_WorkshopParticipents" ToRole="TBL_Workshop" />
           <Property Name="WaitList" Type="Boolean" />
@@ -1486,18 +1406,6 @@
             </Principal>
             <Dependent Role="TBL_Profile">
               <PropertyRef Name="CityName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Id_Region">
-          <End Type="Cookit_DBModel.TBL_Region" Role="TBL_Region" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_City" Role="TBL_City" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_Region">
-              <PropertyRef Name="Id_Region" />
-            </Principal>
-            <Dependent Role="TBL_City">
-              <PropertyRef Name="Id_Region" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1873,83 +1781,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="TBL_LabelsForRecp">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
-          <Property Name="Id_FoodLabel" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TBL_FoodLabel" Relationship="Cookit_DBModel.FK_Label" FromRole="TBL_LabelsForRecp" ToRole="TBL_FoodLabel" />
-          <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp7" FromRole="TBL_LabelsForRecp" ToRole="TBL_Recipe" />
-        </EntityType>
-        <Association Name="FK_Label">
-          <End Type="Cookit_DBModel.TBL_FoodLabel" Role="TBL_FoodLabel" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_LabelsForRecp" Role="TBL_LabelsForRecp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_FoodLabel">
-              <PropertyRef Name="Id_FoodLabel" />
-            </Principal>
-            <Dependent Role="TBL_LabelsForRecp">
-              <PropertyRef Name="Id_FoodLabel" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="TBL_HolidaysForRecp">
+          <End Type="Cookit_DBModel.TBL_Holiday" Role="TBL_Holiday" Multiplicity="*" />
+          <End Type="Cookit_DBModel.TBL_Recipe" Role="TBL_Recipe" Multiplicity="*" />
         </Association>
-        <Association Name="FK_Recp7">
-          <End Type="Cookit_DBModel.TBL_Recipe" Role="TBL_Recipe" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_LabelsForRecp" Role="TBL_LabelsForRecp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_Recipe">
-              <PropertyRef Name="Id_Recipe" />
-            </Principal>
-            <Dependent Role="TBL_LabelsForRecp">
-              <PropertyRef Name="Id_Recp" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TBL_HolidaysForRecp">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
-          <Property Name="Id_Holiday" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TBL_Holiday" Relationship="Cookit_DBModel.FK_Label3" FromRole="TBL_HolidaysForRecp" ToRole="TBL_Holiday" />
-          <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp8" FromRole="TBL_HolidaysForRecp" ToRole="TBL_Recipe" />
-        </EntityType>
-        <Association Name="FK_Label3">
-          <End Type="Cookit_DBModel.TBL_Holiday" Role="TBL_Holiday" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_HolidaysForRecp" Role="TBL_HolidaysForRecp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_Holiday">
-              <PropertyRef Name="Id_Holiday" />
-            </Principal>
-            <Dependent Role="TBL_HolidaysForRecp">
-              <PropertyRef Name="Id_Holiday" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Recp8">
-          <End Type="Cookit_DBModel.TBL_Recipe" Role="TBL_Recipe" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_HolidaysForRecp" Role="TBL_HolidaysForRecp" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_Recipe">
-              <PropertyRef Name="Id_Recipe" />
-            </Principal>
-            <Dependent Role="TBL_HolidaysForRecp">
-              <PropertyRef Name="Id_Recp" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="TBL_LabelsForRecp">
+          <End Type="Cookit_DBModel.TBL_FoodLabel" Role="TBL_FoodLabel" Multiplicity="*" />
+          <End Type="Cookit_DBModel.TBL_Recipe" Role="TBL_Recipe" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="Cookit_DBConnection" >
-          <FunctionImportMapping FunctionImportName="FullBackUp_CookitDB" FunctionName="Store.FullBackUp_CookitDB" />
-          <FunctionImportMapping FunctionImportName="Import_All_From_Excel" FunctionName="Store.Import_All_From_Excel" />
-          <FunctionImportMapping FunctionImportName="Import_From_Excel" FunctionName="Store.Import_From_Excel" />
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Cookit_DBModelStoreContainer" CdmEntityContainer="Cookit_DBConnection">
+          <EntitySetMapping Name="TBL_FoodLabel">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_FoodLabel">
+              <MappingFragment StoreEntitySet="TBL_FoodLabel">
+                <ScalarProperty Name="Name_FoodLabel" ColumnName="Name_FoodLabel" />
+                <ScalarProperty Name="Id_FoodLabel" ColumnName="Id_FoodLabel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Managers">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Managers">
+              <MappingFragment StoreEntitySet="TBL_Managers">
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TBL_Barcode">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Barcode">
               <MappingFragment StoreEntitySet="TBL_Barcode">
@@ -1961,9 +1822,8 @@
           <EntitySetMapping Name="TBL_City">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_City">
               <MappingFragment StoreEntitySet="TBL_City">
-                <ScalarProperty Name="Id_Region" ColumnName="Id_Region" />
-                <ScalarProperty Name="Id_City" ColumnName="Id_City" />
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2035,14 +1895,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBL_FoodLabel">
-            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_FoodLabel">
-              <MappingFragment StoreEntitySet="TBL_FoodLabel">
-                <ScalarProperty Name="Name_FoodLabel" ColumnName="Name_FoodLabel" />
-                <ScalarProperty Name="Id_FoodLabel" ColumnName="Id_FoodLabel" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TBL_FoodType">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_FoodType">
               <MappingFragment StoreEntitySet="TBL_FoodType">
@@ -2066,7 +1918,6 @@
                 <ScalarProperty Name="Id_Mesurment" ColumnName="Id_Mesurment" />
                 <ScalarProperty Name="Id_Ingridiants" ColumnName="Id_Ingridiants" />
                 <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2093,14 +1944,6 @@
                 <ScalarProperty Name="LikeStatus" ColumnName="LikeStatus" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_Managers">
-            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Managers">
-              <MappingFragment StoreEntitySet="TBL_Managers">
-                <ScalarProperty Name="pass" ColumnName="pass" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2165,14 +2008,6 @@
                 <ScalarProperty Name="Id_Level" ColumnName="Id_Level" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_Region">
-            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Region">
-              <MappingFragment StoreEntitySet="TBL_Region">
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="Id_Region" ColumnName="Id_Region" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2243,26 +2078,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBL_LabelsForRecp">
-            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_LabelsForRecp">
-              <MappingFragment StoreEntitySet="TBL_LabelsForRecp">
-                <ScalarProperty Name="Id_FoodLabel" ColumnName="Id_FoodLabel" />
-                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_HolidaysForRecp">
-            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_HolidaysForRecp">
-              <MappingFragment StoreEntitySet="TBL_HolidaysForRecp">
-                <ScalarProperty Name="Id_Holiday" ColumnName="Id_Holiday" />
-                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+          <AssociationSetMapping Name="TBL_HolidaysForRecp" TypeName="Cookit_DBModel.TBL_HolidaysForRecp" StoreEntitySet="TBL_HolidaysForRecp">
+            <EndProperty Name="TBL_Recipe">
+              <ScalarProperty Name="Id_Recipe" ColumnName="Id_Recp" />
+            </EndProperty>
+            <EndProperty Name="TBL_Holiday">
+              <ScalarProperty Name="Id_Holiday" ColumnName="Id_Holiday" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TBL_LabelsForRecp" TypeName="Cookit_DBModel.TBL_LabelsForRecp" StoreEntitySet="TBL_LabelsForRecp">
+            <EndProperty Name="TBL_Recipe">
+              <ScalarProperty Name="Id_Recipe" ColumnName="Id_Recp" />
+            </EndProperty>
+            <EndProperty Name="TBL_FoodLabel">
+              <ScalarProperty Name="Id_FoodLabel" ColumnName="Id_FoodLabel" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -2276,7 +2110,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

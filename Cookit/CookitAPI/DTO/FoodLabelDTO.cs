@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CookitAPI.DTO
 {
-    public class FoodLableDTO
+    public class FoodLabelDTO
     {
         public int id;
         public string food_label;

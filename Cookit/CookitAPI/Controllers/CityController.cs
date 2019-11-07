@@ -40,9 +40,8 @@ namespace CookitAPI.Controllers
 
                     result.Add(new CityDTO
                     {
-                        id_city = item.Id_City,
-                        city_name = item.CityName.ToString(),
-                        id_region = item.Id_Region
+                        region = item.Region.ToString(),
+                        city_name = item.CityName.ToString()
                     });
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, result);
