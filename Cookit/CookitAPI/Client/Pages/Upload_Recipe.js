@@ -736,7 +736,8 @@ function SuccessAddRecipe(id_recipe)
     console.log("המתכון נוסף לשרת בהצלחה.");
     console.log("id recipe: " + id_recipe);
     //הוספת המתצרכים התוויות והחגים
-    AddIngridiantForRecipe(id_recipe);
+    //AddIngridiantForRecipe(id_recipe);
+    AddFoodLableForRecipe(id_recipe);
 }
 
 function FailAddRecipe(data)
@@ -750,23 +751,31 @@ function FailAddRecipe(data)
 //*******************************************************************************************
 // ADD FOOD LABLE FOR RECIPE
 //*******************************************************************************************
-/*
+
 function AddFoodLableForRecipe(_id_recipe)
 // מוסיף אץ התוויות למתכון
 {
     var new_food_lable = $("#select_food_lable").val();
-    var arry_fl = new_food_lable.split(",");
+    //var arry_fl = new_food_lable.split(",");
     var new_foodLable_2_recipe = new Array();
-    for (var i in arry_fl) {
+    for (var i in new_food_lable) {
         new_foodLable_2_recipe.push({
-            id_food_lable: i,
+            id_food_lable: new_food_lable[i],
             id_recipe: _id_recipe
         });
     }
-    GlobalAjax("/api/FoodLable2Recipe/AddNewFoodLable2Recipe", "POST", new_foodLable_2_recipe, SuccessAddRecipe, FailAddRecipe);
+    GlobalAjax("/api/FoodLabelsForRecp/AddNewFoodLable2Recipe", "POST", new_foodLable_2_recipe, SuccessAddFoodLableForRecipe, FailAddFoodLableForRecipe);
+}
+
+function SuccessAddFoodLableForRecipe() {
+    console.log("התוויות נוספו למתכון בהצלחה!.");
+}
+
+function FailAddFoodLableForRecipe() {
+    console.log("שגיאה, התוויות לא נוספו למתכון.");
 
 }
-*/
+
 //*******************************************************************************************
 // ADD HOLIDAYS FOR RECIPE
 //*******************************************************************************************

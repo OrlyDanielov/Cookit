@@ -12,9 +12,13 @@ namespace CookitDB
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_Holiday
+    public partial class TBL_LabelsForRecp
     {
-        public int Id_Holiday { get; set; }
-        public string Name_Holiday { get; set; }
+        public int Id { get; set; }
+        public int Id_Recp { get; set; }
+        public int Id_FoodLabel { get; set; }
+    
+        public virtual TBL_FoodLabel TBL_FoodLabel { get; set; }
+        public virtual TBL_Recipe TBL_Recipe { get; set; }
     }
 }

@@ -34,16 +34,9 @@ namespace CookitAPI.Controllers
                 Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
                 TBL_IngridiantForRecp ing;
-                //bool flag = true;
-                //foreach(Ingridinats2RecipeDTO x in newIng2Recp)
                 for(int i =0; i<newIng2Recp.Count; i++)
                 {
-                    //ing = new TBL_IngridiantForRecp() {
-                    //    Id_Recp = x.id_recp,
-                    //    Id_Ingridiants = x.id_ingridiants,
-                    //    Id_Mesurment = x.id_mesurment,
-                    //    Amount = x.amount
-                    //};
+                    
                     ing = new TBL_IngridiantForRecp()
                     {
                         Id_Recp = newIng2Recp[i].id_recp,
@@ -52,11 +45,8 @@ namespace CookitAPI.Controllers
                         Amount = newIng2Recp[i].amount
                     };
                     list_ing_2_recp.Add(ing);
-                    //if (!(CookitDB.DB_Code.CookitQueries.AddNewIngridiants2Recipe(ing)))
-                    //    flag = false;
                 }
                 var is_saved = CookitDB.DB_Code.CookitQueries.AddNewIngridiants2Recipe(list_ing_2_recp);
-                //if (flag)
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, "the Ingridiants added Successfully to the recipe.");
                 else

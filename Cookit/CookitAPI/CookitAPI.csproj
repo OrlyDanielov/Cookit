@@ -241,7 +241,7 @@
     <Compile Include="Controllers\DishTypeController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FoodLableController.cs" />
-    <Compile Include="Controllers\FoodLable_for_Recipe_Controller.cs" />
+    <Compile Include="Controllers\FoodLabelsForRecpController.cs" />
     <Compile Include="Controllers\FoodTypeController.cs" />
     <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

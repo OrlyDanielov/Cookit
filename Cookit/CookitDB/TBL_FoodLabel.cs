@@ -17,13 +17,13 @@ namespace CookitDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBL_FoodLabel()
         {
-            this.TBL_Recipe = new HashSet<TBL_Recipe>();
+            this.TBL_LabelsForRecp = new HashSet<TBL_LabelsForRecp>();
         }
     
         public int Id_FoodLabel { get; set; }
         public string Name_FoodLabel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_Recipe> TBL_Recipe { get; set; }
+        public virtual ICollection<TBL_LabelsForRecp> TBL_LabelsForRecp { get; set; }
     }
 }

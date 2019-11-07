@@ -464,30 +464,15 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
-        #region Add New Ingridiants 2 Recipe
-        //פונקציה של הוספת מצרכים למתכון
-        /*public static bool AddNewIngridiants2Recipe(TBL_IngridiantForRecp new_ing2rcp)
-        {
-            try
-            {
-                var db = Get_DB();
-                db.Entry(new_ing2rcp).State = System.Data.Entity.EntityState.Added;
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }*/
-        
-    public static bool AddNewIngridiants2Recipe(List<TBL_IngridiantForRecp> new_ing2rcp)
+        #region Add New Food Lables 2 Recipe
+        //פונקציה של הוספת תוויות למתכון
+        public static bool AddNewFoodLables2Recipe(List<TBL_LabelsForRecp> new_foodlbl2rcp)
     {
         try
         {
             var db = Get_DB();
             //לעבור על כל הרשימה
-            foreach (TBL_IngridiantForRecp i in new_ing2rcp)
+            foreach (TBL_LabelsForRecp i in new_foodlbl2rcp)
             {
                 db.Entry(i).State = System.Data.Entity.EntityState.Added;
             }
@@ -499,7 +484,30 @@ namespace CookitDB.DB_Code
             return false;
         }
     }
-    
+
+        #endregion
+
+        #region Add New Ingridiants 2 Recipe
+        //פונקציה של הוספת מצרכים למתכון
+        public static bool AddNewIngridiants2Recipe(List<TBL_IngridiantForRecp> new_ing2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                //לעבור על כל הרשימה
+                foreach (TBL_IngridiantForRecp i in new_ing2rcp)
+                {
+                    db.Entry(i).State = System.Data.Entity.EntityState.Added;
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region Send Mail
