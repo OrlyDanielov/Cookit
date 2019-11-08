@@ -9,15 +9,16 @@ using CookitDB;
 
 namespace Cookit.Controllers
 {
+    [RoutePrefix("api/DifficultyLevel")]
     public class DifficultyLevelController : ApiController
     {
-        // GET api/<controller>
+        #region GetAllDifficultyLevel
         //מחזיר את כל דרגות הקושי למתכון מבסיס הנתונים
-        [Route("api/DifficultyLevel")]
-        public HttpResponseMessage Get()
+        [Route("GetAll")]
+        [HttpGet]
+        public HttpResponseMessage GetAll()
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
             // קורא לפונקציה שמחזירה את דגרות הקושי של מתכון מהDB
             var diffLevel = CookitDB.DB_Code.CookitQueries.Get_all_DifficultyLevel();
             if (diffLevel == null) // אם אין נתונים במסד נתונים
@@ -37,6 +38,7 @@ namespace Cookit.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
+        #endregion
 
         // GET api/<controller>/5
         public string Get(int id)

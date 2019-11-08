@@ -5,10 +5,9 @@ using System.Web;
 
 namespace CookitAPI.DTO
 {
-    public class CityDTO
+    public class FoodLableDTO
     {
-        public int id_city;
-        public string city_name;
-        public int id_region;
+        public int id;
+        public string food_label;
     }
 }

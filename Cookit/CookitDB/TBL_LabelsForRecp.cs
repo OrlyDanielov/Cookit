@@ -12,13 +12,13 @@ namespace CookitDB
     using System;
     using System.Collections.Generic;
     
-    public partial class TBL_StarsForRecp
+    public partial class TBL_LabelsForRecp
     {
+        public int Id { get; set; }
         public int Id_Recp { get; set; }
-        public System.DateTime StarYear { get; set; }
-        public int Id_Star { get; set; }
+        public int Id_FoodLabel { get; set; }
     
+        public virtual TBL_FoodLabel TBL_FoodLabel { get; set; }
         public virtual TBL_Recipe TBL_Recipe { get; set; }
-        public virtual TBL_Star TBL_Star { get; set; }
     }
 }

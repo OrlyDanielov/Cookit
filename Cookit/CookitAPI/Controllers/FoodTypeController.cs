@@ -10,16 +10,17 @@ using Cookit.DTO;
 
 namespace Cookit.Controllers
 {
+    [RoutePrefix("api/FoodType")]
     public class FoodTypeController : ApiController
     {
 
-        // GET api/<controller>
+        #region GetAllFoodType
         //מחזיר את כל סוגי האוכל מבסיס הנתונים
-        [Route("api/FoodType")]
-        public HttpResponseMessage Get()
+        [Route("GetAll")]
+        [HttpGet]
+        public HttpResponseMessage GetAll()
         {
             bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
             // קורא לפונקציה שמחזירה את כל סוגי האוכל מהDB
             var foodType = CookitDB.DB_Code.CookitQueries.Get_all_FoodType();
             if (foodType == null) // אם אין נתונים במסד נתונים
@@ -39,6 +40,7 @@ namespace Cookit.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
+        #endregion
 
         // GET api/<controller>/5
         public string Get(int id)

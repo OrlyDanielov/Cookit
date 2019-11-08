@@ -19,8 +19,9 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
-        //שליפת נתונים סטטים 
-
+        //*********************************************************************
+        //              GET
+        //*********************************************************************
         #region Get All User Type
         // הפוקנציה מביאה מהמסד את כל סוגי המשתמשים
         public static List<TBL_UserType> Get_all_User_Type()
@@ -56,7 +57,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
+        /*
         #region Get All City_Regions
         // הפוקנציה מביאה מחוזות
         public static List<TBL_City> Get_all_Regions()
@@ -75,6 +76,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
+    */
 
         #region Get all dish type
         // הפוקנציה מביאה מהמסד את כל סוגי המנות
@@ -156,8 +158,6 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
                 return db.TBL_RecipeDifficultyLevel.ToList();
             }
             catch (Exception e)
@@ -203,24 +203,151 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
-        //הוספת אובייקטים חדשים
-
-        #region Add New Recipe
-        //פונקציה של הוספת מתכון חדש לטבלת המתכונים
-        public static bool AddNewRecipe(TBL_Recipe new_recipe)
+        #region Get User By Email
+        public static int GetUserByEmail(string email)
         {
             try
             {
                 var db = Get_DB();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                db.Entry(new_recipe).State = System.Data.Entity.EntityState.Added; // הוספת רשומת מתכון חדש לטבלת המתכונים
-                db.SaveChanges();
-                return true;
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
+                if (user == null) // אם אין משתמש אם פרטים כאלה
+                    return -1;
+                else
+                    return user.Id_User;
             }
             catch (Exception)
             {
-                return false;
+                return -2;
+            }
+        }
+        #endregion
+
+        #region GetProfileByUserId
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Profile GetProfileByUserId(int userId)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
+                if (prof == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return prof;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get ProfileID Of User 
+        public static int GetProfileIDOfUserByID(int ID)
+        {
+            try
+            {
+                var db = Get_DB();
+                // Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                TBL_Profile user_prof = db.TBL_Profile.SingleOrDefault(a => a.Id_User == ID);
+                return user_prof.Id_Prof;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+        #endregion
+        
+        #region Get All Events
+        // הפוקנציה מביאה אירועים מהמסד נתונים
+        public static List<TBL_Event> Get_all_Events()
+        {
+            try
+            {
+                var db = Get_DB();
+                //  Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                return db.TBL_Event.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get All Workshops
+        // הפוקנציה מביאה סדנאות מהמסד נתונים
+        public static List<TBL_Workshop> Get_all_Workshops()
+        {
+            try
+            {
+                var db = Get_DB();
+                //  Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                return db.TBL_Workshop.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get All Holidays
+        // הפוקנציה מביאה מהמסד את כל אופני המדידה למתכון
+        public static List<TBL_Holiday> Get_all_Holidays()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Holiday.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get All fOOD Lable
+        // הפוקנציה מביאה מהמסד את כל אופני המדידה למתכון
+        public static List<TBL_FoodLabel> Get_all_FoodLable()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_FoodLabel.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+
+        //*********************************************************************
+        //              ADD
+        //*********************************************************************
+       
+            #region Add New Recipe
+        //פונקציה של הוספת מתכון חדש לטבלת המתכונים
+        //public static bool AddNewRecipe(TBL_Recipe new_recipe)
+        public static int AddNewRecipe(TBL_Recipe new_recipe)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(new_recipe).State = System.Data.Entity.EntityState.Added; // הוספת רשומת מתכון חדש לטבלת המתכונים
+                db.SaveChanges();
+                //להחזיר את התז של המתכון שהוסף
+                return new_recipe.Id_Recipe;
+            }
+            catch (Exception)
+            {
+                return -1;
             }
         }
         #endregion
@@ -301,8 +428,79 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
-        //עדכוני אובייקטים קיימים
+        #region Add New Food Lables 2 Recipe
+        //פונקציה של הוספת תוויות למתכון
+        public static bool AddNewFoodLables2Recipe(List<TBL_LabelsForRecp> new_foodlbl2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                //לעבור על כל הרשימה
+                foreach (TBL_LabelsForRecp i in new_foodlbl2rcp)
+                {
+                    db.Entry(i).State = System.Data.Entity.EntityState.Added;
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
+        #endregion
+
+        #region Add Holidays 2 Recipe
+        //פונקציה של הוספת חגים למתכון
+        public static bool AddHolidays2Recipe(List<TBL_HolidaysForRecp> new_hd2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                //לעבור על כל הרשימה
+                foreach (TBL_HolidaysForRecp i in new_hd2rcp)
+                {
+                    db.Entry(i).State = System.Data.Entity.EntityState.Added;
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Add New Ingridiants 2 Recipe
+        //פונקציה של הוספת מצרכים למתכון
+        public static bool AddNewIngridiants2Recipe(List<TBL_IngridiantForRecp> new_ing2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                //לעבור על כל הרשימה
+                foreach (TBL_IngridiantForRecp i in new_ing2rcp)
+                {
+                    db.Entry(i).State = System.Data.Entity.EntityState.Added;
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+
+        //*********************************************************************
+        //              UPDATE
+        //*********************************************************************
         #region Update User Info
         public static bool UpdateUserInfo(TBL_User newUser)
         {
@@ -363,7 +561,11 @@ namespace CookitDB.DB_Code
 
         #endregion
 
-        //הירשמות למערכת-בדיקת מייל
+
+        //*********************************************************************
+        //              OTHER
+        //*********************************************************************
+        
         #region Check Mail Available
         //check if mail exsist. if exsist - return false, else return true.
         public static bool CheckMailAvailable(string email)
@@ -383,9 +585,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-
-        //התחברות למערכת
+        
         #region LogIN
         // בודקת את האימייל והסיסמא של המשתשמש בכניסה
         public static TBL_User LogIn(string email, string pass)
@@ -425,8 +625,6 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
-
-        //שליחת מייל
         #region Send Mail
         public static bool SendMail(string user_mail)
         {
@@ -450,104 +648,6 @@ namespace CookitDB.DB_Code
             catch(Exception)
             {
                 return false;
-            }
-        }
-        #endregion
-
-        //שליפת אובייקטים מסויימים
-        #region Get User By Email
-        public static int GetUserByEmail(string email)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Email == email);
-                if (user == null) // אם אין משתמש אם פרטים כאלה
-                    return -1;
-                else
-                    return user.Id_User;
-            }
-            catch (Exception)
-            {
-                return -2;
-            }
-        }
-        #endregion
-
-
-        #region GetProfileByUserId
-        // מביאה את הפרופיל לפי תז של משתמש
-        public static TBL_Profile GetProfileByUserId(int userId)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
-                if (prof == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return prof;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-
-        #region Get ProfileID Of User 
-        public static int GetProfileIDOfUserByID(int ID)
-        {
-            try
-            {
-                var db = Get_DB();
-                // Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                TBL_Profile user_prof = db.TBL_Profile.SingleOrDefault(a => a.Id_User == ID);
-                return user_prof.Id_Prof;
-            }
-            catch
-            {
-                return -1;
-            }
-        }
-        #endregion
-
-
-        //שליפת אירועים וסדנאות
-
-        #region Get All Events
-        // הפוקנציה מביאה אירועים מהמסד נתונים
-        public static List<TBL_Event> Get_all_Events()
-        {
-            try
-            {
-                var db = Get_DB();
-              //  Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                return db.TBL_Event.ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region Get All Workshops
-        // הפוקנציה מביאה סדנאות מהמסד נתונים
-        public static List<TBL_Workshop> Get_all_Workshops()
-        {
-            try
-            {
-                var db = Get_DB();
-              //  Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                return db.TBL_Workshop.ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
             }
         }
         #endregion

@@ -13,20 +13,14 @@ namespace CookitAPI.Controllers
     [RoutePrefix("api/City")]
     public class CityController : ApiController
     {
-        /*
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-        */
+
+        #region GetAllCities
         //מחזיר את כל הערים מבסיס הנתונים
         [Route("GetAllCities")]
         [HttpGet]
         public HttpResponseMessage GetAllCities()
         {
-           // bgroup36_prodConnection db = new bgroup36_prodConnection();
-            Cookit_DBConnection db = new Cookit_DBConnection();
+            bgroup36_prodConnection db = new bgroup36_prodConnection();
             // קורא לפונקציה שמחזירה את של הערים מהDB
             var cities = CookitDB.DB_Code.CookitQueries.Get_all_cities();
             if (cities == null) // אם אין נתונים במסד נתונים
@@ -40,20 +34,22 @@ namespace CookitAPI.Controllers
 
                     result.Add(new CityDTO
                     {
-                        region = item.Region.ToString(),
-                        city_name = item.CityName.ToString()
+                        id_city = item.Id_City,
+                        city_name = item.CityName.ToString(),
+                        id_region = item.Id_Region
                     });
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
+        #endregion
 
+        /*
         //מחזיר את כל המחוזות מבסיס הנתונים
         [Route("GetRegions")]
         [HttpGet]
         public HttpResponseMessage GetRegions()
         {
-           // bgroup36_prodConnection db = new bgroup36_prodConnection();
             Cookit_DBConnection db = new Cookit_DBConnection();
             // קורא לפונקציה שמחזירה את רשימת מחוזות בשם מהDB
             var regs = CookitDB.DB_Code.CookitQueries.Get_all_Regions();
@@ -74,8 +70,9 @@ namespace CookitAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
+        */
 
-
+            /*
         //מחזיר את כל הערים לפי מחוז
         [Route("{c_reg}/GetCitiesByRegion")] //c_reg= choosen region
         [HttpGet]
@@ -103,7 +100,7 @@ namespace CookitAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
-
+        */
         // GET api/<controller>/5
         public string Get(int id)
         {
