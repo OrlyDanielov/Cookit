@@ -40,7 +40,7 @@ var COUNT_INGRIDIANTS = 1;
 var NAME_INGRIDIANTS = 1;
 
 //תז המתכון החדש
-var ID_RECIPE;
+var ID_RECIPE = null;
 sessionStorage.setItem("RECIPE_NAME", JSON.stringify("עוגת שוקולד עשירה"));
 var RECIPE_NAME = JSON.parse(sessionStorage.getItem("RECIPE_NAME"));
 // פרטי המתכון
@@ -67,6 +67,7 @@ $(document).ready(function () {
     GetFoodLable();
     //להביא את נתוני המתכון המבוקש
     GetRecipeImformation();
+    //מציג את נתוני המתכון רק כאשר מצליח לבקש מהשרת את כל הפרטים
 });
 //*******************************************************************************************
 // INIT DATA INTO DROP DOWN LIST
@@ -338,17 +339,67 @@ function GetRecipeFoodLables()
 //מביא את המצרכים של המתכון המבוקש
 {
     GlobalAjax("/api/FoodLabelsForRecp/GetFoodLablesByRecpId/" + RECIPE_INFORMATION.recp_id, "GET", "", SuccessGetRecipeFoodLables, FailGetRecipeFoodLables);
-
 }
 
 function SuccessGetRecipeFoodLables(data) {
     console.log("משיכת נתוני תוויות מתכון בוצע בהצלחה!.");
     sessionStorage.setItem("RECIPE_FOOD_LABLES", JSON.stringify(data));
     RECIPE_FOOD_LABLES = data;
+    // להציג פרטי מתכון
+    ViewRecipeInformation();
 }
 
 function FailGetRecipeFoodLables(data) {
     console.log("error! can't get food lables recipe information.");
     console.log(data);
     alert("שגיאה במשיכת תוויות מתכון!, אנא נסה שנית מאוחד יותר.");
+}
+
+//*******************************************************************************************
+// VIEW RECIPE INFORMATION
+//*******************************************************************************************
+function ViewRecipeInformation()
+//מציג את המידע של המתכון
+{
+    $("#txt_name_recipe").val(RECIPE_INFORMATION.recp_name);
+    $("#txt_total_time").val(RECIPE_INFORMATION.recp_total_time);
+    $("#txt_work_time").val(RECIPE_INFORMATION.recp_work_time);
+    $("#txt_preparation_steps").val(RECIPE_INFORMATION.recp_steps);
+    ViewSelectOneOptInformation("select_difficulty_level", RECIPE_INFORMATION.recp_level);
+    ViewSelectOneOptInformation("select_dish_type", RECIPE_INFORMATION.recp_dish_type);
+    ViewSelectOneOptInformation("select_dish_category", RECIPE_INFORMATION.recp_dish_category);
+    ViewSelectOneOptInformation("select_food_type", RECIPE_INFORMATION.recp_food_type);
+    ViewSelectOneOptInformation("select_kitchen_type", RECIPE_INFORMATION.recp_kitchen_type);
+    ViewSelectOneOptInformation("select_difficulty_level", RECIPE_INFORMATION.recp_level);
+    ViewSelectMulyiOptInformation("select_holiday", RECIPE_HOLIDAYS, "id_holiday");
+    ViewSelectMulyiOptInformation("select_food_lable", RECIPE_FOOD_LABLES, "id_food_lable");
+    //צריך להציג את כל המצרכים
+}
+
+function ViewSelectOneOptInformation(select_id, selected_value)
+// מחפש את הערך המבוקש ברשימה והופך אותו לנחבר ע"מ שיראו אותו
+{
+    var slct_list = document.getElementById(select_id);
+    var opt;
+    for (var i = 0; i < slct_list.options.length; i++)
+    {
+        opt = slct_list.options[i];
+        if (opt.value == selected_value)
+            opt.selected=true;
+    }
+}
+
+function ViewSelectMulyiOptInformation(select_id, selected_values,y)
+// מחפש את הערך המבוקש ברשימה והופך אותו לנחבר ע"מ שיראו אותו
+{
+    var slct_list = document.getElementById(select_id);
+    var opt,val;
+    for (var x = 0; x < selected_values.length; x++) {
+        val = selected_values[x];
+        for (var i = 0; i < slct_list.options.length; i++) {
+            opt = slct_list.options[i];
+            if (opt.value == val[y])
+                opt.selected = true;
+        }
+    }
 }
