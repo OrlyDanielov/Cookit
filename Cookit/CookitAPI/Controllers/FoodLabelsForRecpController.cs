@@ -18,11 +18,43 @@ namespace CookitAPI.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        #region GetRecipeFoodLables
+        [Route("GetFoodLablesByRecpId/{recp_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetFoodLablesByRecpId(int recp_id)
         {
-            return "value";
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                List<TBL_LabelsForRecp> lbl4recp = CookitDB.DB_Code.CookitQueries.GetFoodLablesByRecpId(recp_id);
+                if (lbl4recp == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "this food lables recipe does not exist.");
+                else
+                {
+                    FoodLable2RecipeDTO food_lable;
+                    List<FoodLable2RecipeDTO> list_lbl_2_recp = new List<FoodLable2RecipeDTO>();
+                    for (int i = 0; i < lbl4recp.Count; i++)
+                    {
+
+                        food_lable = new FoodLable2RecipeDTO()
+                        {
+                            id = lbl4recp[i].Id,
+                            id_recipe= lbl4recp[i].Id_Recp,
+                            id_food_lable = lbl4recp[i].Id_FoodLabel
+                        };
+                        list_lbl_2_recp.Add(food_lable);
+                    }
+
+                    return Request.CreateResponse(HttpStatusCode.OK, list_lbl_2_recp);
+                }
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
         }
+        #endregion
 
         #region  Add NewFood Lable 2 Recipe
         //Add New Food Lable 2 Recipe

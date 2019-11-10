@@ -201,10 +201,10 @@
           <Property Name="Id_Recipe_DishCategory" Type="int" Nullable="false" />
           <Property Name="Id_Recipe_FoodType" Type="int" Nullable="false" />
           <Property Name="Id_Recipe_KitchenType" Type="int" Nullable="false" />
-          <Property Name="RecipeTotalTime" Type="time" Precision="7" />
-          <Property Name="RecipeWorkTime" Type="time" Precision="7" />
+          <Property Name="RecipeTotalTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="RecipeWorkTime" Type="time" Precision="7" Nullable="false" />
           <Property Name="Id_Recipe_Level" Type="int" Nullable="false" />
-          <Property Name="PreparationSteps" Type="ntext" />
+          <Property Name="PreparationSteps" Type="ntext" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_RecipeDifficultyLevel">
           <Key>
@@ -1336,10 +1336,10 @@
           <Property Name="Id_Recipe_DishCategory" Type="Int32" Nullable="false" />
           <Property Name="Id_Recipe_FoodType" Type="Int32" Nullable="false" />
           <Property Name="Id_Recipe_KitchenType" Type="Int32" Nullable="false" />
-          <Property Name="RecipeTotalTime" Type="Time" Precision="7" />
-          <Property Name="RecipeWorkTime" Type="Time" Precision="7" />
+          <Property Name="RecipeTotalTime" Type="Time" Precision="7" Nullable="false" />
+          <Property Name="RecipeWorkTime" Type="Time" Precision="7" Nullable="false" />
           <Property Name="Id_Recipe_Level" Type="Int32" Nullable="false" />
-          <Property Name="PreparationSteps" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PreparationSteps" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="TBL_Comments" Relationship="Cookit_DBModel.FK_Recp3" FromRole="TBL_Recipe" ToRole="TBL_Comments" />
           <NavigationProperty Name="TBL_DishCategory" Relationship="Cookit_DBModel.FK_DishCategory" FromRole="TBL_Recipe" ToRole="TBL_DishCategory" />
           <NavigationProperty Name="TBL_DishType" Relationship="Cookit_DBModel.FK_DishType" FromRole="TBL_Recipe" ToRole="TBL_DishType" />

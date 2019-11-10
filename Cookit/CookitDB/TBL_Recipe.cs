@@ -34,8 +34,8 @@ namespace CookitDB
         public int Id_Recipe_DishCategory { get; set; }
         public int Id_Recipe_FoodType { get; set; }
         public int Id_Recipe_KitchenType { get; set; }
-        public Nullable<System.TimeSpan> RecipeTotalTime { get; set; }
-        public Nullable<System.TimeSpan> RecipeWorkTime { get; set; }
+        public System.TimeSpan RecipeTotalTime { get; set; }
+        public System.TimeSpan RecipeWorkTime { get; set; }
         public int Id_Recipe_Level { get; set; }
         public string PreparationSteps { get; set; }
     

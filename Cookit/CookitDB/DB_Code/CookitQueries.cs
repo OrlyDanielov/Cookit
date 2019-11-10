@@ -327,12 +327,89 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region GetRecpByUserIdAndRecpName
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Recipe GetRecpByUserIdAndRecpName(int user_id, string recp_name)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Recipe recp = db.TBL_Recipe.SingleOrDefault(x => x.Id_Recipe_User == user_id && x.Name_Recipe == recp_name);
+                if (recp == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return recp;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetIngridiantsByRecpId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static List<TBL_IngridiantForRecp> GetIngridiantsByRecpId(int recp_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                List<TBL_IngridiantForRecp> recp = db.TBL_IngridiantForRecp.Where(x => x.Id_Recp == recp_id).ToList();//.GroupBy(y=> y.Id_Recp).ToList();
+                if (recp == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return recp;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetHolidaysByRecpId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static List<TBL_HolidaysForRecp> GetHolidaysByRecpId(int recp_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                List<TBL_HolidaysForRecp> holidays = db.TBL_HolidaysForRecp.Where(x => x.Id_Recp == recp_id).ToList();
+                if (holidays == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return holidays;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+
+        #region GetFoodLablesByRecpId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static List<TBL_LabelsForRecp> GetFoodLablesByRecpId(int recp_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                List<TBL_LabelsForRecp> labels = db.TBL_LabelsForRecp.Where(x => x.Id_Recp == recp_id).ToList();
+                if (labels == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return labels;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
 
         //*********************************************************************
         //              ADD
         //*********************************************************************
-       
-            #region Add New Recipe
+
+        #region Add New Recipe
         //פונקציה של הוספת מתכון חדש לטבלת המתכונים
         //public static bool AddNewRecipe(TBL_Recipe new_recipe)
         public static int AddNewRecipe(TBL_Recipe new_recipe)

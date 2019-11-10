@@ -11,6 +11,6 @@ namespace CookitAPI.DTO
         public int id_recp;
         public int id_ingridiants;
         public int id_mesurment;
-        public float amount;
+        public double amount;
     }
 }

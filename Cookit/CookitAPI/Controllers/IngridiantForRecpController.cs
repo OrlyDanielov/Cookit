@@ -18,11 +18,45 @@ namespace CookitAPI.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        #region GetIngridiantsByRecpId
+        [Route("GetIngridiantsByRecpId/{recp_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetIngridiantsByRecpId(int recp_id)
         {
-            return "value";
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                List<TBL_IngridiantForRecp> ing4recp = CookitDB.DB_Code.CookitQueries.GetIngridiantsByRecpId(recp_id);
+                if (ing4recp == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "this ingridiants recipe does not exist.");
+                else
+                {
+                    Ingridinats2RecipeDTO ing;
+                    List<Ingridinats2RecipeDTO> list_ing_2_recp = new List<Ingridinats2RecipeDTO>();
+                    for (int i = 0; i < ing4recp.Count; i++)
+                    {
+
+                        ing = new Ingridinats2RecipeDTO()
+                        {
+                            id = ing4recp[i].Id,
+                            id_recp= ing4recp[i].Id_Recp,
+                            id_ingridiants = ing4recp[i].Id_Ingridiants,
+                            id_mesurment = ing4recp[i].Id_Mesurment,
+                            amount = ing4recp[i].Amount //float.Parse(ing4recp[i].Amount)
+                        };
+                        list_ing_2_recp.Add(ing);
+                    }
+
+                    return Request.CreateResponse(HttpStatusCode.OK, list_ing_2_recp);
+                }
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
         }
+        #endregion
 
         #region Add New Ingridiat 2 Recipe
         [Route("AddNewIng2Recp")]
