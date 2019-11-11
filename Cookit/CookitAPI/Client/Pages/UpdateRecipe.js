@@ -40,7 +40,7 @@ var COUNT_INGRIDIANTS = 1;
 var NAME_INGRIDIANTS = 1;
 
 //תז המתכון החדש
-var ID_RECIPE = null;
+//var ID_RECIPE = null;
 sessionStorage.setItem("RECIPE_NAME", JSON.stringify("עוגת שוקולד עשירה"));
 var RECIPE_NAME = JSON.parse(sessionStorage.getItem("RECIPE_NAME"));
 // פרטי המתכון
@@ -656,8 +656,8 @@ function CheckFormValidation() {
     CheckRecipeInputs();
     CheckIngridiantsInputs();
     if (Change_style_by_validation())
-        console.log("הטופס תקין")
-        //AddNewRecipe();
+        UpdateRecipe();
+        //console.log("הטופס תקין");
     else
         alert("אנא תקן את המקומות המסומנים");
 }
@@ -669,7 +669,7 @@ function CheckFormValidation() {
 function CheckRecipeInputs()
 //בודק את הרשומות של המתכון
 {
-    var recipe_inputs = {
+    var recipe_inputs = {        
         recp_name: $("#txt_name_recipe").val(),
         recp_dish_type: $("#select_dish_type").find(":selected").val(),
         recp_dish_category: $("#select_dish_category").find(":selected").val(),
@@ -1107,4 +1107,40 @@ function  ButtonRemoveIngridiant(btn_remove_ing)
         all_ingridiants.removeChild(child);
         console.log("ingridiant " + COUNT_INGRIDIANTS);
     }
+}
+
+//*******************************************************************************************
+// UPDATE RECIPE
+//*******************************************************************************************
+function UpdateRecipe()
+//עדכון פרטי מתכון
+{
+    if (confirm("האם אתה רוצה לשמור את השינוי?")) {
+        var new_recipe = {
+            recp_id: RECIPE_INFORMATION.recp_id,
+            user_id: RECIPE_INFORMATION.user_id,
+            recp_name: $("#txt_name_recipe").val(),
+            recp_dish_type: $("#select_dish_type").find(":selected").val(),
+            recp_dish_category: $("#select_dish_category").find(":selected").val(),
+            recp_food_type: $("#select_food_type").find(":selected").val(),
+            recp_kitchen_type: $("#select_kitchen_type").find(":selected").val(),
+            recp_level: $("#select_difficulty_level").find(":selected").val(),
+            recp_total_time: $("#txt_total_time").val(),
+            recp_work_time: $("#txt_work_time").val(),
+            recp_steps: $("#txt_preparation_steps").val()
+        };
+        GlobalAjax("/api/Recipe/UpdateRecipe", "PUT", new_recipe, SuccessUpdateRecipe, FailUpdateRecipe);
+    }
+}
+
+function SuccessUpdateRecipe() {
+    console.log("המתכון עודכן בשרת בהצלחה.");
+    //הוספת המתצרכים התוויות והחגים
+    //AddIngridiantForRecipe(id_recipe);
+}
+
+function FailUpdateRecipe() {
+    console.log("שגיאה בעדכון המתכון לשרת.");
+    console.log(data.T);
+    alert("שגיאה בעדכון המתכון לשרת.");
 }

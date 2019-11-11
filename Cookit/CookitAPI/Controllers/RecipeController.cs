@@ -87,10 +87,40 @@ namespace Cookit.Controllers
         }
         #endregion
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        #region Update Recipe
+        [Route("UpdateRecipe")]
+        [HttpPut]
+        public HttpResponseMessage UpdateRecipe([FromBody]RecipeDTO recipe)
         {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                TBL_Recipe r = new TBL_Recipe()
+                {
+                   Id_Recipe = recipe.recp_id,
+                   Id_Recipe_User = recipe.user_id,
+                   Name_Recipe = recipe.recp_name,
+                   Id_Recipe_DishType = recipe.recp_dish_type,
+                   Id_Recipe_DishCategory = recipe.recp_dish_category,
+                   Id_Recipe_FoodType = recipe.recp_food_type,
+                   Id_Recipe_KitchenType = recipe.recp_kitchen_type,
+                   RecipeTotalTime = recipe.recp_total_time,
+                   RecipeWorkTime = recipe.recp_work_time,
+                   Id_Recipe_Level = recipe.recp_level,
+                   PreparationSteps = recipe.recp_steps
+                };
+                var is_saved = CookitDB.DB_Code.CookitQueries.UpdateRecipe(r);
+                if (is_saved == true)
+                    return Request.CreateResponse(HttpStatusCode.OK, "the recipe information updated seccussfully.");
+                else
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't update recipe information.");
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
         }
+        #endregion
 
         // DELETE api/<controller>/5
         public void Delete(int id)

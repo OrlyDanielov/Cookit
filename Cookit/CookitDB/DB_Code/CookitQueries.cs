@@ -638,11 +638,43 @@ namespace CookitDB.DB_Code
 
         #endregion
 
+        #region Update Recipe
+        public static bool UpdateRecipe(TBL_Recipe new_recipe)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Recipe r = db.TBL_Recipe.SingleOrDefault(x => x.Id_Recipe == new_recipe.Id_Recipe);
+                if (r != null)
+                {
+                    r.Name_Recipe = new_recipe.Name_Recipe;
+                    r.Id_Recipe_DishCategory = new_recipe.Id_Recipe_DishCategory;
+                    r.Id_Recipe_DishType = new_recipe.Id_Recipe_DishType;
+                    r.Id_Recipe_FoodType = new_recipe.Id_Recipe_FoodType;
+                    r.Id_Recipe_KitchenType = new_recipe.Id_Recipe_KitchenType;
+                    r.Id_Recipe_Level = new_recipe.Id_Recipe_Level;
+                    r.PreparationSteps = new_recipe.PreparationSteps;
+                    r.RecipeTotalTime = new_recipe.RecipeTotalTime;
+                    r.RecipeWorkTime = new_recipe.RecipeWorkTime;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
 
         //*********************************************************************
         //              OTHER
         //*********************************************************************
-        
+
         #region Check Mail Available
         //check if mail exsist. if exsist - return false, else return true.
         public static bool CheckMailAvailable(string email)
