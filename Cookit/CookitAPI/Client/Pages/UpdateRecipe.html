@@ -118,7 +118,7 @@
                     </div>
                     <div class="col">
                         <label for="name_recipe" class="col-sm-4 col-form-label">שם מתכון</label>
-                        <input type="text" id="txt_name_recipe" name="name_recipe" class="form-control text2rigth" readonly/>
+                        <input type="text" id="txt_name_recipe" name="name_recipe" class="form-control text2rigth" disabled/>
                         <div id="feedback_name_recipe" class="not_valid_feedback"></div>
                     </div>
                 </div>
@@ -174,12 +174,12 @@
                 <div class="form-row">
                     <div class="col">
                         <label for="total_time" class="col-sm-4 col-form-label">זמן כולל</label>
-                        <input type="time" for="total_time" id="txt_total_time" name="total_time" class="form-control text2rigth" readonly />
+                        <input type="time" for="total_time" id="txt_total_time" name="total_time" class="form-control text2rigth" disabled />
                         <div id="feedback_total_time" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="work_time" class="col-sm-4 col-form-label">זמן עבודה</label>
-                        <input type="time" for="work_time" id="txt_work_time" name="work_time" class="form-control text2rigth" readonly/>
+                        <input type="time" for="work_time" id="txt_work_time" name="work_time" class="form-control text2rigth" disabled/>
                         <div id="feedback_work_time" class="not_valid_feedback"></div>
                     </div>
                 </div>
@@ -188,7 +188,7 @@
             <!--מצרכים-->
             <fieldset id="recipe_ingridiants">
                 <legend>מצרכים</legend>
-                <div class="form-row" id="ingridiant_1">
+                <div id="ingridiant_1" class="form-row" >
                     <div class="col">
                         <input type="button" id="btn_remove_ingridiant_1" value="הסר מצרך" class="btn btn-group" onclick="RemoveIngridiant(this.id)"  disabled/>
                     </div>
@@ -201,7 +201,7 @@
                     </div>
                     <div class="col">
                         <label for="txt_ingridiant_amount_1" class="col-sm-4 col-form-label">כמות מצרך</label>
-                        <input type="number" id="txt_ingridiant_amount_1" name="ingridiant_amount_1" class="form-control text2rigth" min="0" readonly />
+                        <input type="number" id="txt_ingridiant_amount_1" name="ingridiant_amount_1" class="form-control text2rigth" min="0" disabled />
                         <div id="feedback_ingridiant_amount_1" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
@@ -220,7 +220,7 @@
             <fieldset id="recipe_preparation_steps">
                 <legend>אופן הכנה</legend>
                 <div class="form-group row">
-                    <textarea rows="5" cols="50" id="txt_preparation_steps" name="preparation_steps" class="form-control" readonly></textarea>
+                    <textarea rows="5" cols="50" id="txt_preparation_steps" name="preparation_steps" class="form-control" disabled></textarea>
                     <div id="feedback_preparation_steps" class="not_valid_feedback"></div>
                 </div>
             </fieldset>
