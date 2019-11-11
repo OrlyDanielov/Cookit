@@ -158,14 +158,14 @@
                     <div class="col">
                         <label for="holiday" class="col-sm-6 col-form-label">חגים</label>
                         <select multiple searchable="חפש כאן..." name="holiday" id="select_holiday" class="custom-select text2rigth mdb-select colorful-select dropdown-primary md-form" disabled>
-                            <option value="" selected >חגים</option>
+                            <option value="" disabled >חגים</option>
                         </select>
                         <div id="feedback_holiday" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="food_lable" class="col-sm-6 col-form-label">תוויות</label>
                         <select multiple="multiple" name="food_lable" id="select_food_lable" class="custom-select text2rigth" disabled>
-                            <option value="" selected >תוויות</option>
+                            <option value="" disabled >תוויות</option>
                         </select>
                         <div id="feedback_food_lable" class="not_valid_feedback"></div>
                     </div>
@@ -190,7 +190,7 @@
                 <legend>מצרכים</legend>
                 <div id="ingridiant_1" class="form-row" >
                     <div class="col">
-                        <input type="button" id="btn_remove_ingridiant_1" value="הסר מצרך" class="btn btn-group" onclick="RemoveIngridiant(this.id)"  disabled/>
+                        <input type="button" id="btn_remove_ingridiant_1" value="הסר מצרך" class="btn btn-group" onclick="ButtonRemoveIngridiant(this.id)"  disabled/>
                     </div>
                     <div class="col">
                         <label for="select_ingridiant_name_1" class="col-sm-4 col-form-label">שם מצרך</label>
@@ -213,7 +213,7 @@
                     </div>
                     <hr class="mb-4">
                 </div>
-                <input type="button" id="btn_add_ingridiant" value="הוסף מצרך" class="btn btn-dark" onclick="AddIngridiant()" disabled/>
+                <input type="button" id="btn_add_ingridiant" value="הוסף מצרך" class="btn btn-dark" onclick="ButtonAddIngridiant()" disabled/>
             </fieldset>
             <hr class="mb-4">
             <!--אופן הכנה-->
@@ -226,7 +226,7 @@
             </fieldset>
             <fieldset>
                 <input type="button" id="btnEdit" class="btn btn-primary btn-lg" onclick="Edit()" value="ערוך" />
-                <input type="button" id="btnSave" class="btn btn-primary btn-lg" disabled onclick="Check_validation()" value="שמור" />
+                <input type="button" id="btnSave" class="btn btn-primary btn-lg" disabled onclick="CheckFormValidation()" value="שמור" />
 
             </fieldset>
         </form>
