@@ -764,6 +764,34 @@ namespace CookitDB.DB_Code
         #endregion
 
 
+        #region DeleteHolidaysForRecipeById
+        //פונקציה של הוספת מצרכים למתכון
+        public static bool DeleteHolidaysForRecipeById(List<TBL_HolidaysForRecp> delete_Holidays2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                //לעבור על כל הרשימה
+                foreach (TBL_HolidaysForRecp i in delete_Holidays2rcp)
+                {
+                    TBL_HolidaysForRecp holiday = db.TBL_HolidaysForRecp.SingleOrDefault(x => x.Id == i.Id);
+                    if (holiday != null)
+                    {
+                        db.TBL_HolidaysForRecp.Remove(holiday);
+                    }
+                    else
+                        return false;
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
         //*********************************************************************
         //              OTHER
         //*********************************************************************

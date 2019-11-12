@@ -96,9 +96,39 @@ namespace CookitAPI.Controllers
         {
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
+        #region Delete Holidays 2 Recipe
+        [Route("DeleteById")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteById([FromBody]List<Holidays2RecipeDTO> deleteHolidays2Recp)
         {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                List<TBL_HolidaysForRecp> list_holidays_2_recp = new List<TBL_HolidaysForRecp>();
+                TBL_HolidaysForRecp holiday;
+                for (int i = 0; i < deleteHolidays2Recp.Count; i++)
+                {
+
+                    holiday = new TBL_HolidaysForRecp()
+                    {
+                        Id = deleteHolidays2Recp[i].id,
+                        Id_Recp = deleteHolidays2Recp[i].id_recp,
+                        Id_Holiday = deleteHolidays2Recp[i].id_holiday
+                    };
+                    list_holidays_2_recp.Add(holiday);
+                }
+                var is_saved = CookitDB.DB_Code.CookitQueries.DeleteHolidaysForRecipeById(list_holidays_2_recp);
+                if (is_saved == true)
+                    return Request.CreateResponse(HttpStatusCode.OK, "the food labels deleted Successfully from the recipe.");
+                else
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't delete the food labels.");
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
         }
+        #endregion
     }
 }

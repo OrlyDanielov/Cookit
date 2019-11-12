@@ -1400,10 +1400,91 @@ function SuccessAddFoodLableForRecipe() {
 function FailDeleteFoodLableForRecipe() {
     console.log("שגיאה, התוויות לא נמחקו מהמתכון.");
 
+}   
+//*******************************************************************************************
+// CHECK HOLIDAYS FOR RECIPE
+//*******************************************************************************************
+function CheckRecipeHolidays()
+//בודק את התוויות שצריך לעדכן
+{
+    var new_holidays = $("#select_holiday").val();
+    var old_holidays = RECIPE_HOLIDAYS;     
+    var flag;
+    //נבדוק איזה תוויות חדשות צריך להויסף ואיזה ישנות
+    for (var i = 0; i < old_holidays.length; i++) {
+        flag = false;
+        for (var j = 0; j < new_holidays.length && !flag; j++) {
+            if (new_holidays[j] == old_holidays[i].id_holiday)//אם תוויות מעודכנת
+            { //הסרת התווית המעודכנת המרשימות
+                old_holidays.splice(i, 1);
+                new_holidays.splice(j, 1);
+                i = i - 1;
+                j = j - 1;
+                flag = true;
+            }
+        }
+    }
+    DELETE_HOLIDAYS = old_holidays;
+    NEW_HOLIDAYS = new_holidays;
+    if (new_holidays.length > 0)
+        AddHolidaysForRecipe();
+    else if (DELETE_HOLIDAYS.length > 0)
+        DeleteHolidaysForRecipe();
+    else
+        AlertSuccess2User();
 }
-    //*******************************************************************************************
-    // CHECK HOLIDAYS FOR RECIPE
-    //*******************************************************************************************
-function CheckRecipeHolidays() {
-    console.log("בודק חגים");
+//*******************************************************************************************
+// ADD HOLIDAYS FOR RECIPE
+//*******************************************************************************************
+function AddHolidaysForRecipe()
+// מוסיף אץ התוויות למתכון
+{
+    var new_holidays_2_recipe = new Array();
+    for (var i in NEW_HOLIDAYS) {
+        new_holidays_2_recipe.push({
+            id_holiday: NEW_HOLIDAYS[i],
+            id_recp: RECIPE_INFORMATION.recp_id
+        });
+    }
+    GlobalAjax("/api/HolidaysForRecpController/AddNewHoliday2Recipe", "POST", new_holidays_2_recipe, SuccessAddHolidaysForRecipe, FailAddHolidaysForRecipe);
+}
+
+function SuccessAddHolidaysForRecipe() {
+    console.log("החגים נוספו למתכון בהצלחה!.");
+    //הסרת חגים ישנות
+    if (DELETE_HOLIDAYS.length > 0)
+        DeleteHolidaysForRecipe();
+    else
+        AlertSuccess2User();
+}
+
+function FailAddHolidaysForRecipe() {
+    console.log("שגיאה, החגים לא נוספו למתכון.");
+}
+
+//*******************************************************************************************
+// DELETE HOLIDAYS FOR RECIPE
+//*******************************************************************************************
+function DeleteHolidaysForRecipe()
+// מוסיף אץ התוויות למתכון
+{
+    GlobalAjax("/api/HolidaysForRecpController/DeleteById", "DELETE", DELETE_HOLIDAYS, SuccessDeleteHolidaysForRecipe, FailDeleteHolidaysForRecipe);
+}
+
+function SuccessDeleteHolidaysForRecipe() {
+    console.log("התוויות נמחקו מהמתכון בהצלחה!.");
+    //הודעת הצלחה למשתמש
+    AlertSuccess2User();
+}
+
+function FailDeleteHolidaysForRecipe() {
+    console.log("שגיאה, התוויות לא נמחקו מהמתכון.");
+
+}
+
+//*******************************************************************************************
+// ALERT SUCCESS 2 USER
+//*******************************************************************************************
+function AlertSuccess2User() {
+    alert("המתכון עודכן בהצלחה!.");
 }

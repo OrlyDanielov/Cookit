@@ -339,9 +339,8 @@
     <Content Include="Client\Pages\Registration.html" />
     <Content Include="Client\Pages\Reset_Password.html" />
     <Content Include="Client\Pages\Reset_Password.js" />
-    <Content Include="Client\Pages\UpdateProfile.html" />
-    <Content Include="Client\Pages\UpdateRecipe.html" />
-    <Content Include="Client\Pages\UpdateRecipe.js" />
+    <Content Include="Client\Pages\Update_Recipe.html" />
+    <Content Include="Client\Pages\Update_Recipe.js" />
     <Content Include="Client\Pages\Upload_Event.html" />
     <Content Include="Client\Pages\Upload_Event.js" />
     <Content Include="Client\Pages\Upload_Recipe.html" />
