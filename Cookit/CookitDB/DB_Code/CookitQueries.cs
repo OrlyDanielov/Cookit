@@ -671,6 +671,69 @@ namespace CookitDB.DB_Code
 
         #endregion
 
+        #region update Ing2Recp
+        //פונקציה של הוספת מצרכים למתכון
+        public static bool updateIng2Recp(List<TBL_IngridiantForRecp> update_ing2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                //לעבור על כל הרשימה
+                foreach (TBL_IngridiantForRecp i in update_ing2rcp)
+                {
+                    TBL_IngridiantForRecp ing = db.TBL_IngridiantForRecp.SingleOrDefault(x => x.Id == i.Id);
+                    if (ing != null)
+                    {
+                        ing.Id_Mesurment = i.Id_Mesurment;
+                        ing.Amount = i.Amount;
+                    }
+                    else
+                        return false;
+                }            
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        //*********************************************************************
+        //              DELETE
+        //*********************************************************************
+
+        #region Delete ingridiantsForRecipe By Id
+        //פונקציה של הוספת מצרכים למתכון
+        public static bool DeleteById(List<TBL_IngridiantForRecp> delete_ing2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                //לעבור על כל הרשימה
+                foreach (TBL_IngridiantForRecp i in delete_ing2rcp)
+                {
+                    TBL_IngridiantForRecp ing = db.TBL_IngridiantForRecp.SingleOrDefault(x => x.Id == i.Id);
+                    if (ing != null)
+                    {
+                        db.TBL_IngridiantForRecp.Remove(ing);
+                            }
+                    else
+                        return false;
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
         //*********************************************************************
         //              OTHER
         //*********************************************************************

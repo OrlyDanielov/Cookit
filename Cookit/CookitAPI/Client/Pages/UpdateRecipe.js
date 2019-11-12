@@ -48,6 +48,10 @@ var RECIPE_INFORMATION;
 var RECIPE_INGRIDIANTS = new Array();
 var RECIPE_HOLIDAYS = new Array();
 var RECIPE_FOOD_LABLES = new Array();
+//פרטים לעדכון
+var UPDATE_INGRIDIANTS = new Array();
+var NEW_INGRIDIANTS = new Array();
+var DELETE_INGRIDIANTS = new Array();
 
 //*******************************************************************************************
 // page load
@@ -290,7 +294,6 @@ function GetRecipeIgridiants()
 //מביא את המצרכים של המתכון המבוקש
 {
     GlobalAjax("/api/IngridiantForRecp/GetIngridiantsByRecpId/" + RECIPE_INFORMATION.recp_id, "GET", "", SuccessRecipeIgridiants, FailRecipeIgridiants);
-
 }
 
 function SuccessRecipeIgridiants(data) {
@@ -1135,12 +1138,153 @@ function UpdateRecipe()
 
 function SuccessUpdateRecipe() {
     console.log("המתכון עודכן בשרת בהצלחה.");
-    //הוספת המתצרכים התוויות והחגים
-    //AddIngridiantForRecipe(id_recipe);
+    //הוספת המתצרכים 
+    CheckRecipeIngridiants();
 }
 
 function FailUpdateRecipe() {
     console.log("שגיאה בעדכון המתכון לשרת.");
     console.log(data.T);
     alert("שגיאה בעדכון המתכון לשרת.");
+}
+
+
+//*******************************************************************************************
+// CHECK STATUS OF INGRIDIANTS 4 RECIPE
+//*******************************************************************************************
+function CheckIfNewOrUpdate(arry,key,value)
+//בודק האם המצרך הוא חדש מחזיר שקר, מעודכן מחיזר אמת 
+{
+    for (var i = 0; i < arry.length; i++) {
+        if (arry[i][key] == value)
+            return true;//מעודכן        
+    }
+    return false;//חדש
+}
+
+function CheckRecipeIngridiants()
+//מוסיף את המצרכים למתכון החדש
+{
+    //רשימת מצרכים של המתכון לפני השינוי
+    //0 - נמחק, 
+    //1 - מעודכן
+    //2 - חדש
+    //מעבר על כל המצרכים שבדף
+    var updated_ingridiants = new Array();//מצרכים שעברו עידכון
+    var added_ingridiants = new Array();//מצרכים חדשים שנוספו
+    //var deleted_ingridiants = new Array();//מצרכים חדשים שהוסרו
+    var all_ingridiants = document.getElementById("recipe_ingridiants").children;
+    var ingridiants_data;
+    var index;
+    var names, temp, z, num, flag;
+    for (var i = 1; i < all_ingridiants.length - 1; i++) {
+        var ing_2_recp =
+        {
+            id: null,
+            id_recp: RECIPE_INGRIDIANTS[0].id_recp,
+            id_ingridiants: $("#select_ingridiant_name_1").find(":selected").val(),
+            amount: $("#txt_ingridiant_amount_1").val(),
+            id_mesurment: $("#select_mesurment_1").find(":selected").val()
+        };
+        ingridiants_data = all_ingridiants[i].children;
+        flag = 0;
+        for (var h = 1; h <= 3; h++) {
+            names = Object.keys(ing_2_recp);
+            temp = (ingridiants_data[h]).children[1].id;
+            z = temp.split("_");
+            num = z[z.length - 1];
+            //ingridiant name
+            if (h == 1) {
+                ing_2_recp.id_ingridiants = $("#" + temp).find(":selected").val();
+                //בדיקה האם המצרך הוא חדש או מעודכן או נמחק
+                if (CheckIfNewOrUpdate(RECIPE_INGRIDIANTS, "id_ingridiants", ing_2_recp.id_ingridiants))
+                {//אם מעודכן
+                    flag = 1;
+                    ing_2_recp.id = RECIPE_INGRIDIANTS[i - 1].id;
+                    //ing_2_recp.id_recp = RECIPE_INGRIDIANTS[i - 1].id_recp;
+
+                }
+                else
+                    flag = 2;
+            }
+            //Ingridiant amount
+            if (h == 2)
+                ing_2_recp.amount = $("#" + temp).val();
+            //ingridiant mesurment
+            if (h == 3)
+                ing_2_recp.id_mesurment = $("#" + temp).find(":selected").val();
+        }
+        if (flag == 1 )//לרשימת המעודכנים
+            updated_ingridiants.push(ing_2_recp);
+        else if (flag==2)
+            added_ingridiants.push(ing_2_recp);//לרשימת החדשים
+    }
+    //מצרכים חדשים להוסיף
+    NEW_INGRIDIANTS = added_ingridiants;
+    //מצרכים לעדכון
+    UPDATE_INGRIDIANTS = updated_ingridiants;
+    //מצרכים למחיקה
+    DELETE_INGRIDIANTS = RECIPE_INGRIDIANTS;
+    for (var i = 0; i < updated_ingridiants.length; i++) {
+        for (var j = 0; j < DELETE_INGRIDIANTS.length; j++) {
+            if (DELETE_INGRIDIANTS[j].id_ingridiants == updated_ingridiants[i].id_ingridiants)
+                DELETE_INGRIDIANTS.splice(j, 1);//הסרת המצרך אם לא אמור להמחק
+        }
+    }
+    UpdateRecipeIngridiants(UPDATE_INGRIDIANTS);
+}
+
+//*******************************************************************************************
+// UPDATE INGRIDIANTS 4 RECIPE
+//*******************************************************************************************function UpdateRecipeIngridiants(updeted_ingridiants) {
+function UpdateRecipeIngridiants(updated_ingridiants) {
+    GlobalAjax("/api/IngridiantForRecp/UpdateById", "put", updated_ingridiants, SuccessUpdateRecipeIngridiants, FailUpdateRecipeIngridiants);
+}
+
+function SuccessUpdateRecipeIngridiants() {
+    console.log("המצרכים עודכנו בהצלחה!.");
+    //הוספת מצרכים חדשים
+    AddedRecipeIngridiants(NEW_INGRIDIANTS);
+}
+
+function FailUpdateRecipeIngridiants() {
+    console.log("שגיאה, המצרכים לא עודכנו .");
+
+}
+
+
+//*******************************************************************************************
+// ADD INGRIDIANTS 4 RECIPE
+//*******************************************************************************************function AddedRecipeIngridiants(updeted_ingridiants) {
+function AddedRecipeIngridiants(added_ingridiants) {
+    GlobalAjax("/api/IngridiantForRecp/AddNewIng2Recp", "POST", added_ingridiants, SuccessAddedRecipeIngridiants, FailAddedRecipeIngridiants);
+}
+
+
+function SuccessAddedRecipeIngridiants() {
+    console.log("המצרכים נוספו למתכון בהצלחה!.");
+    //מחיקת מצרכים ישנים
+    DeletedRecipeIngridiants(DELETE_INGRIDIANTS);
+}
+
+function FailAddedRecipeIngridiants() {
+    console.log("שגיאה, המצרכים לא נוספו למתכון.");
+
+}
+
+//*******************************************************************************************
+// DELETE INGRIDIANTS 4 RECIPE
+//*******************************************************************************************כים ישנים
+function DeletedRecipeIngridiants(deleted_ingridiants) {
+    GlobalAjax("/api/IngridiantForRecp/DeleteById", "DELETE", deleted_ingridiants, SuccessDeletedRecipeIngridiants, FailDeletedRecipeIngridiants);
+}
+
+
+function SuccessDeletedRecipeIngridiants() {
+    console.log("המצרכים נמחקו מהמתכון בהצלחה!.");
+}
+
+function FailDeletedRecipeIngridiants() {
+    console.log("שגיאה, המצרכים לא נמחקו מהמתכון.");
+
 }

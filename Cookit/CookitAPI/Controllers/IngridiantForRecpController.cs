@@ -93,14 +93,85 @@ namespace CookitAPI.Controllers
             }
         }
         #endregion
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
 
+        #region Update By Id
+        [Route("UpdateById")]
+        [HttpPut]
+        public HttpResponseMessage UpdateById([FromBody]List<Ingridinats2RecipeDTO> updateIng2Recp)
+        {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
+                TBL_IngridiantForRecp ing;
+                for (int i = 0; i < updateIng2Recp.Count; i++)
+                {
+
+                    ing = new TBL_IngridiantForRecp()
+                    {
+                        Id = updateIng2Recp[i].id,
+                        Id_Recp = updateIng2Recp[i].id_recp,
+                        Id_Ingridiants = updateIng2Recp[i].id_ingridiants,
+                        Id_Mesurment = updateIng2Recp[i].id_mesurment,
+                        Amount = updateIng2Recp[i].amount
+                    };
+                    list_ing_2_recp.Add(ing);
+                }
+                var is_saved = CookitDB.DB_Code.CookitQueries.updateIng2Recp(list_ing_2_recp);
+                if (is_saved == true)
+                    return Request.CreateResponse(HttpStatusCode.OK, "the Ingridiants updated Successfully to the recipe.");
+                else
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't updated the ingridiant.");
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+        #endregion
+
+        /*
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
         }
+        */
+         #region Delete Ingridiat 2 Recipe
+          [Route("DeleteById")]
+          [HttpDelete]
+          public HttpResponseMessage DeleteById([FromBody]List<Ingridinats2RecipeDTO> deleteIng2Recp)
+          {
+              try
+              {
+                  Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                  List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
+                  TBL_IngridiantForRecp ing;
+                  for (int i = 0; i < deleteIng2Recp.Count; i++)
+                  {
+
+                      ing = new TBL_IngridiantForRecp()
+                      {
+                          Id = deleteIng2Recp[i].id,
+                          Id_Recp = deleteIng2Recp[i].id_recp,
+                          Id_Ingridiants = deleteIng2Recp[i].id_ingridiants,
+                          Id_Mesurment = deleteIng2Recp[i].id_mesurment,
+                          Amount = deleteIng2Recp[i].amount
+                      };
+                      list_ing_2_recp.Add(ing);
+                  }
+                  var is_saved = CookitDB.DB_Code.CookitQueries.DeleteById(list_ing_2_recp);
+                  if (is_saved == true)
+                      return Request.CreateResponse(HttpStatusCode.OK, "the Ingridiants deleted Successfully from the recipe.");
+                  else
+                      return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't delete the ingridiant.");
+
+              }
+              catch (Exception e)
+              {
+                  return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+              }
+          }
+          #endregion
     }
 }
