@@ -131,13 +131,7 @@ namespace CookitAPI.Controllers
         }
         #endregion
 
-        /*
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
-        */
-         #region Delete Ingridiat 2 Recipe
+        #region Delete Ingridiat 2 Recipe
           [Route("DeleteById")]
           [HttpDelete]
           public HttpResponseMessage DeleteById([FromBody]List<Ingridinats2RecipeDTO> deleteIng2Recp)

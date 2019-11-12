@@ -734,6 +734,36 @@ namespace CookitDB.DB_Code
 
         #endregion
 
+# region DeleteFoodLabelsForRecipeById
+        //פונקציה של הוספת מצרכים למתכון
+        public static bool DeleteFoodLabelsForRecipeById(List<TBL_LabelsForRecp> delete_lbl2rcp)
+        {
+            try
+            {
+                var db = Get_DB();
+                //לעבור על כל הרשימה
+                foreach (TBL_LabelsForRecp i in delete_lbl2rcp)
+                {
+                    TBL_LabelsForRecp lbl = db.TBL_LabelsForRecp.SingleOrDefault(x => x.Id == i.Id);
+                    if (lbl != null)
+                    {
+                        db.TBL_LabelsForRecp.Remove(lbl);
+                    }
+                    else
+                        return false;
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+
         //*********************************************************************
         //              OTHER
         //*********************************************************************

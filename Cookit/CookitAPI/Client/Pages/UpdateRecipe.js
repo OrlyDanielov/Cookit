@@ -48,10 +48,16 @@ var RECIPE_INFORMATION;
 var RECIPE_INGRIDIANTS = new Array();
 var RECIPE_HOLIDAYS = new Array();
 var RECIPE_FOOD_LABLES = new Array();
-//פרטים לעדכון
+//מצרכים לעדכון
 var UPDATE_INGRIDIANTS = new Array();
 var NEW_INGRIDIANTS = new Array();
 var DELETE_INGRIDIANTS = new Array();
+//תוויות לעדכון
+var NEW_FOOD_LABELS = new Array();
+var DELETE_FOOD_LABELS = new Array();
+//חגים לעדכון
+var NEW_HOLIDAYS = new Array();
+var DELETE_HOLIDAYS = new Array();
 
 //*******************************************************************************************
 // page load
@@ -1231,21 +1237,33 @@ function CheckRecipeIngridiants()
                 DELETE_INGRIDIANTS.splice(j, 1);//הסרת המצרך אם לא אמור להמחק
         }
     }
-    UpdateRecipeIngridiants(UPDATE_INGRIDIANTS);
+
+    if (UPDATE_INGRIDIANTS.length > 0)
+        UpdateRecipeIngridiants();
+    else if (NEW_INGRIDIANTS.length > 0)
+        AddedRecipeIngridiants();
+    else if (DELETE_INGRIDIANTS.length > 0)
+        DeletedRecipeIngridiants();
+    else
+        CheckRecipeFoodLable();
 }
 
 //*******************************************************************************************
 // UPDATE INGRIDIANTS 4 RECIPE
 //*******************************************************************************************function UpdateRecipeIngridiants(updeted_ingridiants) {
-function UpdateRecipeIngridiants(updated_ingridiants) {
-    GlobalAjax("/api/IngridiantForRecp/UpdateById", "put", updated_ingridiants, SuccessUpdateRecipeIngridiants, FailUpdateRecipeIngridiants);
+function UpdateRecipeIngridiants() {
+    GlobalAjax("/api/IngridiantForRecp/UpdateById", "put", UPDATE_INGRIDIANTS, SuccessUpdateRecipeIngridiants, FailUpdateRecipeIngridiants);
 }
 
 function SuccessUpdateRecipeIngridiants() {
     console.log("המצרכים עודכנו בהצלחה!.");
     //הוספת מצרכים חדשים
-    AddedRecipeIngridiants(NEW_INGRIDIANTS);
-}
+    if (NEW_INGRIDIANTS.length > 0)
+        AddedRecipeIngridiants();
+    else if (DELETE_INGRIDIANTS.length > 0)
+        DeletedRecipeIngridiants();
+    else
+        CheckRecipeFoodLable();}
 
 function FailUpdateRecipeIngridiants() {
     console.log("שגיאה, המצרכים לא עודכנו .");
@@ -1256,15 +1274,18 @@ function FailUpdateRecipeIngridiants() {
 //*******************************************************************************************
 // ADD INGRIDIANTS 4 RECIPE
 //*******************************************************************************************function AddedRecipeIngridiants(updeted_ingridiants) {
-function AddedRecipeIngridiants(added_ingridiants) {
-    GlobalAjax("/api/IngridiantForRecp/AddNewIng2Recp", "POST", added_ingridiants, SuccessAddedRecipeIngridiants, FailAddedRecipeIngridiants);
+function AddedRecipeIngridiants() {
+    GlobalAjax("/api/IngridiantForRecp/AddNewIng2Recp", "POST", NEW_INGRIDIANTS, SuccessAddedRecipeIngridiants, FailAddedRecipeIngridiants);
 }
 
 
 function SuccessAddedRecipeIngridiants() {
     console.log("המצרכים נוספו למתכון בהצלחה!.");
     //מחיקת מצרכים ישנים
-    DeletedRecipeIngridiants(DELETE_INGRIDIANTS);
+    if (DELETE_INGRIDIANTS.length > 0)
+        DeletedRecipeIngridiants();
+    else
+        CheckRecipeFoodLable();
 }
 
 function FailAddedRecipeIngridiants() {
@@ -1275,16 +1296,114 @@ function FailAddedRecipeIngridiants() {
 //*******************************************************************************************
 // DELETE INGRIDIANTS 4 RECIPE
 //*******************************************************************************************כים ישנים
-function DeletedRecipeIngridiants(deleted_ingridiants) {
-    GlobalAjax("/api/IngridiantForRecp/DeleteById", "DELETE", deleted_ingridiants, SuccessDeletedRecipeIngridiants, FailDeletedRecipeIngridiants);
+function DeletedRecipeIngridiants() {
+    GlobalAjax("/api/IngridiantForRecp/DeleteById", "DELETE", DELETE_INGRIDIANTS, SuccessDeletedRecipeIngridiants, FailDeletedRecipeIngridiants);
 }
 
 
 function SuccessDeletedRecipeIngridiants() {
     console.log("המצרכים נמחקו מהמתכון בהצלחה!.");
+    //בדיקת התוויות
+    CheckRecipeFoodLable();
 }
 
 function FailDeletedRecipeIngridiants() {
     console.log("שגיאה, המצרכים לא נמחקו מהמתכון.");
 
+}
+
+//*******************************************************************************************
+// CHECK FOOD LABLES FOR RECIPE
+//*******************************************************************************************
+function CheckRecipeFoodLable()
+//בודק את התוויות שצריך לעדכן
+{
+    var new_food_labels = $("#select_food_lable").val();
+    var old_food_lables = RECIPE_FOOD_LABLES;
+    var length_old = old_food_lables.length;
+    var length_new = new_food_labels.length;
+    var length;
+    if (length_new > length_old)
+        length = length_new;
+    else
+        length = length_old;
+    var flag ;
+    //נבדוק איזה תוויות חדשות צריך להויסף ואיזה ישנות
+    for (var i = 0; i < old_food_lables.length; i++) {
+        flag = false;
+        for (var j = 0; j < new_food_labels.length && !flag; j++) {
+            if (new_food_labels[j] == old_food_lables[i].id_food_lable)//אם תוויות מעודכנת
+            { //הסרת התווית המעודכנת המרשימות
+                old_food_lables.splice(i, 1);
+                new_food_labels.splice(j, 1);
+                i = i - 1;
+                j = j - 1;
+                flag = true;
+            }
+        }
+    }
+    DELETE_FOOD_LABELS = old_food_lables;
+    console.log("old food labels:" + old_food_lables);
+    NEW_FOOD_LABELS = new_food_labels;
+    console.log("new food labels:" + new_food_labels);
+   if (new_food_labels.length > 0)
+       AddFoodLableForRecipe();
+    else  if (old_food_lables.length > 0)
+       DeleteFoodLableForRecipe();
+    else
+        CheckRecipeHolidays();
+}
+//*******************************************************************************************
+// ADD FOOD LABLES FOR RECIPE
+//*******************************************************************************************
+function AddFoodLableForRecipe()
+// מוסיף אץ התוויות למתכון
+{
+    var new_foodLable_2_recipe = new Array();
+    for (var i in NEW_FOOD_LABELS) {
+        new_foodLable_2_recipe.push({
+            id_food_lable: NEW_FOOD_LABELS[i],
+            id_recipe: RECIPE_INFORMATION.recp_id
+        });
+    }
+    GlobalAjax("/api/FoodLabelsForRecp/AddNewFoodLable2Recipe", "POST", new_foodLable_2_recipe, SuccessAddFoodLableForRecipe, FailAddFoodLableForRecipe);
+}
+
+function SuccessAddFoodLableForRecipe() {
+    console.log("התוויות נוספו למתכון בהצלחה!.");
+    //הסרת תוויות ישנות
+    if (DELETE_FOOD_LABELS.length > 0)
+        DeleteFoodLableForRecipe();
+    else
+        CheckRecipeHolidays();
+}
+
+    function FailAddFoodLableForRecipe() {
+        console.log("שגיאה, התוויות לא נוספו למתכון.");
+    }
+
+    //*******************************************************************************************
+    // DELETE FOOD LABLES FOR RECIPE
+    //*******************************************************************************************
+    function DeleteFoodLableForRecipe()
+    // מוסיף אץ התוויות למתכון
+    {
+        GlobalAjax("/api/FoodLabelsForRecp/DeleteById", "DELETE", DELETE_FOOD_LABELS, SuccessDeleteFoodLableForRecipe, FailDeleteFoodLableForRecipe);
+    }
+
+    function SuccessDeleteFoodLableForRecipe() {
+        console.log("התוויות נמחקו מהמתכון בהצלחה!.");
+        //חגים למתכון
+        CheckRecipeHolidays();
+    }
+
+function FailDeleteFoodLableForRecipe() {
+    console.log("שגיאה, התוויות לא נמחקו מהמתכון.");
+
+}
+    //*******************************************************************************************
+    // CHECK HOLIDAYS FOR RECIPE
+    //*******************************************************************************************
+function CheckRecipeHolidays() {
+    console.log("בודק חגים");
 }
