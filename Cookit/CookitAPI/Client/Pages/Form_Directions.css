@@ -12,3 +12,7 @@ button.form-directions {
     overflow: hidden;
     outline: none;
 }
+
+.explanation{
+    color:blue;
+}

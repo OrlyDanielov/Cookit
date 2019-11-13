@@ -17,13 +17,12 @@
     <!--java script code  -->
     <script src="Login.js"></script>
     <script src="GlobalAjax.js"></script>
-    <script src="Form_Directions.js"></script>
-    <!--<script src="Menu_Logout.js"></script>
-    <script src="Footer.js"></script>-->
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
     <link rel="stylesheet" type="text/css" href="Form_Directions.css">
     <link href="FormStyle.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <!--תפריט-->
@@ -60,40 +59,33 @@
         </nav>
     </header>
     <!--תוכן הדף-->
-    <main role="main" class="flex-shrink-0">
-        <div class="container bg_brigth">
-            <center>
-                <h4 class="h4 mb-3 font-weight-normal" style="color:darkblue">התחבר לחשבונך</h4>
-                <br />
-                <table>
-                    <tr>
-                        <td>
-                            <input type="email" id="inputEmail" placeholder="כתובת אימייל" required />
-                            <!--<button id="btn_question_email" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
-                            <span id="span_question_email" class="form-directions" style="display:none;">אימייל צריך להיות באנגלית ועם הסימנים @ו .</span>-->
-                        </td>
-                    </tr>
-                    <tr> <td>   </td></tr>
-                    <tr> <td>   </td></tr>
-                    <tr>
-                        <td>
-                            <input type="password" id="inputPassword" placeholder="סיסמה" equired />
-                            <button id="btn_question_password" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
-                            <span id="span_question_password" class="form-directions" style="display:none;">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
-                        </td>
-                    </tr>
-                </table>
-                <div class="checkbox mb-3">
-                    <button type="submit" class="btn btn-primary" onclick="LoginVerification()">התחבר</button>
+    <main role="main" class="flex-shrink-0  container  bg_brigth">
+        <form style="text-align:center;">
+            <fieldset>
+                <legend>התחבר לחשבונך</legend>
+                <div class="form-row" style="display:block;">
+                    <input type="email" id="inputEmail" placeholder="כתובת אימייל" required />
+                    <span id="explanation_email" class="explanation"></span>
+                    <!--<input type="button" id="btn_explanation_email" value="?" onclick="ShowHideExplanation(this.id)" />-->
+                    <i id="btn_explanation_email"  onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
                 </div>
-                <div class="checkbox mb-3">
-                    <span class="psw">שכחת סיסמה? <a href="Reset_Password.html">שחזר סיסמה</a></span>
-                    <br />
-
-                    <span class="psw">עדיין לא רשום? <a href="Registration.html">הרשם</a></span>
+                <div class="form-row" style="display:block;">
+                    <input type="password" id="inputPassword" placeholder="סיסמה" equired />
+                    <span id="explanation_password" class="explanation"></span>
+                    <!--<input type="button" id="btn_explanation_password" value="?" onclick="ShowHideExplanation(this.id)" />-->
+                    <i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
                 </div>
-            </center>
-        </div>
+                <input type="button" value="התחבר" class="btn btn-primary" onclick="LoginVerification()" />
+            </fieldset>
+            <fieldset>
+                <div class="form-row"  style="display:block;">
+                    <span style="text-align:right;">שכחת סיסמה? <a href="Reset_Password.html">שחזר סיסמה</a></span>
+                </div>
+                <div class="form-row"  style="display:block;">
+                    <span style="text-align:right;">עדיין לא רשום? <a href="Registration.html">הרשם</a></span>
+                </div>
+            </fieldset>
+        </form>
     </main>
     <!--תחתית-->
     <!--<footer id="footer"></footer>-->
