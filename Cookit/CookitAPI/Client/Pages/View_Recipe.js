@@ -254,7 +254,6 @@ function SuccessGetRecipeImformation(data) {
     console.log("משיכת נתוני מתכון בוצע בהצלחה!.");
     sessionStorage.setItem("Current_Recipe", JSON.stringify(data));
     RECIPE_INFORMATION = data;//JSON.stringify(data);
-    console.log(RECIPE_INFORMATION.recp_steps);
     sessionStorage.setItem("RECIPE_INFORMATION", RECIPE_INFORMATION);
     // מביא את המצרכים של המתכון
     GetRecipeIgridiants();
@@ -430,7 +429,7 @@ function AddIngridinats(_ing)
 
     var span_ingridiant = document.createElement("span");
     span_ingridiant.innerHTML = _ing.id_mesurment + " " + _ing.id_ingridiants + " " + _ing.amount;
-    span_ingridiant.className = "text2rigth"
+    span_ingridiant.className = "text2rigth";
     new_ingridiant.appendChild(span_ingridiant);
     
     document.getElementById("recipe_ingridiants").appendChild(new_ingridiant);      
