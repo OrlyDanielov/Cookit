@@ -529,18 +529,27 @@ function FailUpdateProfile(data)// פונקציה המתבצעת אחרי כיש
 function AlertSuccsses2User() {
         alert('הפרטים עודכנו בהצלחה!.');
 }
-//*****************************************************************************************//
-function DisplayFormDirection(btn_cliked_id) {
-    // get the id of the mutch span
-    var span_name = "span_question_";
+//*******************************************************************************************
+// SHOW HIDE EXPLANATION
+//*******************************************************************************************
+var EXPLANATION_USER_TYPE = "למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.\n למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים.בנוסף יכול להעלות סדנאות לקהילה באתר.";
+EXPLANATION_USER_TYPE = EXPLANATION_USER_TYPE + "\n למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב.בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר. ";
+var EXPLANATION_EMAIL = "אימייל צריך להיות באנגלית ועם הסימנים @ו .";
+
+function ShowHideExplanation(btn_cliked_id) {
+    var div_name = "explanation_";
     var words = btn_cliked_id.split('_');
-    span_name = span_name.concat(words[1] + "_" + words[2]);    
+    div_name = div_name.concat(words[2]);
+    if (words.length > 3)
+        div_name = div_name.concat("_" + words[3]);
     //display on\off the span
-    var display_state = $("#" + span_name).css('display');
-    if (display_state == 'none')
-        $("#" + span_name).show('slow');
-        //$("#" + span_name).prop('display', "block");
-        //$("#" + span_name).style.display = 'block';
+    var str = document.getElementById(div_name).innerHTML;
+    if (str == "") {
+        if (btn_cliked_id == "btn_explanation_email")//אם מייל
+            document.getElementById(div_name).innerHTML = EXPLANATION_EMAIL;
+        else//סוג משתמש
+            document.getElementById(div_name).innerHTML = EXPLANATION_USER_TYPE;
+    }
     else
-        $("#" + span_name).hide('slow');
+        document.getElementById(div_name).innerHTML = "";
 }

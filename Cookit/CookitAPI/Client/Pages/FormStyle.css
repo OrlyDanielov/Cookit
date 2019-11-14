@@ -19,3 +19,14 @@ input, textarea,select{
 }
 
 
+.explanation {
+    color: blue;
+}
+
+
+.not_valid {
+    border: 2px solid red;
+    background-color: rgba(201,76,76,0.5);
+}
+
+

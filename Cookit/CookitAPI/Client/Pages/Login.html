@@ -19,9 +19,7 @@
     <script src="GlobalAjax.js"></script>
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
-    <link rel="stylesheet" type="text/css" href="Form_Directions.css">
-    <link href="FormStyle.css" rel="stylesheet" />
-
+    <link rel="stylesheet" type="text/css" href="FormStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -33,6 +31,9 @@
         <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
+                    <li>
+                        <a class="nav-link" href="Registration.html">הרשם</a>
+                    </li>
                     <li>
                         <a class="nav-link" href="Login.html">התחבר</a>
                     </li>
@@ -66,13 +67,11 @@
                 <div class="form-row" style="display:block;">
                     <input type="email" id="inputEmail" placeholder="כתובת אימייל" required />
                     <span id="explanation_email" class="explanation"></span>
-                    <!--<input type="button" id="btn_explanation_email" value="?" onclick="ShowHideExplanation(this.id)" />-->
                     <i id="btn_explanation_email"  onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
                 </div>
                 <div class="form-row" style="display:block;">
                     <input type="password" id="inputPassword" placeholder="סיסמה" equired />
                     <span id="explanation_password" class="explanation"></span>
-                    <!--<input type="button" id="btn_explanation_password" value="?" onclick="ShowHideExplanation(this.id)" />-->
                     <i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
                 </div>
                 <input type="button" value="התחבר" class="btn btn-primary" onclick="LoginVerification()" />

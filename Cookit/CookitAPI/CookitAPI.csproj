@@ -320,9 +320,6 @@
     <Content Include="Client\Pages\Footer.html" />
     <Content Include="Client\Pages\Footer.js" />
     <Content Include="Client\Pages\FormStyle.css" />
-    <Content Include="Client\Pages\Form_Directions.css" />
-    <Content Include="Client\Pages\Form_Directions.js" />
-    <Content Include="Client\Pages\Form_Validation.css" />
     <Content Include="Client\Pages\GeneralStyle.css" />
     <Content Include="Client\Pages\GlobalAjax.js" />
     <Content Include="Client\Pages\Home_login.js" />

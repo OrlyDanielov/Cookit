@@ -15,13 +15,10 @@
     <!--java script code  -->
     <script src="GlobalAjax.js"></script>
     <script src="Menu_Login.js"></script>
-    <script src="Footer.js"></script>
     <script src="UserInfo.js"></script>
-    <!--<script src="Form_Directions.js"></script>-->
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
-    <link rel="stylesheet" type="text/css" href="Form_Directions.css">
-    <link rel="stylesheet" type="text/css" href="Form_Validation.css">
+    <link rel="stylesheet" type="text/css" href="FormStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -124,6 +121,8 @@
                     <!-- מייל-->
                     <div class="col-md-6 mb-3">
                         <label for="email">אימייל</label>
+                        <i id="btn_explanation_email" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <div id="explanation_email" class="explanation"></div>
                         <input type="email" id="user_email" class="form-control text2rigth" disabled required>
                     </div>
                     <!--מין-->
@@ -142,19 +141,14 @@
                 <!-- סוג המשתמש-->
                 <div class="col-md-6 mb-3">
                     <label for="user_type">סוג המשתמש</label>
+                    <i id="btn_explanation_user_type" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                    <div id="explanation_user_type" class="explanation"></div>
                     <div class="col-sm-10">
                         <select name="user_type" id="select_user_type" class="custom-select form-control" disabled required onchange="CheckUserType()">
                             <option value="" selected>סוג משתמש</option>
                         </select>
                     </div>
-                    <button id="btn_user_type" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
-                    <!--<div id="div_question_user_type" >-->
-                    <span id="span_question_user_type" class="form-directions" style="display:none">
-                        למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.
-                        למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף יכול להעלות סדנאות לקהילה באתר.
-                        למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר.
-                    </span>
-                    <!--</div>-->
+                    
                 </div>
             </fieldset>
             <hr class="mb-4">
