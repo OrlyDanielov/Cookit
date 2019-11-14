@@ -516,27 +516,34 @@ function Fail_GetUserIdByEmail(data) {
         console.log("שגיאה בהוספת הפרופיל לשרת.");
         alert('שגיאה בהוספת הפרופיל לשרת.');
 }
-//***************************************************************************//
-function DisplayFormDirection(btn_cliked_id) {
-    // get the id of the mutch span
-    var span_name = "div_question";
+
+//*******************************************************************************************
+// SHOW HIDE EXPLANATION
+//*******************************************************************************************
+var EXPLANATION_USER_TYPE = "למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.\n למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים.בנוסף יכול להעלות סדנאות לקהילה באתר.";
+EXPLANATION_USER_TYPE = EXPLANATION_USER_TYPE+"\n למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב.בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר. ";
+var EXPLANATION_EMAIL = "אימייל צריך להיות באנגלית ועם הסימנים @ו .";
+var EXPLANATION_PASSWORD = "הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.";
+
+function ShowHideExplanation(btn_cliked_id) {
+    var div_name = "explanation_";
     var words = btn_cliked_id.split('_');
-    for (var i = 0; i < words.length; i++) {
-        if (i !== 0) {
-            span_name = span_name.concat("_"+words[i]);
-        }
-    }
-    // יש בעיה בהצגה, בכל פעם מרענן את כל הדף ומחק מידע שנרשם
+    div_name = div_name.concat(words[2]);
+    if (words.length > 3)
+        div_name = div_name.concat("_" + words[3]);
     //display on\off the span
-    var display_state = $("#" + span_name).css('display');
-    if (display_state == 'none')
-        //$("#" + span_name).show('slow');
-        $("#" + span_name).style.display = "block";
+    var str = document.getElementById(div_name).innerHTML;
+    if (str == "") {
+        if (btn_cliked_id == "btn_explanation_password")//אם סיסמה
+            document.getElementById(div_name).innerHTML = EXPLANATION_PASSWORD;
+        else if (btn_cliked_id == "btn_explanation_email")//אם סיסמה
+            document.getElementById(div_name).innerHTML = EXPLANATION_EMAIL;
+        else//סוג משתמש
+            document.getElementById(div_name).innerHTML = EXPLANATION_USER_TYPE;
+    }
     else
-        //$("#" + span_name).hide('slow');    
-        $("#" + span_name).style.display = "none";
-    //$("#" + span_name).reload; // טעינת הדף מחדש
-    
+        document.getElementById(div_name).innerHTML = "";
 }
+
 
 

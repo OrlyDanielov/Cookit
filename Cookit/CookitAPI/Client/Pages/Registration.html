@@ -15,7 +15,7 @@
     <!--java script code  -->
     <script src="Registration.js"></script>
     <script src="GlobalAjax.js"></script>
-    <script src="Form_Directions.js"></script>
+    <!--<script src="Form_Directions.js"></script>-->
     <!--<script src="Form_Directions.js"></script>-->
     <!--<script src="Menu_Logout.js"></script>-->
     <!--<script src="Footer.js"></script>-->
@@ -24,6 +24,8 @@
     <link rel="stylesheet" type="text/css" href="FormStyle.css" />
     <link rel="stylesheet" type="text/css" href="Form_Directions.css" />
     <link rel="stylesheet" type="text/css" href="Form_Validation.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
     <!--תפריט-->   
@@ -81,11 +83,14 @@
                 </div>
                 <!-- אימייל -->
                 <div class="mb-3">
-                    <label for="address">אימייל</label>
-                    <input type="email" class="form-control" id="email" >
+                    <label for="address">אימייל</label>            
+                    <i id="btn_explanation_email" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                    <div id="explanation_email" class="explanation"></div>
+                    <input type="email" class="form-control" id="email">
                     <div class="invalid-feedback">
                         אנא  הכנס אימייל תקין.
                     </div>
+
                 </div>
                 <!-- מין -->
                 <label for="div_gender">מין</label>
@@ -102,9 +107,10 @@
                 <!-- סיסמה -->
                 <div class="mb-3">
                     <label for="address">סיסמה</label>
-                    <input type="password" class="form-control" id="password"><!--required pattern="(?=.*\d)(?=.*[a-z]|.*[A-Z])\w.{6,12}" title="נדרש לסיסמה 6 עד 12 אותיות, מספרים או סימנים."-->
-                    <button id="btn_question_password" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
-                    <span id="span_question_password" class="form-directions" style="display:none;">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
+                    <i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                    <div id="explanation_password" class="explanation"></div>
+                    <input type="password" class="form-control" id="password">
+
                 </div>
                 <!-- אימות סיסמה -->
                 <div class="mb-3">
@@ -113,20 +119,15 @@
                 </div>
                 <!-- סוג משתמש (אנין טעם \ חובב \ עסקי)) -->
                 <div class="mb-3">
-                    <button id="btn_user_type" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
-                    <div id="div_question_user_type" style="display:none">
-                        <span id="span_question_user_type" class="form-directions">
-                            למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.
-                            למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף יכול להעלות סדנאות לקהילה באתר.
-                            למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר.
-                        </span>
-                    </div>
                     <label for="div_user_type">סוג משתמש</label>
+                    <i id="btn_explanation_user_type" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                    <div id="explanation_user_type" class="explanation"></div>
                     <div class="col-sm-10">
                         <select id="select_user_type" class="custom-select form-control" onchange="IsProfile()">
-                            <option value="" selected >סוג משתמש</option>
+                            <option value="" selected>סוג משתמש</option>
                         </select>
                     </div>
+
                 </div>
             </fieldset>
             <hr class="mb-4">
