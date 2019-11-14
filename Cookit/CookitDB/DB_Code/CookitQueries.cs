@@ -57,6 +57,23 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
+
+        #region GetAllRegion
+        // הפוקנציה מביאה מהמסד את כל הערים
+        public static List<TBL_Region> GetAllRegion()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Region.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         /*
         #region Get All City_Regions
         // הפוקנציה מביאה מחוזות
@@ -431,18 +448,18 @@ namespace CookitDB.DB_Code
 
         #region Add New User
         //פונקציה של הוספת משתמש חדש לטבלת המשתמשים
-        public static bool AddNewUser(TBL_User new_user)
+        public static int AddNewUser(TBL_User new_user)
         {
             try
             {
                 var db = Get_DB();
                 db.Entry(new_user).State = System.Data.Entity.EntityState.Added; // הוספת משתמש חדש
                 db.SaveChanges();
-                return true;
+                return new_user.Id_User; ;
             }
             catch (Exception)
             {
-                return false;
+                return -1;
             }
         }
         #endregion
@@ -621,7 +638,8 @@ namespace CookitDB.DB_Code
                     p.ProfType = newProfile.ProfType;
                     p.Name_Prof = newProfile.Name_Prof;
                     p.ProfDescription = newProfile.ProfDescription;
-                    p.CityName = newProfile.CityName;
+                    p.Id_City = newProfile.Id_City;
+                    p.Id_Region = newProfile.Id_Region;
                     p.ProfStatus = newProfile.ProfStatus;
 
                     db.SaveChanges();

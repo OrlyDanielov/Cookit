@@ -135,9 +135,9 @@ namespace Cookit.Controllers
                    NumDrawRecp = newUser.number_of_draw_recipe
 
                 };
-                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewUser(u);
-                if (is_saved == true)
-                    return Request.CreateResponse(HttpStatusCode.OK, "the user added Successfully.");
+                var user_id = CookitDB.DB_Code.CookitQueries.AddNewUser(u);
+                if (user_id != -1)
+                    return Request.CreateResponse(HttpStatusCode.OK, user_id);
                 else
                     return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the user.");
 

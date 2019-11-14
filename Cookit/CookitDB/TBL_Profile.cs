@@ -27,8 +27,9 @@ namespace CookitDB
         public string ProfType { get; set; }
         public string Name_Prof { get; set; }
         public string ProfDescription { get; set; }
-        public string CityName { get; set; }
         public bool ProfStatus { get; set; }
+        public int Id_City { get; set; }
+        public int Id_Region { get; set; }
     
         public virtual TBL_City TBL_City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -37,6 +38,7 @@ namespace CookitDB
         public virtual ICollection<TBL_Followers> TBL_Followers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_Workshop> TBL_Workshop { get; set; }
+        public virtual TBL_Region TBL_Region { get; set; }
         public virtual TBL_User TBL_User { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace CookitDB
         public int Id_Prof { get; set; }
         public bool StatusFollower { get; set; }
     
-        public virtual TBL_Profile TBL_Profile { get; set; }
         public virtual TBL_User TBL_User { get; set; }
+        public virtual TBL_Profile TBL_Profile { get; set; }
     }
 }

@@ -12,7 +12,8 @@ namespace CookitAPI.DTO
         public string type;
         public string name;
         public string description;
-        public string city;
+        public int id_city;
+        public int id_region;
         public bool status;
     }
 }
