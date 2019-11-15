@@ -1,68 +1,108 @@
-﻿var userInfo = JSON.parse(sessionStorage.getItem("Login_User"));
-var profileInfo = JSON.parse(sessionStorage.getItem("Login_Profile"));
-var arry_userType = JSON.parse(sessionStorage.getItem("arry_userType"));//= JSON.parse(sessionStorage.getItem("arry_userType")); 
+﻿//*******************************************************************************************
+// GLOBAL VARIABLE
+//*******************************************************************************************
+var ARRY_USER_TYPE = JSON.parse(sessionStorage.getItem("ARRY_USER_TYPE"));// var arry_userType = JSON.parse(sessionStorage.getItem("arry_userType"));//= JSON.parse(sessionStorage.getItem("arry_userType")); 
+var ARRY_REGION = JSON.parse(sessionStorage.getItem("ARRY_CITY"));
+var ARRY_CITY = JSON.parse(sessionStorage.getItem("ARRY_REGION"));
 
-var isProfile;
-if (userInfo.type == 2 || userInfo.type == 3)
-    isProfile = true;
+var USER_INFORMATION = JSON.parse(sessionStorage.getItem("Login_User"));
+var PROFILE_INFORMATION = JSON.parse(sessionStorage.getItem("Login_Profile"));
+
+var IS_PROFILE = false;
+if (USER_INFORMATION.user_type == 2 || USER_INFORMATION.user_type == 3)
+    IS_PROFILE = true;
 else
-    isProfile = false;
+    IS_PROFILE = false;
 var old_user_type;
 
-var user_validation = {
+var USER_VALIDATION = {
     first_name: false,
     last_name: false,
     email: false,
-    type: false
+    user_type: false
 };
-
-var profile_validation = {
+var PROFILE_VALIDATION = {
     name: false,
     description: false,
-    city: false
+    city: false,
+    region: false
 };
 
-var cityArray = null;
-//*****************************************************************************************//
+//*******************************************************************************************
+// UPLOAD PAGE
+//*******************************************************************************************
 $(document).ready(function ()
 //בטעינת הדף
 {
-    initUserType();
+    EnterUserType();
     ViewUserInfo();
-    if (userInfo.user_type != 4 && userInfo.user_type != 1) {
-        isProfile = true;
-        GetCity();
+    if (IS_PROFILE) {
         document.getElementById("profile_view").style.display = "block";
         document.getElementById("profile_view").reload;
-        ViewProfileInfo();
+        GetCity();
+       //get cities play get region and view profile information
     }
 });
-//*****************************************************************************************//
-function initUserType()
-//הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
+//*******************************************************************************************
+// View Select One Opt Information
+//*******************************************************************************************
+
+function ViewSelectOneOptInformation(list_id, selected_value)
+// מחפש את הערך המבוקש ברשימה והופך אותו לנחבר ע"מ שיראו אותו
 {
-    var arry_userType = JSON.parse(sessionStorage.getItem("arry_userType"));
-    for (var i in arry_userType) {
-        if (arry_userType[i].user_type !== "מנהל")
-            $("#select_user_type").append(AddOption_UserType(arry_userType[i]));
+    var slct_list = document.getElementById(list_id);
+    var opt;
+    for (var i = 0; i < slct_list.options.length; i++) {
+        opt = slct_list.options[i];
+        if (opt.value == selected_value)
+            opt.selected = true;
     }
 }
 
-function AddOption_UserType(item)
+//*******************************************************************************************
+// INIT DATA INTO DROP DOWN LIST
+//*******************************************************************************************
+//הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
+function EnterData2DDList(arry, ddList) {
+    for (i in arry) {
+        $("#" + ddList).append(AddOption(arry[i]));
+    }
+}
+
 //הפונקציה מוסיפה אופציה לרשימה הנגללת
-{
-    return '<option value="' + item.id + '">' + item.user_type + '</option>';
-}   
-//*****************************************************************************************//
+function AddOption(item) {
+    var values = Object.values(item);//Object.keys(item);
+    var x = values[0];
+    var y = values[1];
+    return '<option value="' + x + '">' + y + '</option>';
+}
 
+//*******************************************************************************************
+// Enter User Type
+//*******************************************************************************************
 
+function EnterUserType() {
+    var arr = ARRY_USER_TYPE;
+    if (USER_INFORMATION.user_type != 4) { //אם לא מנהל
+        for (var i = 0; i < ARRY_USER_TYPE.length; i++) {
+            if (arr[i].id == 4)//מנהל
+                arr.splice(i, 1);
+        }
+    }
+    EnterData2DDList(arr, "select_user_type");
+}
+
+//*******************************************************************************************
+// Check User Type
+//*******************************************************************************************
 function CheckUserType() {
-    var ols_user_type = userInfo.user_type;
+    var ols_user_type = USER_INFORMATION.user_type;
     var new_user_type = $('#select_user_type').find(":selected").val();
     //אם יש פרופיל
     if (new_user_type == 2 || new_user_type == 3) {
-        isProfile = true;
+        IS_PROFILE = true;
         GetCity();
+        GetRegions();
         document.getElementById("profile_view").style.display = "block";
         document.getElementById("profile_view").reload;
         Edit_Profile_info();
@@ -70,47 +110,68 @@ function CheckUserType() {
             ViewProfileInfo();        
     }
     else {
-        isProfile = false;
+        IS_PROFILE = false;
         document.getElementById("profile_view").style.display = "none";
         document.getElementById("profile_view").reload;
     }   
 }
-//*****************************************************************************************//
+//*******************************************************************************************
+// GET CITY
+//*******************************************************************************************
 function GetCity() {
-    if (cityArray == null)
+    if (ARRY_CITY == null)
         GlobalAjax("/api/City/GetAllCities", "GET", "", SuccessCity, FailCity);
+    else
+        EnterData2DDList(ARRY_CITY, "profile_city");
 }
 
 function SuccessCity(arry_city) {
-    cityArray = arry_city; 
-    initCities(arry_city);
+    ARRY_CITY = arry_city;
+    sessionStorage.setItem("ARRY_CITY", JSON.stringify(ARRY_CITY));
+    document.getElementById("profile_city").length = 0;//מסיר את כל האיברים הקודמים
+    EnterData2DDList(ARRY_CITY, "profile_city");
+    GetRegions();
 }
 
 function FailCity() {
     console.log("שגיאה במשיכת נתוני הערים מהשרת.");
     alert('שגיאה במשיכת נתוני הערים מהשרת.');
 }
-//הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
-function initCities(data) {
-    var str;
-    for (i in data) {
-        $("#profile_city").append(AddOption_city(data[i]));
+
+//*******************************************************************************************
+// GET REGION
+//*******************************************************************************************
+function GetRegions() {
+    if (JSON.parse(sessionStorage.getItem('ARRY_REGION')) == null) {
+        GlobalAjax("/api/Region/GetAllRegion", "GET", "", SuccessGetRegion, FailGetRegion);
     }
+    else
+        EnterData2DDList(ARRY_REGION, "profile_region");
 }
 
-//הפונקציה מוסיפה אופציה לרשימה הנגללת
-function AddOption_city(item) {
-    return '<option value="' + item.city_name + '">' + item.city_name + '</option>';
-}
-//*****************************************************************************************//
+function SuccessGetRegion(arry_region) {
+    ARRY_REGION = arry_region;
+    sessionStorage.setItem("ARRY_REGION", JSON.stringify(ARRY_REGION));
+    document.getElementById("profile_region").length = 0;//מסיר את כל האיברים הקודמים
+    EnterData2DDList(ARRY_REGION, "profile_region");
+    ViewProfileInfo();
 
+}
+
+function FailGetRegion() {
+    console.log("שגיאה במשיכת נתוני מחוזות מהשרת.");
+    alert('שגיאה במשיכת נתוני מחוזות מהשרת.');
+}
+//*******************************************************************************************
+// VIEW USER INFORMATION
+//*******************************************************************************************
 function ViewUserInfo()
 //הצגת פרטים אישיים
 {
-    $("#user_first_name").val(userInfo.first_name);
-    $("#user_last_name").val(userInfo.last_name);
-    $("#user_email").val(userInfo.email);
-    if (userInfo.gender === "F") {
+    $("#user_first_name").val(USER_INFORMATION.first_name);
+    $("#user_last_name").val(USER_INFORMATION.last_name);
+    $("#user_email").val(USER_INFORMATION.email);
+    if (USER_INFORMATION.gender === "F") {
         $("#female").prop('checked', true);
         $("#male").prop('checked', false); 
     }
@@ -118,28 +179,28 @@ function ViewUserInfo()
         $("#female").prop('checked', false);
         $("#male").prop('checked', true);         
     }
-    //$("#user_type").val(userInfo.user_type);
-    $('#select_user_type[value="' + userInfo.user_type + '"]').attr('selected', true);
-    //$('#select_user_type[value="' + userInfo.user_type + '"]').prop('selected', true);
-
+    ViewSelectOneOptInformation("select_user_type", USER_INFORMATION.user_type);
 }
-
+//*******************************************************************************************
+// VIEW PROFILE INFORMATION
+//*******************************************************************************************
 function ViewProfileInfo()
 //הצגת פרטי פרופיל
 {
-    $("#profile_name").val(profileInfo.name);
-    $("#profile_description").val(profileInfo.description);
-    //$('#profile_city[value="' + profileInfo.city + '"]').prop('selected', true); 
-    //$("#profile_city option[value=" + profileInfo.city+"]").attr('selected', 'selected'); 
-    document.getElementById("profile_city").selectedValue = profileInfo.city;
+    $("#profile_name").val(PROFILE_INFORMATION.name);
+    $("#profile_description").val(PROFILE_INFORMATION.description);
+    ViewSelectOneOptInformation("profile_city", PROFILE_INFORMATION.id_city);
+    ViewSelectOneOptInformation("profile_region", PROFILE_INFORMATION.id_region);
 }
-//*****************************************************************************************//
+//*******************************************************************************************
+// EDIT
+//*******************************************************************************************
 function Edit()
 //עריכת פרטים אישיים
 {
     //מאפשר את הקלטים לצורך עריכה
     Edit_User_info();
-    if (isProfile)
+    if (IS_PROFILE)
         Edit_Profile_info();
   //משנה את כפתור העריכה לשמירה עבור השינויים
     $("#btnSave").prop('disabled', false);
@@ -159,6 +220,8 @@ function Edit_Profile_info() {
     $("#profile_name").prop('disabled', false);
     $("#profile_description").prop('disabled', false);
     $("#profile_city").prop('disabled', false);
+    $("#profile_region").prop('disabled', false);
+
 }
 //*****************************************************************************************//
 
@@ -175,171 +238,235 @@ function Check_valid_Email() {
     }
     return true;   
 }
-
+//*******************************************************************************************
+// CHECK IS EMAIL FREE
+//*******************************************************************************************
 function Check_EmailFree() {
     var new_email = $("#user_email").val();
-    var old_email = userInfo.email;
+    var old_email = USER_INFORMATION.email;
     if (new_email != old_email)
         GlobalAjax("/api/User/" + new_email + "/CheckMailAvailable", "GET", "", Success_CheckMailFree, Fail_CheckMailFree);
     else
-        Success_CheckMailFree();
+        Success_CheckMailFree(true);
 }
 
-function Success_CheckMailFree() {
+function Success_CheckMailFree(data) {
+    /*
     user_validation.email = true;
     console.log("the email " + $("#user_email").val() + " is free");
     
     SaveChanges();
+    */
+    if (data)//אם חופשי
+    {
+        console.log("the email " + $("#email").val() + " is free");
+        USER_VALIDATION.email = true;
+        if ($("#email").hasClass("not_valid"))
+            $("#email").removeClass("not_valid");
+        SaveChanges();
+    }
+    else {
+        USER_VALIDATION.email = false;
+        $("#email").addClass(" not_valid");
+        console.log("the email " + $("#email").val() + " is not free");
+        alert("כתובת אימייל זו כבר שייכת למשתמש אחר, אנא הכנס אימייל אחר.");
+    }
 }
 
 function Fail_CheckMailFree() {
+    /*
     user_validation.email = false;
     console.log("the email " + $("#user_email").val() + " is not free");
     alert("כתובת אימייל זו כבר שייכת למשתמש אחר, אנא הכנס אימייל אחר.");
+    */
+    user_validation.email = false;
+    console.log("ישנה תקלה בשרת, אנא נסה להרשם המועד אחר!.");
+    Console.log(data);
+    alert("ישנה תקלה בשרת, אנא נסה להרשם המועד אחר!.");
 } 
-//*****************************************************************************************//
-
-function Check_ifEmpty()
-// הפונקציה בודקת האם השדות לא ריקים
-{
-    var new_user_info = {
-        first_name: $("#user_first_name").val(),
-        last_name: $("#user_last_name").val(),
-        email: $("#user_email").val(),
-        type: $('#select_user_type').find(":selected").val()
-    };
-    var flag =true;
-    for (var i in new_user_info) {
-        if (new_user_info[i] == "") {
-            user_validation[i] = false;
-            console.log(i + " is missing.");            
-            flag = false;
-        }
-        else {
-            user_validation[i] = true;
-        }
-    }
-    if (isProfile) {
-        var new_profile_info = {
-            name: $("#profile_name").val(),
-            description: $("#profile_description").val(),
-            city: $('#profile_city').find(":selected").val()
-        };
-        for (var i in new_profile_info) {
-            if (new_profile_info[i] == "") {
-                profile_validation[i] = false;
-                console.log(i + " is missing.");
-                flag = false;
-            }
-            else {
-                profile_validation[i] = true;
-            }
-        }
-    }
-    return flag;
-}
-//*****************************************************************************************//
-
-function Check_Length()
-//הפונקציה בודקת האם השדות באורך בנכון
-{
-    var new_user_info = {
-        first_name: $("#user_first_name").val(),
-        last_name: $("#user_last_name").val(),
-        email: $("#user_email").val(),
-        //type: $('#select_user_type').find(":selected").val()
-    };
-    var new_profile_info = {
-        name: $("#profile_name").val(),
-        desc: $("#profile_description").val(),
-        //city: profileInfo.city = $('#profile_city').find(":selected").val()
-    };
-    var flag = true;
-    //פרטים אישיים
-//שם פרטי
-    if (new_user_info.first_name.length >= 2 && new_user_info.first_name.length <= 20)
-        user_validation.first_name = true;
-    else {
-        user_validation.first_name = false;
-        alert("שם פרטי ושם משפחה חייבים להיות באורך של לפחות 2 תווים");
-        flag = false;
-    }
-    //שם משפחה
-    if (new_user_info.last_name.length >= 2 && new_user_info.last_name.length <= 30)
-        user_validation.last_name = true;
-    else {
-        user_validation.last_name = false;
-        alert("שם פרטי ושם משפחה חייבים להיות באורך של לפחות 2 תווים");
-        flag = false;
-    }
-    //אימייל
-    if (new_user_info.email.length >= 2 && new_user_info.email.length <= 30)
-        user_validation.email = true;
-    else {
-        user_validation.email = false;
-        alert("שם פרטי, שם משפחה ואימייל חייבים להיות באורך של לפחות 2 תווים");
-        flag = false;
-    }
-    //פרטי פרופיל
-    if (isProfile) {
-        if (new_profile_info.name.length > 30) {
-            profile_validation.name = false;
-            flag = false;
-        }
-        else
-            profile_validation.name = true;
-
-        if (new_profile_info.desc > 250) {
-            profile_validation.description = false;
-            flag = false;
-        }
-        else
-            profile_validation.description = true;
-    }
-    return flag;
-}
-//*****************************************************************************************//
-
+//*******************************************************************************************
+// CHANGE STYLE BY VALIDATION
+//*******************************************************************************************
 function Change_style_by_validation()
 //הפונקציה בודקת איזה פריט לא תקין ומסמנת אותו
 {
-    var user_inputs =
-    {
+    var flag = true;
+    var user_inputs = {
         first_name: $("#user_first_name"),
         last_name: $("#user_last_name"),
         email: $("#user_email"),
-        type: $("#user_type")
+        user_type: $("#select_user_type")
     };
-    
-    for (var i in user_validation)
-    {
-        if (user_validation[i] == false)
+
+    for (var i in USER_VALIDATION) {
+        if (USER_VALIDATION[i] == false) {
             user_inputs[i].addClass(" not_valid");
-        else
-        {
+            flag = false;
+        }
+        else {
             if (user_inputs[i].hasClass("not_valid"))
                 user_inputs[i].removeClass("not_valid");
         }
     }
-    if (isProfile) {
+    if (IS_PROFILE) {
         var profile_inputs = {
-        name: $("#profile_name"),
-        description: $("#profile_description"),
-        city: $("#profile_city")
-    };
-        for (var i in profile_validation) {
-            if (profile_validation[i] == false)
+            name: $("#profile_name"),
+            description: $("#profile_description"),
+            city: $("#profile_city"),
+            region: $("#profile_region")
+        };
+        for (var i in PROFILE_VALIDATION) {
+            if (PROFILE_VALIDATION[i] == false) {
                 profile_inputs[i].addClass(" not_valid");
+                flag = false;
+            }
             else {
                 if (profile_inputs[i].hasClass("not_valid"))
                     profile_inputs[i].removeClass("not_valid");
             }
         }
     }
+    return flag;
 }
-//*****************************************************************************************//
+//*******************************************************************************************
+// CHECK USER INPUTS
+//*******************************************************************************************
+function CheckUserInputs()
+//בודק את הרשומות של המשתמש
+{
+    var user_inputs = {
+        first_name: $("#user_first_name").val(),
+        last_name: $("#user_last_name").val(),
+        email: $("#user_email").val(),
+        user_type: $('#select_user_type').find(":selected").val()
+    };
+    var user_feedback = {
+        first_name: document.getElementById("feedback_first_name"),
+        last_name: document.getElementById("feedback_last_name"),
+        email: document.getElementById("feedback_email"),
+        user_type: document.getElementById("feedback_user_type")
+    };
 
-function Check_validation()
+    // first_name
+    if (user_inputs.first_name == "") {
+        USER_VALIDATION.first_name = false;
+        user_feedback.first_name.innerHTML = "אנא הכנס שם פרטי!";
+    }
+    else if (!(user_inputs.first_name.length >= 2 && user_inputs.first_name.length <= 20)) {
+        USER_VALIDATION.first_name = false;
+        user_feedback.first_name.innerHTML = "אנא הכנס שם פרטי באורך 2 עד 20 תווים!";
+    }
+    else {
+        USER_VALIDATION.first_name = true;
+        user_feedback.first_name.innerHTML = "";
+    }
+    // last_name
+    if (user_inputs.last_name == "") {
+        USER_VALIDATION.last_name = false;
+        user_feedback.last_name.innerHTML = "אנא הכנס שם משפחה!";
+    }
+    else if (!(user_inputs.last_name.length >= 2 && user_inputs.last_name.length <= 30)) {
+        USER_VALIDATION.last_name = false;
+        user_feedback.last_name.innerHTML = "אנא הכנס שם משפחה באורך 2 עד 30 תווים!";
+    }
+    else {
+        USER_VALIDATION.last_name = true;
+        user_feedback.last_name.innerHTML = "";
+    }
+    // email
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (user_inputs.email == "") {
+        USER_VALIDATION.email = false;
+        user_feedback.email.innerHTML = "אנא הכנס אימייל!";
+    }
+    else if (!(user_inputs.email.length <= 50)) {
+        USER_VALIDATION.email = false;
+        user_feedback.email.innerHTML = "אנא הכנס אמייל באורך עד 50 תווים!";
+    }
+    else if (re.test(String(user_inputs.email).toLowerCase()) == false) {
+        USER_VALIDATION.email = false;
+        user_feedback.email.innerHTML = "אנא הכנס אימייל תקין!.";
+    }
+    else {
+        USER_VALIDATION.email = true;
+        user_feedback.email.innerHTML = "";
+    }   
+    // user_type
+    if (user_inputs.user_type == "") {
+        USER_VALIDATION.user_type = false;
+        user_feedback.user_type.innerHTML = "אנא בחר סוג משתמש!";
+    }
+    else {
+        USER_VALIDATION.user_type = true;
+        user_feedback.user_type.innerHTML = "";
+    }
+}
+
+//*******************************************************************************************
+// CHECK PROFILE INPUTS
+//*******************************************************************************************
+function CheckProfileInputs() {
+    var profile_inputs = {
+        name: $("#profile_name").val(),
+        description: $("#profile_description").val(),
+        city: $('#profile_city').find(":selected").val(),
+        region: $('#profile_region').find(":selected").val()
+    };
+    var profile_feedback = {
+        name: document.getElementById("feedback_profile_name"),
+        description: document.getElementById("feedback_profile_description"),
+        city: document.getElementById("feedback_profile_city"),
+        region: document.getElementById("feedback_profile_region")
+    };
+    // name
+    if (profile_inputs.name == "") {
+        PROFILE_VALIDATION.name = false;
+        profile_feedback.name.innerHTML = "אנא הכנס שם פרופיל!";
+    }
+    else if (!(profile_inputs.name.length >= 2 && profile_inputs.name.length <= 30)) {
+        PROFILE_VALIDATION.name = false;
+        profile_feedback.name.innerHTML = "אנא הכנס שם פרופיל באורך 2 עד 30 תווים!";
+    }
+    else {
+        PROFILE_VALIDATION.name = true;
+        profile_feedback.name.innerHTML = "";
+    }
+    // description
+    if (profile_inputs.description == "") {
+        PROFILE_VALIDATION.description = false;
+        profile_feedback.description.innerHTML = "אנא הכנס תיאור פרופיל!";
+    }
+    else if (!(profile_inputs.description.length >= 2 && profile_inputs.description.length <= 250)) {
+        PROFILE_VALIDATION.description = false;
+        profile_feedback.description.innerHTML = "אנא הכנס שם פרופיל באורך 2 עד 250 תווים!";
+    }
+    else {
+        PROFILE_VALIDATION.description = true;
+        profile_feedback.description.innerHTML = "";
+    }
+    // city
+    if (profile_inputs.city == "") {
+        PROFILE_VALIDATION.city = false;
+        profile_feedback.city.innerHTML = "אנא בחר עיר!";
+    }
+    else {
+        PROFILE_VALIDATION.city = true;
+        profile_feedback.city.innerHTML = "";
+    }
+    // region
+    if (profile_inputs.region == "") {
+        PROFILE_VALIDATION.region = false;
+        profile_feedback.region.innerHTML = "אנא בחר מחוז!";
+    }
+    else {
+        PROFILE_VALIDATION.region = true;
+        profile_feedback.region.innerHTML = "";
+    }
+}
+//*******************************************************************************************
+// CHECK FORM VALIDATION
+//*******************************************************************************************
+/*function Check_validation()
 //הפונקציה בודקת את התקינות של שדות הטופס
 {
         //בודק האם ריק
@@ -354,15 +481,32 @@ function Check_validation()
     }
     Change_style_by_validation();
 }
-//*****************************************************************************************//
+*/
+function Check_validation() // הפונקציה בודקת הנתוני הטופס תקינים
+{
+    CheckUserInputs();
+    if (IS_PROFILE)
+        CheckProfileInputs();
+    if (Change_style_by_validation()) {
+        Check_EmailFree();
+    }
+    else
+        alert("אנא תקן את המקומות המסומנים!.");
+}
+//*******************************************************************************************
+// BLOCK PROFILE INFORMATION FOR EDUT BUTTON FUNCTION
+//*******************************************************************************************
 function Block_Profile_btn()
 //לא מאפשר את לעריכה את פרטי פרופיל
 {
     $("#profile_name").prop('disabled', true);
     $("#profile_description").prop('disabled', true);
     $("#profile_city").prop('disabled', true);
+    $("#profile_region").prop('disabled', true);
 }
-
+//*******************************************************************************************
+// BLOCK USER INFORMATION FOR EDUT BUTTON FUNCTION
+//*******************************************************************************************
 function Block_User_btn()
 //לא מאפשר את לעריכה את פרטי משתמש
 {
@@ -373,25 +517,60 @@ function Block_User_btn()
     $("#female").prop('disabled', true);
     $("#male").prop('disabled', true);
 }
+//*******************************************************************************************
+// UPDATE USER INFORMATION
+//*******************************************************************************************
 function Save_User() {
     //שמירת הפרטים המעודכנים בsesstion storage
-    userInfo.first_name = $("#user_first_name").val();
-    userInfo.last_name = $("#user_last_name").val();
-    userInfo.email = $("#user_email").val();
-    userInfo.gender = $("input[name='gender']:checked").val();
-    userInfo.user_type = $('#select_user_type').find(":selected").val();
+    USER_INFORMATION.first_name = $("#user_first_name").val();
+    USER_INFORMATION.last_name = $("#user_last_name").val();
+    USER_INFORMATION.email = $("#user_email").val();
+    USER_INFORMATION.gender = $("input[name='gender']:checked").val();
+    USER_INFORMATION.user_type = $('#select_user_type').find(":selected").val();
 
-    sessionStorage.setItem("Login_User", JSON.stringify(userInfo));
+    sessionStorage.setItem("Login_User", JSON.stringify(USER_INFORMATION));
 
     //עדכון פרטים אישיים בשרת
-    GlobalAjax("/api/User/UpdateUserInfo", "PUT", userInfo, SuccessUpdateUser, FailUpdateUser);
+    GlobalAjax("/api/User/UpdateUserInfo", "PUT", USER_INFORMATION, SuccessUpdateUser, FailUpdateUser);
 }
 
+
+function SuccessUpdateUser() // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
+{
+    console.log('הפרטים האישיים עודכני בהצלחה!.');
+
+    var new_user_type = $('#select_user_type').find(":selected").val();
+    //עבור הסרת פרופיל- מעדכנים סטאטוס ללא פעיל
+    if ((old_user_type == 2 || old_user_type == 3) && new_user_type == 1)
+        UpdateProfileStatus();
+    //מקרה של הוספת פרופיל
+    else if (old_user_type == 1 && (new_user_type == 2 || new_user_type == 3)) {
+        var user_id = USER_INFORMATION.id;
+        //אם קיים למתשמש פרופיל לא פעיל
+        //צריך לבדוק אם קיים פרופיל לא פעיל של משתמש זה ולעדכן אותו אחרת הוספה
+        GlobalAjax("/api/Profile/CheckProfileExsistByUserId/" + user_id, "GET", "", UpdateUnactiveProfile, AddNewProfile);
+    }
+    //עדכון פרופיל
+    else if ((old_user_type == 2 || old_user_type == 3) && (new_user_type == 2 || new_user_type == 3))
+        Update_profile();
+    else
+        AlertSuccsses2User();
+}
+
+function FailUpdateUser(data)// פונקציה המתבצעת אחרי כישלון הוספה  של משתמש
+{
+    console.log("שגיאה בעדכון פרטים אישיים.");
+    console.log(data);
+    alert('שגיאה בעדכון פרטים אישיים.');
+}
+//*******************************************************************************************
+// UPDATE PROFILE INFORMATION
+//*******************************************************************************************
 function Save_Profile() {
     var new_user_type = $('#select_user_type').find(":selected").val();
     //מקרה של הוספת פרופיל
     if (old_user_type == 1 && (new_user_type == 2 || new_user_type == 3)) {
-        var user_id = userInfo.user_id;
+        var user_id = USER_INFORMATION.user_id;
         //אם קיים למתשמש פרופיל לא פעיל
         //צריך לבדוק אם קיים פרופיל לא פעיל של משתמש זה ולעדכן אותו אחרת הוספה
         GlobalAjax("api/Profile/" + user_id+"/CheckProfileExsistByUserId", "GET", "", UpdateUnactiveProfile, AddNewProfile);
@@ -405,9 +584,9 @@ function Save_Profile() {
 }
 
 function UpdateProfileStatus() {//הסרת פרופיל - כלומר עדכון הסטאטוס ללא פעיל
-    profileInfo.status = 0;
+    PROFILE_INFORMATION.status = 0;
     sessionStorage.removeItem("Login_Profile");
-    GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", profileInfo, SuccessUpdateProfile, FailUpdateProfile);
+    GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", PROFILE_INFORMATION, SuccessUpdateProfile, FailUpdateProfile);
 }
 
 function AddNewProfile() {//הוספת פרופיל חדש לחלוטין
@@ -418,11 +597,12 @@ function AddNewProfile() {//הוספת פרופיל חדש לחלוטין
     else
         type = "B";
     var new_profile = {
-        user_id: userInfo.id,
+        user_id: USER_INFORMATION.id,
         type: type,
         name: $("#profile_name").val(),
         description: $("#profile_description").val(),
-        city: $('#profile_city').find(":selected").val(),
+        id_city: $('#profile_city').find(":selected").val(),
+        id_region: $('#profile_region').find(":selected").val(),
         status: true
     };
     sessionStorage.setItem("Login_Profile", JSON.stringify(new_profile));
@@ -443,7 +623,8 @@ function UpdateUnactiveProfile(profile) {//עדכון פרופיל לא פעי �
         type: type,
         name: $("#profile_name").val(),
         description: $("#profile_description").val(),
-        city: $('#profile_city').find(":selected").val(),
+        id_city: $('#profile_city').find(":selected").val(),
+        id_region: $('#profile_region').find(":selected").val(),
         status: true
     };
 
@@ -455,67 +636,22 @@ function UpdateUnactiveProfile(profile) {//עדכון פרופיל לא פעי �
 function Update_profile() {//עדכון פרופיל לפי נתוני האתר
     var new_user_type = $('#select_user_type').find(":selected").val();
         if (new_user_type == 2)
-        profileInfo.type = "F";
+            PROFILE_INFORMATION.type = "F";
     else
-        profileInfo.type = "B";
-    profileInfo.name = $("#profile_name").val();
-    profileInfo.description = $("#profile_description").val();
-    profileInfo.city = $('#profile_city').find(":selected").val();
+            PROFILE_INFORMATION.type = "B";
+    PROFILE_INFORMATION.name = $("#profile_name").val();
+    PROFILE_INFORMATION.description = $("#profile_description").val();
+    PROFILE_INFORMATION.id_city = $('#profile_city').find(":selected").val();
+    PROFILE_INFORMATION.id_region = $('#profile_region').find(":selected").val();
 
-    sessionStorage.setItem("Login_Profile", JSON.stringify(profileInfo));
+    sessionStorage.setItem("Login_Profile", JSON.stringify(PROFILE_INFORMATION));
 
-    GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", profileInfo, SuccessUpdateProfile, FailUpdateProfile);
+    GlobalAjax("/api/Profile/UpdateProfileInfo", "PUT", PROFILE_INFORMATION, SuccessUpdateProfile, FailUpdateProfile);
 }
-
-function SaveChanges()
-//שמירת שינויים בפרטים אישיים
-{
-    old_user_type = userInfo.user_type;
-    if (confirm("האם אתה רוצה לשמור את השינוי?")) {
-        //user
-        Save_User();
-        
-        //שינוי מצב הכפתורים והקלטים
-        Block_User_btn();
-        Block_Profile_btn();
-        $("#btnSave").prop('disabled', true);
-        $("#btnEdit").prop('disabled', false);
-    }
-}
-
-function SuccessUpdateUser() // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
-{
-    console.log('הפרטים האישיים עודכני בהצלחה!.');   
-
-    var new_user_type = $('#select_user_type').find(":selected").val();
-    //עבור הסרת פרופיל- מעדכנים סטאטוס ללא פעיל
-    if ((old_user_type == 2 || old_user_type == 3) && new_user_type == 1)
-        UpdateProfileStatus();
-    //מקרה של הוספת פרופיל
-    else if (old_user_type == 1 && (new_user_type == 2 || new_user_type == 3)) {
-        var user_id = userInfo.id;
-        //אם קיים למתשמש פרופיל לא פעיל
-        //צריך לבדוק אם קיים פרופיל לא פעיל של משתמש זה ולעדכן אותו אחרת הוספה
-        GlobalAjax("/api/Profile/CheckProfileExsistByUserId/" + user_id , "GET", "", UpdateUnactiveProfile, AddNewProfile);
-    }
-    //עדכון פרופיל
-    else if ((old_user_type == 2 || old_user_type == 3) && (new_user_type == 2 || new_user_type == 3))
-        Update_profile();
-    else
-        AlertSuccsses2User();
-}
-
-function FailUpdateUser(data)// פונקציה המתבצעת אחרי כישלון הוספה  של משתמש
-{
-    console.log("שגיאה בעדכון פרטים אישיים.");
-    console.log(data);
-    alert('שגיאה בעדכון פרטים אישיים.');
-}
-
 function SuccessUpdateProfile() // פונקציה המתבצעת אחרי הוספה מוצלחת של משתמש
 {
     console.log('פרטי הפרופיל עודכני בהצלחה!.');
-    if (isProfile)
+    if (IS_PROFILE)
         AlertSuccsses2User();
 }
 
@@ -526,8 +662,47 @@ function FailUpdateProfile(data)// פונקציה המתבצעת אחרי כיש
     alert('שגיאה בעדכון פרטי פרויפל.');
 }
 
+//*******************************************************************************************
+// SAVE CHANGES BUTTON FUNCTION
+//*******************************************************************************************
+function SaveChanges()
+//שמירת שינויים בפרטים אישיים
+{
+    old_user_type = USER_INFORMATION.user_type;
+    if (confirm("האם אתה רוצה לשמור את השינוי?")) {
+        //שינוי מצב הכפתורים והקלטים
+        Block_User_btn();
+        Block_Profile_btn();
+        $("#btnSave").prop('disabled', true);
+        $("#btnEdit").prop('disabled', false);
+        //user
+        Save_User();   
+        }
+}
+
 function AlertSuccsses2User() {
         alert('הפרטים עודכנו בהצלחה!.');
+}
+
+//*******************************************************************************************
+// ShowCityByRegion
+//*******************************************************************************************
+function ShowCityByRegion()
+// מציג את הערים השייכות למחוז שנבחר
+{
+    var region = $('#profile_region').find(":selected").val();
+    if (region == "")
+        $("#profile_city").prop('disabled', true);
+    else {
+        var cities2region = new Array();
+        for (var i = 0; i < ARRY_CITY.length; i++) {
+            if (ARRY_CITY[i].id_region == region)
+                cities2region.push(ARRY_CITY[i]);
+        }
+        var city = document.getElementById("profile_city").length = 0;//.remove;
+        $("#profile_city").prop('disabled', false);
+        EnterData2DDList(cities2region, "profile_city");
+    }
 }
 //*******************************************************************************************
 // SHOW HIDE EXPLANATION

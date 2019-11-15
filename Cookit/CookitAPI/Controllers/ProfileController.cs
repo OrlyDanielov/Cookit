@@ -18,7 +18,7 @@ namespace CookitAPI.Controllers
             return new string[] { "value1", "value2" };
         }
             
-         #region LogGetProfileByUserIdin
+         #region GetProfileByUserIdin
         [Route("GetProfileByUserId/{userId}")]
         [HttpGet]
         public HttpResponseMessage GetProfileByUserId(int userId)
