@@ -96,7 +96,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="Home_logout.html">
-                <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="/Client/Images/Background_pic/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 Cookit
             </a>
         </nav>
@@ -105,16 +105,29 @@
     <main role="main" class="flex-shrink-0  container  bg_brigth">
         <form id="recipe">
             <!--קטגוריות-->
+            <!--<fieldset>-->
+            <!--<legend id="recipe_name"></legend>-->
             <fieldset>
-                <legend id="recipe_name" ></legend>
-               <!--תמונה-->
-                <div >
+                <!--תמונה-->
+                <div>
                     <img id="recipe_picture" src="/Client/Images/Recipes_pic/pasta.jpg" style="width:100%;height:7%;" alt="סליחה, התמונה איננה זמינה כעת.">
                 </div>
+                <!--פונקציות מתכון-->
+                <div>
+                    <div class="form-row" style="float:right;">
+                        <div class="col">
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend id="recipe_name"></legend>
+                <!--מאפייני מתכון-->
                 <div class="form-row" style="float:right;">
-                    <div class="col" >
+                    <div class="col">
                         <span id="recipe_difficulty_level" class="text2rigth"></span>
-                    </div> 
+                    </div>
                     <div class="col">
                         <span id="recipe_work_time" class="text2rigth"></span>
                     </div>
@@ -143,14 +156,14 @@
             </fieldset>
             <!--מצרכים-->
             <fieldset>
-                <legend >מצרכים</legend>
+                <legend>מצרכים</legend>
                 <div id="recipe_ingridiants" style="float:right;">
 
-                </div>                
+                </div>
             </fieldset>
             <!--אופן הכנה-->
-            <fieldset >
-                <legend >אופן הכנה</legend>
+            <fieldset>
+                <legend>אופן הכנה</legend>
                 <div class="form-row" style="float:right;">
                     <span id="recipe_preparation_steps" class="text2rigth"></span>
                 </div>
