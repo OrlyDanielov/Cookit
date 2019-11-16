@@ -67,7 +67,7 @@
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" style="text-align:center">
                             <div id="User_Login_Details" class="dropdown-item">
-                                <img src="../Images/user_null_fic.svg" />
+                                <img src="../Images/Background_pic/user_null_fic.svg" />
                                 <p id="menu_user_name"></p>
                                 <p id="menu_user_type"></p>
                                 <button id="btn_logout" class="btn-dark" onclick="Logout()">התנתק</button>
@@ -106,7 +106,11 @@
         <form id="recipe">
             <!--קטגוריות-->
             <fieldset>
-                <legend id="recipe_name"></legend>
+                <legend id="recipe_name" ></legend>
+               <!--תמונה-->
+                <div >
+                    <img id="recipe_picture" src="/Client/Images/Recipes_pic/pasta.jpg" style="width:100%;height:7%;" alt="סליחה, התמונה איננה זמינה כעת.">
+                </div>
                 <div class="form-row" style="float:right;">
                     <div class="col" >
                         <span id="recipe_difficulty_level" class="text2rigth"></span>
