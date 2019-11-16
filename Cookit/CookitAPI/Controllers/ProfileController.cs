@@ -17,15 +17,8 @@ namespace CookitAPI.Controllers
         {
             return new string[] { "value1", "value2" };
         }
-
-        /*
-         // GET api/<controller>/5
-         public string Get(int id)
-         {
-             return "value";
-         }
-         */
-         #region LogGetProfileByUserIdin
+            
+         #region GetProfileByUserIdin
         [Route("GetProfileByUserId/{userId}")]
         [HttpGet]
         public HttpResponseMessage GetProfileByUserId(int userId)
@@ -44,7 +37,8 @@ namespace CookitAPI.Controllers
                 result.type = profile.ProfType;
                 result.name = profile.Name_Prof;
                 result.description = profile.ProfDescription;
-                result.city = profile.CityName;
+                result.id_city = profile.Id_City;
+                result.id_region = profile.Id_Region;
                 result.status = profile.ProfStatus;
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -72,7 +66,8 @@ namespace CookitAPI.Controllers
                     result.type = p.ProfType;
                     result.name = p.Name_Prof;
                     result.description = p.ProfDescription;
-                    result.city = p.CityName;
+                    result.id_city = p.Id_City;
+                    result.id_region = p.Id_Region;
                     result.status = p.ProfStatus;
 
                     return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -84,14 +79,7 @@ namespace CookitAPI.Controllers
             }
         }
         #endregion
-
-        /*
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-        */
-
+             
         #region Add New Profile
         //add new profile
         [Route("AddNewProfile")]
@@ -107,7 +95,8 @@ namespace CookitAPI.Controllers
                     ProfType = new_profile.type,
                     Name_Prof = new_profile.name,
                     ProfDescription = new_profile.description,
-                    CityName = new_profile.city,
+                    Id_City = new_profile.id_city,
+                    Id_Region = new_profile.id_region,
                     ProfStatus = new_profile.status
                 };
                 var is_saved = CookitDB.DB_Code.CookitQueries.AddNewProfile(p);
@@ -122,12 +111,7 @@ namespace CookitAPI.Controllers
             }
 }
         #endregion
-
-        // PUT api/<controller>/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
+         
         #region Update Profile Info
         [Route("UpdateProfileInfo")]
         [HttpPut]
@@ -143,7 +127,8 @@ namespace CookitAPI.Controllers
                     ProfType = profile.type,
                     Name_Prof = profile.name,
                     ProfDescription = profile.description,
-                    CityName = profile.city,
+                    Id_City = profile.id_city,
+                    Id_Region = profile.id_region,
                     ProfStatus = profile.status
                 };
                 var is_saved = CookitDB.DB_Code.CookitQueries.UpdateProfileInfo(p);
@@ -159,6 +144,7 @@ namespace CookitAPI.Controllers
         }
         #endregion
 
+        #region GetProfileIDByUserID
         [Route("{user_id}/GetProfileIDByUserID")]
         [HttpGet]
         public HttpResponseMessage GetProfileIDByUserID(int id)
@@ -171,6 +157,7 @@ namespace CookitAPI.Controllers
             else
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "the server could not find the profile number of user by user id.");
         }
+        #endregion
 
         // DELETE api/<controller>/5
         public void Delete(int id)

@@ -1,28 +1,26 @@
-﻿$(document).ready(function ()
-//מתרחש בתחילת טעינת הדף
-// הפונקציה טוענת את התפריט בצורה דינמית לתוך הדף
+﻿//*******************************************************************************************
+// GLOBAL VARIABLE
+//*******************************************************************************************
+var ARRY_USER_TYPE = JSON.parse(sessionStorage.getItem("ARRY_USER_TYPE"));
+
+//*******************************************************************************************
+// UPLOAD PAGE
+//*******************************************************************************************
+/*
+$(document).ready(function ()
 {
     $('#menu').load("Menu_Login.html");
 });
-
-//פונקציות של דפים של משתמש מחובר
-// פונקצית התנתקות
-function Logout() {
-       //ניקוי של הערכים בזיכרון
-    sessionStorage.clear();
-    //מעבר לדף הבית הלא מחובר
-    window.location.replace("Home_logout.html");
-}
-
-
-var arry_userType = new Array();
-
+*/
 $(document).ready(function ()
 // הפונקציה קוראת בתחילת הקריאה לדף
 {
     HelloToLoginUser();
-    GetUserType();
+    GetUserType_MENU();
 });
+//*******************************************************************************************
+// HELLO TO USER
+//*******************************************************************************************
 
 function HelloToLoginUser()
 // שם המשתמש המחובר
@@ -31,27 +29,40 @@ function HelloToLoginUser()
     var user_last_name = JSON.parse(sessionStorage.getItem("Login_User")).last_name;
     $("#menu_user_name").html(user_first_name + " " + user_last_name);
 }
-
-function GetUserType()
+//*******************************************************************************************
+// GET USER TYPE
+//*******************************************************************************************
+function GetUserType_MENU()
 //משיכת סוגי המשתמשים
 {
-    if (JSON.parse(sessionStorage.getItem("arry_userType")) === null)
-        GlobalAjax("/api/UserType/GetAll", "GET", "", SuccessUserType, FailUserType);
+    if (ARRY_USER_TYPE== null)
+        GlobalAjax("/api/UserType/GetAll", "GET", "", SuccessUserType_MENU, FailUserType_MENU);
     else
-        SuccessUserType(arry_userType);
+        SuccessUserType_MENU(ARRY_USER_TYPE);
 }
 
-function SuccessUserType(arry_userType) {
-    sessionStorage.setItem("arry_userType", JSON.stringify(arry_userType));
+function SuccessUserType_MENU(arry_userType) {
+    ARRY_USER_TYPE = arry_userType;
+    sessionStorage.setItem("ARRY_USER_TYPE", JSON.stringify(arry_userType));
     var user_type = JSON.parse(sessionStorage.getItem("Login_User")).user_type;
-    for (var i = 0; i < arry_userType.length; i++) {
-        if (arry_userType[i].id === user_type)
-            user_type = arry_userType[i].user_type;
+    for (var i = 0; i < ARRY_USER_TYPE.length; i++) {
+        if (ARRY_USER_TYPE[i].id === user_type)
+            user_type = ARRY_USER_TYPE[i].user_type;
     }
     $("#menu_user_type").html(user_type);
 
 }
 
-function FailUserType() {
+function FailUserType_MENU() {
     console.log("שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.");
+    alert("שגיאה במשיכת נתוני סוגי המשתמשים מהשרת.");
+}
+//*******************************************************************************************
+// LOGOUT
+//*******************************************************************************************
+function Logout() {
+       //ניקוי של הערכים בזיכרון
+    sessionStorage.clear();
+    //מעבר לדף הבית הלא מחובר
+    window.location.replace("Home_logout.html");
 }

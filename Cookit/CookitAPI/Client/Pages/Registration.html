@@ -15,15 +15,11 @@
     <!--java script code  -->
     <script src="Registration.js"></script>
     <script src="GlobalAjax.js"></script>
-    <script src="Form_Directions.js"></script>
-    <!--<script src="Form_Directions.js"></script>-->
-    <!--<script src="Menu_Logout.js"></script>-->
-    <!--<script src="Footer.js"></script>-->
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
-    <link rel="stylesheet" type="text/css" href="FormStyle.css" />
-    <link rel="stylesheet" type="text/css" href="Form_Directions.css" />
-    <link rel="stylesheet" type="text/css" href="Form_Validation.css" />
+    <link rel="stylesheet" type="text/css" href="FormStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
     <!--תפריט-->   
@@ -32,6 +28,9 @@
         <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
+                    <li>
+                        <a class="nav-link" href="Registration.html">הרשם</a>
+                    </li>
                     <li>
                         <a class="nav-link" href="Login.html">התחבר</a>
                     </li>
@@ -60,100 +59,117 @@
     <!-- טופס הרשמה -->
     <div class="container bg_brigth">
         <h2>הרשמה</h2>
-        <form name="registration_form" class="needs-validation">
+        <form name="registration_form" >
             <fieldset id="private_details">
                 <legend>פרטים אישיים</legend>
-        <!-- שם פרטי -->
-                <div class="mb-3">
-                    <label for="address">שם פרטי</label>
-                    <input type="text" class="form-control " id="first_name"  >
-                    <div id="feedback_first_name" class="invalid-feedback">
-                        אנא  הכנס שם פרטי באורך 2 עד 20 תווים.
+                <div class="form-row">
+
+                    <!-- אימייל -->
+                    <div class="col">
+                        <label for="email" class="col-sm-4 col-form-label">אימייל</label>
+                        <i id="btn_explanation_email" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <div id="explanation_email" class="explanation"></div>
+                        <input type="email" class="form-control" id="email">
+                        <div id="feedback_email" class="not_valid_feedback"></div>
+                    </div>
+                    <!-- שם משפחה -->
+                    <div class="col">
+                        <label for="last_name" class="col-sm-6 col-form-label">שם משפחה</label>
+                        <input type="text" class="form-control" id="last_name">
+                        <div id="feedback_last_name" class="not_valid_feedback"></div>
+                    </div> 
+                    <!-- שם פרטי -->
+                    <div class="col">
+                        <label for="first_name" class="col-sm-6 col-form-label">שם פרטי</label>
+                        <input type="text" class="form-control " id="first_name">
+                        <div id="feedback_first_name" class="not_valid_feedback"></div>
                     </div>
                 </div>
-                <!-- שם משפחה -->
-                <div class="mb-3">
-                    <label for="address">שם משפחה</label>
-                    <input type="text" class="form-control" id="last_name">
-                    <div class="invalid-feedback">
-                        אנא  הכנס שם משפחה באורך 2 עד 30 תווים.
+                <div class="form-row">
+                    <!-- אימות סיסמה -->
+                    <div class="col">
+                        <label for="password_authentication" class="col-sm-4 col-form-label">אימות סיסמה</label>
+                        <input type="password" class="form-control" id="password_authentication">
+                        <div id="feedback_password_authentication" class="not_valid_feedback"></div>
+                    </div>
+                    <!-- סיסמה -->
+                    <div class="col">
+                        <label for="password" class="col-sm-4 col-form-label">סיסמה</label>
+                        <i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <div id="explanation_password" class="explanation"></div>
+                        <input type="password" class="form-control" id="password">
+                        <div id="feedback_password" class="not_valid_feedback"></div>
                     </div>
                 </div>
-                <!-- אימייל -->
-                <div class="mb-3">
-                    <label for="address">אימייל</label>
-                    <input type="email" class="form-control" id="email" >
-                    <div class="invalid-feedback">
-                        אנא  הכנס אימייל תקין.
+                <div class="form-row">
+                    <!-- מין -->
+                    <div class="col">
+                            <label for="div_gender" class="col-sm-4 col-form-label">מין</label>
+                            <div class="custom-control custom-radio">
+                                <input id="female" name="gender" value="F" type="radio" class="custom-control-input" checked>
+                                <label class="custom-control-label" for="female">נקבה</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="male" name="gender" value="M" type="radio" class="custom-control-input">
+                                <label class="custom-control-label" for="male">זכר</label>
+                            </div>
                     </div>
-                </div>
-                <!-- מין -->
-                <label for="div_gender">מין</label>
-                <div name="div_gender" class="d-block my-3">
-                    <div class="custom-control custom-radio">
-                        <input id="female" name="gender" value="F" type="radio" class="custom-control-input" checked >
-                        <label class="custom-control-label" for="female">נקבה</label>
+                        <!-- סוג משתמש (אנין טעם \ חובב \ עסקי)) -->
+                    <div class="col">
+                        <label for="user_type" class="col-sm-4 col-form-label">סוג משתמש</label>
+                        <i id="btn_explanation_user_type" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <div id="explanation_user_type" class="explanation"></div>
+                        <div class="col-sm-10">
+                            <select id="user_type" class="custom-select form-control" onchange="IsProfile()">
+                                <option value="" selected>סוג משתמש</option>
+                            </select>
+                        </div>
+                        <div id="feedback_user_type" class="not_valid_feedback"></div>
                     </div>
-                    <div class="custom-control custom-radio">
-                        <input id="male" name="gender" value="M" type="radio" class="custom-control-input" >
-                        <label class="custom-control-label" for="male">זכר</label>
                     </div>
-                </div>
-                <!-- סיסמה -->
-                <div class="mb-3">
-                    <label for="address">סיסמה</label>
-                    <input type="password" class="form-control" id="password"><!--required pattern="(?=.*\d)(?=.*[a-z]|.*[A-Z])\w.{6,12}" title="נדרש לסיסמה 6 עד 12 אותיות, מספרים או סימנים."-->
-                    <button id="btn_question_password" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
-                    <span id="span_question_password" class="form-directions" style="display:none;">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
-                </div>
-                <!-- אימות סיסמה -->
-                <div class="mb-3">
-                    <label for="address">אימות סיסמה</label>
-                    <input type="password" class="form-control" id="password_authentication" >
-                </div>
-                <!-- סוג משתמש (אנין טעם \ חובב \ עסקי)) -->
-                <div class="mb-3">
-                    <button id="btn_user_type" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
-                    <div id="div_question_user_type" style="display:none">
-                        <span id="span_question_user_type" class="form-directions">
-                            למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.
-                            למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף יכול להעלות סדנאות לקהילה באתר.
-                            למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר.
-                        </span>
-                    </div>
-                    <label for="div_user_type">סוג משתמש</label>
-                    <div class="col-sm-10">
-                        <select id="select_user_type" class="custom-select form-control" onchange="IsProfile()">
-                            <option value="" selected >סוג משתמש</option>
-                        </select>
-                    </div>
-                </div>
             </fieldset>
             <hr class="mb-4">
             <!-- פרטי פרופיל -->
             <fieldset id="Profile_details" style="display:none">
                 <legend>פרטי פרופיל</legend>
-                <!-- שם פרופיל -->
-                <div class="mb-3">
-                    <label for="address2">שם פרופיל</label>
-                    <input type="text" class="form-control" id="profile_name" >
-                </div>
-                <!-- תיאור פרופיל -->
-                <div class="mb-3">
-                    <label for="address2">תיאור פרופיל</label>
-                    <input type="text" class="form-control" id="profile_description" >
-                </div>
-                <!-- עיר מגורים \עסק -->
-                <div class="mb-3">
-                    <label for="city">עיר מגורים \ עסק<!--<span class="text-muted">(Optional)</span>--></label>
-                    <div class="col-sm-10">
-                        <select  id="select_city" class="custom-select" >
-                            <option value="" selected >עיר</option>
-                        </select>
+                <div class="form-row">
+
+                    <!-- תיאור פרופיל -->
+                    <div class="col">
+                        <label for="profile_description" class="col-sm-4 col-form-label">תיאור פרופיל</label>
+                        <input type="text" class="form-control" id="profile_description">
+                        <div id="feedback_profile_description" class="not_valid_feedback"></div>
+                    </div>
+                    <!-- שם פרופיל -->
+                    <div class="col">
+                        <label for="profile_name" class="col-sm-4 col-form-label">שם פרופיל</label>
+                        <input type="text" class="form-control" id="profile_name">
+                        <div id="feedback_profile_name" class="not_valid_feedback"></div>
                     </div>
                 </div>
-                <hr class="mb-4">
-            </fieldset>
+                <div class="form-row">
+                    <!-- עיר מגורים \עסק -->
+                    <div class="col">
+                        <label for="profile_city" class="col-sm-4 col-form-label">עיר מגורים \ עסק</label>
+                        <div class="col-sm-10">
+                            <select id="profile_city" class="custom-select" disabled>
+                                <option value="" selected>עיר</option>
+                            </select>
+                        </div>
+                        <div id="feedback_profile_city" class="not_valid_feedback"></div>
+                    </div>
+                    <!--מחוז-->
+                    <div class="col">
+                        <label for="profile_region" class="col-sm-4 col-form-label">מחוז</label>
+                        <div class="col-sm-10">
+                            <select id="profile_region" class="custom-select" onchange="ShowCityByRegion()">
+                                <option value="" selected>מחוז</option>
+                            </select>
+                        </div>
+                        <div id="feedback_profile_region" class="not_valid_feedback"></div>
+                    </div>
+                    <hr class="mb-4">
+</fieldset>
             <div>
                 <input type="button" class="btn btn-primary btn-lg" onclick="IsFormValid()" value="שלח" />
             </div>

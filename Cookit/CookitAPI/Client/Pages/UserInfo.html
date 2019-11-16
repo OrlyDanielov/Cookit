@@ -15,13 +15,10 @@
     <!--java script code  -->
     <script src="GlobalAjax.js"></script>
     <script src="Menu_Login.js"></script>
-    <script src="Footer.js"></script>
     <script src="UserInfo.js"></script>
-    <!--<script src="Form_Directions.js"></script>-->
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
-    <link rel="stylesheet" type="text/css" href="Form_Directions.css">
-    <link rel="stylesheet" type="text/css" href="Form_Validation.css">
+    <link rel="stylesheet" type="text/css" href="FormStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -110,25 +107,30 @@
             <fieldset id="user_view">
                 <legend>פרטים אישיים</legend>
                 <!-- שם פרטי ושם משפחה-->
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="last_name">שם משפחה</label>
-                        <input type="text" for="last_name" id="user_last_name" disabled class="form-control text2rigth" required maxlength="30" />
+                <div class="form-row">
+                    <!-- מייל-->
+                    <div class="col">
+                        <label for="email" class="col-sm-4 col-form-label">אימייל</label>
+                        <i id="btn_explanation_email" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <div id="explanation_email" class="explanation"></div>
+                        <input type="email" id="user_email" class="form-control text2rigth" disabled required>
+                        <div id="feedback_email" class="not_valid_feedback"></div>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="first_name">שם פרטי</label>
-                        <input type="text" for="first_name" id="user_first_name" disabled class="form-control text2rigth " required data-value-missing="אנא הכנס שם פרטי" maxlength="20" />
+                    <div class="col">
+                        <label for="last_name" class="col-sm-6 col-form-label">שם משפחה</label>
+                        <input type="text" f id="user_last_name" disabled class="form-control text2rigth" required maxlength="30" />
+                        <div id="feedback_last_name" class="not_valid_feedback"></div>
+                    </div>
+                    <div class="col">
+                        <label for="first_name" class="col-sm-4 col-form-label">שם פרטי</label>
+                        <input type="text"  id="user_first_name" disabled class="form-control text2rigth " required data-value-missing="אנא הכנס שם פרטי" maxlength="20" />
+                        <div id="feedback_first_name" class="not_valid_feedback"></div>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- מייל-->
-                    <div class="col-md-6 mb-3">
-                        <label for="email">אימייל</label>
-                        <input type="email" id="user_email" class="form-control text2rigth" disabled required>
-                    </div>
+                <div class="form-row">                    
                     <!--מין-->
-                    <div class="col-md-6 mb-3">
-                        <label for="user_gender">מין</label>
+                    <div class="col">
+                        <label for="user_gender" class="col-sm-4 col-form-label">מין</label>
                         <div class="custom-control custom-radio">
                             <input id="female" name="gender" value="F" type="radio" class="custom-control-input" disabled required>
                             <label class="custom-control-label" for="female">נקבה</label>
@@ -138,52 +140,60 @@
                             <label class="custom-control-label" for="male">זכר</label>
                         </div>
                     </div>
-                </div>
-                <!-- סוג המשתמש-->
-                <div class="col-md-6 mb-3">
-                    <label for="user_type">סוג המשתמש</label>
-                    <div class="col-sm-10">
-                        <select name="user_type" id="select_user_type" class="custom-select form-control" disabled required onchange="CheckUserType()">
-                            <option value="" selected>סוג משתמש</option>
-                        </select>
+                    <!-- סוג המשתמש-->
+                    <div class="col">
+                        <label for="user_type" class="col-sm-4 col-form-label">סוג המשתמש</label>
+                        <i id="btn_explanation_user_type" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <div id="explanation_user_type" class="explanation"></div>
+                        <div class="col-sm-10">
+                            <select name="user_type" id="select_user_type" class="custom-select form-control" disabled required onchange="CheckUserType()">
+                                <option value="" selected>סוג משתמש</option>
+                            </select>
+                        </div>
+                        <div id="feedback_user_type" class="not_valid_feedback"></div>
                     </div>
-                    <button id="btn_user_type" class="form-directions " onclick="DisplayFormDirection(this.id)">?</button>
-                    <!--<div id="div_question_user_type" >-->
-                    <span id="span_question_user_type" class="form-directions" style="display:none">
-                        למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.
-                        למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף יכול להעלות סדנאות לקהילה באתר.
-                        למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר.
-                    </span>
-                    <!--</div>-->
                 </div>
             </fieldset>
             <hr class="mb-4">
             <fieldset id="profile_view" style="display:none">
                 <legend>פרטי פרופיל</legend>
-                <div class="row">
+                <div class="form-row">
                     <!-- שם פרופיל -->
-                    <div class="col-md-6 mb-3">
-                        <label for="profile_name">שם פרופיל</label>
+                    <div class="col">
+                        <label for="profile_name" class="col-sm-4 col-form-label">שם פרופיל</label>
                         <input type="text" id="profile_name" class="form-control text2rigth" disabled required>
+                        <div id="feedback_profile_name" class="not_valid_feedback"></div>
                     </div>
                     <!-- תיאור פרופיל -->
-                    <div class="col-md-6 mb-3">
-                        <label for="profile_description">תיאור פרופיל</label>
+                    <div class="col">
+                        <label for="profile_description" class="col-sm-4 col-form-label">תיאור פרופיל</label>
                         <input type="text" id="profile_description" class="form-control text2rigth" disabled required>
+                        <div id="feedback_profile_description" class="not_valid_feedback"></div>
                     </div>
-                    <!--<div class="row">-->
+                </div>
+                <div class="form-row">
                     <!-- עיר מגורים \עסק -->
-                    <div class="col-md-6 mb-3">
-                        <label for="profile_city">עיר מגורים \ עסק</label>
+                    <div class="col">
+                        <label for="profile_city" class="col-sm-4 col-form-label">עיר מגורים \ עסק</label>
                         <div class="col-sm-10">
                             <select name="city" id="profile_city" class="custom-select form-control" disabled required>
                                 <option value="" selected>עיר</option>
                             </select>
                         </div>
+                        <div id="feedback_profile_city" class="not_valid_feedback"></div>
                     </div>
-                    <!--</div>-->
+                    <!--מחוז-->
+                    <div class="col">
+                        <label for="profile_region" class="col-sm-4 col-form-label">מחוז</label>
+                        <div class="col-sm-10">
+                            <select id="profile_region" class="custom-select" onchange="ShowCityByRegion()" disabled>
+                                <option value="" selected>מחוז</option>
+                            </select>
+                        </div>
+                        <div id="feedback_profile_region" class="not_valid_feedback"></div>
+                    </div>
                 </div>
-                <hr class="mb-4">
+                    <hr class="mb-4">
             </fieldset>
             <div class="row d-block my-3">
                 <input type="button" id="btnEdit" class="btn btn-primary btn-lg" onclick="Edit()" value="ערוך" />

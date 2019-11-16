@@ -27,7 +27,7 @@ function GetRegions() {
     //רשימת הערים ממסד הנתונים
     var arry_city = new Array();
     // הבאת הערים
-    GetCities()
+    GetCities();
 }
 
 
