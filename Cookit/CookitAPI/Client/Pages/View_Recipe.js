@@ -420,6 +420,9 @@ function ViewIngridiants()//מציג את נתוני המצרכים
         };
         AddIngridinats(_ing);//מוסיף שורות למצרכים כמספר המצרכים שבמתכון
     }
+
+    //מציג את הנתוני הפונקציות של המתכון
+    GetLike();
 }
 
 function AddIngridinats(_ing)
@@ -441,6 +444,25 @@ function AddIngridinats(_ing)
     */
     document.getElementById("recipe_ingridiants").appendChild(new_ingridiant);      
 }
+
+//*******************************************************************************************
+// GET AND SHOW LIKE
+//*******************************************************************************************
+function GetLike() {
+    var user_id = RECIPE_INFORMATION.user_id;
+    var recipe_id = RECIPE_INFORMATION.recp_id;
+    GlobalAjax("/api/Like/GetLikeByUserIdAndRecipeId/"+ user_id + "/" + recipe_id, "GET", "", SuccessGetLikeByUserIdAndRecipeId, FailAddGetLikeByUserIdAndRecipeId);
+}
+
+function SuccessGetLikeByUserIdAndRecipeId(data) {
+    RECIPE_LIKE = data;
+    ToggelLikeIcon();
+    //מביא את נתוני השמירת מתכון כמועדף
+}
+
+function FailAddGetLikeByUserIdAndRecipeId() {
+    console.log("אין לייק של מתשמ");
+}
 //*******************************************************************************************
 // ADD REMOVE LIKE
 //*******************************************************************************************
@@ -453,6 +475,9 @@ function AddRemoveLike()
         UpdateExsistLike();
 }
 
+//*******************************************************************************************
+// ADD NEW LIKE
+//*******************************************************************************************
 function AddNewLike()
 //הוספת לייק חדש
 {
@@ -464,11 +489,11 @@ function AddNewLike()
     };
     GlobalAjax("/api/Like/AddNewLike", "POST", new_like,SuccessAddNewLike, FailAddNewLike);
 }
-function SuccessAddNewLike() {
+function SuccessAddNewLike(data) {
+    RECIPE_LIKE = data;
     console.log("הלייק נוסף בהצלחה");
-    $("#recipe_like").removeClass("fa-heart-o");
-    $("#recipe_like").addClass("fa fa-heart");
     alert("הלייק התווסף למתכון בהצלחה!.");
+    ToggelLikeIcon();
 }
 
 function FailAddNewLike() {
@@ -476,8 +501,48 @@ function FailAddNewLike() {
     alert("הוספת לייק נכשלה");
 }
 
+//*******************************************************************************************
+// UPDATE EXSIST LIKE
+//*******************************************************************************************
 function UpdateExsistLike()
 //ביטול לייק קיים או חידש לייק מבוטל
 {
+    if (RECIPE_LIKE.status == true)
+        RECIPE_LIKE.status = false;
+    else
+        RECIPE_LIKE.status = true;
+    RECIPE_LIKE.date_like = new Date();
+    GlobalAjax("/api/Like/UpdateLike", "PUT", RECIPE_LIKE, SuccessUpdateExsistLike, FailUpdateExsistLike);
+}
 
+function SuccessUpdateExsistLike() {
+    console.log("עדכון לייק בוצע בהצלחה!.");
+    ToggelLikeIcon();
+}
+
+function FailUpdateExsistLike() {
+    console.log("עדכון לייק נכשלה");
+    alert("עדכון לייק נכשלה");
+}
+
+//*******************************************************************************************
+// TOGGEL LIKE ICON
+//*******************************************************************************************
+function ToggelLikeIcon()
+//משנה את סימון איקון הלייק לפי הסטאוטס שלו
+{
+    var like_icon = $("#recipe_like");
+    if (RECIPE_LIKE.status == true)//אם יש לייק
+    {
+        console.log("יש לייק");
+        if (like_icon.hasClass("fa-heart-o"))
+            like_icon.removeClass("fa-heart-o");
+        like_icon.addClass("fa fa-heart");
+    }
+    else {
+        console.log("לייק מבוטל");
+        if (like_icon.hasClass("fa-heart"))
+            like_icon.removeClass("fa-heart");
+        like_icon.addClass("fa fa-heart-o");
+    }
 }

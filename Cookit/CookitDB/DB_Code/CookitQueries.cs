@@ -401,7 +401,6 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
-
         #region GetFoodLablesByRecpId
         //מביאה מצרכי מתכון לפי תז מתכון
         public static List<TBL_LabelsForRecp> GetFoodLablesByRecpId(int recp_id)
@@ -422,6 +421,27 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+
+
+        #region GetLikeByUserIdAndRecipeId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static TBL_Likes GetLikeByUserIdAndRecipeId(int user_id,int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Likes like = db.TBL_Likes.SingleOrDefault(x => x.Id_Recp == recipe_id && x.Id_User == user_id);
+                if (like == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return like;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
         //*********************************************************************
         //              ADD
         //*********************************************************************
@@ -728,6 +748,32 @@ namespace CookitDB.DB_Code
                 }            
                 db.SaveChanges();
                 return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region UpdateLike
+        public static bool UpdateLike(TBL_Likes updated_like)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Likes like = db.TBL_Likes.SingleOrDefault(x => x.Id_Recp == updated_like.Id_Recp && x.Id_User == updated_like.Id_User);
+                if (like != null)
+                {
+                    like.LikeStatus = updated_like.LikeStatus;
+                    like.LikeDate = updated_like.LikeDate;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
             }
             catch (Exception)
             {
