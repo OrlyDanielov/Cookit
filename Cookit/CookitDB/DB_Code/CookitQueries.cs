@@ -538,6 +538,24 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region AddNewComment
+        //הוספת תגובה חדשה למתכון
+        public static int AddNewComment(TBL_Comments new_comment)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(new_comment).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+                return new_comment.Id_Comment;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+        #endregion
+
         #region AddNewFavorite
         //פונקציה של הוספת פרופיל חדש לטבלת הפרופילים
         public static bool AddNewFavorite(TBL_FavoriteRecp new_favorite)

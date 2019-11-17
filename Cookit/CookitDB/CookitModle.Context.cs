@@ -26,7 +26,6 @@ namespace CookitDB
         }
     
         public virtual DbSet<TBL_Barcode> TBL_Barcode { get; set; }
-        public virtual DbSet<TBL_Comments> TBL_Comments { get; set; }
         public virtual DbSet<TBL_DishCategory> TBL_DishCategory { get; set; }
         public virtual DbSet<TBL_DishType> TBL_DishType { get; set; }
         public virtual DbSet<TBL_DrawerRecp> TBL_DrawerRecp { get; set; }
@@ -57,5 +56,6 @@ namespace CookitDB
         public virtual DbSet<TBL_City> TBL_City { get; set; }
         public virtual DbSet<TBL_Region> TBL_Region { get; set; }
         public virtual DbSet<TBL_Profile> TBL_Profile { get; set; }
+        public virtual DbSet<TBL_Comments> TBL_Comments { get; set; }
     }
 }

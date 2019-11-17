@@ -660,3 +660,34 @@ function ToggelFavoriteIcon()
         favorite_icon.addClass("fa-bookmark-o");
     }
 }
+
+//*******************************************************************************************
+// Add New Comment
+//*******************************************************************************************
+function AddNewComment() {
+    var new_comment = {
+        recipe_id: RECIPE_INFORMATION.recp_id,
+        user_id: RECIPE_INFORMATION.user_id,
+        comment: $("#user_comment").val(),
+        comment_date: new Date(),
+        comment_status: true
+    };
+    GlobalAjax("/api/Comment/AddNewComment", "POST", new_comment, SuccessAddNewComment, FailAddNewComment);
+}
+
+function SuccessAddNewComment() {
+    console.log("התגובה נוספה בהצלחה");
+    alert("התגובה נוספה בהצלחה");
+}
+
+function FailAddNewComment() {
+    console.log("הוספת תגובה נכשלה");
+    alert("הוספת תגובה נכשלה");
+}
+
+//*******************************************************************************************
+// MoveNewCommentToOldComment
+//*******************************************************************************************
+function MoveNewCommentToOldComment() {
+
+}

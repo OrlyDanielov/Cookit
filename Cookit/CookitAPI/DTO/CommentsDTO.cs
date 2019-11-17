@@ -12,5 +12,6 @@ namespace CookitAPI.DTO
         public int user_id;
         public string comment;
         public DateTime comment_date;
+        public bool comment_status;
     }
 }

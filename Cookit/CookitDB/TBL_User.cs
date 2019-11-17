@@ -17,7 +17,6 @@ namespace CookitDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBL_User()
         {
-            this.TBL_Comments = new HashSet<TBL_Comments>();
             this.TBL_DrawerRecp = new HashSet<TBL_DrawerRecp>();
             this.TBL_FavoriteRecp = new HashSet<TBL_FavoriteRecp>();
             this.TBL_Followers = new HashSet<TBL_Followers>();
@@ -26,6 +25,7 @@ namespace CookitDB
             this.TBL_RecpLevelByBU = new HashSet<TBL_RecpLevelByBU>();
             this.TBL_WorkshopParticipents = new HashSet<TBL_WorkshopParticipents>();
             this.TBL_Profile = new HashSet<TBL_Profile>();
+            this.TBL_Comments = new HashSet<TBL_Comments>();
         }
     
         public int Id_User { get; set; }
@@ -38,8 +38,6 @@ namespace CookitDB
         public bool UserStatus { get; set; }
         public int NumDrawRecp { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_Comments> TBL_Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_DrawerRecp> TBL_DrawerRecp { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -57,5 +55,7 @@ namespace CookitDB
         public virtual TBL_UserType TBL_UserType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_Profile> TBL_Profile { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Comments> TBL_Comments { get; set; }
     }
 }

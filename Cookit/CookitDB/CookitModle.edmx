@@ -24,11 +24,12 @@
           <Key>
             <PropertyRef Name="Id_Comment" />
           </Key>
-          <Property Name="Id_Comment" Type="int" Nullable="false" />
+          <Property Name="Id_Comment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_User" Type="int" Nullable="false" />
-          <Property Name="Comment" Type="ntext" />
-          <Property Name="CommentDate" Type="datetime" />
+          <Property Name="Comment" Type="ntext" Nullable="false" />
+          <Property Name="CommentDate" Type="datetime" Nullable="false" />
+          <Property Name="CommentStatus" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_DishCategory">
           <Key>
@@ -941,7 +942,6 @@
       <Schema Namespace="Cookit_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Cookit_DBConnection" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TBL_Barcode" EntityType="Cookit_DBModel.TBL_Barcode" />
-          <EntitySet Name="TBL_Comments" EntityType="Cookit_DBModel.TBL_Comments" />
           <EntitySet Name="TBL_DishCategory" EntityType="Cookit_DBModel.TBL_DishCategory" />
           <EntitySet Name="TBL_DishType" EntityType="Cookit_DBModel.TBL_DishType" />
           <EntitySet Name="TBL_DrawerRecp" EntityType="Cookit_DBModel.TBL_DrawerRecp" />
@@ -969,14 +969,6 @@
           <EntitySet Name="TBL_UserType" EntityType="Cookit_DBModel.TBL_UserType" />
           <EntitySet Name="TBL_Workshop" EntityType="Cookit_DBModel.TBL_Workshop" />
           <EntitySet Name="TBL_WorkshopParticipents" EntityType="Cookit_DBModel.TBL_WorkshopParticipents" />
-          <AssociationSet Name="FK_Recp3" Association="Cookit_DBModel.FK_Recp3">
-            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
-            <End Role="TBL_Comments" EntitySet="TBL_Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User3" Association="Cookit_DBModel.FK_User3">
-            <End Role="TBL_User" EntitySet="TBL_User" />
-            <End Role="TBL_Comments" EntitySet="TBL_Comments" />
-          </AssociationSet>
           <AssociationSet Name="FK_DishCategory" Association="Cookit_DBModel.FK_DishCategory">
             <End Role="TBL_DishCategory" EntitySet="TBL_DishCategory" />
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
@@ -1124,6 +1116,15 @@
             <End Role="TBL_User" EntitySet="TBL_User" />
             <End Role="TBL_Profile" EntitySet="TBL_Profile" />
           </AssociationSet>
+          <EntitySet Name="TBL_Comments" EntityType="Cookit_DBModel.TBL_Comments" />
+          <AssociationSet Name="FK_Recp3" Association="Cookit_DBModel.FK_Recp3">
+            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
+            <End Role="TBL_Comments" EntitySet="TBL_Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User3" Association="Cookit_DBModel.FK_User3">
+            <End Role="TBL_User" EntitySet="TBL_User" />
+            <End Role="TBL_Comments" EntitySet="TBL_Comments" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="TBL_Barcode">
           <Key>
@@ -1131,18 +1132,6 @@
           </Key>
           <Property Name="Barcode" Type="Int32" Nullable="false" />
           <Property Name="Name_Table" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="TBL_Comments">
-          <Key>
-            <PropertyRef Name="Id_Comment" />
-          </Key>
-          <Property Name="Id_Comment" Type="Int32" Nullable="false" />
-          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
-          <Property Name="Id_User" Type="Int32" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CommentDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp3" FromRole="TBL_Comments" ToRole="TBL_Recipe" />
-          <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User3" FromRole="TBL_Comments" ToRole="TBL_User" />
         </EntityType>
         <EntityType Name="TBL_DishCategory">
           <Key>
@@ -1334,7 +1323,6 @@
           <Property Name="RecipeWorkTime" Type="Time" Precision="7" Nullable="false" />
           <Property Name="Id_Recipe_Level" Type="Int32" Nullable="false" />
           <Property Name="PreparationSteps" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="TBL_Comments" Relationship="Cookit_DBModel.FK_Recp3" FromRole="TBL_Recipe" ToRole="TBL_Comments" />
           <NavigationProperty Name="TBL_DishCategory" Relationship="Cookit_DBModel.FK_DishCategory" FromRole="TBL_Recipe" ToRole="TBL_DishCategory" />
           <NavigationProperty Name="TBL_DishType" Relationship="Cookit_DBModel.FK_DishType" FromRole="TBL_Recipe" ToRole="TBL_DishType" />
           <NavigationProperty Name="TBL_FavoriteRecp" Relationship="Cookit_DBModel.FK_Recp6" FromRole="TBL_Recipe" ToRole="TBL_FavoriteRecp" />
@@ -1348,6 +1336,7 @@
           <NavigationProperty Name="TBL_RecpLevelByBU" Relationship="Cookit_DBModel.FK_Recp4" FromRole="TBL_Recipe" ToRole="TBL_RecpLevelByBU" />
           <NavigationProperty Name="TBL_StarsForRecp" Relationship="Cookit_DBModel.FK_Recp5" FromRole="TBL_Recipe" ToRole="TBL_StarsForRecp" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User1" FromRole="TBL_Recipe" ToRole="TBL_User" />
+          <NavigationProperty Name="TBL_Comments" Relationship="Cookit_DBModel.FK_Recp3" FromRole="TBL_Recipe" ToRole="TBL_Comments" />
         </EntityType>
         <EntityType Name="TBL_RecipeDifficultyLevel">
           <Key>
@@ -1403,7 +1392,6 @@
           <Property Name="UserPass" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="UserStatus" Type="Boolean" Nullable="false" />
           <Property Name="NumDrawRecp" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TBL_Comments" Relationship="Cookit_DBModel.FK_User3" FromRole="TBL_User" ToRole="TBL_Comments" />
           <NavigationProperty Name="TBL_DrawerRecp" Relationship="Cookit_DBModel.FK_User8" FromRole="TBL_User" ToRole="TBL_DrawerRecp" />
           <NavigationProperty Name="TBL_FavoriteRecp" Relationship="Cookit_DBModel.FK_User5" FromRole="TBL_User" ToRole="TBL_FavoriteRecp" />
           <NavigationProperty Name="TBL_Followers" Relationship="Cookit_DBModel.FK_User6" FromRole="TBL_User" ToRole="TBL_Followers" />
@@ -1413,6 +1401,7 @@
           <NavigationProperty Name="TBL_WorkshopParticipents" Relationship="Cookit_DBModel.FK_User7" FromRole="TBL_User" ToRole="TBL_WorkshopParticipents" />
           <NavigationProperty Name="TBL_UserType" Relationship="Cookit_DBModel.FK_UserType" FromRole="TBL_User" ToRole="TBL_UserType" />
           <NavigationProperty Name="TBL_Profile" Relationship="Cookit_DBModel.FK_User" FromRole="TBL_User" ToRole="TBL_Profile" />
+          <NavigationProperty Name="TBL_Comments" Relationship="Cookit_DBModel.FK_User3" FromRole="TBL_User" ToRole="TBL_Comments" />
         </EntityType>
         <EntityType Name="TBL_UserType">
           <Key>
@@ -1451,30 +1440,6 @@
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User7" FromRole="TBL_WorkshopParticipents" ToRole="TBL_User" />
           <NavigationProperty Name="TBL_Workshop" Relationship="Cookit_DBModel.FK_Workshop" FromRole="TBL_WorkshopParticipents" ToRole="TBL_Workshop" />
         </EntityType>
-        <Association Name="FK_Recp3">
-          <End Type="Cookit_DBModel.TBL_Recipe" Role="TBL_Recipe" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_Comments" Role="TBL_Comments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_Recipe">
-              <PropertyRef Name="Id_Recipe" />
-            </Principal>
-            <Dependent Role="TBL_Comments">
-              <PropertyRef Name="Id_Recp" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User3">
-          <End Type="Cookit_DBModel.TBL_User" Role="TBL_User" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_Comments" Role="TBL_Comments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_User">
-              <PropertyRef Name="Id_User" />
-            </Principal>
-            <Dependent Role="TBL_Comments">
-              <PropertyRef Name="Id_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DishCategory">
           <End Type="Cookit_DBModel.TBL_DishCategory" Role="TBL_DishCategory" Multiplicity="1" />
           <End Type="Cookit_DBModel.TBL_Recipe" Role="TBL_Recipe" Multiplicity="*" />
@@ -1945,6 +1910,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TBL_Comments">
+          <Key>
+            <PropertyRef Name="Id_Comment" />
+          </Key>
+          <Property Name="Id_Comment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
+          <Property Name="Id_User" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CommentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CommentStatus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp3" FromRole="TBL_Comments" ToRole="TBL_Recipe" />
+          <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User3" FromRole="TBL_Comments" ToRole="TBL_User" />
+        </EntityType>
+        <Association Name="FK_Recp3">
+          <End Type="Cookit_DBModel.TBL_Recipe" Role="TBL_Recipe" Multiplicity="1" />
+          <End Type="Cookit_DBModel.TBL_Comments" Role="TBL_Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_Recipe">
+              <PropertyRef Name="Id_Recipe" />
+            </Principal>
+            <Dependent Role="TBL_Comments">
+              <PropertyRef Name="Id_Recp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User3">
+          <End Type="Cookit_DBModel.TBL_User" Role="TBL_User" Multiplicity="1" />
+          <End Type="Cookit_DBModel.TBL_Comments" Role="TBL_Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBL_User">
+              <PropertyRef Name="Id_User" />
+            </Principal>
+            <Dependent Role="TBL_Comments">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1956,17 +1958,6 @@
               <MappingFragment StoreEntitySet="TBL_Barcode">
                 <ScalarProperty Name="Name_Table" ColumnName="Name_Table" />
                 <ScalarProperty Name="Barcode" ColumnName="Barcode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_Comments">
-            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Comments">
-              <MappingFragment StoreEntitySet="TBL_Comments">
-                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
-                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
-                <ScalarProperty Name="Id_Comment" ColumnName="Id_Comment" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2260,6 +2251,18 @@
                 <ScalarProperty Name="ProfType" ColumnName="ProfType" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="Id_Prof" ColumnName="Id_Prof" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBL_Comments">
+            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Comments">
+              <MappingFragment StoreEntitySet="TBL_Comments">
+                <ScalarProperty Name="CommentStatus" ColumnName="CommentStatus" />
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
+                <ScalarProperty Name="Id_Comment" ColumnName="Id_Comment" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

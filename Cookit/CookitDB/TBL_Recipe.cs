@@ -17,7 +17,6 @@ namespace CookitDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBL_Recipe()
         {
-            this.TBL_Comments = new HashSet<TBL_Comments>();
             this.TBL_FavoriteRecp = new HashSet<TBL_FavoriteRecp>();
             this.TBL_HolidaysForRecp = new HashSet<TBL_HolidaysForRecp>();
             this.TBL_IngridiantForRecp = new HashSet<TBL_IngridiantForRecp>();
@@ -25,6 +24,7 @@ namespace CookitDB
             this.TBL_Likes = new HashSet<TBL_Likes>();
             this.TBL_RecpLevelByBU = new HashSet<TBL_RecpLevelByBU>();
             this.TBL_StarsForRecp = new HashSet<TBL_StarsForRecp>();
+            this.TBL_Comments = new HashSet<TBL_Comments>();
         }
     
         public int Id_Recipe { get; set; }
@@ -39,8 +39,6 @@ namespace CookitDB
         public int Id_Recipe_Level { get; set; }
         public string PreparationSteps { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBL_Comments> TBL_Comments { get; set; }
         public virtual TBL_DishCategory TBL_DishCategory { get; set; }
         public virtual TBL_DishType TBL_DishType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -61,5 +59,7 @@ namespace CookitDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
         public virtual TBL_User TBL_User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_Comments> TBL_Comments { get; set; }
     }
 }
