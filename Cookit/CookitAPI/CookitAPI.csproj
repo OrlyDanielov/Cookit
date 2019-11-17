@@ -249,6 +249,7 @@
     <Compile Include="Controllers\IngridiantForRecpController.cs" />
     <Compile Include="Controllers\IngriditansController.cs" />
     <Compile Include="Controllers\KitchenTypeController.cs" />
+    <Compile Include="Controllers\LikeController.cs" />
     <Compile Include="Controllers\MesurmentsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />

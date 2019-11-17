@@ -100,58 +100,96 @@
         </nav>
     </header>
     <!--תוכן הדף-->
-    <main role="main" class="flex-shrink-0  container  bg_brigth">
-        <form id="recipe">
+    <main role="main" class="flex-shrink-0 ">
+        <form id="recipe" class="container bg_brigth ">
+            <h4 id="recipe_name" class="mb-3"></h4>
             <!--קטגוריות-->
             <!--<fieldset>-->
             <!--<legend id="recipe_name"></legend>-->
             <fieldset>
                 <!--תמונה-->
                 <div>
-                    <img id="recipe_picture" src="/Client/Images/Recipes_pic/pasta.jpg" style="width:100%;height:7%;" alt="סליחה, התמונה איננה זמינה כעת.">
+                    <img id="recipe_picture" src="/Client/Images/Recipes_pic/chokolate cake.jpg" style="height:35%;width:100%; border-radius: 30px; margin:10px;" alt="סליחה, התמונה איננה זמינה כעת.">
                 </div>
                 <!--פונקציות מתכון-->
-                <div>
-                    <div class="form-row" style="float:right;">
-                        <div class="col">
-                            <i class="far fa-heart"></i>
-                        </div>
+                <div class="form-row">
+                    <!--לייק-->
+                    <div class="col">
+                        <!--לב מלא-->
+                        <!--<i class="fa fa-heart" style="font-size:48px;color:red"></i>-->
+                        <!--לב ריק-->
+                        <i id="recipe_like" class="fa fa-heart-o" style="font-size:48px;color:red" onclick="AddRemoveLike()"></i>
                     </div>
+                    <!--שמור למועדפים-->
+                    <div class="col">
+                        <!--<i class="fa fa-bookmark" style="font-size:48px;color:black"></i>-->
+                        <i class="fa fa-bookmark-o" style="font-size:48px;color:black"></i>
+                    </div>
+                    <!--שיתוף-->
+                    <div class="col">
+                        <i class="fa fa-share-alt" style="font-size:48px;color:blue"></i>
+                    </div>
+                    <!-- דירוג רמת קושי לביצוע של משתמש עסקי-->
+                    <!--כוכבים למתכון-->
+                    <!--<div class="col">-->
+                    <!--<i class="fa fa-star" style="font-size:48px;color:silver"></i>-->
+                    <!--<i class="fa fa-star-o" style="font-size:48px;color:silver"></i>-->
+                    <!--<i class="fa fa-star" style="font-size:48px;color:gold"></i>-->
+                    <!--<i class="fa fa-star" style="font-size:48px;color:#CD7F32"></i>--><!--ברונזה-->
+                    <!--</div>-->
                 </div>
             </fieldset>
+            <hr class="mb-4">
             <fieldset>
-                <legend id="recipe_name"></legend>
+                <!--<legend id="recipe_name"></legend>-->
                 <!--מאפייני מתכון-->
-                <div class="form-row" style="float:right;">
+                <div class="form-row">
                     <div class="col">
-                        <span id="recipe_difficulty_level" class="text2rigth"></span>
+                        <div>דרגת קושי :</div>
+                        <div id="recipe_difficulty_level" style="color:red;"></div>
+                        <!--<span id="recipe_difficulty_level" class="text2rigth" style="color:red;"></span>-->
                     </div>
                     <div class="col">
-                        <span id="recipe_work_time" class="text2rigth"></span>
+                        <div>זמן הכנה :</div>
+                        <div id="recipe_work_time" style="color:red;"></div>
+                        <!--<span id="recipe_work_time" class="text2rigth"></span>-->
                     </div>
                     <div class="col">
-                        <span id="recipe_total_time" class="text2rigth"></span>
+                        <div>זמן כולל :</div>
+                        <div id="recipe_total_time" style="color:red;"></div>
+                        <!--<span id="recipe_total_time" class="text2rigth"></span>-->
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <div>סוג מנה :</div>
+                        <div id="recipe_dish_type" style="color:red;"></div>
                     </div>
                     <div class="col">
-                        <span id="recipe_dish_type" class="text2rigth"></span>
+                        <div>מאפיין מנה :</div>
+                        <div id="recipe_dish_category" style="color:red;"></div>
                     </div>
                     <div class="col">
-                        <span id="recipe_dish_category" class="text2rigth"></span>
+                        <div>סוג אוכל :</div>
+                        <div id="recipe_food_type" style="color:red;"></div>
                     </div>
                     <div class="col">
-                        <span id="recipe_food_type" class="text2rigth"></span>
+                        <div>סגנון מטבח :</div>
+                        <span id="recipe_kitchen_type" style="color:red;"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <div>תוויות :</div>
+                        <div id="recipe_food_labels" style="color:red;"></div>
                     </div>
                     <div class="col">
-                        <span id="recipe_kitchen_type" class="text2rigth"></span>
-                    </div>
-                    <div class="col">
-                        <span id="recipe_food_labels" class="text2rigth"></span>
-                    </div>
-                    <div class="col">
-                        <span id="recipe_holidays" class="text2rigth"></span>
+                        <div>חגים :</div>
+                        <span id="recipe_holidays" style="color:red;"></span>
                     </div>
                 </div>
             </fieldset>
+            <hr class="mb-4">
             <!--מצרכים-->
             <fieldset>
                 <legend>מצרכים</legend>
@@ -159,6 +197,7 @@
 
                 </div>
             </fieldset>
+            <hr class="mb-4">
             <!--אופן הכנה-->
             <fieldset>
                 <legend>אופן הכנה</legend>
@@ -167,10 +206,26 @@
                 </div>
             </fieldset>
         </form>
+        <!--תגובות-->
+        <!--<div style="overflow-y:auto; bg_brigth;">-->
+            <form id="comments" class="container bg_brigth" style="height:500px; overflow-y:auto;" >
+                <h4 class="mb-3">תגובות</h4>
+                <fieldset id="new_comment">
+                    <legend >הוסף תגובה</legend>
+                    <div class="form-row" >
+                        <textarea id="user_comment" class="form-control" placeholder="הוסף תגובה ..."></textarea>
+                        <input type="button" id="btn_add_comment" value="הוסף תגובה" class="btn btn-group" onclick="" />
+                    </div>
+                </fieldset>
+                <fieldset id="old_comment">
+
+                </fieldset>
+            </form>
+        <!--</div>-->
     </main>
     <!--תחתית-->
-    <footer class="footer mt-auto py-3 fixed-bottom ">
-        <div class="container">
+    <!--<footer class="footer mt-auto py-3 fixed-bottom ">-->
+        <div class="container" style="width: 100%; margin-top : 10px; background-color: rgba(270, 270, 270,1);">
             <p class="mb-1">&copy; Cookit</p>
             <ul class="list-inline">
                 <li class="list-inline-item"><a href="#">Privacy</a></li>
@@ -178,6 +233,6 @@
                 <li class="list-inline-item"><a href="#">Support</a></li>
             </ul>
         </div>
-    </footer>
+    <!--</footer>-->
 </body>
 </html>

@@ -18,6 +18,9 @@ var ARRY_FOOD_LABLE = new Array();
 var COUNT_INGRIDIANTS = 0;
 var NAME_INGRIDIANTS = 0;
 
+//פונקציות מתכון
+var RECIPE_LIKE = null;
+
 
 
 //תז המתכון החדש
@@ -425,12 +428,56 @@ function AddIngridinats(_ing)
     NAME_INGRIDIANTS = NAME_INGRIDIANTS + 1;
     var new_ingridiant = document.createElement('div');
     new_ingridiant.id = "ingridiant_" + NAME_INGRIDIANTS;
-    new_ingridiant.className = "form-row";
-
+    new_ingridiant.className = "form-row text2rigth";
+    new_ingridiant.innerHTML = _ing.id_mesurment+ " " + _ing.id_ingridiants  + " " +_ing.amount ;
+    if (NAME_INGRIDIANTS % 2 == 0)
+        new_ingridiant.style["background-color"] = "#cccccc";
+    /*
     var span_ingridiant = document.createElement("span");
-    span_ingridiant.innerHTML = _ing.id_mesurment + " " + _ing.id_ingridiants + " " + _ing.amount;
+    span_ingridiant.innerHTML = _ing.amount+" "+_ing.id_mesurment + " " + _ing.id_ingridiants;
     span_ingridiant.className = "text2rigth";
+
     new_ingridiant.appendChild(span_ingridiant);
-    
+    */
     document.getElementById("recipe_ingridiants").appendChild(new_ingridiant);      
+}
+//*******************************************************************************************
+// ADD REMOVE LIKE
+//*******************************************************************************************
+function AddRemoveLike()
+//הוספת /הסרת לייק למתכון
+{
+    if (RECIPE_LIKE == null) //הוספת לייק בפעם הראשונה
+        AddNewLike();
+    else// חידוש לייק מבוטל או ביטול לייק קיים
+        UpdateExsistLike();
+}
+
+function AddNewLike()
+//הוספת לייק חדש
+{
+    var new_like = {
+        id_recipe : RECIPE_INFORMATION.recp_id,
+        id_user: RECIPE_INFORMATION.user_id,
+        status: true,
+        date_like: new Date(),//Date.getDate()
+    };
+    GlobalAjax("/api/Like/AddNewLike", "POST", new_like,SuccessAddNewLike, FailAddNewLike);
+}
+function SuccessAddNewLike() {
+    console.log("הלייק נוסף בהצלחה");
+    $("#recipe_like").removeClass("fa-heart-o");
+    $("#recipe_like").addClass("fa fa-heart");
+    alert("הלייק התווסף למתכון בהצלחה!.");
+}
+
+function FailAddNewLike() {
+    console.log("הוספת לייק נכשלה");
+    alert("הוספת לייק נכשלה");
+}
+
+function UpdateExsistLike()
+//ביטול לייק קיים או חידש לייק מבוטל
+{
+
 }

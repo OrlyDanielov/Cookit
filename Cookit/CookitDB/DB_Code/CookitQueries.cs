@@ -482,6 +482,24 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region AddNewLike
+        //פונקציה של הוספת פרופיל חדש לטבלת הפרופילים
+        public static bool AddNewLike(TBL_Likes new_like)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(new_like).State = System.Data.Entity.EntityState.Added; 
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
         #region Add New Event
         //פונקציה של הוספת אירוע חדש לטבלת האירועים
         public static bool AddNewEvent(TBL_Event new_event)
