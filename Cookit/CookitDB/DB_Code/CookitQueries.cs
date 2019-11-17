@@ -420,9 +420,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-
-
+               
         #region GetLikeByUserIdAndRecipeId
         //מביאה מצרכי מתכון לפי תז מתכון
         public static TBL_Likes GetLikeByUserIdAndRecipeId(int user_id,int recipe_id)
@@ -435,6 +433,26 @@ namespace CookitDB.DB_Code
                     return null;
                 else
                     return like;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetFavoriteByUserIdAndRecipeId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static TBL_FavoriteRecp GetFavoriteByUserIdAndRecipeId(int user_id, int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_FavoriteRecp favorite = db.TBL_FavoriteRecp.SingleOrDefault(x => x.Id_Recp == recipe_id && x.Id_User == user_id);
+                if (favorite == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return favorite;
             }
             catch (Exception)
             {
@@ -510,6 +528,24 @@ namespace CookitDB.DB_Code
             {
                 var db = Get_DB();
                 db.Entry(new_like).State = System.Data.Entity.EntityState.Added; 
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region AddNewFavorite
+        //פונקציה של הוספת פרופיל חדש לטבלת הפרופילים
+        public static bool AddNewFavorite(TBL_FavoriteRecp new_favorite)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(new_favorite).State = System.Data.Entity.EntityState.Added;
                 db.SaveChanges();
                 return true;
             }
@@ -780,7 +816,30 @@ namespace CookitDB.DB_Code
                 return false;
             }
         }
+        #endregion
 
+        #region UpdateFavorite
+        public static bool UpdateFavorite(TBL_FavoriteRecp updated_favorite)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_FavoriteRecp favorite = db.TBL_FavoriteRecp.SingleOrDefault(x => x.Id_Recp == updated_favorite.Id_Recp && x.Id_User == updated_favorite.Id_User);
+                if (favorite != null)
+                {
+                    favorite.RecpStatus = updated_favorite.RecpStatus;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         #endregion
 
         //*********************************************************************

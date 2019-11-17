@@ -240,6 +240,7 @@
     <Compile Include="Controllers\DishCategotyController.cs" />
     <Compile Include="Controllers\DishTypeController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\FoodLabelsForRecpController.cs" />
     <Compile Include="Controllers\FoodLableController.cs" />
     <Compile Include="Controllers\FoodTypeController.cs" />

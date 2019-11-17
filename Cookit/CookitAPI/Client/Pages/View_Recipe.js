@@ -20,6 +20,7 @@ var NAME_INGRIDIANTS = 0;
 
 //פונקציות מתכון
 var RECIPE_LIKE = null;
+var RECIPE_FAVORITE = null;
 
 
 
@@ -458,6 +459,7 @@ function SuccessGetLikeByUserIdAndRecipeId(data) {
     RECIPE_LIKE = data;
     ToggelLikeIcon();
     //מביא את נתוני השמירת מתכון כמועדף
+    GetFavorite();
 }
 
 function FailAddGetLikeByUserIdAndRecipeId() {
@@ -485,12 +487,12 @@ function AddNewLike()
         id_recipe : RECIPE_INFORMATION.recp_id,
         id_user: RECIPE_INFORMATION.user_id,
         status: true,
-        date_like: new Date(),//Date.getDate()
+        date_like: new Date()//Date.getDate()
     };
+    RECIPE_LIKE = new_like;
     GlobalAjax("/api/Like/AddNewLike", "POST", new_like,SuccessAddNewLike, FailAddNewLike);
 }
 function SuccessAddNewLike(data) {
-    RECIPE_LIKE = data;
     console.log("הלייק נוסף בהצלחה");
     alert("הלייק התווסף למתכון בהצלחה!.");
     ToggelLikeIcon();
@@ -518,6 +520,10 @@ function UpdateExsistLike()
 function SuccessUpdateExsistLike() {
     console.log("עדכון לייק בוצע בהצלחה!.");
     ToggelLikeIcon();
+    if (RECIPE_LIKE.status == true)//אם יש לייק
+        alert("לייק התווסף!.");
+    else
+        alert("לייק בוטל!.");
 }
 
 function FailUpdateExsistLike() {
@@ -535,14 +541,122 @@ function ToggelLikeIcon()
     if (RECIPE_LIKE.status == true)//אם יש לייק
     {
         console.log("יש לייק");
+        //alert("לייק התווסף!.");
         if (like_icon.hasClass("fa-heart-o"))
             like_icon.removeClass("fa-heart-o");
-        like_icon.addClass("fa fa-heart");
+        like_icon.addClass("fa-heart");
     }
     else {
         console.log("לייק מבוטל");
+        //alert("לייק בוטל!.");
         if (like_icon.hasClass("fa-heart"))
             like_icon.removeClass("fa-heart");
-        like_icon.addClass("fa fa-heart-o");
+        like_icon.addClass("fa-heart-o");
+    }
+}
+
+//*******************************************************************************************
+// GET AND SHOW FAVORITE RECIPE
+//*******************************************************************************************
+function GetFavorite() {
+    var user_id = RECIPE_INFORMATION.user_id;
+    var recipe_id = RECIPE_INFORMATION.recp_id;
+    GlobalAjax("/api/Favorite/GetFavoriteByUserIdAndRecipeId/" + user_id + "/" + recipe_id, "GET", "", SuccessGetFavorite, FailGetFavorite);
+}
+
+function SuccessGetFavorite(data) {
+    RECIPE_FAVORITE = data;
+    ToggelFavoriteIcon();
+    //מביא את נתוני השמירת מתכון כמועדף
+}
+
+function FailGetFavorite() {
+    console.log("מתכון זה לא שמור כמועדף אצל המשתמש");
+}
+//*******************************************************************************************
+// ADD REMOVE FAVORITE RECIPE
+//*******************************************************************************************
+function AddRemoveFavoriteRecipe()
+//הוספת /הסרת מתכון למועדפים
+{
+    if (RECIPE_FAVORITE == null) //הוספה למועדפים בפעם הראשונה
+        AddNewFavorite();
+    else// חידוש למועדפים מבוטל או ביטול כמועדף קיים
+        UpdateExsistFavorite();
+}
+
+//*******************************************************************************************
+// ADD NEW FAVORITE
+//*******************************************************************************************
+function AddNewFavorite()
+//הוספת כמועדף חדש
+{
+    var new_favorite = {
+        id_recipe: RECIPE_INFORMATION.recp_id,
+        id_user: RECIPE_INFORMATION.user_id,
+        status: true
+    };
+    RECIPE_FAVORITE = new_favorite;
+    GlobalAjax("/api/Favorite/AddNewFavorite", "POST", new_favorite, SuccessAddNewFavorite, FailAddNewFavorite);
+}
+function SuccessAddNewFavorite(data) {
+    console.log("המתכון נוסף למועדפים בהצלחה");
+    alert("המתכון נוסף למועדפים בהצלחה");
+    ToggelFavoriteIcon();
+}
+
+function FailAddNewFavorite() {
+    console.log("הוספת לייק נכשלה");
+    alert("הוספת לייק נכשלה");
+}
+
+//*******************************************************************************************
+// UPDATE EXSIST FAVORITE
+//*******************************************************************************************
+function UpdateExsistFavorite()
+//ביטול לייק קיים או חידש לייק מבוטל
+{
+    if (RECIPE_FAVORITE.status == true)
+        RECIPE_FAVORITE.status = false;
+    else
+        RECIPE_FAVORITE.status = true;
+    GlobalAjax("/api/Favorite/UpdateFavorite", "PUT", RECIPE_FAVORITE, SuccessUpdateExsistFavorite, FailUpdateExsistFavorite);
+}
+
+function SuccessUpdateExsistFavorite() {
+    console.log("עדכון מתכון כמועדף בוצע בהצלחה!.");
+    ToggelFavoriteIcon();
+    if (RECIPE_FAVORITE.status == true)//אם יש 
+                alert("המתכון נשמר שמעודף!.");
+else
+                alert("המתכון הוסר מהמועדפים!.");
+}
+
+function FailUpdateExsistFavorite() {
+    console.log("עדכון מתכון כמועדף נכשלה");
+    alert("עדכון מתכון כמועדף נכשלה");
+}
+
+//*******************************************************************************************
+// TOGGEL FAVORITE ICON
+//*******************************************************************************************
+function ToggelFavoriteIcon()
+//משנה את סימון איקון הלייק לפי הסטאוטס שלו
+{
+    var favorite_icon = $("#recipe_favorite");
+    if (RECIPE_FAVORITE.status == true)//אם יש 
+    {
+        console.log("שמור כמועדף");
+        //alert("המתכון נשמר שמעודף!.");
+        if (favorite_icon.hasClass("fa-bookmark-o"))
+            favorite_icon.removeClass("fa-bookmark-o");
+        favorite_icon.addClass("fa-bookmark");
+    }
+    else {
+        console.log("כמועדף מבוטל");
+        //alert("המתכון הוסר מהמועדפים!.");
+        if (favorite_icon.hasClass("fa-bookmark"))
+            favorite_icon.removeClass("fa-bookmark");
+        favorite_icon.addClass("fa-bookmark-o");
     }
 }
