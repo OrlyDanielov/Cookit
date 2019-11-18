@@ -72,7 +72,7 @@
         <AssociationConnector Association="Cookit_DBModel.FK_Profile1" />
         <AssociationConnector Association="Cookit_DBModel.FK_Region" />
         <AssociationConnector Association="Cookit_DBModel.FK_User" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Comments" Width="1.5" PointX="8.25" PointY="19.125" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Comments" Width="1.5" PointX="8.25" PointY="19.25" />
         <AssociationConnector Association="Cookit_DBModel.FK_Recp3" />
         <AssociationConnector Association="Cookit_DBModel.FK_User3" />
         </Diagram>

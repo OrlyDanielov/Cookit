@@ -73,28 +73,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-        /*
-        #region Get All City_Regions
-        // הפוקנציה מביאה מחוזות
-        public static List<TBL_City> Get_all_Regions()
-        {
-            try
-            {
-                var db = Get_DB();
-                // Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                return db.TBL_City.GroupBy(o => new { o.Region }).Select(o => o.FirstOrDefault()).ToList(); //returns distinct regions
-            }
-
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
-    */
-
+         
         #region Get all dish type
         // הפוקנציה מביאה מהמסד את כל סוגי המנות
         public static List<TBL_DishType> Get_all_DishType()
@@ -455,6 +434,42 @@ namespace CookitDB.DB_Code
                     return favorite;
             }
             catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetUserFullNameByID
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static string GetUserFullNameByID(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Id_User == user_id );
+                if (user == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return user.FirstName+" "+user.LastName;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get Comments By Recipe Id
+        //מביא את כל התגובות של מתכון
+        public static List<TBL_Comments> GetCommentsByRecipeId(int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+               return db.TBL_Comments.Where(x => x.Id_Recp == recipe_id).ToList();
+            }
+            catch (Exception e)
             {
                 return null;
             }
@@ -893,7 +908,7 @@ namespace CookitDB.DB_Code
 
         #endregion
 
-# region DeleteFoodLabelsForRecipeById
+        # region DeleteFoodLabelsForRecipeById
         //פונקציה של הוספת מצרכים למתכון
         public static bool DeleteFoodLabelsForRecipeById(List<TBL_LabelsForRecp> delete_lbl2rcp)
         {
@@ -922,7 +937,6 @@ namespace CookitDB.DB_Code
 
         #endregion
 
-
         #region DeleteHolidaysForRecipeById
         //פונקציה של הוספת מצרכים למתכון
         public static bool DeleteHolidaysForRecipeById(List<TBL_HolidaysForRecp> delete_Holidays2rcp)
@@ -941,6 +955,29 @@ namespace CookitDB.DB_Code
                     else
                         return false;
                 }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region RemoveCommentById
+        //הסרת תגובה לפי תז
+        public static bool RemoveCommentById(int comment_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Comments comments = db.TBL_Comments.SingleOrDefault(x => x.Id_Comment == comment_id);
+                if (comments != null)
+                    db.TBL_Comments.Remove(comments);
+                else
+                    return false;
                 db.SaveChanges();
                 return true;
             }

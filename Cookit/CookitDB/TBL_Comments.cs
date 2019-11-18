@@ -19,7 +19,6 @@ namespace CookitDB
         public int Id_User { get; set; }
         public string Comment { get; set; }
         public System.DateTime CommentDate { get; set; }
-        public bool CommentStatus { get; set; }
     
         public virtual TBL_Recipe TBL_Recipe { get; set; }
         public virtual TBL_User TBL_User { get; set; }

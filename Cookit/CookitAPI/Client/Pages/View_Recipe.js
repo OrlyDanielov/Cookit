@@ -21,7 +21,9 @@ var NAME_INGRIDIANTS = 0;
 //פונקציות מתכון
 var RECIPE_LIKE = null;
 var RECIPE_FAVORITE = null;
-
+var RECIPE_COMMENTS = null;
+var COUNT_COMMENT = 0;
+var NEW_USER_COMMENT = null;
 
 
 //תז המתכון החדש
@@ -567,7 +569,8 @@ function GetFavorite() {
 function SuccessGetFavorite(data) {
     RECIPE_FAVORITE = data;
     ToggelFavoriteIcon();
-    //מביא את נתוני השמירת מתכון כמועדף
+    //מביא את תגובות המתכון
+    GetRecipeComments();
 }
 
 function FailGetFavorite() {
@@ -665,29 +668,144 @@ function ToggelFavoriteIcon()
 // Add New Comment
 //*******************************************************************************************
 function AddNewComment() {
-    var new_comment = {
-        recipe_id: RECIPE_INFORMATION.recp_id,
-        user_id: RECIPE_INFORMATION.user_id,
-        comment: $("#user_comment").val(),
-        comment_date: new Date(),
-        comment_status: true
-    };
-    GlobalAjax("/api/Comment/AddNewComment", "POST", new_comment, SuccessAddNewComment, FailAddNewComment);
+    var comment_text = $("#user_comment").val();
+    if (comment_text == "" || comment_text == null || comment_text == undefined) 
+    {
+        alert("אנא הקלד תגובה!.");
+        $("#user_comment").focus();
+    }
+    else {
+        var new_comment = {
+            id: null,
+            recipe_id: RECIPE_INFORMATION.recp_id,
+            user_id: RECIPE_INFORMATION.user_id,
+            comment: $("#user_comment").val(),
+            comment_date: new Date()//,
+            //comment_status: true
+        };
+        NEW_USER_COMMENT = new_comment;
+        GlobalAjax("/api/Comment/AddNewComment", "POST", new_comment, SuccessAddNewComment, FailAddNewComment);
+    }
 }
 
-function SuccessAddNewComment() {
+function SuccessAddNewComment(data) {
     console.log("התגובה נוספה בהצלחה");
     alert("התגובה נוספה בהצלחה");
+    NEW_USER_COMMENT.id = data;
+    $("#user_comment").val = "";
+    AddComment(NEW_USER_COMMENT, LOGIN_USER.first_name + " " + LOGIN_USER.last_name);
 }
 
 function FailAddNewComment() {
     console.log("הוספת תגובה נכשלה");
     alert("הוספת תגובה נכשלה");
 }
+//*******************************************************************************************
+// GET RECIPE COMMENTS
+//*******************************************************************************************
+function GetRecipeComments() {
+    var recipe_id = RECIPE_INFORMATION.recp_id;
+    GlobalAjax("/api/Comment/GetCommentsByRecipeId/" + recipe_id, "GET", "", SuccessGetRecipeComments, FailGetRecipeComments);
+}
+
+function SuccessGetRecipeComments(data) {
+    RECIPE_COMMENTS = data;
+    sessionStorage.setItem("RECIPE_COMMENTS", JSON.stringify(RECIPE_COMMENTS));
+    ShowRecipeComments();
+}
+
+function FailGetRecipeComments() {
+    console.log("שגיאה! אי אפשר לקבל את התגובות של המתכון");
+    alert("שגיאה! אי אפשר לקבל את התגובות של המתכון");
+}
 
 //*******************************************************************************************
-// MoveNewCommentToOldComment
+// SHOW RECIPE COMMENTS
 //*******************************************************************************************
-function MoveNewCommentToOldComment() {
+function ShowRecipeComments() {
+    for (var i = 0; i < RECIPE_COMMENTS.length; i++) {
+       GetUserFullNameByID(RECIPE_COMMENTS[i],RECIPE_COMMENTS[i].user_id);
+    }
+}
 
+function AddComment(_comment,user_full_name) {
+    COUNT_COMMENT += 1;
+    COUNT_COMMENT += 1;
+    var new_comment = document.createElement('div');
+    new_comment.id = "comment_" + COUNT_COMMENT;
+    new_comment.className = "form-row";
+    new_comment.style["text-align"] = "right";
+    //תגובה
+    var comment_lbl = document.createElement("span");
+    comment_lbl.for = _comment.id;
+    comment_lbl.className = "col-form-label text2rigth";
+    comment_lbl.style["width"] = "100%";
+    comment_lbl.innerHTML = user_full_name + " " + _comment.comment_date;//ParseDate4Display(_comment.comment_date);
+    new_comment.appendChild(comment_lbl);
+
+    var comment_div = document.createElement("span");
+    comment_div.className = "form-control text2rigth";
+    comment_div.style["right"] = "0";
+    comment_div.innerHTML = _comment.comment;
+    comment_div.id = _comment.id;
+    new_comment.appendChild(comment_div);
+
+    //כפתור הסרה
+    if (_comment.user_id == LOGIN_USER.id) // אם זאת תגובה של המשתמש המחובר
+    {
+        var btn_remove = document.createElement("input");
+        btn_remove.type = "button";
+        btn_remove.id = _comment.id;//"btn_remove_comment_" + COUNT_COMMENT;
+        btn_remove.name = _comment.id;
+        btn_remove.value = "הסר תגובה";
+        btn_remove.className = "btn btn-group";
+        btn_remove.setAttribute("onClick", "ButtonRemoveComment(this.name)");//"ButtonRemoveComment(this.id)");
+        new_comment.appendChild(btn_remove);
+    }
+    document.getElementById("old_comment").appendChild(new_comment);
+}
+//*******************************************************************************************
+// GET USER FULL NAME BY ID
+//*******************************************************************************************
+function GetUserFullNameByID(_comment,_user_id) {
+    GlobalAjax("/api/User/GetUserFullNameByID/" + _user_id, "GET", "", function (data) { AddComment(_comment, data); }, FailGetUserFullNameByID);
+}
+function FailGetUserFullNameByID() {
+    console.log("cant get the user full name!.");
+}
+/*
+//*******************************************************************************************
+//PARSE DATE FOR DISPLAY
+//*******************************************************************************************
+function ParseDate4Display(_date) {
+    return _date.toDateString();
+    //return _date.getDate() + "-" + _date.getMonth() + "-" + _date.getFullYear() + " " + _date.getHours() + ":" + _date.getMinutes();
+}
+*/
+//*******************************************************************************************
+//Button Remove Comment
+//*******************************************************************************************
+function ButtonRemoveComment(comment_id) {
+    GlobalAjax("/api/Comment/RemoveCommentById/" + comment_id, "DELETE", "", function (data) { alert("תגובתך נמחקה בהצלחה!."); RemoveComment(comment_id); }, FailButtonRemoveComment);
+}
+/*
+function SuccessButtonRemoveComment() {
+    alert("תגובתך נמחקה בהצלחה!.");
+}
+*/
+function FailButtonRemoveComment() {
+    alert("שגיאה! אי אפשר כעת למחוק את התגובה.");
+
+}
+
+//*******************************************************************************************
+//REMOVE COMMENT
+//*******************************************************************************************
+function RemoveComment(_id)
+//מוחק את התגובה
+{
+    COUNT_COMMENT -= 1;
+    var child = document.getElementById(_id).parentNode;
+    var all_comments = document.getElementById("old_comment");
+    all_comments.removeChild(child);
 }

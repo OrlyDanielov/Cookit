@@ -29,7 +29,6 @@
           <Property Name="Id_User" Type="int" Nullable="false" />
           <Property Name="Comment" Type="ntext" Nullable="false" />
           <Property Name="CommentDate" Type="datetime" Nullable="false" />
-          <Property Name="CommentStatus" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_DishCategory">
           <Key>
@@ -1919,7 +1918,6 @@
           <Property Name="Id_User" Type="Int32" Nullable="false" />
           <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CommentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CommentStatus" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp3" FromRole="TBL_Comments" ToRole="TBL_Recipe" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User3" FromRole="TBL_Comments" ToRole="TBL_User" />
         </EntityType>
@@ -2257,7 +2255,6 @@
           <EntitySetMapping Name="TBL_Comments">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Comments">
               <MappingFragment StoreEntitySet="TBL_Comments">
-                <ScalarProperty Name="CommentStatus" ColumnName="CommentStatus" />
                 <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
