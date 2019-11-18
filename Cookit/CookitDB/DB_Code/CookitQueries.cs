@@ -420,6 +420,26 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region GetDifficultyLevelRatingByUserIdAndRecipeId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static TBL_RecpLevelByBU GetDifficultyLevelRatingByUserIdAndRecipeId(int user_id, int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_RecpLevelByBU rating = db.TBL_RecpLevelByBU.SingleOrDefault(x => x.Id_Recp == recipe_id && x.Id_User == user_id);
+                if (rating == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return rating;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region GetFavoriteByUserIdAndRecipeId
         //מביאה מצרכי מתכון לפי תז מתכון
         public static TBL_FavoriteRecp GetFavoriteByUserIdAndRecipeId(int user_id, int recipe_id)
@@ -698,7 +718,23 @@ namespace CookitDB.DB_Code
 
         #endregion
 
-
+        #region AddNewDiffLevelRating
+        //הוספת דירוג של רמת קושי של משתמש עסקי
+        public static bool AddNewDiffLevelRating(TBL_RecpLevelByBU newRating)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(newRating).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
         //*********************************************************************
         //              UPDATE
         //*********************************************************************
@@ -861,6 +897,30 @@ namespace CookitDB.DB_Code
                 if (favorite != null)
                 {
                     favorite.RecpStatus = updated_favorite.RecpStatus;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region UpdateDiffLevelRating
+        public static bool UpdateDiffLevelRating(TBL_RecpLevelByBU updated_rating)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_RecpLevelByBU ratnig = db.TBL_RecpLevelByBU.SingleOrDefault(x => x.Id_Recp == updated_rating.Id_Recp && x.Id_User == updated_rating.Id_User);
+                if (ratnig != null)
+                {
+                    ratnig.Id_Level = updated_rating.Id_Level;
 
                     db.SaveChanges();
                     return true;

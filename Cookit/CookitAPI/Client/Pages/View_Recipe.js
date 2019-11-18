@@ -24,6 +24,7 @@ var RECIPE_FAVORITE = null;
 var RECIPE_COMMENTS = null;
 var COUNT_COMMENT = 0;
 var NEW_USER_COMMENT = null;
+var RECIPE_DIFF_LEVEL_RATING = null;
 
 
 //תז המתכון החדש
@@ -42,6 +43,8 @@ var RECIPE_FOOD_LABLES = new Array();
 //*******************************************************************************************
 // הפונקציה קוראת בתחילת הקריאה לדף
 $(document).ready(function () {
+    //אם משתמש עסקי
+    ShowDiffLevelRationDiv();
     // להביא נתונים סטטים
     GetDishType();
     GetDishCategory();
@@ -466,6 +469,8 @@ function SuccessGetLikeByUserIdAndRecipeId(data) {
 
 function FailAddGetLikeByUserIdAndRecipeId() {
     console.log("אין לייק של מתשמ");
+    //מביא את נתוני השמירת מתכון כמועדף
+    GetFavorite();
 }
 //*******************************************************************************************
 // ADD REMOVE LIKE
@@ -575,6 +580,8 @@ function SuccessGetFavorite(data) {
 
 function FailGetFavorite() {
     console.log("מתכון זה לא שמור כמועדף אצל המשתמש");
+    //מביא את תגובות המתכון
+    GetRecipeComments();
 }
 //*******************************************************************************************
 // ADD REMOVE FAVORITE RECIPE
@@ -712,11 +719,15 @@ function SuccessGetRecipeComments(data) {
     RECIPE_COMMENTS = data;
     sessionStorage.setItem("RECIPE_COMMENTS", JSON.stringify(RECIPE_COMMENTS));
     ShowRecipeComments();
+    
 }
 
 function FailGetRecipeComments() {
     console.log("שגיאה! אי אפשר לקבל את התגובות של המתכון");
     alert("שגיאה! אי אפשר לקבל את התגובות של המתכון");
+    //דירוג מתכון
+    GetDifficultyLevelRating();
+
 }
 
 //*******************************************************************************************
@@ -726,6 +737,8 @@ function ShowRecipeComments() {
     for (var i = 0; i < RECIPE_COMMENTS.length; i++) {
        GetUserFullNameByID(RECIPE_COMMENTS[i],RECIPE_COMMENTS[i].user_id);
     }
+    //דירוג מתכון
+    GetDifficultyLevelRating();
 }
 
 function AddComment(_comment,user_full_name) {
@@ -808,4 +821,108 @@ function RemoveComment(_id)
     var child = document.getElementById(_id).parentNode;
     var all_comments = document.getElementById("old_comment");
     all_comments.removeChild(child);
+}
+
+//*******************************************************************************************
+//Show Difficulty Level rating div
+//*******************************************************************************************
+function ShowDiffLevelRationDiv() {
+    if (LOGIN_USER.user_type == 3)// משתמש עסקי
+        document.getElementById("div_diff_level_rating").style["visibility"]="visible";
+}
+
+//*******************************************************************************************
+//SAVE Difficulty Level RATING
+//*******************************************************************************************
+function SaveDiffLevelRating() {
+    //שמירת ועדכון הדירוג
+    if (RECIPE_DIFF_LEVEL_RATING == null)//הוספה כי בפעם הרשונה
+        AddDifficultyLevelRating();
+    else
+        UpdateDifficultyLevelRating();
+}
+//*******************************************************************************************
+//Show Difficulty Level Icon
+//*******************************************************************************************
+function ShowDifficultyLevelIconToltip()
+//מראה את רמת הקושי ב טולטיפ לפי הערך הנבחר
+{
+    var diff_level = $("#recipe_difficulty_level_rating").val();
+    var diff_icon = document.getElementById("recipe_difficulty_level_rating");
+    if (diff_level == 1)
+        diff_icon.title = "קל";
+    else if (diff_level == 2)
+        diff_icon.title = "בינוני";
+    else if (diff_level == 3)
+        diff_icon.title = "קשה";
+    else
+        diff_icon.title = "קשה מאוד";   
+}
+//*******************************************************************************************
+//SVABE Difficulty Level RATING
+//*******************************************************************************************
+function AddDifficultyLevelRating() {
+    var diff_level = $("#recipe_difficulty_level_rating").val();
+    var diff_rating = {
+        recipe_id: RECIPE_INFORMATION.recp_id,
+        user_id: LOGIN_USER.id,
+        diff_level_id: diff_level
+    };
+    GlobalAjax("/api/DifficultyLevelRating/AddNewDiffLevelRating", "POST", diff_rating, SuccessSaveDifficultyLevelRating, FailSaveDifficultyLevelRating);
+}
+
+function SuccessSaveDifficultyLevelRating() {
+    console.log("!.דירוג רמת הקושי למתכון התווספה בהצלחה");
+    alert("!.דירוג רמת הקושי למתכון התווספה בהצלחה");
+    ShowDifficultyLevelIconToltip();
+}
+
+function FailSaveDifficultyLevelRating() {
+    console.log("!.שגיאה שהוספת דירוג רמת קושי למתכון");
+    alert("!.שגיאה שהוספת דירוג רמת קושי למתכון");
+}
+
+//*******************************************************************************************
+//UPDATE Difficulty Level RATING
+//*******************************************************************************************
+function UpdateDifficultyLevelRating() {
+    var diff_level = $("#recipe_difficulty_level_rating").val();
+    var diff_rating = {
+        recipe_id: RECIPE_INFORMATION.recp_id,
+        user_id: LOGIN_USER.id,
+        diff_level_id: diff_level
+    };
+    GlobalAjax("/api/DifficultyLevelRating/UpdateDiffLevelRating", "PUT", diff_rating, SuccessUpdateDifficultyLevelRating, FailUpdateDifficultyLevelRating);
+}
+
+function SuccessUpdateDifficultyLevelRating() {
+    console.log("!.דירוג רמת הקושי למתכון עודכן בהצלחה");
+    alert("!.דירוג רמת הקושי למתכון עודכן בהצלחה");
+    ShowDifficultyLevelIconToltip();
+}
+
+function FailUpdateDifficultyLevelRating() {
+    console.log("!.שגיאה שעדכנת דירוג רמת קושי למתכון");
+    alert("!.שגיאה שעדכנת דירוג רמת קושי למתכון");
+}
+
+//*******************************************************************************************
+//GET Difficulty Level RATING
+//*******************************************************************************************
+function GetDifficultyLevelRating() {
+    var user_id = LOGIN_USER.id;
+    var recipe_id = RECIPE_INFORMATION.recp_id;
+    GlobalAjax("/api/DifficultyLevelRating/GetDifficultyLevelRating/" + user_id + "/" + recipe_id, "GET", "", SuccessGetDifficultyLevelRating, FailGetDifficultyLevelRating);
+}
+
+function SuccessGetDifficultyLevelRating(data) {
+    console.log("!.דירוג רמת הקושי למתכון עודכן בהצלחה");
+    document.getElementById("recipe_difficulty_level_rating").value = data.diff_level_id;
+    RECIPE_DIFF_LEVEL_RATING = data;
+    ShowDifficultyLevelIconToltip();
+}
+
+function FailGetDifficultyLevelRating() {
+    console.log("!.שגיאה בהבאת דירוג רמת קושי למתכון");
+    alert("!.שגיאה בהבאת דירוג רמת קושי למתכון");
 }
