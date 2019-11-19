@@ -7,8 +7,8 @@ namespace CookitAPI.DTO
 {
     public class FavoriteRecipeDTO
     {
-        public int recipe_id;
-        public int user_id;
-        public bool status_recp;
+        public int id_recipe;
+        public int id_user;
+        public bool status;
     }
 }

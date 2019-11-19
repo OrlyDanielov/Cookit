@@ -16,7 +16,7 @@ namespace CookitDB
     {
         public int Id_Recp { get; set; }
         public int Id_User { get; set; }
-        public Nullable<int> Id_Level { get; set; }
+        public int Id_Level { get; set; }
     
         public virtual TBL_Recipe TBL_Recipe { get; set; }
         public virtual TBL_RecipeDifficultyLevel TBL_RecipeDifficultyLevel { get; set; }

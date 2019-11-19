@@ -71,6 +71,28 @@ namespace Cookit.Controllers
         }
         #endregion
 
+        #region GetUserFullNameByID
+        [Route("GetUserFullNameByID/{user_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetUserFullNameByID(int user_id)
+        {
+            try
+            {
+                Cookit_DBConnection db = new Cookit_DBConnection();
+                string user_full_name = CookitDB.DB_Code.CookitQueries.GetUserFullNameByID(user_id); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
+
+                if (user_full_name == null) // אם אין משתמש שכזה
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "this user full name does not exist.");
+                else               
+                    return Request.CreateResponse(HttpStatusCode.OK, user_full_name);                
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+        #endregion        
+
         #region send mail with the password
         //[Route("/api/User/SendMail/{email}/{2}")]
         ////[HttpGet("Get_SendMail")]

@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="fdee1d436b844299871c9ea175681471" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_Barcode" Width="1.5" PointX="0.75" PointY="2" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Comments" Width="1.5" PointX="5.25" PointY="16.25" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishCategory" Width="1.5" PointX="0.75" PointY="18.375" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishType" Width="1.5" PointX="0.75" PointY="16" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_DrawerRecp" Width="1.5" PointX="3" PointY="22.125" />
@@ -27,15 +26,12 @@
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_NutritionalIngridiants" Width="1.5" PointX="8.25" PointY="2.375" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_Recipe" Width="1.5" PointX="3" PointY="11.5" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_RecipeDifficultyLevel" Width="1.5" PointX="0.75" PointY="13.5" />
-        <EntityTypeShape EntityType="Cookit_DBModel.TBL_RecpLevelByBU" Width="1.5" PointX="8.25" PointY="16.25" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_Star" Width="1.5" PointX="3" PointY="18.5" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_StarsForRecp" Width="1.5" PointX="5.25" PointY="13.375" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_User" Width="1.5" PointX="0.75" PointY="20.75" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_UserType" Width="1.5" PointX="1.5" PointY="26.25" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_Workshop" Width="1.5" PointX="17.5" PointY="18.625" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_WorkshopParticipents" Width="1.5" PointX="19.75" PointY="22" />
-        <AssociationConnector Association="Cookit_DBModel.FK_Recp3" />
-        <AssociationConnector Association="Cookit_DBModel.FK_User3" />
         <AssociationConnector Association="Cookit_DBModel.FK_DishCategory" />
         <AssociationConnector Association="Cookit_DBModel.FK_DishType" />
         <AssociationConnector Association="Cookit_DBModel.FK_User8" />
@@ -56,11 +52,8 @@
         <AssociationConnector Association="Cookit_DBModel.FK_User2" />
         <AssociationConnector Association="Cookit_DBModel.FK_Mesurment" />
         <AssociationConnector Association="Cookit_DBModel.FK_Level" />
-        <AssociationConnector Association="Cookit_DBModel.FK_Recp4" />
         <AssociationConnector Association="Cookit_DBModel.FK_Recp5" />
         <AssociationConnector Association="Cookit_DBModel.FK_User1" />
-        <AssociationConnector Association="Cookit_DBModel.FK_Level1" />
-        <AssociationConnector Association="Cookit_DBModel.FK_User4" />
         <AssociationConnector Association="Cookit_DBModel.FK_Star" />
         <AssociationConnector Association="Cookit_DBModel.FK_User7" />
         <AssociationConnector Association="Cookit_DBModel.FK_UserType" />
@@ -75,6 +68,13 @@
         <AssociationConnector Association="Cookit_DBModel.FK_Profile1" />
         <AssociationConnector Association="Cookit_DBModel.FK_Region" />
         <AssociationConnector Association="Cookit_DBModel.FK_User" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_Comments" Width="1.5" PointX="8.25" PointY="19.25" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recp3" />
+        <AssociationConnector Association="Cookit_DBModel.FK_User3" />
+        <EntityTypeShape EntityType="Cookit_DBModel.TBL_RecpLevelByBU" Width="1.5" PointX="5.25" PointY="22.375" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Recp4" />
+        <AssociationConnector Association="Cookit_DBModel.FK_Level1" />
+        <AssociationConnector Association="Cookit_DBModel.FK_User4" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

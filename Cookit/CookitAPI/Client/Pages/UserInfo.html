@@ -67,7 +67,7 @@
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" style="text-align:center">
                             <div id="User_Login_Details" class="dropdown-item">
-                                <img src="../Images/user_null_fic.svg" />
+                                <img src="../Images/Background_pic/user_null_fic.svg" />
                                 <p id="menu_user_name"></p>
                                 <p id="menu_user_type"></p>
                                 <button id="btn_logout" class="btn-dark" onclick="Logout()">התנתק</button>
@@ -111,8 +111,10 @@
                     <!-- מייל-->
                     <div class="col">
                         <label for="email" class="col-sm-4 col-form-label">אימייל</label>
-                        <i id="btn_explanation_email" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
-                        <div id="explanation_email" class="explanation"></div>
+                        <!--<i id="btn_explanation_email" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
+                        <i id="btn_explanation_email" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <span class="popuptext" id="email_popup">אימייל צריך להיות באנגלית ועם הסימנים @ו .</span>
+                        <!--<div id="explanation_email" class="explanation"></div>-->
                         <input type="email" id="user_email" class="form-control text2rigth" disabled required>
                         <div id="feedback_email" class="not_valid_feedback"></div>
                     </div>
@@ -143,8 +145,10 @@
                     <!-- סוג המשתמש-->
                     <div class="col">
                         <label for="user_type" class="col-sm-4 col-form-label">סוג המשתמש</label>
-                        <i id="btn_explanation_user_type" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
-                        <div id="explanation_user_type" class="explanation"></div>
+                        <!--<i id="btn_explanation_user_type" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
+                        <i id="btn_explanation_password" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <span class="popuptext" id="password_popup">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
+                        <!--<div id="explanation_user_type" class="explanation"></div>-->
                         <div class="col-sm-10">
                             <select name="user_type" id="select_user_type" class="custom-select form-control" disabled required onchange="CheckUserType()">
                                 <option value="" selected>סוג משתמש</option>

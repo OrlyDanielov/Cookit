@@ -73,28 +73,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-        /*
-        #region Get All City_Regions
-        // הפוקנציה מביאה מחוזות
-        public static List<TBL_City> Get_all_Regions()
-        {
-            try
-            {
-                var db = Get_DB();
-                // Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                return db.TBL_City.GroupBy(o => new { o.Region }).Select(o => o.FirstOrDefault()).ToList(); //returns distinct regions
-            }
-
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
-    */
-
+         
         #region Get all dish type
         // הפוקנציה מביאה מהמסד את כל סוגי המנות
         public static List<TBL_DishType> Get_all_DishType()
@@ -401,7 +380,6 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
-
         #region GetFoodLablesByRecpId
         //מביאה מצרכי מתכון לפי תז מתכון
         public static List<TBL_LabelsForRecp> GetFoodLablesByRecpId(int recp_id)
@@ -421,7 +399,102 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
+               
+        #region GetLikeByUserIdAndRecipeId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static TBL_Likes GetLikeByUserIdAndRecipeId(int user_id,int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Likes like = db.TBL_Likes.SingleOrDefault(x => x.Id_Recp == recipe_id && x.Id_User == user_id);
+                if (like == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return like;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
 
+        #region GetDifficultyLevelRatingByUserIdAndRecipeId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static TBL_RecpLevelByBU GetDifficultyLevelRatingByUserIdAndRecipeId(int user_id, int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_RecpLevelByBU rating = db.TBL_RecpLevelByBU.SingleOrDefault(x => x.Id_Recp == recipe_id && x.Id_User == user_id);
+                if (rating == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return rating;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetFavoriteByUserIdAndRecipeId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static TBL_FavoriteRecp GetFavoriteByUserIdAndRecipeId(int user_id, int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_FavoriteRecp favorite = db.TBL_FavoriteRecp.SingleOrDefault(x => x.Id_Recp == recipe_id && x.Id_User == user_id);
+                if (favorite == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return favorite;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetUserFullNameByID
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static string GetUserFullNameByID(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Id_User == user_id );
+                if (user == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return user.FirstName+" "+user.LastName;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get Comments By Recipe Id
+        //מביא את כל התגובות של מתכון
+        public static List<TBL_Comments> GetCommentsByRecipeId(int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+               return db.TBL_Comments.Where(x => x.Id_Recp == recipe_id).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
         //*********************************************************************
         //              ADD
         //*********************************************************************
@@ -472,6 +545,60 @@ namespace CookitDB.DB_Code
             {
                 var db = Get_DB();
                 db.Entry(new_profile).State = System.Data.Entity.EntityState.Added; // הוספת פרופיל חדש
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region AddNewLike
+        //פונקציה של הוספת פרופיל חדש לטבלת הפרופילים
+        public static bool AddNewLike(TBL_Likes new_like)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(new_like).State = System.Data.Entity.EntityState.Added; 
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region AddNewComment
+        //הוספת תגובה חדשה למתכון
+        public static int AddNewComment(TBL_Comments new_comment)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(new_comment).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+                return new_comment.Id_Comment;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+        #endregion
+
+        #region AddNewFavorite
+        //פונקציה של הוספת פרופיל חדש לטבלת הפרופילים
+        public static bool AddNewFavorite(TBL_FavoriteRecp new_favorite)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(new_favorite).State = System.Data.Entity.EntityState.Added;
                 db.SaveChanges();
                 return true;
             }
@@ -591,7 +718,23 @@ namespace CookitDB.DB_Code
 
         #endregion
 
-
+        #region AddNewDiffLevelRating
+        //הוספת דירוג של רמת קושי של משתמש עסקי
+        public static bool AddNewDiffLevelRating(TBL_RecpLevelByBU newRating)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(newRating).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
         //*********************************************************************
         //              UPDATE
         //*********************************************************************
@@ -719,6 +862,79 @@ namespace CookitDB.DB_Code
 
         #endregion
 
+        #region UpdateLike
+        public static bool UpdateLike(TBL_Likes updated_like)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Likes like = db.TBL_Likes.SingleOrDefault(x => x.Id_Recp == updated_like.Id_Recp && x.Id_User == updated_like.Id_User);
+                if (like != null)
+                {
+                    like.LikeStatus = updated_like.LikeStatus;
+                    like.LikeDate = updated_like.LikeDate;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region UpdateFavorite
+        public static bool UpdateFavorite(TBL_FavoriteRecp updated_favorite)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_FavoriteRecp favorite = db.TBL_FavoriteRecp.SingleOrDefault(x => x.Id_Recp == updated_favorite.Id_Recp && x.Id_User == updated_favorite.Id_User);
+                if (favorite != null)
+                {
+                    favorite.RecpStatus = updated_favorite.RecpStatus;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region UpdateDiffLevelRating
+        public static bool UpdateDiffLevelRating(TBL_RecpLevelByBU updated_rating)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_RecpLevelByBU ratnig = db.TBL_RecpLevelByBU.SingleOrDefault(x => x.Id_Recp == updated_rating.Id_Recp && x.Id_User == updated_rating.Id_User);
+                if (ratnig != null)
+                {
+                    ratnig.Id_Level = updated_rating.Id_Level;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
         //*********************************************************************
         //              DELETE
         //*********************************************************************
@@ -752,7 +968,7 @@ namespace CookitDB.DB_Code
 
         #endregion
 
-# region DeleteFoodLabelsForRecipeById
+        # region DeleteFoodLabelsForRecipeById
         //פונקציה של הוספת מצרכים למתכון
         public static bool DeleteFoodLabelsForRecipeById(List<TBL_LabelsForRecp> delete_lbl2rcp)
         {
@@ -781,7 +997,6 @@ namespace CookitDB.DB_Code
 
         #endregion
 
-
         #region DeleteHolidaysForRecipeById
         //פונקציה של הוספת מצרכים למתכון
         public static bool DeleteHolidaysForRecipeById(List<TBL_HolidaysForRecp> delete_Holidays2rcp)
@@ -800,6 +1015,29 @@ namespace CookitDB.DB_Code
                     else
                         return false;
                 }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region RemoveCommentById
+        //הסרת תגובה לפי תז
+        public static bool RemoveCommentById(int comment_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Comments comments = db.TBL_Comments.SingleOrDefault(x => x.Id_Comment == comment_id);
+                if (comments != null)
+                    db.TBL_Comments.Remove(comments);
+                else
+                    return false;
                 db.SaveChanges();
                 return true;
             }

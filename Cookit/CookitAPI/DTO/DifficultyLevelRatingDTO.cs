@@ -5,13 +5,10 @@ using System.Web;
 
 namespace CookitAPI.DTO
 {
-    public class CommentsDTO
+    public class DifficultyLevelRatingDTO
     {
-        public int id;
         public int recipe_id;
         public int user_id;
-        public string comment;
-        public DateTime comment_date;
-        //public bool comment_status;
+        public int diff_level_id;
     }
 }

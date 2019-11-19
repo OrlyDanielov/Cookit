@@ -66,13 +66,17 @@
                 <legend>התחבר לחשבונך</legend>
                 <div class="form-row" style="display:block;">
                     <input type="email" id="inputEmail" placeholder="כתובת אימייל" required />
-                    <span id="explanation_email" class="explanation"></span>
-                    <i id="btn_explanation_email"  onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                    <!--<span id="explanation_email" class="explanation"></span>-->
+                    <!--<i id="btn_explanation_email"  onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
+                    <i id="btn_explanation_email" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                    <span class="popuptext" id="email_popup">אימייל צריך להיות באנגלית ועם הסימנים @ו .</span>
                 </div>
                 <div class="form-row" style="display:block;">
                     <input type="password" id="inputPassword" placeholder="סיסמה" equired />
-                    <span id="explanation_password" class="explanation"></span>
-                    <i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                    <!--<span id="explanation_password" class="explanation"></span>-->
+                    <!--<i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
+                    <i id="btn_explanation_password" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                    <span class="popuptext" id="password_popup">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
                 </div>
                 <input type="button" value="התחבר" class="btn btn-primary" onclick="LoginVerification()" />
             </fieldset>
