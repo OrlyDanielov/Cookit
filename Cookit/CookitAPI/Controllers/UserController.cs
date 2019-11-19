@@ -91,27 +91,27 @@ namespace Cookit.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
             }
         }
-        #endregion        
+        #endregion
 
-        #region send mail with the password
-        //[Route("/api/User/SendMail/{email}/{2}")]
-        ////[HttpGet("Get_SendMail")]
-        //public HttpResponseMessage Get(string email,int num)//Get_SendMail
-        //{
-        //    try
-        //    {
-        //        Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-        //        bool isSent = CookitDB.DB_Code.CookitQueries.SendMail(email);
-        //        if (isSent)
-        //            return Request.CreateResponse(HttpStatusCode.OK, "");
-        //        else
-        //            return Request.CreateResponse(HttpStatusCode.NotFound, "the mail can't sent now.");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
-        //    }
-        //}
+        #region send mail with the password 2 user for reset password
+        [Route("{email}/SendMail")]
+        [HttpGet]
+        public HttpResponseMessage SendMail(string email)//, int num)//Get_SendMail
+        {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                bool isSent = CookitDB.DB_Code.CookitQueries.SendMail(email);
+                if (isSent)
+                    return Request.CreateResponse(HttpStatusCode.OK, "");
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "the mail can't sent now.");
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
         #endregion
 
         #region Get User Id By Email

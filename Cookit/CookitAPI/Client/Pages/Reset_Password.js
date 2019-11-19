@@ -3,32 +3,44 @@
 //*******************************************************************************************
 //פונקצית בדיקת קיימות המייל
 function CheckingMail() {
-    var email = $("#txt_mail").val();
-    GlobalAjax("/api/User/CheckMail/" + email , "GET", "", SuccessCheckMail, FailCheckMail);
-}
-
-function SuccessCheckMail() {
-    console.log("mail exsist.");
-    alert("אימייל זה  קיים..");
-    //מעבר לשליחת מייל
-    GlobalAjax("/api/User/SendMail/" + email, "GET", "", SuccessSendMail, FailSendMail);
-
+        var email = $("#email").val();
+GlobalAjax("/api/User/" + email+"/SendMail","GET", "", SuccessSendMail4ResetPassword, FailSendMail4ResetPassword);
+/*
+    GlobalAjax("/api/User/" + email + "/CheckMailAvailable", "GET", "", SendMail4ResetPassword, FailCheckMail);//Success_CheckMailFree, Fail_CheckMailFree);   
+*/
 }
 
 function FailCheckMail(data) {
     console.log("that mail doesn't exsist.");
     console.log(data.T);
-    alert("אימייל זה לא קיים. אנא נסה שנית.");
+    alert("שגיאה השרת אינו יכול כעת לשחזר את סיסמתך.");
+}
+//*******************************************************************************************
+// SendMail4ResetPassword
+//*******************************************************************************************
+function SendMail4ResetPassword(data)
+{
+    var email = $("#email").val();
+    if (data)//אם המייל לא קיים
+    {  console.log("mail not exsist.");
+        alert("אנא הכנס אימייל קיים!.");
+    }
+    else {
+            console.log("mail exsist.");
+        //מעבר לשליחת מייל
+        GlobalAjax("/api/User/" + email, "/SendMail","GET", "", SuccessSendMail4ResetPassword, FailSendMail4ResetPassword);
+    }
 }
 
-function SuccessSendMail() {
-
+function SuccessSendMail4ResetPassword() {
+    console.log("מייל עם הסיסמה שלך נשלח לחשבונך בהצלחה!.");
+    alert("מייל עם הסיסמה שלך נשלח לחשבונך בהצלחה!.");
 }
 
-function FailSendMail() {
-
+function FailSendMail4ResetPassword() {
+    console.log("השרת כעת אינו יכול לשלוח מייל לשחזור הסיסמה!.");
+    alert("השרת כעת אינו יכול לשלוח מייל לשחזור הסיסמה!.");
 }
-
 //*******************************************************************************************
 // CheckIfEmailValid
 //*******************************************************************************************

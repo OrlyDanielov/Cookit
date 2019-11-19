@@ -1116,15 +1116,17 @@ namespace CookitDB.DB_Code
         {
             try
             {
-                //get the user password
                 var db = Get_DB();
-                string user_password = db.TBL_User.SingleOrDefault(x => x.Email == user_mail).UserPass.ToString();
-                if (user_password == null)
+                //string user_password 
+                TBL_User user  = db.TBL_User.SingleOrDefault(x => x.Email == user_mail);//.UserPass.ToString();
+                if (user == null)
                     return false;
                 else
                 {
+                    var user_password = user.UserPass;
                     //SendMail to user with password
-                    bool isSent = Mail.SendMail("orlydanielov@gmail.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password+".");
+                    bool isSent = Mail.SendMail("orlydanielov@outlook.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password + ".");
+                    //bool isSent = Mail.SendMail("orlydanielov@gmail.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password+".");
                     if (isSent)
                         return true;
                     else
