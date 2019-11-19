@@ -521,7 +521,7 @@ function Fail_GetUserIdByEmail(data) {
 //*******************************************************************************************
 // SHOW HIDE EXPLANATION
 //*******************************************************************************************
-var EXPLANATION_USER_TYPE = "למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.\n למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים.בנוסף יכול להעלות סדנאות לקהילה באתר.";
+/*var EXPLANATION_USER_TYPE = "למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.\n למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים.בנוסף יכול להעלות סדנאות לקהילה באתר.";
 EXPLANATION_USER_TYPE = EXPLANATION_USER_TYPE+"\n למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב.בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר. ";
 var EXPLANATION_EMAIL = "אימייל צריך להיות באנגלית ועם הסימנים @ו .";
 var EXPLANATION_PASSWORD = "הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.";
@@ -544,4 +544,14 @@ function ShowHideExplanation(btn_cliked_id) {
     }
     else
         document.getElementById(div_name).innerHTML = "";
+}
+*/
+function ShowPopup(_id) {
+    var words = _id.split('_');
+    var name = words[2];
+    if (words.length > 3)
+        name = name.concat("_" + words[3]);
+    name = name.concat("_popup");
+    var popup = document.getElementById(name);
+    popup.classList.toggle("show");
 }

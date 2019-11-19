@@ -699,7 +699,7 @@ function SuccessAddNewComment(data) {
     console.log("התגובה נוספה בהצלחה");
     alert("התגובה נוספה בהצלחה");
     NEW_USER_COMMENT.id = data;
-    $("#user_comment").val = "";
+    document.getElementById("user_comment").value = "";
     AddComment(NEW_USER_COMMENT, LOGIN_USER.first_name + " " + LOGIN_USER.last_name);
 }
 
