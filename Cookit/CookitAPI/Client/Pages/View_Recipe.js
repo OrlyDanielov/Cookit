@@ -17,6 +17,9 @@ var ARRY_FOOD_LABLE = new Array();
 //מונה מספר מצרכים
 var COUNT_INGRIDIANTS = 0;
 var NAME_INGRIDIANTS = 0;
+//מונה מספר שלבים באופן ההכנה
+var COUNT_STEPS = 1;
+var NAME_STEPS = 1;
 
 //פונקציות מתכון
 var RECIPE_LIKE = null;
@@ -256,7 +259,9 @@ function FailFoodLable() {
 function GetRecipeImformation()
 //מביא את נתוני המתכון של המתשמש מהשרת
 {
-    GlobalAjax("/api/Recipe/GetRecpByUserIdAndRecpName/" + LOGIN_USER.id + "/" + RECIPE_NAME, "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
+    //GlobalAjax("/api/Recipe/GetRecpByUserIdAndRecpName/" + LOGIN_USER.id + "/" + RECIPE_NAME, "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
+    GlobalAjax("/api/Recipe/GetRecpByUserIdAndRecpName/" + 32 + "/" +"ניוקי", "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
+
 }
 
 function SuccessGetRecipeImformation(data) {
@@ -406,12 +411,39 @@ function ViewRecipeInformation()
     document.getElementById("recipe_dish_category").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_dish_category;
     document.getElementById("recipe_food_type").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_food_type;
     document.getElementById("recipe_kitchen_type").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_kitchen_type;
-    document.getElementById("recipe_preparation_steps").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_steps;
+    //document.getElementById("recipe_preparation_steps").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_steps;
     document.getElementById("recipe_holidays").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_holidays;
     document.getElementById("recipe_food_labels").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_food_labels;
-
+    //מציג את שלבי ההכנה
+    ViewPreparationSteps();
     //צריך להציג את כל המצרכים
     ViewIngridiants();
+}
+
+//*******************************************************************************************
+// View Preparation Steps
+//*******************************************************************************************
+function ViewPreparationSteps() {
+    var arry_steps = RECIPE_INFORMATION_DISPLAY.recp_steps.split("/n");
+    for (var i = 0; i < arry_steps.length; i++) {
+        AddPreparationStep(arry_steps[i], i+1);
+    }
+}
+
+function AddPreparationStep(step_txt, _index)
+//מוסיף שורות למצרכים כמספר המצרכים שבמתכון
+{
+    COUNT_STEPS += 1;
+    NAME_STEPS  += 1;
+
+    var new_step = document.createElement('div');
+    new_step.id = "sp=tep" + NAME_STEPS;
+    new_step.className = "form-row text2rigth";
+    new_step.style["float"] = "right";
+    new_step.innerHTML = _index + ". " + step_txt;//+;
+    if (NAME_STEPS % 2 == 0)
+        new_step.style["background-color"] = "#cccccc";   
+    document.getElementById("recipe_preparation_steps").appendChild(new_step);
 }
 //*******************************************************************************************
 // VIEW RECIPE INGRIDIANTS
@@ -441,14 +473,7 @@ function AddIngridinats(_ing)
     new_ingridiant.innerHTML = _ing.id_mesurment+ " " + _ing.id_ingridiants  + " " +_ing.amount ;
     if (NAME_INGRIDIANTS % 2 == 0)
         new_ingridiant.style["background-color"] = "#cccccc";
-    /*
-    var span_ingridiant = document.createElement("span");
-    span_ingridiant.innerHTML = _ing.amount+" "+_ing.id_mesurment + " " + _ing.id_ingridiants;
-    span_ingridiant.className = "text2rigth";
-
-    new_ingridiant.appendChild(span_ingridiant);
-    */
-    document.getElementById("recipe_ingridiants").appendChild(new_ingridiant);      
+      document.getElementById("recipe_ingridiants").appendChild(new_ingridiant);      
 }
 
 //*******************************************************************************************

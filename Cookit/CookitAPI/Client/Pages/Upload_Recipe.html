@@ -218,10 +218,14 @@
             <!--אופן הכנה-->
             <fieldset id="recipe_preparation_steps">
                 <legend>שלבי הכנה</legend>
-                <div class="form-group row">
-                    <textarea rows="5" cols="50" id="txt_preparation_steps" name="preparation_steps" class="form-control"></textarea>
-                    <div id="feedback_preparation_steps" class="not_valid_feedback"></div>
+                <div id="step_1" class="form-row">
+                        <input type="button" id="btn_remove_step_1" value="הסר שלב" class="btn btn-group" onclick="RemovePreparationStep(this.id)" />
+                        <label for="preparation_step_1" class="col-form-label" style="float:right; right:0px; width:90%;">שלב 1</label>
+                        <textarea id="preparation_step_1" class="form-control" rows="2" cols="50"></textarea>
+                        <div id="feedback_preparation_steps_1" class="not_valid_feedback"></div>
+                    <hr class="mb-4">
                 </div>
+                <input type="button" id="btn_add_preparation_steps" value="הוסף שלב" class="btn btn-dark" onclick="AddPreparationStep()" />
             </fieldset>
             <hr class="mb-4">
             <input type="button" value="שלח" class="btn btn-dark" onclick="CheckFormValidation()" />
@@ -229,7 +233,7 @@
     </main>
     <!--תחתית-->
     <!--<footer id="footer"></footer>-->
-    <footer class="footer mt-auto py-3 fixed-bottom ">
+    <!--<footer class="footer mt-auto py-3 fixed-bottom ">-->
         <div class="container">
             <p class="mb-1">&copy; Cookit</p>
             <ul class="list-inline">
@@ -238,6 +242,6 @@
                 <li class="list-inline-item"><a href="#">Support</a></li>
             </ul>
         </div>
-    </footer>
+    <!--</footer>-->
 </body>
 </html>

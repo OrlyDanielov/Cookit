@@ -116,7 +116,7 @@
                     </div>
                     <div class="col">
                         <label for="name_recipe" class="col-sm-4 col-form-label">שם מתכון</label>
-                        <input type="text" id="txt_name_recipe" name="name_recipe" class="form-control text2rigth" disabled/>
+                        <input type="text" id="txt_name_recipe" name="name_recipe" class="form-control text2rigth" disabled />
                         <div id="feedback_name_recipe" class="not_valid_feedback"></div>
                     </div>
                 </div>
@@ -156,14 +156,14 @@
                     <div class="col">
                         <label for="holiday" class="col-sm-6 col-form-label">חגים</label>
                         <select multiple searchable="חפש כאן..." name="holiday" id="select_holiday" class="custom-select text2rigth mdb-select colorful-select dropdown-primary md-form" disabled>
-                            <option value="" disabled >חגים</option>
+                            <option value="" disabled>חגים</option>
                         </select>
                         <div id="feedback_holiday" class="not_valid_feedback"></div>
                     </div>
                     <div class="col">
                         <label for="food_lable" class="col-sm-6 col-form-label">תוויות</label>
                         <select multiple="multiple" name="food_lable" id="select_food_lable" class="custom-select text2rigth" disabled>
-                            <option value="" disabled >תוויות</option>
+                            <option value="" disabled>תוויות</option>
                         </select>
                         <div id="feedback_food_lable" class="not_valid_feedback"></div>
                     </div>
@@ -177,7 +177,7 @@
                     </div>
                     <div class="col">
                         <label for="work_time" class="col-sm-4 col-form-label">זמן עבודה</label>
-                        <input type="time" for="work_time" id="txt_work_time" name="work_time" class="form-control text2rigth" disabled/>
+                        <input type="time" for="work_time" id="txt_work_time" name="work_time" class="form-control text2rigth" disabled />
                         <div id="feedback_work_time" class="not_valid_feedback"></div>
                     </div>
                 </div>
@@ -186,9 +186,9 @@
             <!--מצרכים-->
             <fieldset id="recipe_ingridiants">
                 <legend>מצרכים</legend>
-                <div id="ingridiant_1" class="form-row" >
+                <div id="ingridiant_1" class="form-row">
                     <div class="col">
-                        <input type="button" id="btn_remove_ingridiant_1" value="הסר מצרך" class="btn btn-group" onclick="ButtonRemoveIngridiant(this.id)"  disabled/>
+                        <input type="button" id="btn_remove_ingridiant_1" value="הסר מצרך" class="btn btn-group" onclick="ButtonRemoveIngridiant(this.id)" disabled />
                     </div>
                     <div class="col">
                         <label for="select_ingridiant_name_1" class="col-sm-4 col-form-label">שם מצרך</label>
@@ -211,16 +211,21 @@
                     </div>
                     <hr class="mb-4">
                 </div>
-                <input type="button" id="btn_add_ingridiant" value="הוסף מצרך" class="btn btn-dark" onclick="ButtonAddIngridiant()" disabled/>
+                <input type="button" id="btn_add_ingridiant" value="הוסף מצרך" class="btn btn-dark" onclick="ButtonAddIngridiant()" disabled />
             </fieldset>
             <hr class="mb-4">
             <!--אופן הכנה-->
-            <fieldset id="recipe_preparation_steps">
-                <legend>אופן הכנה</legend>
-                <div class="form-group row">
-                    <textarea rows="5" cols="50" id="txt_preparation_steps" name="preparation_steps" class="form-control" disabled></textarea>
-                    <div id="feedback_preparation_steps" class="not_valid_feedback"></div>
+             <fieldset id="recipe_preparation_steps">
+                <legend>שלבי הכנה</legend>
+                <div id="step_1" class="form-row">
+                    <!--<input type="button" id="btn_remove_step_1" value="הסר שלב" class="btn btn-group" onclick="ButtonRemovePreparationStep(this.id)" />
+                    <label for="preparation_step_1" class="col-form-label" style="float:right; right:0px; width:90%;">שלב 1</label>
+                    <textarea id="preparation_step_1" class="form-control" rows="2" cols="50"></textarea>
+                    <div id="feedback_preparation_steps_1" class="not_valid_feedback"></div>
+                    <hr class="mb-4">-->
                 </div>
+                <input type="button" id="btn_add_preparation_steps" value="הוסף שלב" class="btn btn-dark" onclick="ButtonAddPreparationStep()" />
+            <br />
             </fieldset>
             <fieldset>
                 <input type="button" id="btnEdit" class="btn btn-primary btn-lg" onclick="Edit()" value="ערוך" />
