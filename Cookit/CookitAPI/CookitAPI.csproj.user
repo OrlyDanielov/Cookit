@@ -15,13 +15,13 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>True</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
-    <NameOfLastUsedPublishProfile>CustomProfile</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>CustomProfile1</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <StartPageUrl>Client/Pages/Reset_Password.html</StartPageUrl>
+          <StartPageUrl>Client/Pages/Login.html</StartPageUrl>
           <StartAction>SpecificPage</StartAction>
           <AspNetDebugging>True</AspNetDebugging>
           <SilverlightDebugging>False</SilverlightDebugging>

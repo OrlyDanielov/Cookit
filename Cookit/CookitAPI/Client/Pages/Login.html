@@ -70,6 +70,7 @@
                     <!--<i id="btn_explanation_email"  onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
                     <i id="btn_explanation_email" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
                     <span class="popuptext" id="email_popup">אימייל צריך להיות באנגלית ועם הסימנים @ו .</span>
+                    <div id="feedback_email" class="not_valid_feedback"></div>
                 </div>
                 <div class="form-row" style="display:block;">
                     <input type="password" id="inputPassword" placeholder="סיסמה" equired />
@@ -77,8 +78,9 @@
                     <!--<i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
                     <i id="btn_explanation_password" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
                     <span class="popuptext" id="password_popup">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
+                    <div id="feedback_password" class="not_valid_feedback"></div>
                 </div>
-                <input type="button" value="התחבר" class="btn btn-primary" onclick="LoginVerification()" />
+                <input type="button" value="התחבר" class="btn btn-primary" onclick="CheckIfFormValid()" />
             </fieldset>
             <fieldset>
                 <div class="form-row"  style="display:block;">
