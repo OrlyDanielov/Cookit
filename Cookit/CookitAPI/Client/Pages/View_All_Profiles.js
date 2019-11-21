@@ -15,8 +15,7 @@ var PROFILE_FOLLOW_BY_LOGIN_USER = null;// new Array();
 //*******************************************************************************************
 $(document).ready(function () {
     GetCity();
-   //tooltip
-    //$('[data-toggle="tooltip"]').tooltip();
+   
 });
 //*******************************************************************************************
 // GET CITY
@@ -123,28 +122,22 @@ function AddProfile(_profile, _index) {
     //div
     var div = document.createElement('div');
     div.className = "col-md-4 ";
-    //toltip
-    /*
-    var toltip_span = document.createElement('span');
-    toltip_span.className = "tooltiptext";
-    toltip_span.innerHTML = "הקלק על הפרופיל כדי לצפות בו!";
-    div.appendChild(toltip_span);
-    */
     //div
     var prof_div = document.createElement('div');
     prof_div.id = _profile.id;
     prof_div.className = "card profile-card-3  ";
     prof_div.style["backgroundColor"] = "white";
     prof_div.style["padding"] = "10px";
-    prof_div.setAttribute("onClick", "ShowProfileData(this.id)");
+    //prof_div.setAttribute("onClick", "ShowProfileData(this.id)");
     prof_div.setAttribute("data-toggle", "tooltip");
-    prof_div.setAttribute("title", "הקלק כדי לצפות בפרופיל!");
+    prof_div.setAttribute("title", "הקלק על התמונה כדי לצפות בפרופיל!");
     //profile img div
     var prof_img_div = document.createElement("div");
     prof_img_div.className = "profile-thumb-block ";
     //Profile img
     var prof_img = document.createElement("img");
-    prof_img.className = "profile ";
+    prof_img.id = "img_profile_" + _profile.id;
+    prof_img.className = "profile shrink";
     prof_img.alt = " תמונת פרופיל " + _profile.name;
     prof_img.src = "/Client/Images/Profiles_pic//profile.jpg";
     prof_img.style["width"] = "30%";
@@ -175,7 +168,7 @@ function AddProfile(_profile, _index) {
     prof_city.style["display"] = "block";
     prof_name_div.appendChild(prof_city);
     //profile 
-    //status BUTTON
+    //FOLLOW BUTTON
     var prof_follow_btn = document.createElement("input");
     prof_follow_btn.type = "button";
     prof_follow_btn.id ="btn_follow_"+ _profile.id;
@@ -307,7 +300,7 @@ function FailRemoveFollow() {
 function ShowProfileData(_id_profile)
 //מעביר את המשתמש לדף של פרטי הפורפיל בלבד
 {
-    var ID_PROFILE_VIEW = _id_profile;
+    var ID_PROFILE_VIEW = _id_profile.split("_")[2];//id
     sessionStorage.setItem("ID_PROFILE_VIEW", JSON.stringify(ID_PROFILE_VIEW));
     window.location.replace("View_Profile.html");
 
