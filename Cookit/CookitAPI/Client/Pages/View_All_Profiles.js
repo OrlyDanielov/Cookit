@@ -8,16 +8,15 @@ var ARRY_CITY = null;
 var ARRY_REGION = null;
 
 var LOGIN_USER = JSON.parse(sessionStorage.getItem("Login_User"));
-var PROFILE_FOLLOW_BY_LOGIN_USER = new Array();
+var PROFILE_FOLLOW_BY_LOGIN_USER = null;// new Array();
 
 //*******************************************************************************************
 // PAGE LOAD
 //*******************************************************************************************
 $(document).ready(function () {
     GetCity();
-    GetRegion();
-    GetProfileFollowByUser();
-    GetAllProfiles();
+   //tooltip
+    //$('[data-toggle="tooltip"]').tooltip();
 });
 //*******************************************************************************************
 // GET CITY
@@ -26,7 +25,6 @@ function GetCity()
 //הפונקציה מביאה את רשימת הערים ממסד הנתונים
 {
     if (ARRY_CITY == null)
-    // כדי לקורא רק פעם אחת
     {
         GlobalAjax("/api/City/GetAllCities", "GET", "", SuccessCity, FailCity);
     }
@@ -35,6 +33,9 @@ function GetCity()
 function SuccessCity(arry_city) {
     sessionStorage.setItem("ARRY_CITY", JSON.stringify(arry_city));
     ARRY_CITY = arry_city;
+
+    GetRegion();
+    
 }
 
 function FailCity() {
@@ -53,6 +54,8 @@ function GetRegion() {
 function SuccessGetRegion(arry_region) {
     sessionStorage.setItem("ARRY_REGION", JSON.stringify(arry_region));
     ARRY_REGION = arry_region;
+
+    GetProfileFollowByUser();
 }
 
 function FailGetRegion() {
@@ -65,14 +68,19 @@ function FailGetRegion() {
 function GetProfileFollowByUser()
 //מביא את רשימת הפרופילים במשתמש עוקב אחריהם
 {
-    if (ARRY_REGION == null) {
+    if (PROFILE_FOLLOW_BY_LOGIN_USER == null) {
         GlobalAjax("/api/Followers/GetProfileFollowByUser/" + LOGIN_USER.id, "GET", "", SuccessGetProfileFollowByUser, FailGetProfileFollowByUser);
     }
+    //else if (PROFILE_FOLLOW_BY_LOGIN_USER.length == 0) {
+    //    GlobalAjax("/api/Followers/GetProfileFollowByUser/" + LOGIN_USER.id, "GET", "", SuccessGetProfileFollowByUser, FailGetProfileFollowByUser);
+    //}
 }
 
 function SuccessGetProfileFollowByUser(data) {
     sessionStorage.setItem("PROFILE_FOLLOW_BY_LOGIN_USER", JSON.stringify(data));
     PROFILE_FOLLOW_BY_LOGIN_USER = data;
+
+    GetAllProfiles();
 }
 
 function FailGetProfileFollowByUser() {
@@ -112,17 +120,25 @@ function ShowProfiles() {
     }
 }
 function AddProfile(_profile, _index) {
-    //fieldset
-    var new_profile = document.createElement('fieldset');
     //div
     var div = document.createElement('div');
-    div.className = "col-md-4";
+    div.className = "col-md-4 ";
+    //toltip
+    /*
+    var toltip_span = document.createElement('span');
+    toltip_span.className = "tooltiptext";
+    toltip_span.innerHTML = "הקלק על הפרופיל כדי לצפות בו!";
+    div.appendChild(toltip_span);
+    */
     //div
     var prof_div = document.createElement('div');
     prof_div.id = _profile.id;
     prof_div.className = "card profile-card-3  ";
     prof_div.style["backgroundColor"] = "white";
     prof_div.style["padding"] = "10px";
+    prof_div.setAttribute("onClick", "ShowProfileData(this.id)");
+    prof_div.setAttribute("data-toggle", "tooltip");
+    prof_div.setAttribute("title", "הקלק כדי לצפות בפרופיל!");
     //profile img div
     var prof_img_div = document.createElement("div");
     prof_img_div.className = "profile-thumb-block ";
@@ -135,6 +151,7 @@ function AddProfile(_profile, _index) {
     prof_img.style["height"] = "30%";
     prof_img.style["border-radius"] = "50%";
     prof_img.style["marginTop"] = "20px";
+    prof_img.setAttribute("onClick", "ShowProfileData(this.id)");
     prof_img_div.appendChild(prof_img);
     prof_div.appendChild(prof_img_div);
     //profile name div
@@ -283,4 +300,15 @@ function SuccessRemoveFollow(_id_profile) {
 function FailRemoveFollow() {
     console.log("שגיאה!. אי אפשר להסיר מעקב אחרי הפרופיל כעת.");
     alert("שגיאה!. אי אפשר להסיר מעקב אחרי הפרופיל כעת.");
+}
+//*******************************************************************************************
+// ShowProfileData
+//*******************************************************************************************
+function ShowProfileData(_id_profile)
+//מעביר את המשתמש לדף של פרטי הפורפיל בלבד
+{
+    var ID_PROFILE_VIEW = _id_profile;
+    sessionStorage.setItem("ID_PROFILE_VIEW", JSON.stringify(ID_PROFILE_VIEW));
+    window.location.replace("View_Profile.html");
+
 }

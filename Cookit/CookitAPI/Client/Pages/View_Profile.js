@@ -7,7 +7,8 @@
 var ARRY_CITY = null;
 var ARRY_REGION = null;
 
-var PROFILE_VIEW = 14;//בהתחלה שווה לצז פרופיל לתצוגה ןאחר כך מכניס לתוכו את כל המידע של הפרופיל
+var ID_PROFILE_VIEW = JSON.parse(sessionStorage.getItem("ID_PROFILE_VIEW"));//בהתחלה שווה לצז פרופיל לתצוגה ןאחר כך מכניס לתוכו את כל המידע של הפרופיל
+var PROFILE_VIEW = null;
 
 var LOGIN_USER = JSON.parse(sessionStorage.getItem("Login_User"));
 
@@ -15,8 +16,7 @@ var LOGIN_USER = JSON.parse(sessionStorage.getItem("Login_User"));
 // PAGE LOAD
 //*******************************************************************************************
 $(document).ready(function () {
-    GetCity();
-   
+    GetCity();   
 });
 //*******************************************************************************************
 // GET CITY
@@ -67,7 +67,10 @@ function FailGetRegion() {
 // GetProfileByProfileId
 //*******************************************************************************************
 function GetProfileInformation() {
-    GlobalAjax("/api/Profile/GetProfileByProfileId/" + PROFILE_VIEW, "GET", "", SuccessGetAllProfiles, FailGetAllProfiles);
+    if (ID_PROFILE_VIEW == null)
+        console.log("שגיאה במשיגת נתוני פרופיל!");
+    else
+        GlobalAjax("/api/Profile/GetProfileByProfileId/" + ID_PROFILE_VIEW, "GET", "", SuccessGetAllProfiles, FailGetAllProfiles);
 }
 
 function SuccessGetAllProfiles(data) {
