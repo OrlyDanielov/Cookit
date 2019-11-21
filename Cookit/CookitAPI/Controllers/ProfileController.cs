@@ -48,7 +48,35 @@ namespace CookitAPI.Controllers
             }
         }
         #endregion
-        
+
+        #region GetProfileByProfileId
+        [Route("GetProfileByProfileId/{id_profile}")]
+        [HttpGet]
+        public HttpResponseMessage GetProfileByProfileId(int id_profile)
+        {
+            Cookit_DBConnection db = new Cookit_DBConnection();
+            TBL_Profile profile = CookitDB.DB_Code.CookitQueries.GetProfileByProfileId(id_profile);
+
+            if (profile == null) // אם אין משתמש שכזה
+                return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
+            else
+            {
+                //המרה של רשימת נתוני משתמש למבנה נתונים מסוג DTO
+                ProfileDTO result = new ProfileDTO();
+                result.id = profile.Id_Prof;
+                result.user_id = profile.Id_User;
+                result.type = profile.ProfType;
+                result.name = profile.Name_Prof;
+                result.description = profile.ProfDescription;
+                result.id_city = profile.Id_City;
+                result.id_region = profile.Id_Region;
+                result.status = profile.ProfStatus;
+
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+        }
+        #endregion
+
         #region GetProfileByUserIdin
         [Route("GetProfileByUserId/{userId}")]
         [HttpGet]

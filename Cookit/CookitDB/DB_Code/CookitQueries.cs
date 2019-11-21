@@ -237,6 +237,25 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region GetProfileInformationByProfileId
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Profile GetProfileByProfileId(int profile_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_Prof == profile_id);
+                if (prof == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return prof;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Get ProfileID Of User 
         public static int GetProfileIDOfUserByID(int ID)
         {
