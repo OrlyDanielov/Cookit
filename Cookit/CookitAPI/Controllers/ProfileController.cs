@@ -17,8 +17,39 @@ namespace CookitAPI.Controllers
         {
             return new string[] { "value1", "value2" };
         }
-            
-         #region GetProfileByUserIdin
+
+        #region GetAllActiveProfiles
+        [Route("GetAllActiveProfiles")]
+        [HttpGet]
+        public HttpResponseMessage GetAllActiveProfiles()
+        {
+            Cookit_DBConnection db = new Cookit_DBConnection();
+            List< TBL_Profile > profiles = CookitDB.DB_Code.CookitQueries.GetAllActiveProfiles();
+            if (profiles == null) // אם אין משתמש שכזה
+                return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
+            else
+            {
+                List<ProfileDTO> result = new List<ProfileDTO>();
+                foreach (TBL_Profile item in profiles)
+                {
+                    result.Add(new ProfileDTO
+                    {
+                        id = item.Id_Prof,
+                        user_id = item.Id_User,
+                        type = item.ProfType,
+                        name = item.Name_Prof,
+                        description = item.ProfDescription,
+                        id_city = item.Id_City,
+                        id_region = item.Id_Region,
+                        status = item.ProfStatus
+                    });
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, result);                
+            }
+        }
+        #endregion
+        
+        #region GetProfileByUserIdin
         [Route("GetProfileByUserId/{userId}")]
         [HttpGet]
         public HttpResponseMessage GetProfileByUserId(int userId)
@@ -45,7 +76,7 @@ namespace CookitAPI.Controllers
             }
         }
         #endregion
-
+        
         #region Check if Profile Exsist 
         //check if exsist profile match to user id
         [Route("CheckProfileExsistByUserId/{user_id}")]
@@ -79,7 +110,7 @@ namespace CookitAPI.Controllers
             }
         }
         #endregion
-             
+
         #region Add New Profile
         //add new profile
         [Route("AddNewProfile")]
@@ -88,9 +119,10 @@ namespace CookitAPI.Controllers
         {
             try
             {
-               
+
                 Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-                TBL_Profile p = new TBL_Profile(){
+                TBL_Profile p = new TBL_Profile()
+                {
                     Id_User = new_profile.user_id,
                     ProfType = new_profile.type,
                     Name_Prof = new_profile.name,
@@ -109,7 +141,7 @@ namespace CookitAPI.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.Forbidden, e.Message);
             }
-}
+        }
         #endregion
          
         #region Update Profile Info

@@ -495,6 +495,37 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
+
+        #region Get All Active Profiles
+        //מביא את כל הפרופילים הפעילים
+        public static List<TBL_Profile> GetAllActiveProfiles()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Profile.Where(x => x.ProfStatus == true).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+        #region Get Profile Follow By User
+        //מביא את כל הפרופילים הנעקבים ע"י המשתמש
+        public static List<TBL_Followers> GetProfileFollowByUser(int id_user)
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Followers.Where(x => x.Id_User == id_user).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
         //*********************************************************************
         //              ADD
         //*********************************************************************
@@ -726,6 +757,23 @@ namespace CookitDB.DB_Code
             {
                 var db = Get_DB();
                 db.Entry(newRating).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region AddNewFollow
+        public static bool AddNewFollow(TBL_Followers new_follow)
+        {
+            try
+            {
+                var db = Get_DB();
+                db.Entry(new_follow).State = System.Data.Entity.EntityState.Added;
                 db.SaveChanges();
                 return true;
             }
