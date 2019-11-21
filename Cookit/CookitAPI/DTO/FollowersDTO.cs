@@ -9,6 +9,5 @@ namespace CookitAPI.DTO
     {
         public int user_id;
         public int profile_id;
-        public bool status;
     }
 }

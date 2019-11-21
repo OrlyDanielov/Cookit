@@ -1096,6 +1096,29 @@ namespace CookitDB.DB_Code
         }
 
         #endregion
+
+        #region RemoveFollow
+        //הסרת תגובה לפי תז
+        public static bool RemoveFollow(TBL_Followers follow2remove)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Followers f = db.TBL_Followers.SingleOrDefault(x => x.Id_Prof == follow2remove.Id_Prof && x.Id_User == follow2remove.Id_User);
+                if (f != null)
+                    db.TBL_Followers.Remove(f);
+                else
+                    return false;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
         //*********************************************************************
         //              OTHER
         //*********************************************************************

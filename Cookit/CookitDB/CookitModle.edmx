@@ -82,7 +82,6 @@
           </Key>
           <Property Name="Id_User" Type="int" Nullable="false" />
           <Property Name="Id_Prof" Type="int" Nullable="false" />
-          <Property Name="StatusFollower" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_FoodLabel">
           <Key>
@@ -1190,7 +1189,6 @@
           </Key>
           <Property Name="Id_User" Type="Int32" Nullable="false" />
           <Property Name="Id_Prof" Type="Int32" Nullable="false" />
-          <Property Name="StatusFollower" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User6" FromRole="TBL_Followers" ToRole="TBL_User" />
           <NavigationProperty Name="TBL_Profile" Relationship="Cookit_DBModel.FK_Profile" FromRole="TBL_Followers" ToRole="TBL_Profile" />
         </EntityType>
@@ -2010,7 +2008,6 @@
           <EntitySetMapping Name="TBL_Followers">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Followers">
               <MappingFragment StoreEntitySet="TBL_Followers">
-                <ScalarProperty Name="StatusFollower" ColumnName="StatusFollower" />
                 <ScalarProperty Name="Id_Prof" ColumnName="Id_Prof" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
               </MappingFragment>

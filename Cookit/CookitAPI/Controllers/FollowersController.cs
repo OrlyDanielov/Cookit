@@ -36,8 +36,7 @@ namespace CookitAPI.Controllers
                     result.Add(new FollowersDTO
                     {
                         user_id = item.Id_User,
-                        profile_id = item.Id_Prof,
-                        status = item.StatusFollower
+                        profile_id = item.Id_Prof
                     });
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, result);
@@ -57,8 +56,7 @@ namespace CookitAPI.Controllers
                 TBL_Followers follow = new TBL_Followers()
                 {
                    Id_User=new_follow.user_id,
-                   Id_Prof = new_follow.profile_id,
-                   StatusFollower = new_follow.status
+                   Id_Prof = new_follow.profile_id
                 };
                 var is_saved = CookitDB.DB_Code.CookitQueries.AddNewFollow(follow);
                 if (is_saved == true)
@@ -78,9 +76,31 @@ namespace CookitAPI.Controllers
         {
         }
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
+        #region RemoveFollow
+        [Route("RemoveFollow")]
+        [HttpDelete]
+        public HttpResponseMessage RemoveFollow([FromBody]FollowersDTO follow2remove)
         {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                TBL_Followers follow = new TBL_Followers()
+                {
+                    Id_User = follow2remove.user_id,
+                    Id_Prof = follow2remove.profile_id
+                };
+                var is_saved = CookitDB.DB_Code.CookitQueries.RemoveFollow(follow);
+                if (is_saved == true)
+                    return Request.CreateResponse(HttpStatusCode.OK, follow2remove.profile_id);
+                else
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't delete the ingridiant.");
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
         }
+        #endregion
     }
 }

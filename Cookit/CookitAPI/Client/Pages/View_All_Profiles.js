@@ -157,7 +157,8 @@ function AddProfile(_profile, _index) {
     prof_city.innerHTML =ConvertId2Value(ARRY_CITY, _profile.id_city);
     prof_city.style["display"] = "block";
     prof_name_div.appendChild(prof_city);
-    //profile follow status BUTTON
+    //profile 
+    //status BUTTON
     var prof_follow_btn = document.createElement("input");
     prof_follow_btn.type = "button";
     prof_follow_btn.id ="btn_follow_"+ _profile.id;
@@ -232,8 +233,7 @@ function AddFollowProfile_Btn(_id_btn)
     var _id_profile = _id_btn.split("_")[2];
     var new_follow = {
         user_id: LOGIN_USER.id,
-        profile_id: _id_profile,
-        status: true
+        profile_id: _id_profile
     };
     PROFILE_FOLLOW_BY_LOGIN_USER.push(new_follow);
     sessionStorage.setItem("PROFILE_FOLLOW_BY_LOGIN_USER", JSON.stringify(PROFILE_FOLLOW_BY_LOGIN_USER));
@@ -256,8 +256,31 @@ function FailAddNewFollow() {
 //*******************************************************************************************
 // RemoveFollowProfile_Btn
 //*******************************************************************************************
-function RemoveFollowProfile_Btn()
+function RemoveFollowProfile_Btn(_id_btn)
 //מסיר מעקב אחרי הפרופיל
 {
+    var _id_profile = _id_btn.split("_")[2];
+    var _follow = {
+        user_id: LOGIN_USER.id,
+        profile_id: _id_profile
+    };
+    var index = PROFILE_FOLLOW_BY_LOGIN_USER.indexOf(_follow);
+    PROFILE_FOLLOW_BY_LOGIN_USER.splice(index, 1);
+    sessionStorage.setItem("PROFILE_FOLLOW_BY_LOGIN_USER", JSON.stringify(PROFILE_FOLLOW_BY_LOGIN_USER));
+    GlobalAjax("/api/Followers/RemoveFollow/", "DELETE", _follow, SuccessRemoveFollow, FailRemoveFollow);
+}
 
+
+function SuccessRemoveFollow(_id_profile) {
+    console.log("הפרופיל הוסר ממעקב בהצלחה!.");
+    //שינוי כפתור המעקב
+    var btn_profile = document.getElementById("btn_follow_" + _id_profile);
+    btn_profile.value = "עקוב";//סטאטוס מעקב
+    btn_profile.setAttribute("onClick", "AddFollowProfile_Btn(this.id)");
+    alert("הפרופיל הוסר ממעקב בהצלחה!.");
+}
+
+function FailRemoveFollow() {
+    console.log("שגיאה!. אי אפשר להסיר מעקב אחרי הפרופיל כעת.");
+    alert("שגיאה!. אי אפשר להסיר מעקב אחרי הפרופיל כעת.");
 }
