@@ -322,6 +322,7 @@ function SearchProfileByName()
         var search_prof = GetProfileByName(txt_search_name.value); // מקבל את רשימת הפרופילים התואמים
         if (search_prof.length == 0)//אם אין אף תוצאת חיםוש מתאימה
         {
+            //txt_search_name.className = "not_valid";
             alert("אין פרופילים מתאימים לחיפוש!");
         }
         else
