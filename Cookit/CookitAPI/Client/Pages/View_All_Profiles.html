@@ -101,9 +101,13 @@
     </header>
     <!--טופס העלאת מתכון-->
     <main role="main" class="flex-shrink-0 container  bg_brigth">
-        <h4 class="mb-3">פרופילים</h4>
-        <form id="profiles_form">
-        </form>
+        <!--חיפוש לפי שם-->
+        <div class="topnav">
+            <input type="text" id="txt_search_profile_by_name" placeholder="חפש פרופיל לפי שם..." name="search">
+            <button type="button" id="btn_search_profile_by_name" onclick="SearchProfileByName()"><i class="fa fa-search"></i></button>
+        </div>
+        <!--<h4 class="mb-3">פרופילים</h4>-->
+        <form id="profiles_form"></form>
     </main>
     <!--תחתית-->
     <!--<footer id="footer"></footer>-->

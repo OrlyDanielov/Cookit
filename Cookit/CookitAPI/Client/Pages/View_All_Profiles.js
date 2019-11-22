@@ -305,3 +305,49 @@ function ShowProfileData(_id_profile)
     window.location.replace("View_Profile.html");
 
 }
+//*******************************************************************************************
+// SearchProfileByName
+//*******************************************************************************************
+function SearchProfileByName()
+//חיפוש פרופיל לפי שם
+{
+    var txt_search_name = document.getElementById("txt_search_profile_by_name");
+    if (txt_search_name.value == "") {
+        //txt_search_name.className = "not_valid";
+        document.getElementById("profiles_form").innerHTML = "";
+        ShowProfiles();
+        alert("אנא הכנס שם פרופיל לחיפוש!");
+    }
+    else {
+        var search_prof = GetProfileByName(txt_search_name.value); // מקבל את רשימת הפרופילים התואמים
+        if (search_prof.length == 0)//אם אין אף תוצאת חיםוש מתאימה
+        {
+            alert("אין פרופילים מתאימים לחיפוש!");
+        }
+        else
+            ShowSelectedProfiles(search_prof);
+    }
+}
+
+function GetProfileByName(prof_name)
+//מחזיר פרופיל לפי שם. יכול להיות רשימה של פרופילים
+{
+    var list_profiles = new Array();
+    for (var i = 0; i < PROFILES.length; i++) {
+        console.log(PROFILES[i].name.indexOf(prof_name));
+        if (PROFILES[i].name.indexOf(prof_name) >= 0) // התאמה לכל או כל השם
+            list_profiles.push( PROFILES[i]);
+    }
+    return list_profiles;
+}
+
+function ShowSelectedProfiles(_list_profiles)
+//מציג את הפרופילים הנבחרים
+{
+//ריקון התצוגה
+    document.getElementById("profiles_form").innerHTML = "";
+    // תצוגת הפרופילים המבוקשים
+    for (var i = 0; i < _list_profiles.length; i++) {
+        AddProfile(_list_profiles[i], i + 1);
+    }
+}
