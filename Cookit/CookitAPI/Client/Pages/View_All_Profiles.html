@@ -36,16 +36,19 @@
                             <a class="dropdown-item" href="#">חם בקהילה</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            פרופילים
-                        </a>
-                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" style="text-align:center">
-                            <a class="dropdown-item" href="#">עסקים סביבי</a>
-                            <a class="dropdown-item" href="#">חיפוש פרופיל</a>
-                            <a class="dropdown-item" href="#">פנייה אל פרופיל</a>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="View_All_Profiles.html">פרופילים</a>
                     </li>
+                    <!--<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            פרופילים
+        </a>
+        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" style="text-align:center">
+            <a class="dropdown-item" href="#">עסקים סביבי</a>
+            <a class="dropdown-item" href="#">חיפוש פרופיל</a>
+            <a class="dropdown-item" href="#">פנייה אל פרופיל</a>
+        </div>
+    </li>-->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             מתכונים
@@ -105,7 +108,7 @@
             <div class="button-group" style="display:inline;">
                 <!-- עיר -->
                 <button type="button" id="btn_search_profile_by_city" value="עיר" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>עיר<span class="caret"></span></button>
-                <ul class="dropdown-menu" id="search_city_option" style="height:100px; overflow-y:auto;">
+                <ul class="dropdown-menu" id="search_city_option" style="height:100px; overflow-y:auto;" onclick="SearchProfileByCities()">
                 </ul>
             </div>
             <div class="button-group" style="display:inline; margin-left:50px;">

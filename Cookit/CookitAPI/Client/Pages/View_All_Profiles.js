@@ -56,15 +56,14 @@ function AddCity(_city)
 {
     //li
     var li = document.createElement('li');
-   
+    li.value = _city.id_city;
+    li.innerHTML = _city.city_name;
     //input
     var input = document.createElement('input');
     input.type = "checkbox";
     input.value = _city.id_city;
-    input.name = "region_city";
+    input.name = "city_option";
 
-    li.value = _city.id_city;
-    li.innerHTML = _city.city_name;
     li.appendChild(input);
 
     document.getElementById("search_city_option").appendChild(li);
@@ -391,6 +390,37 @@ function ShowProfileData(_id_profile)
     window.location.replace("View_Profile.html");
 
 }
+
+//*******************************************************************************************
+// SearchProfileByCities
+//*******************************************************************************************
+function SearchProfileByCities()
+//חיפוש פרופיל לפי ערים
+{
+    //מוצא את כל הערים שנבחרו
+    var cities = new Array();
+    var list_cities = document.getElementsByName('city_option');
+    for (var j = 0; j < list_cities.length; j++) {
+        if (list_cities[j].checked == true)
+            cities.push(list_cities[j].value);
+    }
+    if (cities.length == 0) // אם לא נבחרה אף עיר
+    {
+        document.getElementById("profiles_form").innerHTML = "";
+        ShowProfiles();
+        alert("אנא בחר עיר לחיפוש פרופיל !");
+    }
+    else {
+        var search_prof = GetProfileByCity(cities);
+        if (search_prof.length == 0) // אם אין אף פרופיל מתאים לחחפוש
+        {
+            document.getElementById("profiles_form").innerHTML = "";
+            alert("אין פרופילים מתאימים לחיפוש!");
+        }
+        else
+            ShowSelectedProfiles(search_prof);
+    }
+}
 //*******************************************************************************************
 // SearchProfileByName
 //*******************************************************************************************
@@ -408,14 +438,16 @@ function SearchProfileByName()
         var search_prof = GetProfileByName(txt_search_name.value); // מקבל את רשימת הפרופילים התואמים
         if (search_prof.length == 0)//אם אין אף תוצאת חיםוש מתאימה
         {
-            //txt_search_name.className = "not_valid";
+            document.getElementById("profiles_form").innerHTML = "";
             alert("אין פרופילים מתאימים לחיפוש!");
         }
         else
             ShowSelectedProfiles(search_prof);
     }
 }
-
+//*******************************************************************************************
+// GetProfileByName
+//*******************************************************************************************
 function GetProfileByName(prof_name)
 //מחזיר פרופיל לפי שם. יכול להיות רשימה של פרופילים
 {
@@ -428,6 +460,25 @@ function GetProfileByName(prof_name)
     return list_profiles;
 }
 
+//*******************************************************************************************
+// GetProfileByCity
+//*******************************************************************************************
+function GetProfileByCity(cities)
+//מחזיר פרופיל לפי עיר. יכול להיות רשימה של פרופילים
+{
+    var list_profiles = new Array();
+    for (var h = 0; h < cities.length; h++) {
+        for (var i = 0; i < PROFILES.length; i++) {
+            console.log(PROFILES[i].id_city ==cities[h]);
+            if (PROFILES[i].id_city == cities[h]) 
+                list_profiles.push(PROFILES[i]);
+        }
+    }
+    return list_profiles;
+}
+//*******************************************************************************************
+// ShowSelectedProfiles
+//*******************************************************************************************
 function ShowSelectedProfiles(_list_profiles)
 //מציג את הפרופילים הנבחרים
 {
