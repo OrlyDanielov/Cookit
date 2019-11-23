@@ -32,6 +32,7 @@ function GetCity()
 function SuccessCity(arry_city) {
     sessionStorage.setItem("ARRY_CITY", JSON.stringify(arry_city));
     ARRY_CITY = arry_city;
+    ShowCity(ARRY_CITY);
 
     GetRegion();
     
@@ -41,6 +42,34 @@ function FailCity() {
     console.log("שגיאה במשיכת נתוני הערים מהשרת.");
     alert('שגיאה במשיכת נתוני הערים מהשרת.');
 }
+//*******************************************************************************************
+// Show City in search bar
+//*******************************************************************************************
+function ShowCity(_list_city) {
+    document.getElementById("search_city_option").innerHTML = ""; // ניקוי לפי דחיפה
+    for (var i = 0; i < _list_city.length; i++) {
+        AddCity(_list_city[i]);
+    }
+    document.getElementById("search_city_option").reload;
+}
+function AddCity(_city)
+{
+    //li
+    var li = document.createElement('li');
+   
+    //input
+    var input = document.createElement('input');
+    input.type = "checkbox";
+    input.value = _city.id_city;
+    input.name = "region_city";
+
+    li.value = _city.id_city;
+    li.innerHTML = _city.city_name;
+    li.appendChild(input);
+
+    document.getElementById("search_city_option").appendChild(li);
+}
+
 //*******************************************************************************************
 // GET REGION
 //*******************************************************************************************
@@ -53,6 +82,7 @@ function GetRegion() {
 function SuccessGetRegion(arry_region) {
     sessionStorage.setItem("ARRY_REGION", JSON.stringify(arry_region));
     ARRY_REGION = arry_region;
+    ShowRegion(ARRY_REGION);
 
     GetProfileFollowByUser();
 }
@@ -60,6 +90,62 @@ function SuccessGetRegion(arry_region) {
 function FailGetRegion() {
     console.log("שגיאה במשיכת נתוני מחוזות מהשרת.");
     alert('שגיאה במשיכת נתוני מחוזות מהשרת.');
+}
+
+//*******************************************************************************************
+// Show Region in search bar
+//*******************************************************************************************
+function ShowRegion(_list_region) {
+    document.getElementById("search_region_option").innerHTML = ""; // ניקוי לפי דחיפה
+    for (var i = 0; i < _list_region.length; i++) {
+        AddRegion(_list_region[i]);
+    }
+    document.getElementById("search_region_option").reload;
+}
+function AddRegion(_region) {
+    //li
+    var li = document.createElement('li');
+
+    //input
+    var input = document.createElement('input');
+    input.type = "checkbox";
+    input.value = _region.id;
+    input.name = "region_option";
+
+    li.value = _region.id;
+    li.innerHTML = _region.region;
+    li.appendChild(input);
+
+    document.getElementById("search_region_option").appendChild(li);
+}
+
+//*******************************************************************************************
+// ShowCityByRegion
+//*******************************************************************************************
+function ShowCityByRegion()
+// מציג את הערים השייכות למחוז שנבחר
+{
+    //צומא את כל המחוזות שנבחרו
+    var region = new Array();// = document.querySelectorAll("input[name='region_option']:checked").value;//, values = [];// $("input[name='region_option']:checked").val();
+    var list_region = document.getElementsByName('region_option');
+    for (var j = 0; j < list_region.length; j++) {
+        if (list_region[j].checked == true)
+            region.push(list_region[j].value);
+    }
+    //אם להציג את כל הערים
+    if (region.length == 0)
+        ShowCity(ARRY_CITY);
+    else {
+        //מציג את הערים של המחוזות שנבחרו
+        var cities2region = new Array();
+        for (var h = 0; h < region.length; h++) {
+            for (var i = 0; i < ARRY_CITY.length; i++) {
+                if (ARRY_CITY[i].id_region == region[h])
+                    cities2region.push(ARRY_CITY[i]);
+            }
+        }
+        ShowCity(cities2region);
+    }
 }
 //*******************************************************************************************
 // GetProfileFollowByUser

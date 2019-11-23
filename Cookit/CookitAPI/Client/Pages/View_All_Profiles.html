@@ -105,23 +105,13 @@
             <div class="button-group" style="display:inline;">
                 <!-- עיר -->
                 <button type="button" id="btn_search_profile_by_city" value="עיר" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>עיר<span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" />&nbsp;Option 1</a></li>
-                    <li><a href="#" class="small" data-value="option2" tabIndex="-1"><input type="checkbox" />&nbsp;Option 2</a></li>
-                    <li><a href="#" class="small" data-value="option3" tabIndex="-1"><input type="checkbox" />&nbsp;Option 3</a></li>
-                    <li><a href="#" class="small" data-value="option4" tabIndex="-1"><input type="checkbox" />&nbsp;Option 4</a></li>
-                    <li><a href="#" class="small" data-value="option5" tabIndex="-1"><input type="checkbox" />&nbsp;Option 5</a></li>
-                    <li><a href="#" class="small" data-value="option6" tabIndex="-1"><input type="checkbox" />&nbsp;Option 6</a></li>
+                <ul class="dropdown-menu" id="search_city_option" style="height:100px; overflow-y:auto;">
                 </ul>
+            </div>
+            <div class="button-group" style="display:inline; margin-left:50px;">
                 <!-- מחוז -->
-                <button type="button" id="btn_search_profile_by_region" value="מחוז" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span>מחוז<span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" />&nbsp;Option 1</a></li>
-                    <li><a href="#" class="small" data-value="option2" tabIndex="-1"><input type="checkbox" />&nbsp;Option 2</a></li>
-                    <li><a href="#" class="small" data-value="option3" tabIndex="-1"><input type="checkbox" />&nbsp;Option 3</a></li>
-                    <li><a href="#" class="small" data-value="option4" tabIndex="-1"><input type="checkbox" />&nbsp;Option 4</a></li>
-                    <li><a href="#" class="small" data-value="option5" tabIndex="-1"><input type="checkbox" />&nbsp;Option 5</a></li>
-                    <li><a href="#" class="small" data-value="option6" tabIndex="-1"><input type="checkbox" />&nbsp;Option 6</a></li>
+                <button type="button" id="btn_search_profile_by_region" value="מחוז" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" ><span class="glyphicon glyphicon-cog"></span>מחוז<span class="caret"></span></button>
+                <ul class="dropdown-menu" id="search_region_option" onclick="ShowCityByRegion()">
                 </ul>
             </div>
             <!--חיפוש לפי שם-->
