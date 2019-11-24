@@ -12,7 +12,49 @@ namespace Cookit.Controllers
     [RoutePrefix("api/Recipe")]
     public class RecipeController : ApiController
     {
-      
+        #region Get All Recipes
+        [Route("GetAllRecipes")]
+        [HttpGet]
+        public HttpResponseMessage GetAllRecipes()
+        {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                List<TBL_Recipe> list_recipes = CookitDB.DB_Code.CookitQueries.GetAllRecipes();
+                if (list_recipes == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "there is no recipes in the server");
+                else
+                {
+                    //המרה של רשימת סןגי משתמשים למבנה נתונים מסוג DTO
+                    List<RecipeDTO> result = new List<RecipeDTO>();
+                    foreach (TBL_Recipe item in list_recipes)
+                    {
+                        result.Add(new RecipeDTO
+                        {
+                            user_id = item.Id_Recipe_User,
+                            recp_id = item.Id_Recipe,
+                            recp_name = item.Name_Recipe,
+                            recp_dish_type = item.Id_Recipe_DishType,
+                            recp_dish_category = item.Id_Recipe_DishCategory,
+                            recp_food_type = item.Id_Recipe_FoodType,
+                            recp_kitchen_type = item.Id_Recipe_KitchenType,
+                            recp_level = item.Id_Recipe_Level,
+                            recp_total_time = item.RecipeTotalTime,
+                            recp_work_time = item.RecipeWorkTime,
+                            recp_steps = item.PreparationSteps
+                        });
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, result);                   
+                }
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+        #endregion
+
         #region get recipe by user id and recipe name
         [Route("GetRecpByUserIdAndRecpName/{user_id}/{recp_name}")]
         [HttpGet]

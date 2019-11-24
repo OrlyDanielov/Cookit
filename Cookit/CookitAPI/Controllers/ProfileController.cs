@@ -12,12 +12,6 @@ namespace CookitAPI.Controllers
     [RoutePrefix("api/Profile")]
     public class ProfileController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         #region GetAllActiveProfiles
         [Route("GetAllActiveProfiles")]
         [HttpGet]
@@ -218,10 +212,6 @@ namespace CookitAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "the server could not find the profile number of user by user id.");
         }
         #endregion
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
+             
     }
 }

@@ -760,7 +760,7 @@ function FailGetRecipeComments() {
 //*******************************************************************************************
 function ShowRecipeComments() {
     for (var i = 0; i < RECIPE_COMMENTS.length; i++) {
-       GetUserFullNameByID(RECIPE_COMMENTS[i],RECIPE_COMMENTS[i].user_id);
+        GetUserFullNameByID(RECIPE_COMMENTS[i],RECIPE_COMMENTS[i].user_id);
     }
     //דירוג מתכון
     GetDifficultyLevelRating();

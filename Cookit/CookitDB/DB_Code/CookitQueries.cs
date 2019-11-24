@@ -530,6 +530,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
+
         #region Get Profile Follow By User
         //מביא את כל הפרופילים הנעקבים ע"י המשתמש
         public static List<TBL_Followers> GetProfileFollowByUser(int id_user)
@@ -538,6 +539,22 @@ namespace CookitDB.DB_Code
             {
                 var db = Get_DB();
                 return db.TBL_Followers.Where(x => x.Id_User == id_user).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetAllRecipes
+        //מביא את כל המתכונים
+        public static List<TBL_Recipe> GetAllRecipes()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Recipe.OrderBy(x=>x.Id_Recipe).ToList();
             }
             catch (Exception e)
             {
