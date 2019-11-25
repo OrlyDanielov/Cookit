@@ -93,6 +93,44 @@ namespace Cookit.Controllers
         }
         #endregion
 
+        #region get recipe by recipe id
+        [Route("GetRecpByUserIdRecipe/{recipe_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetRecpByUserIdRecipe(int recipe_id)
+        {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection(); 
+                TBL_Recipe recipe = CookitDB.DB_Code.CookitQueries.GetRecpByUserIdRecipe(recipe_id);
+                if (recipe == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "this recipe does not exist.");
+                else
+                {
+                    //המרה של רשימת נתוני משתמש למבנה נתונים מסוג DTO
+                    RecipeDTO result = new RecipeDTO();
+                    result.user_id = recipe.Id_Recipe_User;
+                    result.recp_id = recipe.Id_Recipe;
+                    result.recp_name = recipe.Name_Recipe;
+                    result.recp_dish_type = recipe.Id_Recipe_DishType;
+                    result.recp_dish_category = recipe.Id_Recipe_DishCategory;
+                    result.recp_food_type = recipe.Id_Recipe_FoodType;
+                    result.recp_kitchen_type = recipe.Id_Recipe_KitchenType;
+                    result.recp_level = recipe.Id_Recipe_Level;
+                    result.recp_total_time = recipe.RecipeTotalTime; //TimeSpan.Parse(recipe.RecipeTotalTime);
+                    result.recp_work_time = recipe.RecipeWorkTime;// TimeSpan.Parse(recipe.RecipeWorkTime);
+                    result.recp_steps = recipe.PreparationSteps;
+
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+        #endregion
+
         #region Add New Recipe
         [Route("AddNewRecipe")]
         [HttpPost]

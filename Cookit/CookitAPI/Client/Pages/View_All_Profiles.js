@@ -272,18 +272,18 @@ function AddProfile(_profile, _index) {
     prof_div.appendChild(prof_name_div);
 //הוספת השלב לתצוגה
     div.appendChild(prof_div);
-    if (_index % 3 == 1) {
+    if (COUNT_PROFILE % 3 == 1) {
         //create new row
         var row = document.createElement("div");
         row.className = "row";
-        row.id = "row_" + Math.ceil(_index / 3); // עיגול למעלה
+        row.id = "row_" + Math.ceil(COUNT_PROFILE / 3); // עיגול למעלה
 
         row.appendChild(div);
         document.getElementById("profiles_form").appendChild(row);
     }
     else {
-        console.log(Math.ceil(_index / 3));
-        document.getElementById("row_" + Math.ceil(_index / 3)).appendChild(div);
+        console.log(Math.ceil(COUNT_PROFILE / 3));
+        document.getElementById("row_" + Math.ceil(COUNT_PROFILE / 3)).appendChild(div);
     }
     console.log("profile " + COUNT_PROFILE);
     COUNT_PROFILE += 1;

@@ -176,9 +176,10 @@ function AddRecipe(_recipe, _name,_index) {
     //div
     var recipe_div = document.createElement('div');
     recipe_div.id = _recipe.recp_id;
-    recipe_div.className = "card profile-card-3  ";
+    recipe_div.className = "card profile-card-3 ";
     recipe_div.style["backgroundColor"] = "white";
     recipe_div.style["padding"] = "10px";
+    recipe_div.style[""] = "10px";
     recipe_div.setAttribute("data-toggle", "tooltip");
     recipe_div.setAttribute("title", "הקלק על התמונה כדי לצפות במתכון!");
     //recipe img div
@@ -187,7 +188,7 @@ function AddRecipe(_recipe, _name,_index) {
     //recipe img
     var recipe_img = document.createElement("img");
     recipe_img.id = "img_recipe_" + _recipe.recp_id;
-    recipe_img.className = "profile shrink";
+    recipe_img.className = "profile shrink recipe_onhover_effect";
     recipe_img.alt = " תמונת מתכון " + _recipe.recp_name;
     recipe_img.src = "/Client/Images/Recipes_pic/chokolate cake.jpg";
     recipe_img.style["width"] = "100%";
@@ -198,7 +199,7 @@ function AddRecipe(_recipe, _name,_index) {
     recipe_div.appendChild(recipe_img_div);
     //recipe name div
     var recipe_name_div = document.createElement("div");
-    recipe_name_div.className = "card-content";
+    recipe_name_div.className = "card-content ";
     //recipe name
     var recipe_name = document.createElement("span");
     recipe_name.style["display"] = "block";
@@ -451,4 +452,16 @@ function SuccessRemoveLike(data) {
 function FailRemoveLike() {
     console.log("הסרת לייק נכשלה");
     alert("הסרת לייק נכשלה");
+}
+
+//*******************************************************************************************
+// ShowRecipeData
+//*******************************************************************************************
+function ShowRecipeData(_id_recpie)
+//מעביר את המשתמש לדף של פרטי של במתכון בלבד
+{
+    var ID_RECPIE_VIEW = _id_recpie.split("_")[2];//id
+    sessionStorage.setItem("ID_RECPIE_VIEW", JSON.stringify(ID_RECPIE_VIEW));
+    window.location.replace("View_Recipe.html");
+
 }

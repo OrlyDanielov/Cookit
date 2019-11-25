@@ -29,11 +29,9 @@ var COUNT_COMMENT = 0;
 var NEW_USER_COMMENT = null;
 var RECIPE_DIFF_LEVEL_RATING = null;
 
+//המתכון המבוקש
+var ID_RECPIE_VIEW = JSON.parse(sessionStorage.getItem("ID_RECPIE_VIEW"));
 
-//תז המתכון החדש
-//var ID_RECIPE = null;
-sessionStorage.setItem("RECIPE_NAME", JSON.stringify("עוגת שוקולד עשירה"));
-var RECIPE_NAME = JSON.parse(sessionStorage.getItem("RECIPE_NAME"));
 // פרטי המתכון
 var RECIPE_INFORMATION;
 var RECIPE_INFORMATION_DISPLAY;
@@ -260,15 +258,17 @@ function GetRecipeImformation()
 //מביא את נתוני המתכון של המתשמש מהשרת
 {
     //GlobalAjax("/api/Recipe/GetRecpByUserIdAndRecpName/" + LOGIN_USER.id + "/" + RECIPE_NAME, "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
-    GlobalAjax("/api/Recipe/GetRecpByUserIdAndRecpName/" + 32 + "/" +"ניוקי", "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
-
+    if (ID_RECPIE_VIEW == null)
+        alert("שגיאה במכישת נתוני המתכון המבוקש!.");
+    else
+        GlobalAjax("/api/Recipe/GetRecpByUserIdRecipe/" + ID_RECPIE_VIEW, "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
 }
 
 function SuccessGetRecipeImformation(data) {
     console.log("משיכת נתוני מתכון בוצע בהצלחה!.");
     sessionStorage.setItem("Current_Recipe", JSON.stringify(data));
-    RECIPE_INFORMATION = data;//JSON.stringify(data);
-    sessionStorage.setItem("RECIPE_INFORMATION", RECIPE_INFORMATION);
+    RECIPE_INFORMATION = data;
+    sessionStorage.setItem("RECIPE_INFORMATION", JSON.stringify(RECIPE_INFORMATION));
     // מביא את המצרכים של המתכון
     GetRecipeIgridiants();
 }
@@ -277,6 +277,8 @@ function FailGetRecipeImformation(data) {
     console.log("error! can't get recipe information.");
     console.log(data);
     alert("שגיאה במשיכת נתוני מתכון!, אנא נסה שנית מאוחד יותר.");
+    // מביא את המצרכים של המתכון
+    GetRecipeIgridiants();
 }
 
 //*******************************************************************************************
@@ -303,6 +305,8 @@ function FailRecipeIgridiants(data) {
     console.log("error! can't get ingridiants recipe information.");
     console.log(data);
     alert("שגיאה במשיכת נתוני מצרכי מתכון!, אנא נסה שנית מאוחד יותר.");
+    //מביא את החגים של המתכון
+    GetRecipeHolidays();
 }
 //*******************************************************************************************
 // GET RECIPE HOLIDAYS
@@ -326,6 +330,8 @@ function FailGetRecipeHolidays(data) {
     console.log("error! can't get holidays recipe information.");
     console.log(data);
     alert("שגיאה במשיכת חגי מתכון!, אנא נסה שנית מאוחד יותר.");
+    //מביא את התוויות של המתכון
+    GetRecipeFoodLables();
 }
 //*******************************************************************************************
 // GET RECIPE FOOD LABLES
@@ -349,6 +355,8 @@ function FailGetRecipeFoodLables(data) {
     console.log("error! can't get food lables recipe information.");
     console.log(data);
     alert("שגיאה במשיכת תוויות מתכון!, אנא נסה שנית מאוחד יותר.");
+    //מביא את הלייק למתכון 
+    GetLike();
 }
 //*******************************************************************************************
 // CONVERT ID 2 VALUE
@@ -388,7 +396,7 @@ function GetProfileName() {
 // Get Full User NameBy Id
 //*******************************************************************************************
 function GetFullUserNameById() {
-    var _user_id = RECIPE_INFORMATIO.user_id;
+    var _user_id = RECIPE_INFORMATION.user_id;
     var _recipe = RECIPE_INFORMATION.recp_id;
     GlobalAjax("/api/User/GetUserFullNameByID/" + _user_id, "GET", "", function (data) { console.log("שם משתמש " + data); ViewRecipeInformation(data); }, function () { console.log("בעיה במשיגת שם יוצר מתכון!"); });
 }
@@ -399,6 +407,24 @@ function GetFullUserNameById() {
 function GetRecipeInforamtionForDisplay()
 //עובר על המתכון וממיר את התז לערכים
 {
+        //זמן עבודה
+var work_time_arry = RECIPE_INFORMATION.recp_work_time.split(":");
+    var work_time ="";
+    if (work_time_arry[0] > 0) 
+        work_time += work_time_arry[0]+"ימים " ;
+    if (work_time_arry[1] > 0) 
+        work_time += work_time_arry[1]+ "שעות ";
+    if (work_time_arry[2] > 0) 
+        work_time += work_time_arry[2] + "דקןת ";
+    //זמן כולל
+    var total_time_arry = RECIPE_INFORMATION.recp_total_time.split(":");
+    var total_time = "";
+    if (total_time_arry[0] > 0)
+        total_time += total_time_arry[0] + "ימים ";
+    if (total_time_arry[1] > 0)
+        total_time_arry += total_time_arry[1] + "שעות ";
+    if (total_time_arry[2] > 0)
+        total_time += total_time_arry[2] + "דקןת ";
     RECIPE_INFORMATION_DISPLAY = {
         recp_name: RECIPE_INFORMATION.recp_name,
         recp_dish_type: ConvertId2Value(ARRY_DISH_TYPE, RECIPE_INFORMATION.recp_dish_type),
@@ -406,8 +432,8 @@ function GetRecipeInforamtionForDisplay()
         recp_food_type: ConvertId2Value(ARRY_FOOD_TYPE, RECIPE_INFORMATION.recp_food_type),
         recp_kitchen_type: ConvertId2Value(ARRY_KITCHEN_TYPE, RECIPE_INFORMATION.recp_kitchen_type),
         recp_level: ConvertId2Value(ARRY_DIFFICULTY_LEVEL, RECIPE_INFORMATION.recp_level),
-        recp_total_time: RECIPE_INFORMATION.recp_total_time,
-        recp_work_time: RECIPE_INFORMATION.recp_work_time,
+        recp_total_time: total_time,//RECIPE_INFORMATION.recp_total_time,
+        recp_work_time: work_time,//RECIPE_INFORMATION.recp_work_time,
         recp_steps: RECIPE_INFORMATION.recp_steps,
         recp_holidays: ConvertId2MultipelValue(ARRY_HOLIDAYS, RECIPE_HOLIDAYS,"id_holiday"),
         recp_food_labels: ConvertId2MultipelValue(ARRY_FOOD_LABLE, RECIPE_FOOD_LABLES,"id_food_lable")
@@ -739,7 +765,8 @@ function FailGetRecipeComments() {
     console.log("שגיאה! אי אפשר לקבל את התגובות של המתכון");
     alert("שגיאה! אי אפשר לקבל את התגובות של המתכון");
   
-
+    //מציג את המתכון
+    GetProfileName();
 }
 
 //*******************************************************************************************

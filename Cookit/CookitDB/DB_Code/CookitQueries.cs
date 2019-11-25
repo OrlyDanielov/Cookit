@@ -361,6 +361,25 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region GetRecpByUserIdRecipe
+        //מביא מתכון לפי תז מתכון
+        public static TBL_Recipe GetRecpByUserIdRecipe(int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Recipe recp = db.TBL_Recipe.SingleOrDefault(x => x.Id_Recipe == recipe_id);
+                if (recp == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return recp;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region GetIngridiantsByRecpId
         //מביאה מצרכי מתכון לפי תז מתכון
         public static List<TBL_IngridiantForRecp> GetIngridiantsByRecpId(int recp_id)
