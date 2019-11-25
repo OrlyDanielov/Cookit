@@ -12,11 +12,37 @@ namespace CookitAPI.Controllers
     [RoutePrefix("api/Favorite")]
     public class FavoriteController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        #region GetFavoriteByUserId
+        [Route("GetFavoriteByUserId/{user_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetFavoriteByUserId(int user_id)
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                Cookit_DBConnection db = new Cookit_DBConnection();
+                var list_favorite = CookitDB.DB_Code.CookitQueries.GetFavoriteByUserId(user_id);
+                if (list_favorite == null) // אם אין משתמש שכזהd
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "this like does not exist.");
+                else
+                {
+                    List<FavoriteRecipeDTO> result = new List<FavoriteRecipeDTO>();
+                    foreach (TBL_FavoriteRecp item in list_favorite)
+                    {
+                        result.Add(new FavoriteRecipeDTO
+                        {
+                            id_recipe = item.Id_Recp,
+                            id_user = item.Id_User
+                        });
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
         }
+        #endregion   
 
         #region GetFavoriteByUserIdAndRecipeId
         [Route("GetFavoriteByUserIdAndRecipeId/{user_id}/{recipe_id}")]
@@ -36,7 +62,7 @@ namespace CookitAPI.Controllers
                     FavoriteRecipeDTO result = new FavoriteRecipeDTO();
                     result.id_recipe = favorite.Id_Recp;
                     result.id_user = favorite.Id_User;
-                    result.status = favorite.RecpStatus;
+                    //result.status = favorite.RecpStatus;
 
                     return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
@@ -59,12 +85,11 @@ namespace CookitAPI.Controllers
                 TBL_FavoriteRecp favorite = new TBL_FavoriteRecp()
                 {
                     Id_Recp = newFavorite.id_recipe,
-                    Id_User = newFavorite.id_user,
-                    RecpStatus = newFavorite.status
+                    Id_User = newFavorite.id_user
                 };
                 bool is_saved = CookitDB.DB_Code.CookitQueries.AddNewFavorite(favorite);
                 if (is_saved)
-                    return Request.CreateResponse(HttpStatusCode.OK, true);
+                    return Request.CreateResponse(HttpStatusCode.OK, newFavorite);
                 else
                     return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't add the recipe to the favorite.");
 
@@ -76,26 +101,25 @@ namespace CookitAPI.Controllers
         }
         #endregion
 
-
-        #region UpdateFavorite
-        [Route("UpdateFavorite")]
-        [HttpPut]
-        public HttpResponseMessage UpdateFavorite([FromBody]FavoriteRecipeDTO updated_favorite)
+        #region DeleteFavorite
+        [Route("DeleteFavorite")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteFavorite([FromBody]FavoriteRecipeDTO delete_favorite)
         {
             try
             {
                 Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-                TBL_FavoriteRecp fav = new TBL_FavoriteRecp()
+                TBL_FavoriteRecp _favorite = new TBL_FavoriteRecp()
                 {
-                    Id_Recp = updated_favorite.id_recipe,
-                    Id_User = updated_favorite.id_user,
-                    RecpStatus = updated_favorite.status
+                    Id_Recp = delete_favorite.id_recipe,
+                    Id_User = delete_favorite.id_user
                 };
-                var is_saved = CookitDB.DB_Code.CookitQueries.UpdateFavorite(fav);
+                var is_saved = CookitDB.DB_Code.CookitQueries.DeleteFavorite(_favorite);
                 if (is_saved == true)
-                    return Request.CreateResponse(HttpStatusCode.OK, "the favorite recipe updated seccussfully.");
+                    return Request.CreateResponse(HttpStatusCode.OK, delete_favorite);
                 else
-                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't update favorite recipe.");
+                    return Request.CreateResponse(HttpStatusCode.ExpectationFailed, "the server can't delete the like.");
+
             }
             catch (Exception e)
             {
@@ -104,9 +128,5 @@ namespace CookitAPI.Controllers
         }
         #endregion
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }

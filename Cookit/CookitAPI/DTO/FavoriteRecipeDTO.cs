@@ -9,6 +9,6 @@ namespace CookitAPI.DTO
     {
         public int id_recipe;
         public int id_user;
-        public bool status;
+        //public bool status;
     }
 }

@@ -439,6 +439,22 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region GetFavoriteByUserId
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static List<TBL_FavoriteRecp> GetFavoriteByUserId(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_FavoriteRecp.Where(x => x.Id_User == user_id).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region GetDifficultyLevelRatingByUserIdAndRecipeId
         //מביאה מצרכי מתכון לפי תז מתכון
         public static TBL_RecpLevelByBU GetDifficultyLevelRatingByUserIdAndRecipeId(int user_id, int recipe_id)
@@ -460,7 +476,6 @@ namespace CookitDB.DB_Code
         #endregion
 
         #region GetFavoriteByUserIdAndRecipeId
-        //מביאה מצרכי מתכון לפי תז מתכון
         public static TBL_FavoriteRecp GetFavoriteByUserIdAndRecipeId(int user_id, int recipe_id)
         {
             try
@@ -555,6 +570,22 @@ namespace CookitDB.DB_Code
             {
                 var db = Get_DB();
                 return db.TBL_Recipe.OrderBy(x=>x.Id_Recipe).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetLikeByUserId
+        // הפוקנציה מביאה מהמסד את כל סוגי האוכל
+        public static List<TBL_Likes> GetLikeByUserId(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Likes.Where(x=>x.Id_User == user_id).ToList();
             }
             catch (Exception e)
             {
@@ -945,7 +976,7 @@ namespace CookitDB.DB_Code
         }
 
         #endregion
-
+        /*
         #region UpdateLike
         public static bool UpdateLike(TBL_Likes updated_like)
         {
@@ -970,7 +1001,8 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
+    */
+    /*
         #region UpdateFavorite
         public static bool UpdateFavorite(TBL_FavoriteRecp updated_favorite)
         {
@@ -994,7 +1026,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
+    */
         #region UpdateDiffLevelRating
         public static bool UpdateDiffLevelRating(TBL_RecpLevelByBU updated_rating)
         {
@@ -1143,6 +1175,52 @@ namespace CookitDB.DB_Code
                 TBL_Followers f = db.TBL_Followers.SingleOrDefault(x => x.Id_Prof == follow2remove.Id_Prof && x.Id_User == follow2remove.Id_User);
                 if (f != null)
                     db.TBL_Followers.Remove(f);
+                else
+                    return false;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region DeleteLike
+        //הסרת לייד=ק למתכון לפי משתמש 
+        public static bool DeleteLike(TBL_Likes _like)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Likes like2delete = db.TBL_Likes.SingleOrDefault(x => x.Id_Recp == _like.Id_Recp && x.Id_User == _like.Id_User);
+                if (like2delete != null)
+                    db.TBL_Likes.Remove(like2delete);
+                else
+                    return false;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region DeleteFavorite
+        //הסרת מתכון מהמועדפים לפי משתמש 
+        public static bool DeleteFavorite(TBL_FavoriteRecp _favorite)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_FavoriteRecp favorite2delete = db.TBL_FavoriteRecp.SingleOrDefault(x => x.Id_Recp == _favorite.Id_Recp && x.Id_User == _favorite.Id_User);
+                if (favorite2delete != null)
+                    db.TBL_FavoriteRecp.Remove(favorite2delete);
                 else
                     return false;
                 db.SaveChanges();

@@ -46,8 +46,8 @@ var RECIPE_FOOD_LABLES = new Array();
 //*******************************************************************************************
 // הפונקציה קוראת בתחילת הקריאה לדף
 $(document).ready(function () {
-    //אם משתמש עסקי
-    ShowDiffLevelRationDiv();
+    ////אם משתמש עסקי
+    //ShowDiffLevelRationDiv();
     // להביא נתונים סטטים
     GetDishType();
     GetDishCategory();
@@ -341,8 +341,8 @@ function SuccessGetRecipeFoodLables(data) {
     console.log("משיכת נתוני תוויות מתכון בוצע בהצלחה!.");
     sessionStorage.setItem("RECIPE_FOOD_LABLES", JSON.stringify(data));
     RECIPE_FOOD_LABLES = data;
-    // להציג פרטי מתכון
-    ViewRecipeInformation();
+    //מביא את הלייק למתכון 
+    GetLike();
 }
 
 function FailGetRecipeFoodLables(data) {
@@ -350,7 +350,6 @@ function FailGetRecipeFoodLables(data) {
     console.log(data);
     alert("שגיאה במשיכת תוויות מתכון!, אנא נסה שנית מאוחד יותר.");
 }
-
 //*******************************************************************************************
 // CONVERT ID 2 VALUE
 //*******************************************************************************************
@@ -378,6 +377,23 @@ function ConvertId2MultipelValue(_list, _id_arry,_id)
 }
 
 //*******************************************************************************************
+// IS USER HAS PROFILE
+//*******************************************************************************************
+function GetProfileName() {
+    var _user_id = RECIPE_INFORMATION.user_id;
+    var _recipe = RECIPE_INFORMATION.recp_id;
+    GlobalAjax("/api/Profile/GetProfileByUserId/" + _user_id, "GET", "", function (data) { console.log("שם פרופיל " + data.name); ViewRecipeInformation(data.name); }, function () { console.log("לא מצא את הפרופיל, מחפפש אחר שם משתמש"); GetFullUserNameById(); });
+}
+//*******************************************************************************************
+// Get Full User NameBy Id
+//*******************************************************************************************
+function GetFullUserNameById() {
+    var _user_id = RECIPE_INFORMATIO.user_id;
+    var _recipe = RECIPE_INFORMATION.recp_id;
+    GlobalAjax("/api/User/GetUserFullNameByID/" + _user_id, "GET", "", function (data) { console.log("שם משתמש " + data); ViewRecipeInformation(data); }, function () { console.log("בעיה במשיגת שם יוצר מתכון!"); });
+}
+
+//*******************************************************************************************
 // VIEW RECIPE INFORMATION
 //*******************************************************************************************
 function GetRecipeInforamtionForDisplay()
@@ -398,12 +414,13 @@ function GetRecipeInforamtionForDisplay()
     };
 }
 
-function ViewRecipeInformation()
+function ViewRecipeInformation(_recipe_owner_name)
 //מציג את המידע של המתכון
 {
     GetRecipeInforamtionForDisplay();
 
     document.getElementById("recipe_name").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_name;
+    document.getElementById("recipe_owner").innerHTML = _recipe_owner_name;
     document.getElementById("recipe_difficulty_level").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_level;
     document.getElementById("recipe_total_time").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_total_time;
     document.getElementById("recipe_work_time").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_work_time;
@@ -454,13 +471,10 @@ function ViewIngridiants()//מציג את נתוני המצרכים
         var _ing = {
             id_ingridiants: ConvertId2Value(ARRY_INGRIDIANTS, RECIPE_INGRIDIANTS[i].id_ingridiants),
             id_mesurment: ConvertId2Value(ARRY_MESURMENTS, RECIPE_INGRIDIANTS[i].id_mesurment),
-            amount:RECIPE_INGRIDIANTS[i].amount
+            amount: RECIPE_INGRIDIANTS[i].amount
         };
         AddIngridinats(_ing);//מוסיף שורות למצרכים כמספר המצרכים שבמתכון
     }
-
-    //מציג את הנתוני הפונקציות של המתכון
-    GetLike();
 }
 
 function AddIngridinats(_ing)
@@ -477,38 +491,46 @@ function AddIngridinats(_ing)
 }
 
 //*******************************************************************************************
-// GET AND SHOW LIKE
+// GET  LIKE
 //*******************************************************************************************
 function GetLike() {
-    var user_id = RECIPE_INFORMATION.user_id;
+    var user_id = LOGIN_USER.id;
     var recipe_id = RECIPE_INFORMATION.recp_id;
     GlobalAjax("/api/Like/GetLikeByUserIdAndRecipeId/"+ user_id + "/" + recipe_id, "GET", "", SuccessGetLikeByUserIdAndRecipeId, FailAddGetLikeByUserIdAndRecipeId);
 }
 
 function SuccessGetLikeByUserIdAndRecipeId(data) {
     RECIPE_LIKE = data;
-    ToggelLikeIcon();
+    ShowLike();
     //מביא את נתוני השמירת מתכון כמועדף
     GetFavorite();
 }
 
 function FailAddGetLikeByUserIdAndRecipeId() {
     console.log("אין לייק של מתשמ");
+    ShowLike();
+
     //מביא את נתוני השמירת מתכון כמועדף
     GetFavorite();
 }
 //*******************************************************************************************
-// ADD REMOVE LIKE
+//Show Like 
 //*******************************************************************************************
-function AddRemoveLike()
-//הוספת /הסרת לייק למתכון
+function ShowLike()
 {
-    if (RECIPE_LIKE == null) //הוספת לייק בפעם הראשונה
-        AddNewLike();
-    else// חידוש לייק מבוטל או ביטול לייק קיים
-        UpdateExsistLike();
+    var btn_like = document.getElementById("recipe_like");
+    if (RECIPE_LIKE != null)//אם יש לייק למתכון
+    {
+        btn_like.className = "fa fa-heart";
+        btn_like.setAttribute("title", "הקלק על הסימן כדי להסיר לייק מהמתכון!.");
+        btn_like.setAttribute("onClick", "RemoveLike()");
+    }
+    else {
+        btn_like.className = "fa fa-heart-o";
+        btn_like.setAttribute("title", "הקלק על הסימן כדי להוסיף לייק למתכון!.");
+        btn_like.setAttribute("onClick", "AddNewLike()");
+    }
 }
-
 //*******************************************************************************************
 // ADD NEW LIKE
 //*******************************************************************************************
@@ -516,186 +538,151 @@ function AddNewLike()
 //הוספת לייק חדש
 {
     var new_like = {
-        id_recipe : RECIPE_INFORMATION.recp_id,
-        id_user: RECIPE_INFORMATION.user_id,
-        status: true,
-        date_like: new Date()//Date.getDate()
+        id_recipe: RECIPE_INFORMATION.recp_id,
+        id_user: LOGIN_USER.id
     };
-    RECIPE_LIKE = new_like;
-    GlobalAjax("/api/Like/AddNewLike", "POST", new_like,SuccessAddNewLike, FailAddNewLike);
+    RECIPE_LIKE= new_like;
+    GlobalAjax("/api/Like/AddNewLike", "POST", new_like, SuccessAddNewLike, FailAddNewLike);
 }
 function SuccessAddNewLike(data) {
-    console.log("הלייק נוסף בהצלחה");
-    alert("הלייק התווסף למתכון בהצלחה!.");
-    ToggelLikeIcon();
+    //שינוי תצוגת כפתור הלייק של המתכון
+    var btn_like = document.getElementById("recipe_like");
+    btn_like.className = "fa fa-heart";
+    btn_like.setAttribute("title", "הקלק על הסימן כדי להסיר לייק מהמתכון!.");
+    btn_like.setAttribute("onClick", "RemoveLike()");
+    //הודעת לייק
+    console.log("הלייק הוסף בהצלחה");
+    alert("הלייק הוסף מהמתכון בהצלחה!.");
 }
 
 function FailAddNewLike() {
     console.log("הוספת לייק נכשלה");
     alert("הוספת לייק נכשלה");
 }
-
 //*******************************************************************************************
-// UPDATE EXSIST LIKE
+// Remove Like
 //*******************************************************************************************
-function UpdateExsistLike()
-//ביטול לייק קיים או חידש לייק מבוטל
+function RemoveLike()
+//הוספת לייק חדש
 {
-    if (RECIPE_LIKE.status == true)
-        RECIPE_LIKE.status = false;
-    else
-        RECIPE_LIKE.status = true;
-    RECIPE_LIKE.date_like = new Date();
-    GlobalAjax("/api/Like/UpdateLike", "PUT", RECIPE_LIKE, SuccessUpdateExsistLike, FailUpdateExsistLike);
+    var _like = {
+        id_recipe: RECIPE_INFORMATION.recp_id,
+        id_user: LOGIN_USER.id
+    };
+    RECIPE_LIKE = null;    
+    GlobalAjax("/api/Like/DeleteLike", "DELETE", _like, SuccessRemoveLike, FailRemoveLike);
+}
+function SuccessRemoveLike(data) {
+    //שינוי תצוגת כפתור הלייק של המתכון
+    var btn_like = document.getElementById("recipe_like");
+    btn_like.className = "fa fa-heart-o";
+    btn_like.setAttribute("title", "הקלק על הסימן כדי להוסיף לייק מהמתכון!.");
+    btn_like.setAttribute("onClick", "AddNewLike()");
+    //הודעת לייק
+    console.log("הלייק הוסר בהצלחה");
+    alert("הלייק הוסר למתכון בהצלחה!.");
 }
 
-function SuccessUpdateExsistLike() {
-    console.log("עדכון לייק בוצע בהצלחה!.");
-    ToggelLikeIcon();
-    if (RECIPE_LIKE.status == true)//אם יש לייק
-        alert("לייק התווסף!.");
-    else
-        alert("לייק בוטל!.");
-}
-
-function FailUpdateExsistLike() {
-    console.log("עדכון לייק נכשלה");
-    alert("עדכון לייק נכשלה");
-}
-
-//*******************************************************************************************
-// TOGGEL LIKE ICON
-//*******************************************************************************************
-function ToggelLikeIcon()
-//משנה את סימון איקון הלייק לפי הסטאוטס שלו
-{
-    var like_icon = $("#recipe_like");
-    if (RECIPE_LIKE.status == true)//אם יש לייק
-    {
-        console.log("יש לייק");
-        //alert("לייק התווסף!.");
-        if (like_icon.hasClass("fa-heart-o"))
-            like_icon.removeClass("fa-heart-o");
-        like_icon.addClass("fa-heart");
-    }
-    else {
-        console.log("לייק מבוטל");
-        //alert("לייק בוטל!.");
-        if (like_icon.hasClass("fa-heart"))
-            like_icon.removeClass("fa-heart");
-        like_icon.addClass("fa-heart-o");
-    }
+function FailRemoveLike() {
+    console.log("הסרת לייק נכשלה");
+    alert("הסרת לייק נכשלה");
 }
 
 //*******************************************************************************************
-// GET AND SHOW FAVORITE RECIPE
+// GET  FAVORITE
 //*******************************************************************************************
 function GetFavorite() {
-    var user_id = RECIPE_INFORMATION.user_id;
+    var user_id = LOGIN_USER.id;
     var recipe_id = RECIPE_INFORMATION.recp_id;
-    GlobalAjax("/api/Favorite/GetFavoriteByUserIdAndRecipeId/" + user_id + "/" + recipe_id, "GET", "", SuccessGetFavorite, FailGetFavorite);
+    GlobalAjax("/api/Favorite/GetFavoriteByUserIdAndRecipeId/" + user_id + "/" + recipe_id, "GET", "", SuccessGetFavoriteByUserIdAndRecipeId, FailGetFavoriteByUserIdAndRecipeId);
 }
 
-function SuccessGetFavorite(data) {
+function SuccessGetFavoriteByUserIdAndRecipeId(data) {
     RECIPE_FAVORITE = data;
-    ToggelFavoriteIcon();
+    ShowFavorite();
     //מביא את תגובות המתכון
     GetRecipeComments();
 }
 
-function FailGetFavorite() {
-    console.log("מתכון זה לא שמור כמועדף אצל המשתמש");
+function FailGetFavoriteByUserIdAndRecipeId() {
+    console.log("מתכון זה לא במועדפים של המשתמש");
+    ShowFavorite();
     //מביא את תגובות המתכון
     GetRecipeComments();
 }
 //*******************************************************************************************
-// ADD REMOVE FAVORITE RECIPE
+//Show Favorite 
 //*******************************************************************************************
-function AddRemoveFavoriteRecipe()
-//הוספת /הסרת מתכון למועדפים
-{
-    if (RECIPE_FAVORITE == null) //הוספה למועדפים בפעם הראשונה
-        AddNewFavorite();
-    else// חידוש למועדפים מבוטל או ביטול כמועדף קיים
-        UpdateExsistFavorite();
+function ShowFavorite() {
+    var btn_favorite = document.getElementById("recipe_favorite");
+    if (RECIPE_FAVORITE != null)//אם יש מועדף למתכון
+    {
+        btn_favorite.className = "fa fa-bookmark";
+        btn_favorite.setAttribute("title", "הקלק על הסימן כדי להסיר את המתכון מהמועדפים!.");
+        btn_favorite.setAttribute("onClick", "RemoveFavorite()");
+    }
+    else {
+        btn_favorite.className = "fa fa-bookmark-o";
+        btn_favorite.setAttribute("title", "הקלק על הסימן כדי להוסיף את המתכון למועדפים!.");
+        btn_favorite.setAttribute("onClick", "AddNewFavorite()");
+    }
 }
-
 //*******************************************************************************************
-// ADD NEW FAVORITE
+// ADD NEW LIKE
 //*******************************************************************************************
 function AddNewFavorite()
-//הוספת כמועדף חדש
+//הוספת לייק חדש
 {
     var new_favorite = {
         id_recipe: RECIPE_INFORMATION.recp_id,
-        id_user: RECIPE_INFORMATION.user_id,
-        status: true
+        id_user: LOGIN_USER.id
     };
     RECIPE_FAVORITE = new_favorite;
     GlobalAjax("/api/Favorite/AddNewFavorite", "POST", new_favorite, SuccessAddNewFavorite, FailAddNewFavorite);
 }
 function SuccessAddNewFavorite(data) {
-    console.log("המתכון נוסף למועדפים בהצלחה");
-    alert("המתכון נוסף למועדפים בהצלחה");
-    ToggelFavoriteIcon();
+    //שינוי תצוגת כפתור הלייק של המתכון
+    var btn_like = document.getElementById("recipe_favorite");
+    btn_like.className = "fa fa-bookmark";
+    btn_like.setAttribute("title", "הקלק על הסימן כדי להסיר את המתכון למועדפים!.");
+    btn_like.setAttribute("onClick", "RemoveFavorite()");
+    //הודעת לייק
+    console.log("המתגון הוסף למועדפים בהצלחה!.");
+    alert("המתגון הוסף למועדפים בהצלחה!.");
 }
 
 function FailAddNewFavorite() {
-    console.log("הוספת לייק נכשלה");
-    alert("הוספת לייק נכשלה");
+    console.log("הוספת מתכון למועדים נכשלה");
+    alert("הוספת מתכון למועדפים נכשלה");
 }
-
 //*******************************************************************************************
-// UPDATE EXSIST FAVORITE
+// RemoveFavorite
 //*******************************************************************************************
-function UpdateExsistFavorite()
-//ביטול לייק קיים או חידש לייק מבוטל
+function RemoveFavorite()
+//הוספת לייק חדש
 {
-    if (RECIPE_FAVORITE.status == true)
-        RECIPE_FAVORITE.status = false;
-    else
-        RECIPE_FAVORITE.status = true;
-    GlobalAjax("/api/Favorite/UpdateFavorite", "PUT", RECIPE_FAVORITE, SuccessUpdateExsistFavorite, FailUpdateExsistFavorite);
+    var _favorite = {
+        id_recipe: RECIPE_INFORMATION.recp_id,
+        id_user: LOGIN_USER.id
+    };
+    RECIPE_FAVORITE = null;
+    GlobalAjax("/api/Favorite/DeleteFavorite", "DELETE", _favorite, SuccessRemoveFavorite, FailRemoveFavorite);
+}
+function SuccessRemoveFavorite(data) {
+    //שינוי תצוגת כפתור הלייק של המתכון
+    var btn_like = document.getElementById("recipe_favorite");
+    btn_like.className = "fa fa-bookmark-o";
+    btn_like.setAttribute("title", "הקלק על הסימן כדי להוסיף את המתכון למועדפים!.");
+    btn_like.setAttribute("onClick", "AddNewFavorite()");
+    //הודעת לייק
+    console.log("המתכון הוסר מהמועדפים בהצלחה");
+    alert("המתכון הוסר מהמועדפים בהצלחה!.");
 }
 
-function SuccessUpdateExsistFavorite() {
-    console.log("עדכון מתכון כמועדף בוצע בהצלחה!.");
-    ToggelFavoriteIcon();
-    if (RECIPE_FAVORITE.status == true)//אם יש 
-                alert("המתכון נשמר שמעודף!.");
-else
-                alert("המתכון הוסר מהמועדפים!.");
+function FailRemoveFavorite() {
+    console.log("הסרת המתכון מהמועדפים נכשלה");
+    alert("הסרת המתכון מהמועדפים נכשלה");
 }
-
-function FailUpdateExsistFavorite() {
-    console.log("עדכון מתכון כמועדף נכשלה");
-    alert("עדכון מתכון כמועדף נכשלה");
-}
-
-//*******************************************************************************************
-// TOGGEL FAVORITE ICON
-//*******************************************************************************************
-function ToggelFavoriteIcon()
-//משנה את סימון איקון הלייק לפי הסטאוטס שלו
-{
-    var favorite_icon = $("#recipe_favorite");
-    if (RECIPE_FAVORITE.status == true)//אם יש 
-    {
-        console.log("שמור כמועדף");
-        //alert("המתכון נשמר שמעודף!.");
-        if (favorite_icon.hasClass("fa-bookmark-o"))
-            favorite_icon.removeClass("fa-bookmark-o");
-        favorite_icon.addClass("fa-bookmark");
-    }
-    else {
-        console.log("כמועדף מבוטל");
-        //alert("המתכון הוסר מהמועדפים!.");
-        if (favorite_icon.hasClass("fa-bookmark"))
-            favorite_icon.removeClass("fa-bookmark");
-        favorite_icon.addClass("fa-bookmark-o");
-    }
-}
-
 //*******************************************************************************************
 // Add New Comment
 //*******************************************************************************************
@@ -744,14 +731,14 @@ function SuccessGetRecipeComments(data) {
     RECIPE_COMMENTS = data;
     sessionStorage.setItem("RECIPE_COMMENTS", JSON.stringify(RECIPE_COMMENTS));
     ShowRecipeComments();
-    
+    //מציג את המתכון
+    GetProfileName();
 }
 
 function FailGetRecipeComments() {
     console.log("שגיאה! אי אפשר לקבל את התגובות של המתכון");
     alert("שגיאה! אי אפשר לקבל את התגובות של המתכון");
-    //דירוג מתכון
-    GetDifficultyLevelRating();
+  
 
 }
 
@@ -762,8 +749,7 @@ function ShowRecipeComments() {
     for (var i = 0; i < RECIPE_COMMENTS.length; i++) {
         GetUserFullNameByID(RECIPE_COMMENTS[i],RECIPE_COMMENTS[i].user_id);
     }
-    //דירוג מתכון
-    GetDifficultyLevelRating();
+    
 }
 
 function AddComment(_comment,user_full_name) {
@@ -811,31 +797,17 @@ function GetUserFullNameByID(_comment,_user_id) {
 function FailGetUserFullNameByID() {
     console.log("cant get the user full name!.");
 }
-/*
-//*******************************************************************************************
-//PARSE DATE FOR DISPLAY
-//*******************************************************************************************
-function ParseDate4Display(_date) {
-    return _date.toDateString();
-    //return _date.getDate() + "-" + _date.getMonth() + "-" + _date.getFullYear() + " " + _date.getHours() + ":" + _date.getMinutes();
-}
-*/
 //*******************************************************************************************
 //Button Remove Comment
 //*******************************************************************************************
 function ButtonRemoveComment(comment_id) {
     GlobalAjax("/api/Comment/RemoveCommentById/" + comment_id, "DELETE", "", function (data) { alert("תגובתך נמחקה בהצלחה!."); RemoveComment(comment_id); }, FailButtonRemoveComment);
 }
-/*
-function SuccessButtonRemoveComment() {
-    alert("תגובתך נמחקה בהצלחה!.");
-}
-*/
+
 function FailButtonRemoveComment() {
     alert("שגיאה! אי אפשר כעת למחוק את התגובה.");
 
 }
-
 //*******************************************************************************************
 //REMOVE COMMENT
 //*******************************************************************************************
@@ -846,108 +818,4 @@ function RemoveComment(_id)
     var child = document.getElementById(_id).parentNode;
     var all_comments = document.getElementById("old_comment");
     all_comments.removeChild(child);
-}
-
-//*******************************************************************************************
-//Show Difficulty Level rating div
-//*******************************************************************************************
-function ShowDiffLevelRationDiv() {
-    if (LOGIN_USER.user_type == 3)// משתמש עסקי
-        document.getElementById("div_diff_level_rating").style["visibility"]="visible";
-}
-
-//*******************************************************************************************
-//SAVE Difficulty Level RATING
-//*******************************************************************************************
-function SaveDiffLevelRating() {
-    //שמירת ועדכון הדירוג
-    if (RECIPE_DIFF_LEVEL_RATING == null)//הוספה כי בפעם הרשונה
-        AddDifficultyLevelRating();
-    else
-        UpdateDifficultyLevelRating();
-}
-//*******************************************************************************************
-//Show Difficulty Level Icon
-//*******************************************************************************************
-function ShowDifficultyLevelIconToltip()
-//מראה את רמת הקושי ב טולטיפ לפי הערך הנבחר
-{
-    var diff_level = $("#recipe_difficulty_level_rating").val();
-    var diff_icon = document.getElementById("recipe_difficulty_level_rating");
-    if (diff_level == 1)
-        diff_icon.title = "קל";
-    else if (diff_level == 2)
-        diff_icon.title = "בינוני";
-    else if (diff_level == 3)
-        diff_icon.title = "קשה";
-    else
-        diff_icon.title = "קשה מאוד";   
-}
-//*******************************************************************************************
-//SVABE Difficulty Level RATING
-//*******************************************************************************************
-function AddDifficultyLevelRating() {
-    var diff_level = $("#recipe_difficulty_level_rating").val();
-    var diff_rating = {
-        recipe_id: RECIPE_INFORMATION.recp_id,
-        user_id: LOGIN_USER.id,
-        diff_level_id: diff_level
-    };
-    GlobalAjax("/api/DifficultyLevelRating/AddNewDiffLevelRating", "POST", diff_rating, SuccessSaveDifficultyLevelRating, FailSaveDifficultyLevelRating);
-}
-
-function SuccessSaveDifficultyLevelRating() {
-    console.log("!.דירוג רמת הקושי למתכון התווספה בהצלחה");
-    alert("!.דירוג רמת הקושי למתכון התווספה בהצלחה");
-    ShowDifficultyLevelIconToltip();
-}
-
-function FailSaveDifficultyLevelRating() {
-    console.log("!.שגיאה שהוספת דירוג רמת קושי למתכון");
-    alert("!.שגיאה שהוספת דירוג רמת קושי למתכון");
-}
-
-//*******************************************************************************************
-//UPDATE Difficulty Level RATING
-//*******************************************************************************************
-function UpdateDifficultyLevelRating() {
-    var diff_level = $("#recipe_difficulty_level_rating").val();
-    var diff_rating = {
-        recipe_id: RECIPE_INFORMATION.recp_id,
-        user_id: LOGIN_USER.id,
-        diff_level_id: diff_level
-    };
-    GlobalAjax("/api/DifficultyLevelRating/UpdateDiffLevelRating", "PUT", diff_rating, SuccessUpdateDifficultyLevelRating, FailUpdateDifficultyLevelRating);
-}
-
-function SuccessUpdateDifficultyLevelRating() {
-    console.log("!.דירוג רמת הקושי למתכון עודכן בהצלחה");
-    alert("!.דירוג רמת הקושי למתכון עודכן בהצלחה");
-    ShowDifficultyLevelIconToltip();
-}
-
-function FailUpdateDifficultyLevelRating() {
-    console.log("!.שגיאה שעדכנת דירוג רמת קושי למתכון");
-    alert("!.שגיאה שעדכנת דירוג רמת קושי למתכון");
-}
-
-//*******************************************************************************************
-//GET Difficulty Level RATING
-//*******************************************************************************************
-function GetDifficultyLevelRating() {
-    var user_id = LOGIN_USER.id;
-    var recipe_id = RECIPE_INFORMATION.recp_id;
-    GlobalAjax("/api/DifficultyLevelRating/GetDifficultyLevelRating/" + user_id + "/" + recipe_id, "GET", "", SuccessGetDifficultyLevelRating, FailGetDifficultyLevelRating);
-}
-
-function SuccessGetDifficultyLevelRating(data) {
-    console.log("!.דירוג רמת הקושי למתכון עודכן בהצלחה");
-    document.getElementById("recipe_difficulty_level_rating").value = data.diff_level_id;
-    RECIPE_DIFF_LEVEL_RATING = data;
-    ShowDifficultyLevelIconToltip();
-}
-
-function FailGetDifficultyLevelRating() {
-    console.log("!.שגיאה בהבאת דירוג רמת קושי למתכון");
-    alert("!.שגיאה בהבאת דירוג רמת קושי למתכון");
 }

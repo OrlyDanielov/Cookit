@@ -73,7 +73,6 @@
           </Key>
           <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_User" Type="int" Nullable="false" />
-          <Property Name="RecpStatus" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Followers">
           <Key>
@@ -151,8 +150,6 @@
           </Key>
           <Property Name="Id_Recp" Type="int" Nullable="false" />
           <Property Name="Id_User" Type="int" Nullable="false" />
-          <Property Name="LikeStatus" Type="bit" Nullable="false" />
-          <Property Name="LikeDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Managers">
           <Key>
@@ -1178,7 +1175,6 @@
           </Key>
           <Property Name="Id_Recp" Type="Int32" Nullable="false" />
           <Property Name="Id_User" Type="Int32" Nullable="false" />
-          <Property Name="RecpStatus" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp6" FromRole="TBL_FavoriteRecp" ToRole="TBL_Recipe" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User5" FromRole="TBL_FavoriteRecp" ToRole="TBL_User" />
         </EntityType>
@@ -1273,8 +1269,6 @@
           </Key>
           <Property Name="Id_Recp" Type="Int32" Nullable="false" />
           <Property Name="Id_User" Type="Int32" Nullable="false" />
-          <Property Name="LikeStatus" Type="Boolean" Nullable="false" />
-          <Property Name="LikeDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp2" FromRole="TBL_Likes" ToRole="TBL_Recipe" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User2" FromRole="TBL_Likes" ToRole="TBL_User" />
         </EntityType>
@@ -1999,7 +1993,6 @@
           <EntitySetMapping Name="TBL_FavoriteRecp">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_FavoriteRecp">
               <MappingFragment StoreEntitySet="TBL_FavoriteRecp">
-                <ScalarProperty Name="RecpStatus" ColumnName="RecpStatus" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
               </MappingFragment>
@@ -2085,8 +2078,6 @@
           <EntitySetMapping Name="TBL_Likes">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Likes">
               <MappingFragment StoreEntitySet="TBL_Likes">
-                <ScalarProperty Name="LikeDate" ColumnName="LikeDate" />
-                <ScalarProperty Name="LikeStatus" ColumnName="LikeStatus" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
               </MappingFragment>

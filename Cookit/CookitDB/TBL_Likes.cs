@@ -22,10 +22,6 @@ public partial class TBL_Likes
 
     public int Id_User { get; set; }
 
-    public bool LikeStatus { get; set; }
-
-    public System.DateTime LikeDate { get; set; }
-
 
 
     public virtual TBL_Recipe TBL_Recipe { get; set; }

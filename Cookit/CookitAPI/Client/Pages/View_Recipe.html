@@ -103,9 +103,8 @@
     <main role="main" class="flex-shrink-0 ">
         <form id="recipe" class="container bg_brigth ">
             <h4 id="recipe_name" class="mb-3"></h4>
-            <!--קטגוריות-->
-            <!--<fieldset>-->
-            <!--<legend id="recipe_name"></legend>-->
+            <div id="recipe_owner"></div>
+            <!--קטגוריות-->          
             <fieldset>
                 <!--תמונה-->
                 <div>
@@ -116,29 +115,12 @@
                     <!--לייק-->
                     <div class="col">
                         <!--לב ריק-->
-                        <i id="recipe_like" class="fa fa-heart-o" style="font-size:48px;color:red" onclick="AddRemoveLike()" data-toggle="tooltip" data-placement="top" title="לייק למתכון"></i>
+                        <i id="recipe_like" class="fa fa-heart-o" style="font-size:48px;color:red" onclick="" data-toggle="tooltip" data-placement="top" title="לייק למתכון"></i>
                     </div>
                     <!--שמור למועדפים-->
                     <div class="col">
                         <i id="recipe_favorite" class="fa fa-bookmark-o" style="font-size:48px;color:black" onclick="AddRemoveFavoriteRecipe()" data-toggle="tooltip" data-placement="top" title="שמירת מתכון למועדפים"></i>
-                    </div>
-                    <!--שיתוף-->
-                    <!--<div class="col">
-            <i class="fa fa-share-alt" style="font-size:48px;color:blue" data-toggle="tooltip" data-placement="top" title="שיתוף מתכון"></i>
-        </div>-->
-                    <!-- דירוג רמת קושי לביצוע של משתמש עסקי-->
-                    <div class="col" id="div_diff_level_rating">
-                        <!--style="visibility:hidden;">-->
-                        <label for="recipe_difficulty_level_rating" class=col-form-label>רמת קושי לביצוע</label>
-                        <input id="recipe_difficulty_level_rating" type="range" min="1" max="4" step="1" class="custom-range" data-toggle="tooltip" data-placement="top" title="דירוג רמת קושי לביצוע מתכון" onchange="SaveDiffLevelRating()">
-                    </div>
-                    <!--כוכבים למתכון-->
-                    <!--<div class="col">-->
-                    <!--<i class="fa fa-star" style="font-size:48px;color:silver"></i>-->
-                    <!--<i class="fa fa-star-o" style="font-size:48px;color:silver"></i>-->
-                    <!--<i class="fa fa-star" style="font-size:48px;color:gold"></i>-->
-                    <!--<i class="fa fa-star" style="font-size:48px;color:#CD7F32"></i>--><!--ברונזה-->
-                    <!--</div>-->
+                    </div>       
                 </div>
             </fieldset>
             <hr class="mb-4">
