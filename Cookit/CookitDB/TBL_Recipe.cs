@@ -36,8 +36,6 @@ public partial class TBL_Recipe
 
         this.TBL_Comments = new HashSet<TBL_Comments>();
 
-        this.TBL_RecpLevelByBU = new HashSet<TBL_RecpLevelByBU>();
-
     }
 
 
@@ -104,10 +102,6 @@ public partial class TBL_Recipe
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<TBL_Comments> TBL_Comments { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<TBL_RecpLevelByBU> TBL_RecpLevelByBU { get; set; }
 
 }
 

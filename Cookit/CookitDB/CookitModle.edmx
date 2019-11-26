@@ -210,15 +210,6 @@
           <Property Name="Id_Level" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name_Level" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
-        <EntityType Name="TBL_RecpLevelByBU">
-          <Key>
-            <PropertyRef Name="Id_Recp" />
-            <PropertyRef Name="Id_User" />
-          </Key>
-          <Property Name="Id_Recp" Type="int" Nullable="false" />
-          <Property Name="Id_User" Type="int" Nullable="false" />
-          <Property Name="Id_Level" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="TBL_Region">
           <Key>
             <PropertyRef Name="Id_Region" />
@@ -421,18 +412,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Level1">
-          <End Role="TBL_RecipeDifficultyLevel" Type="Self.TBL_RecipeDifficultyLevel" Multiplicity="1" />
-          <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_RecipeDifficultyLevel">
-              <PropertyRef Name="Id_Level" />
-            </Principal>
-            <Dependent Role="TBL_RecpLevelByBU">
-              <PropertyRef Name="Id_Level" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Mesurment">
           <End Role="TBL_Mesurments" Type="Self.TBL_Mesurments" Multiplicity="1" />
           <End Role="TBL_NutritionalIngridiants" Type="Self.TBL_NutritionalIngridiants" Multiplicity="*" />
@@ -525,18 +504,6 @@
               <PropertyRef Name="Id_Recipe" />
             </Principal>
             <Dependent Role="TBL_Comments">
-              <PropertyRef Name="Id_Recp" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Recp4">
-          <End Role="TBL_Recipe" Type="Self.TBL_Recipe" Multiplicity="1" />
-          <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_Recipe">
-              <PropertyRef Name="Id_Recipe" />
-            </Principal>
-            <Dependent Role="TBL_RecpLevelByBU">
               <PropertyRef Name="Id_Recp" />
             </Dependent>
           </ReferentialConstraint>
@@ -661,18 +628,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User4">
-          <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
-          <End Role="TBL_RecpLevelByBU" Type="Self.TBL_RecpLevelByBU" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_User">
-              <PropertyRef Name="Id_User" />
-            </Principal>
-            <Dependent Role="TBL_RecpLevelByBU">
-              <PropertyRef Name="Id_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_User5">
           <End Role="TBL_User" Type="Self.TBL_User" Multiplicity="1" />
           <End Role="TBL_FavoriteRecp" Type="Self.TBL_FavoriteRecp" Multiplicity="*" />
@@ -770,7 +725,6 @@
           <EntitySet Name="TBL_Profile" EntityType="Self.TBL_Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Recipe" EntityType="Self.TBL_Recipe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_RecipeDifficultyLevel" EntityType="Self.TBL_RecipeDifficultyLevel" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TBL_RecpLevelByBU" EntityType="Self.TBL_RecpLevelByBU" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Region" EntityType="Self.TBL_Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_Star" EntityType="Self.TBL_Star" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TBL_StarsForRecp" EntityType="Self.TBL_StarsForRecp" Schema="dbo" store:Type="Tables" />
@@ -822,10 +776,6 @@
             <End Role="TBL_RecipeDifficultyLevel" EntitySet="TBL_RecipeDifficultyLevel" />
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
           </AssociationSet>
-          <AssociationSet Name="FK_Level1" Association="Self.FK_Level1">
-            <End Role="TBL_RecipeDifficultyLevel" EntitySet="TBL_RecipeDifficultyLevel" />
-            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
-          </AssociationSet>
           <AssociationSet Name="FK_Mesurment" Association="Self.FK_Mesurment">
             <End Role="TBL_Mesurments" EntitySet="TBL_Mesurments" />
             <End Role="TBL_NutritionalIngridiants" EntitySet="TBL_NutritionalIngridiants" />
@@ -857,10 +807,6 @@
           <AssociationSet Name="FK_Recp3" Association="Self.FK_Recp3">
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
             <End Role="TBL_Comments" EntitySet="TBL_Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Recp4" Association="Self.FK_Recp4">
-            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
-            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
           </AssociationSet>
           <AssociationSet Name="FK_Recp5" Association="Self.FK_Recp5">
             <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
@@ -901,10 +847,6 @@
           <AssociationSet Name="FK_User3" Association="Self.FK_User3">
             <End Role="TBL_User" EntitySet="TBL_User" />
             <End Role="TBL_Comments" EntitySet="TBL_Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User4" Association="Self.FK_User4">
-            <End Role="TBL_User" EntitySet="TBL_User" />
-            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
           </AssociationSet>
           <AssociationSet Name="FK_User5" Association="Self.FK_User5">
             <End Role="TBL_User" EntitySet="TBL_User" />
@@ -1106,19 +1048,6 @@
           <AssociationSet Name="FK_User3" Association="Cookit_DBModel.FK_User3">
             <End Role="TBL_User" EntitySet="TBL_User" />
             <End Role="TBL_Comments" EntitySet="TBL_Comments" />
-          </AssociationSet>
-          <EntitySet Name="TBL_RecpLevelByBU" EntityType="Cookit_DBModel.TBL_RecpLevelByBU" />
-          <AssociationSet Name="FK_Recp4" Association="Cookit_DBModel.FK_Recp4">
-            <End Role="TBL_Recipe" EntitySet="TBL_Recipe" />
-            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Level1" Association="Cookit_DBModel.FK_Level1">
-            <End Role="TBL_RecipeDifficultyLevel" EntitySet="TBL_RecipeDifficultyLevel" />
-            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User4" Association="Cookit_DBModel.FK_User4">
-            <End Role="TBL_User" EntitySet="TBL_User" />
-            <End Role="TBL_RecpLevelByBU" EntitySet="TBL_RecpLevelByBU" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="TBL_Barcode">
@@ -1327,7 +1256,6 @@
           <NavigationProperty Name="TBL_StarsForRecp" Relationship="Cookit_DBModel.FK_Recp5" FromRole="TBL_Recipe" ToRole="TBL_StarsForRecp" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User1" FromRole="TBL_Recipe" ToRole="TBL_User" />
           <NavigationProperty Name="TBL_Comments" Relationship="Cookit_DBModel.FK_Recp3" FromRole="TBL_Recipe" ToRole="TBL_Comments" />
-          <NavigationProperty Name="TBL_RecpLevelByBU" Relationship="Cookit_DBModel.FK_Recp4" FromRole="TBL_Recipe" ToRole="TBL_RecpLevelByBU" />
         </EntityType>
         <EntityType Name="TBL_RecipeDifficultyLevel">
           <Key>
@@ -1336,7 +1264,6 @@
           <Property Name="Id_Level" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name_Level" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Level" FromRole="TBL_RecipeDifficultyLevel" ToRole="TBL_Recipe" />
-          <NavigationProperty Name="TBL_RecpLevelByBU" Relationship="Cookit_DBModel.FK_Level1" FromRole="TBL_RecipeDifficultyLevel" ToRole="TBL_RecpLevelByBU" />
         </EntityType>
         <EntityType Name="TBL_Star">
           <Key>
@@ -1380,7 +1307,6 @@
           <NavigationProperty Name="TBL_UserType" Relationship="Cookit_DBModel.FK_UserType" FromRole="TBL_User" ToRole="TBL_UserType" />
           <NavigationProperty Name="TBL_Profile" Relationship="Cookit_DBModel.FK_User" FromRole="TBL_User" ToRole="TBL_Profile" />
           <NavigationProperty Name="TBL_Comments" Relationship="Cookit_DBModel.FK_User3" FromRole="TBL_User" ToRole="TBL_Comments" />
-          <NavigationProperty Name="TBL_RecpLevelByBU" Relationship="Cookit_DBModel.FK_User4" FromRole="TBL_User" ToRole="TBL_RecpLevelByBU" />
         </EntityType>
         <EntityType Name="TBL_UserType">
           <Key>
@@ -1889,54 +1815,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="TBL_RecpLevelByBU">
-          <Key>
-            <PropertyRef Name="Id_Recp" />
-            <PropertyRef Name="Id_User" />
-          </Key>
-          <Property Name="Id_Recp" Type="Int32" Nullable="false" />
-          <Property Name="Id_User" Type="Int32" Nullable="false" />
-          <Property Name="Id_Level" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TBL_Recipe" Relationship="Cookit_DBModel.FK_Recp4" FromRole="TBL_RecpLevelByBU" ToRole="TBL_Recipe" />
-          <NavigationProperty Name="TBL_RecipeDifficultyLevel" Relationship="Cookit_DBModel.FK_Level1" FromRole="TBL_RecpLevelByBU" ToRole="TBL_RecipeDifficultyLevel" />
-          <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User4" FromRole="TBL_RecpLevelByBU" ToRole="TBL_User" />
-        </EntityType>
-        <Association Name="FK_Recp4">
-          <End Type="Cookit_DBModel.TBL_Recipe" Role="TBL_Recipe" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_RecpLevelByBU" Role="TBL_RecpLevelByBU" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_Recipe">
-              <PropertyRef Name="Id_Recipe" />
-            </Principal>
-            <Dependent Role="TBL_RecpLevelByBU">
-              <PropertyRef Name="Id_Recp" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Level1">
-          <End Type="Cookit_DBModel.TBL_RecipeDifficultyLevel" Role="TBL_RecipeDifficultyLevel" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_RecpLevelByBU" Role="TBL_RecpLevelByBU" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_RecipeDifficultyLevel">
-              <PropertyRef Name="Id_Level" />
-            </Principal>
-            <Dependent Role="TBL_RecpLevelByBU">
-              <PropertyRef Name="Id_Level" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User4">
-          <End Type="Cookit_DBModel.TBL_User" Role="TBL_User" Multiplicity="1" />
-          <End Type="Cookit_DBModel.TBL_RecpLevelByBU" Role="TBL_RecpLevelByBU" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBL_User">
-              <PropertyRef Name="Id_User" />
-            </Principal>
-            <Dependent Role="TBL_RecpLevelByBU">
-              <PropertyRef Name="Id_User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2239,15 +2117,6 @@
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
                 <ScalarProperty Name="Id_Comment" ColumnName="Id_Comment" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBL_RecpLevelByBU">
-            <EntityTypeMapping TypeName="Cookit_DBModel.TBL_RecpLevelByBU">
-              <MappingFragment StoreEntitySet="TBL_RecpLevelByBU">
-                <ScalarProperty Name="Id_Level" ColumnName="Id_Level" />
-                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
-                <ScalarProperty Name="Id_Recp" ColumnName="Id_Recp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

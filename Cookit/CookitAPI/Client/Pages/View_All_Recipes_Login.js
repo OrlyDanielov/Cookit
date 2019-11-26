@@ -28,10 +28,58 @@ var RECIPE_FOOD_LABLES = new Array();
 //*******************************************************************************************
 $(document).ready(function () {
     // להביא נתונים סטטים
-      GetUserLike();
-    //מביא את כל המתכונים
-    //GetAllRecipes();
+      //GetUserLike();
+    GetDifficultyLevel();
+    
 });
+
+//*******************************************************************************************
+// GET DIFFICULTY LEVEL
+//*******************************************************************************************
+// פונקציה מביאה את כל דרגות הקושי של מתכון
+function GetDifficultyLevel() {
+    GlobalAjax("/api/DifficultyLevel/GetAll", "GET", "", SuccessDifficultyLevel, FailDifficultyLevel);
+}
+
+function SuccessDifficultyLevel(arry_difficulty_level) {
+    ARRY_DIFFICULTY_LEVEL = arry_difficulty_level;
+    sessionStorage.setItem("Difficulty_Level", JSON.stringify(arry_difficulty_level));
+    ShowDifficultyLevel(ARRY_DIFFICULTY_LEVEL);
+
+    GetUserLike();
+}
+
+function FailDifficultyLevel() {
+    console.log("שגיאה במשיכת נתוני רמות קושי מהשרת.");
+    alert('שגיאה במשיכת נתוני רמות קושי מהשרת.');
+
+    GetUserLike();
+}
+//*******************************************************************************************
+// Show Difficulty Level in search bar
+//*******************************************************************************************
+function ShowDifficultyLevel(_list_diff_level) {
+    document.getElementById("search_difficulty_level_option").innerHTML = ""; // ניקוי לפי דחיפה
+    for (var i = 0; i < _list_diff_level.length; i++) {
+        AddDifficultylevel(_list_diff_level[i]);
+    }
+    document.getElementById("search_difficulty_level_option").reload;
+}
+function AddDifficultylevel(_diff_level) {
+    //li
+    var li = document.createElement('li');
+    li.value = _diff_level.id_city;
+    li.innerHTML = _diff_level.difficulty_level;
+    //input
+    var input = document.createElement('input');
+    input.type = "checkbox";
+    input.value = _diff_level.id;
+    input.name = "difficulty_level_option";
+
+    li.appendChild(input);
+
+    document.getElementById("search_difficulty_level_option").appendChild(li);
+}
 
 //*******************************************************************************************
 // GET USER LIKE
@@ -609,6 +657,54 @@ function GetRecipeByName(recipe_name)
     return list_recipes;
 }
 
+//*******************************************************************************************
+// SearchProfileByDifficultyLevel
+//*******************************************************************************************
+function SearchProfileByDifficultyLevel()
+//חיפוש מתכון לפי רמת קושי
+{
+    //מקבל את רשימת הערכים
+    var diff_level = new Array();
+    var list_diff_level = document.getElementsByName('difficulty_level_option');
+    for (var j = 0; j < list_diff_level.length; j++) {
+        if (list_diff_level[j].checked == true)
+            diff_level.push(list_diff_level[j].value);
+    }
+    // אם לא נבחרה אף עיר
+    if (diff_level.length == 0) 
+    {
+        ShowSelectedRecipes(ARRY_RECIPES_DISPLAY);
+        alert("אנא בחר רמת קושי לחיפוש מתכון!");
+    }
+    else {
+        var search_recipes = GetRecipesByDiificultyLevel(diff_level);
+        // אם אין אף פרופיל מתאים לחחפוש
+        if (search_recipes.length == 0) 
+        {
+            document.getElementById("recipes_form").innerHTML = "";
+            alert("אין מתכונים מתאימים לחיפוש!");
+        }
+        else
+            ShowSelectedRecipes(search_recipes);
+    }
+}
+
+//*******************************************************************************************
+// GetRecipesByDiificultyLevel
+//*******************************************************************************************
+function GetRecipesByDiificultyLevel(diff_level)
+//מחזיר רשימת מתכונים לפי רמת קושי שנבחרה
+{
+    var list_recipes = new Array();
+    for (var h = 0; h < diff_level.length; h++) {
+        for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+            console.log(ARRY_RECIPES_DISPLAY[i].recp_level == diff_level[h]);
+            if (ARRY_RECIPES_DISPLAY[i].recp_level == diff_level[h])
+                list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
+        }
+    }
+    return list_recipes;
+}
 //*******************************************************************************************
 // ShowSelectedRecipes
 //*******************************************************************************************

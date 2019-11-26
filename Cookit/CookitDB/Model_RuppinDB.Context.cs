@@ -45,7 +45,6 @@ namespace CookitDB
         public virtual DbSet<TBL_Profile> TBL_Profile { get; set; }
         public virtual DbSet<TBL_Recipe> TBL_Recipe { get; set; }
         public virtual DbSet<TBL_RecipeDifficultyLevel> TBL_RecipeDifficultyLevel { get; set; }
-        public virtual DbSet<TBL_RecpLevelByBU> TBL_RecpLevelByBU { get; set; }
         public virtual DbSet<TBL_Star> TBL_Star { get; set; }
         public virtual DbSet<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
         public virtual DbSet<TBL_User> TBL_User { get; set; }

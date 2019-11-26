@@ -94,8 +94,6 @@ public partial class Cookit_DBConnection : DbContext
 
     public virtual DbSet<TBL_Comments> TBL_Comments { get; set; }
 
-    public virtual DbSet<TBL_RecpLevelByBU> TBL_RecpLevelByBU { get; set; }
-
 }
 
 }
