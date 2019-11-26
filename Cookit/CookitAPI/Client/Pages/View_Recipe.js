@@ -528,16 +528,16 @@ function GetLike() {
 function SuccessGetLikeByUserIdAndRecipeId(data) {
     RECIPE_LIKE = data;
     ShowLike();
-    //מביא את נתוני השמירת מתכון כמועדף
-    GetFavorite();
+    //מביא את מספרהלייקים למתכון
+    GetRecipeCountLike();
 }
 
 function FailAddGetLikeByUserIdAndRecipeId() {
     console.log("אין לייק של מתשמ");
     ShowLike();
 
-    //מביא את נתוני השמירת מתכון כמועדף
-    GetFavorite();
+    //מביא את מספרהלייקים למתכון
+    GetRecipeCountLike();
 }
 //*******************************************************************************************
 //Show Like 
@@ -547,11 +547,13 @@ function ShowLike()
     var btn_like = document.getElementById("recipe_like");
     if (RECIPE_LIKE != null)//אם יש לייק למתכון
     {
+        //איקון לייק
         btn_like.className = "fa fa-heart";
         btn_like.setAttribute("title", "הקלק על הסימן כדי להסיר לייק מהמתכון!.");
         btn_like.setAttribute("onClick", "RemoveLike()");
     }
     else {
+                //איקון לייק
         btn_like.className = "fa fa-heart-o";
         btn_like.setAttribute("title", "הקלק על הסימן כדי להוסיף לייק למתכון!.");
         btn_like.setAttribute("onClick", "AddNewLike()");
@@ -576,6 +578,12 @@ function SuccessAddNewLike(data) {
     btn_like.className = "fa fa-heart";
     btn_like.setAttribute("title", "הקלק על הסימן כדי להסיר לייק מהמתכון!.");
     btn_like.setAttribute("onClick", "RemoveLike()");
+    //שינוי מספר הלייקים למתכון
+    var like_count_alert = document.getElementById("recipe_like_count");
+    var count_like = like_count_alert.innerHTML.split(" ")[1];
+    count_like++;
+    like_count_alert.innerHTML = "";
+    like_count_alert.innerHTML = "לייקים " + count_like;
     //הודעת לייק
     console.log("הלייק הוסף בהצלחה");
     alert("הלייק הוסף מהמתכון בהצלחה!.");
@@ -604,6 +612,12 @@ function SuccessRemoveLike(data) {
     btn_like.className = "fa fa-heart-o";
     btn_like.setAttribute("title", "הקלק על הסימן כדי להוסיף לייק מהמתכון!.");
     btn_like.setAttribute("onClick", "AddNewLike()");
+    //שינוי מספר הלייקים למתכון
+    var like_count_alert = document.getElementById("recipe_like_count");
+    var count_like = like_count_alert.innerHTML.split(" ")[1];
+    count_like--;
+    like_count_alert.innerHTML = "";
+    like_count_alert.innerHTML = "לייקים " + count_like;
     //הודעת לייק
     console.log("הלייק הוסר בהצלחה");
     alert("הלייק הוסר למתכון בהצלחה!.");
@@ -614,6 +628,27 @@ function FailRemoveLike() {
     alert("הסרת לייק נכשלה");
 }
 
+//*******************************************************************************************
+// GET  recipe count like
+//*******************************************************************************************
+function GetRecipeCountLike() {
+    var recipe_id = RECIPE_INFORMATION.recp_id;
+    GlobalAjax("/api/Like/GetCountLikeOfRecipe/" + recipe_id, "GET", "", SuccessGetRecipeCountLike, FailGetRecipeCountLike);
+}
+
+function SuccessGetRecipeCountLike(data) {
+    //שינוי מספר הלייקים למתכון
+    var like_count_alert = document.getElementById("recipe_like_count");
+    like_count_alert.innerHTML = "לייקים " + data;
+    //מביא את נתוני השמירת מתכון כמועדף
+    GetFavorite();
+}
+
+function FailGetRecipeCountLike() {
+    console.log("שגיאה, לא מוצא לייקים של מתכון");
+    //מביא את נתוני השמירת מתכון כמועדף
+    GetFavorite();
+}
 //*******************************************************************************************
 // GET  FAVORITE
 //*******************************************************************************************

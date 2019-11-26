@@ -41,8 +41,30 @@ namespace CookitAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
             }
         }
+        #endregion
+
+        #region GetCountLikeOfRecipe
+        [Route("GetCountLikeOfRecipe/{recipe_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetCountLikeOfRecipe(int recipe_id)
+        {
+            try
+            {
+                Cookit_DBConnection db = new Cookit_DBConnection();
+                int count_like = CookitDB.DB_Code.CookitQueries.GetCountLikeOfRecipe(recipe_id);
+                if (count_like > -1 )
+                    return Request.CreateResponse(HttpStatusCode.OK, count_like);
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "this like does not exist.");
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
         #endregion   
-        
+
+
         #region GetLikeByUserIdAndRecipeId
         [Route("GetLikeByUserIdAndRecipeId/{user_id}/{recipe_id}")]
         [HttpGet]

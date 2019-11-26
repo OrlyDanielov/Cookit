@@ -149,27 +149,55 @@ function FailGetAllRecipes(data) {
 //*******************************************************************************************
 function ShowRecipes() {
     for (var i = 0; i < ARRY_RECIPES.length; i++) {
-        GetProfileName(ARRY_RECIPES[i].user_id ,ARRY_RECIPES[i],i + 1);
+        GetProfileName(ARRY_RECIPES[i].user_id ,ARRY_RECIPES[i]);
     }
 }
 
 //*******************************************************************************************
 // IS USER HAS PROFILE
 //*******************************************************************************************
-function GetProfileName(_user_id, _recipe, _index) {
-    GlobalAjax("/api/Profile/GetProfileByUserId/" + _user_id, "GET", "", function (data) { console.log("שם פרופיל " + data.name); AddRecipe(_recipe, data.name, _index); }, function () { console.log("לא מצא את הפרופיל, מחפפש אחר שם משתמש"); GetFullUserNameById(_user_id, _recipe, _index); });
+function GetProfileName(_user_id, _recipe) {
+    GlobalAjax("/api/Profile/GetProfileByUserId/" + _user_id, "GET", "",
+        function (data) { 
+            console.log("שם פרופיל " + data.name);
+            CountLikeOfRecipe(_recipe, data.name);
+},
+        function () {
+            console.log("לא מצא את הפרופיל, מחפפש אחר שם משתמש");
+            GetFullUserNameById(_user_id, _recipe);
+        });
 }
 //*******************************************************************************************
 // Get Full User NameBy Id
 //*******************************************************************************************
-function GetFullUserNameById(_user_id, _recipe, _index) {
-    GlobalAjax("/api/User/GetUserFullNameByID/" + _user_id, "GET", "", function (data) { console.log("שם משתמש " + data); AddRecipe(_recipe, data, _index); }, function () { console.log("בעיה במשיגת שם יוצר מתכון!"); });
+function GetFullUserNameById(_user_id, _recipe) {
+    GlobalAjax("/api/User/GetUserFullNameByID/" + _user_id, "GET", "",
+        function (data) {
+            console.log("שם משתמש " + data);
+            CountLikeOfRecipe(_recipe, data);
+        }, function () {
+            console.log("בעיה במשיגת שם יוצר מתכון!");
+            CountLikeOfRecipe(_recipe, null);
+        });
+}
+//*******************************************************************************************
+// Get number of like of recipe
+//*******************************************************************************************
+function CountLikeOfRecipe(_recipe,_name) {
+    GlobalAjax("/api/Like/GetCountLikeOfRecipe/" + _recipe.recp_id, "GET", "",
+        function (data) {
+            console.log("מספר לייקים " + data);
+            AddRecipe(_recipe, _name, data); },
+        function () {
+            console.log("שגיאה! לא מצליח להביא את מספר הלייקים של המתכון");
+            AddRecipe(_recipe, _name, 0); 
+        });
 }
 //*******************************************************************************************
 // Add Recipe
 //*******************************************************************************************
 
-function AddRecipe(_recipe, _name,_index) {
+function AddRecipe(_recipe, _name,_like_count) {
     //div
     var div = document.createElement('div');
     div.className = "col-md-4 ";
@@ -226,7 +254,7 @@ function AddRecipe(_recipe, _name,_index) {
     var recipe_like_count = document.createElement("span");
     recipe_like_count.id = "like_count_" + _recipe.recp_id; 
     recipe_like_count.style["display"] = "block";
-    recipe_like_count.innerHTML = "לייקים "+0;//+ מסםר הלייקים
+    recipe_like_count.innerHTML = "לייקים " + _like_count;//+ מסםר הלייקים
     div_like_count.appendChild(recipe_like_count);
     //לייק
     var div_like = document.createElement("div");
@@ -276,22 +304,20 @@ function AddRecipe(_recipe, _name,_index) {
     div_favorite.appendChild(recipe_favorite);
     //הוספת השלב לתצוגה
     div.appendChild(recipe_div);
-    // console.log(_index % 3);
     console.log(COUNT_RECIPES % 3);
-    if (COUNT_RECIPES % 3 == 1) { //if (_index % 3 == 1) {
+    if (COUNT_RECIPES % 3 == 1) {
         //create new row
         var row = document.createElement("div");
         row.className = "row";
-        console.log(Math.ceil(COUNT_RECIPES / 3));//console.log(Math.ceil(_index / 3));
-        row.id = "row_" + Math.ceil(COUNT_RECIPES / 3); // עיגול למעלה//row.id = "row_" + Math.ceil(_index / 3); // עיגול למעלה
+        console.log(Math.ceil(COUNT_RECIPES / 3));
+        row.id = "row_" + Math.ceil(COUNT_RECIPES / 3); // עיגול למעלה
 
         row.appendChild(div);
         document.getElementById("recipes_form").appendChild(row);
-
     }
     else {
-        console.log(Math.ceil(COUNT_RECIPES / 3));//console.log(Math.ceil(_index / 3));
-        document.getElementById("row_" + Math.ceil(COUNT_RECIPES / 3)).appendChild(div);//.appendChild(div);// document.getElementById("row_" + Math.ceil(_index / 3)).prepend(div);//.appendChild(div);
+        console.log(Math.ceil(COUNT_RECIPES / 3));
+        document.getElementById("row_" + Math.ceil(COUNT_RECIPES / 3)).appendChild(div);
     }
     console.log("recipe " + COUNT_RECIPES);
     COUNT_RECIPES += 1;
@@ -413,6 +439,12 @@ function SuccessAddNewLike(data) {
     btn_like.className = "fa fa-heart";
     btn_like.setAttribute("title", "הקלק על הסימן כדי להסיר לייק מהמתכון!.");
     btn_like.setAttribute("onClick", "RemoveRecipeLike_Btn(this.id)");
+    //שינוי מספר הלייקים למתכון
+    var like_count_alert = document.getElementById("like_count_" + data.id_recipe);
+    var count_like = like_count_alert.innerHTML.split(" ")[1];
+    count_like++;
+    like_count_alert.innerHTML = "";
+    like_count_alert.innerHTML = "לייקים " + count_like;
     //הודעת לייק
     console.log("הלייק הוסף בהצלחה");
     alert("הלייק הוסף למתכון בהצלחה!.");
@@ -444,6 +476,12 @@ function SuccessRemoveLike(data) {
     btn_like.className = "fa fa-heart-o";
     btn_like.setAttribute("title", "הקלק על הסימן כדי להוסיף לייק מהמתכון!.");
     btn_like.setAttribute("onClick", "AddRecipeLike_Btn(this.id)");
+    //שינוי מספר הלייקים למתכון
+    var like_count_alert = document.getElementById("like_count_" + data.id_recipe);
+    var count_like = like_count_alert.innerHTML.split(" ")[1];
+    count_like--;
+    like_count_alert.innerHTML = "";
+    like_count_alert.innerHTML = "לייקים " + count_like;
     //הודעת לייק
     console.log("הלייק הוסר בהצלחה");
     alert("הלייק הוסר למתכון בהצלחה!.");

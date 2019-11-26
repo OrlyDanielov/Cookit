@@ -458,6 +458,26 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region GetCountLikeOfRecipe
+        //מביא את מספר הלייקים של מתכון
+        public static int GetCountLikeOfRecipe(int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                List<TBL_Likes> count_likes = db.TBL_Likes.Where(x => x.Id_Recp == recipe_id).ToList();
+                if (count_likes != null)
+                    return count_likes.Count();
+                else
+                    return 0;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+        #endregion
+
         #region GetFavoriteByUserId
         //מביאה מצרכי מתכון לפי תז מתכון
         public static List<TBL_FavoriteRecp> GetFavoriteByUserId(int user_id)
