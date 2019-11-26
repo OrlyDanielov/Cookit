@@ -18,6 +18,8 @@ var USER_FAVORITE = null;
 // פרטי המתכון
 var ARRY_RECIPES;
 var COUNT_RECIPES = 1;
+var COUNT_NAME_RECIPES = 1;
+var ARRY_RECIPES_DISPLAY = new Array();
 var RECIPE_INGRIDIANTS = new Array();
 var RECIPE_HOLIDAYS = new Array();
 var RECIPE_FOOD_LABLES = new Array();
@@ -41,7 +43,7 @@ function GetUserLike() {
 
 function SuccessGetLikeByUserId(data) {
     USER_LIKE = data;
-    sessionStorage.setItem("USER_LIKE",JSON.stringify(USER_LIKE));
+    sessionStorage.setItem("USER_LIKE", JSON.stringify(USER_LIKE));
    //מביאת את המתכונים המועדפים
     GetUserFavorite();
    
@@ -134,6 +136,46 @@ function SuccessGetAllRecipes(data) {
     console.log("משיכת נתוני מתכון בוצע בהצלחה!.");
     sessionStorage.setItem("ARRY_RECIPES", JSON.stringify(data));
     ARRY_RECIPES = data;
+    COUNT_RECIPES = data.length;
+    for (var i = 0; i < COUNT_RECIPES; i++) {
+        ARRY_RECIPES_DISPLAY.push({
+            recp_id: ARRY_RECIPES[i].recp_id,
+            user_id: ARRY_RECIPES[i].user_id,
+            recp_name: ARRY_RECIPES[i].recp_name,
+            recp_dish_type: ARRY_RECIPES[i].recp_dish_type,
+            recp_dish_category: ARRY_RECIPES[i].recp_dish_category,
+            recp_food_type: ARRY_RECIPES[i].recp_food_type,
+            recp_kitchen_type: ARRY_RECIPES[i].recp_kitchen_type,
+            recp_level: ARRY_RECIPES[i].recp_level,
+            recp_total_time: ARRY_RECIPES[i].recp_total_time,
+            recp_work_time: ARRY_RECIPES[i].recp_work_time,
+            recp_steps: ARRY_RECIPES[i].recp_steps,
+            recp_owner_name: null,
+            login_user_favorite: false,
+            login_user_like: false,
+            recp_count_like: null
+        });
+    }
+        //הכנסת הלייקים
+        for (var h = 0; h < ARRY_RECIPES_DISPLAY.length; h++) {
+            var flag = false;
+            for (var i = 0; i < USER_LIKE.length && (!flag); i++) {
+                if (USER_LIKE[i].id_recipe == ARRY_RECIPES_DISPLAY[h].recp_id) {
+                    flag = true;
+                    ARRY_RECIPES_DISPLAY[h].login_user_like = true;
+                }
+            }            
+        }   
+        //הכנסת המועדפים
+        for (var a = 0; a < ARRY_RECIPES_DISPLAY.length; a++) {
+            var flag_a = false;
+            for (var b = 0; b < USER_FAVORITE.length && (!flag_a); b++) {
+                if (USER_FAVORITE[b].id_recipe == ARRY_RECIPES_DISPLAY[a].recp_id) {
+                    ARRY_RECIPES_DISPLAY[a].login_user_favorite = true;
+                    flag_a = true;
+                }
+            }
+        }    
     //הצגת כל המתכונים
     ShowRecipes();
 }
@@ -148,8 +190,10 @@ function FailGetAllRecipes(data) {
 // Show Recipes
 //*******************************************************************************************
 function ShowRecipes() {
-    for (var i = 0; i < ARRY_RECIPES.length; i++) {
-        GetProfileName(ARRY_RECIPES[i].user_id ,ARRY_RECIPES[i]);
+    document.getElementById("recipes_form").innerHTML = "";
+    COUNT_NAME_RECIPES = 1;
+    for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+        GetProfileName(ARRY_RECIPES_DISPLAY[i].user_id, ARRY_RECIPES_DISPLAY[i]);
     }
 }
 
@@ -160,6 +204,7 @@ function GetProfileName(_user_id, _recipe) {
     GlobalAjax("/api/Profile/GetProfileByUserId/" + _user_id, "GET", "",
         function (data) { 
             console.log("שם פרופיל " + data.name);
+            _recipe.recp_owner_name = data.name;
             CountLikeOfRecipe(_recipe, data.name);
 },
         function () {
@@ -174,6 +219,7 @@ function GetFullUserNameById(_user_id, _recipe) {
     GlobalAjax("/api/User/GetUserFullNameByID/" + _user_id, "GET", "",
         function (data) {
             console.log("שם משתמש " + data);
+            _recipe.recp_owner_name = data;
             CountLikeOfRecipe(_recipe, data);
         }, function () {
             console.log("בעיה במשיגת שם יוצר מתכון!");
@@ -187,17 +233,18 @@ function CountLikeOfRecipe(_recipe,_name) {
     GlobalAjax("/api/Like/GetCountLikeOfRecipe/" + _recipe.recp_id, "GET", "",
         function (data) {
             console.log("מספר לייקים " + data);
-            AddRecipe(_recipe, _name, data); },
+            _recipe.recp_count_like = data;
+            AddRecipe(_recipe); },
         function () {
             console.log("שגיאה! לא מצליח להביא את מספר הלייקים של המתכון");
-            AddRecipe(_recipe, _name, 0); 
+            AddRecipe(_recipe); 
         });
 }
 //*******************************************************************************************
 // Add Recipe
 //*******************************************************************************************
 
-function AddRecipe(_recipe, _name,_like_count) {
+function AddRecipe(_recipe) {
     //div
     var div = document.createElement('div');
     div.className = "col-md-4 ";
@@ -237,7 +284,7 @@ function AddRecipe(_recipe, _name,_like_count) {
     recipe_name_div.appendChild(recipe_name);  
     //recipe user\profile 
     var recipe_owner = document.createElement("span");
-    recipe_owner.innerHTML = _name;
+    recipe_owner.innerHTML = _recipe.recp_owner_name;
     recipe_owner.style["display"] = "block";
     recipe_name_div.appendChild(recipe_owner);
 
@@ -254,7 +301,7 @@ function AddRecipe(_recipe, _name,_like_count) {
     var recipe_like_count = document.createElement("span");
     recipe_like_count.id = "like_count_" + _recipe.recp_id; 
     recipe_like_count.style["display"] = "block";
-    recipe_like_count.innerHTML = "לייקים " + _like_count;//+ מסםר הלייקים
+    recipe_like_count.innerHTML = "לייקים " + _recipe.recp_count_like;//+ מסםר הלייקים
     div_like_count.appendChild(recipe_like_count);
     //לייק
     var div_like = document.createElement("div");
@@ -264,7 +311,8 @@ function AddRecipe(_recipe, _name,_like_count) {
     var recipe_like = document.createElement("i");
     recipe_like.id = "like_recipe_" + _recipe.recp_id; 
     //לבדוק האם כבר נמצא ברשימת הלייקים של המשתמש או לא ולסמן בהתאם
-    if (IsLoginUserLikeRecipe(_recipe.recp_id)) {
+    //if (IsLoginUserLikeRecipe(_recipe.recp_id)) {
+    if (_recipe.login_user_like == true) {
         recipe_like.className = "fa fa-heart";
         recipe_like.setAttribute("title", "הקלק על הסימן כדי להסיר לייק מהמתכון!.");
         recipe_like.setAttribute("onClick", "RemoveRecipeLike_Btn(this.id)");
@@ -287,7 +335,8 @@ function AddRecipe(_recipe, _name,_like_count) {
     var recipe_favorite = document.createElement("i");
     recipe_favorite.id = "favorite_recipe_" + _recipe.recp_id;
     //לבדוק האם כבר נמצא ברשימת הלייקים של המשתמש או לא ולסמן בהתאם
-    if (IsLoginUserFavoriteRecipe(_recipe.recp_id)) {
+    //if (IsLoginUserFavoriteRecipe(_recipe.recp_id)) {
+    if (_recipe.login_user_favorite == true) {
         recipe_favorite.className = "fa fa-bookmark";
         recipe_favorite.setAttribute("title", "הקלק על הסימן כדי להסיר את המתכון למועדפים!.");
         recipe_favorite.setAttribute("onClick", "RemoveRecipeFavorite_Btn(this.id)");
@@ -304,23 +353,23 @@ function AddRecipe(_recipe, _name,_like_count) {
     div_favorite.appendChild(recipe_favorite);
     //הוספת השלב לתצוגה
     div.appendChild(recipe_div);
-    console.log(COUNT_RECIPES % 3);
-    if (COUNT_RECIPES % 3 == 1) {
+    console.log(COUNT_NAME_RECIPES % 3);
+    if (COUNT_NAME_RECIPES % 3 == 1) {
         //create new row
         var row = document.createElement("div");
         row.className = "row";
-        console.log(Math.ceil(COUNT_RECIPES / 3));
-        row.id = "row_" + Math.ceil(COUNT_RECIPES / 3); // עיגול למעלה
+        console.log(Math.ceil(COUNT_NAME_RECIPES / 3));
+        row.id = "row_" + Math.ceil(COUNT_NAME_RECIPES / 3); // עיגול למעלה
 
         row.appendChild(div);
         document.getElementById("recipes_form").appendChild(row);
     }
     else {
-        console.log(Math.ceil(COUNT_RECIPES / 3));
-        document.getElementById("row_" + Math.ceil(COUNT_RECIPES / 3)).appendChild(div);
+        console.log(Math.ceil(COUNT_NAME_RECIPES / 3));
+        document.getElementById("row_" + Math.ceil(COUNT_NAME_RECIPES / 3)).appendChild(div);
     }
-    console.log("recipe " + COUNT_RECIPES);
-    COUNT_RECIPES += 1;
+    console.log("recipe " + COUNT_NAME_RECIPES);
+    COUNT_NAME_RECIPES += 1;
 }
 
 //*******************************************************************************************
@@ -372,6 +421,10 @@ function AddNewFavorite(_recipe_id)
         id_user: LOGIN_USER.id
     };
     RECIPE_FAVORITE = new_favorite;
+    for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+        if (ARRY_RECIPES_DISPLAY[i].recp_id == _recipe_id)
+            ARRY_RECIPES_DISPLAY[i].login_user_favorite = true;
+    }
     GlobalAjax("/api/Favorite/AddNewFavorite", "POST", new_favorite, SuccessAddNewFavorite, FailAddNewFavorite);
 }
 function SuccessAddNewFavorite(data) {
@@ -402,6 +455,10 @@ function RemoveFavorite(_recipe_id)
     var index = USER_FAVORITE.indexOf(_favorite);
     USER_FAVORITE.splice(index, 1);
     sessionStorage.setItem("USER_FAVORITE", JSON.stringify(USER_FAVORITE));
+    for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+        if (ARRY_RECIPES_DISPLAY[i].recp_id == _recipe_id)
+            ARRY_RECIPES_DISPLAY[i].login_user_favorite = false;
+    }
     GlobalAjax("/api/Favorite/DeleteFavorite", "DELETE", _favorite, SuccessRemoveFavorite, FailRemoveFavorite);
 }
 function SuccessRemoveFavorite(data) {
@@ -430,7 +487,13 @@ function AddNewLike(_recipe_id)
         id_user: LOGIN_USER.id
     };
     USER_LIKE.push(new_like);
-    sessionStorage.setItem("USER_LIKE",JSON.stringify(USER_LIKE));
+    sessionStorage.setItem("USER_LIKE", JSON.stringify(USER_LIKE));
+    for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+        if (ARRY_RECIPES_DISPLAY[i].recp_id == _recipe_id) {
+            ARRY_RECIPES_DISPLAY[i].login_user_like = true;
+            ARRY_RECIPES_DISPLAY[i].recp_count_like ++;
+        }
+    }
     GlobalAjax("/api/Like/AddNewLike", "POST", new_like, SuccessAddNewLike, FailAddNewLike);
 }
 function SuccessAddNewLike(data) {
@@ -467,7 +530,13 @@ function RemoveLike(_recipe_id)
     };
     var index = USER_LIKE.indexOf(_like);
     USER_LIKE.splice(index, 1);
-    sessionStorage.setItem("USER_LIKE",JSON.stringify(USER_LIKE));
+    sessionStorage.setItem("USER_LIKE", JSON.stringify(USER_LIKE));
+    for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+        if (ARRY_RECIPES_DISPLAY[i].recp_id == _recipe_id) {
+            ARRY_RECIPES_DISPLAY[i].login_user_like = false;
+            ARRY_RECIPES_DISPLAY[i].recp_count_like--;
+        }
+    }
     GlobalAjax("/api/Like/DeleteLike", "DELETE", _like, SuccessRemoveLike, FailRemoveLike);
 }
 function SuccessRemoveLike(data) {
@@ -501,5 +570,55 @@ function ShowRecipeData(_id_recpie)
     var ID_RECPIE_VIEW = _id_recpie.split("_")[2];//id
     sessionStorage.setItem("ID_RECPIE_VIEW", JSON.stringify(ID_RECPIE_VIEW));
     window.location.replace("View_Recipe.html");
+}
+//*******************************************************************************************
+// SearchRecipeByName
+//*******************************************************************************************
+function SearchRecipeByName()
+//מחפש מתכונים לפי שם
+{
+    var txt_search_name = document.getElementById("txt_search_recipe_by_name");
+    if (txt_search_name.value == "") {
+        ShowSelectedRecipes(ARRY_RECIPES_DISPLAY);
+        alert("אנא הכנס שם מתכון לחיפוש!");
+    }
+    else {
+        var search_recipes = GetRecipeByName(txt_search_name.value); // מקבל את רשימת הפרופילים התואמים
+        if (search_recipes.length == 0)//אם אין אף תוצאת חיםוש מתאימה
+        {
+            document.getElementById("recipes_form").innerHTML = "";
+            alert("אין מתכונים מתאימים לחיפוש!");
+        }
+        else
+            ShowSelectedRecipes(search_recipes);
+    }
+}
 
+//*******************************************************************************************
+// GetRecipeByName
+//*******************************************************************************************
+function GetRecipeByName(recipe_name)
+//מחזיר פרופיל לפי שם. יכול להיות רשימה של פרופילים
+{
+    var list_recipes = new Array();
+    for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+        console.log(ARRY_RECIPES_DISPLAY[i].recp_name.indexOf(recipe_name));
+        if (ARRY_RECIPES_DISPLAY[i].recp_name.indexOf(recipe_name) >= 0) // התאמה לכל או כל השם
+            list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
+    }
+    return list_recipes;
+}
+
+//*******************************************************************************************
+// ShowSelectedRecipes
+//*******************************************************************************************
+function ShowSelectedRecipes(_list_recipes)
+//מציג את הפרופילים הנבחרים
+{
+    document.getElementById("recipes_form").innerHTML = "";
+   // תצוגת הפרופילים המבוקשים
+    COUNT_NAME_RECIPES = 1;
+    for (var i = 0; i < _list_recipes.length; i++) {
+        AddRecipe(_list_recipes[i]);
+    }
 }
