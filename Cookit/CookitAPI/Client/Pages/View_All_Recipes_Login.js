@@ -289,14 +289,14 @@ function SuccessHoliday(arry_Holidays) {
     sessionStorage.setItem("ARRY_HOLIDAYS", JSON.stringify(arry_Holidays));
     ShowHolidays(ARRY_HOLIDAYS);
 
-    GetUserLike();
+    GetFoodLable();
 }
 
 function FailHoliday() {
     console.log("שגיאה במשיכת נתוני חגים מהשרת.");
     alert('שגיאה במשיכת נתוני חגים מהשרת.');
 
-    GetUserLike();
+    GetFoodLable();
 }
 
 //*******************************************************************************************
@@ -323,6 +323,54 @@ function AddHoliday(_holidays) {
     li.appendChild(input);
 
     document.getElementById("search_holidays_option").appendChild(li);
+}
+//*******************************************************************************************
+//  GET FOOD LABLE
+//*******************************************************************************************
+function GetFoodLable() {
+    // קריאה לפונקצית ajax של Get מהשרת עבור נתוני Mesurments
+    GlobalAjax("/api/FoodLable/GetAll", "GET", "", SuccessFoodLable, FailFoodLable);
+}
+
+function SuccessFoodLable(arry_FoodLabe) {
+    ARRY_FOOD_LABLE = arry_FoodLabe;
+    sessionStorage.setItem("ARRY_FOOD_LABLE", JSON.stringify(arry_FoodLabe));
+    ShowFoodLabel(ARRY_FOOD_LABLE);
+
+    GetUserLike();
+}
+
+function FailFoodLable() {
+    console.log("שגיאה במשיכת נתוני תווית מהשרת.");
+    alert('שגיאה במשיכת נתוני תוויות מהשרת.');
+    GetUserLike();
+
+}
+
+//*******************************************************************************************
+//  ShowFoodType in search bar
+//*******************************************************************************************
+function ShowFoodLabel(_food_label) {
+    document.getElementById("search_food_labels_option").innerHTML = ""; // ניקוי לפי דחיפה
+    for (var i = 0; i < _food_label.length; i++) {
+        AddFoodLabel(_food_label[i]);
+    }
+    document.getElementById("search_food_labels_option").reload;
+}
+function AddFoodLabel(_food_label) {
+    //li
+    var li = document.createElement('li');
+    li.value = _food_label.id;
+    li.innerHTML = _food_label.food_label;
+    //input
+    var input = document.createElement('input');
+    input.type = "checkbox";
+    input.value = _food_label.id;
+    input.name = "food_labels_option";
+
+    li.appendChild(input);
+
+    document.getElementById("search_food_labels_option").appendChild(li);
 }
 //*******************************************************************************************
 // GET USER LIKE
@@ -492,6 +540,7 @@ function GetRecipeHolidays()
     for (var i = 0; i < COUNT_RECIPES; i++) {
         GlobalAjax("/api/HolidaysForRecpController/GetHolidaysByRecpId/" + ARRY_RECIPES[i].recp_id, "GET", "", SuccessGetRecipeHolidays, FailGetRecipeHolidays);
     }
+    GetRecipeFoodLables();
 }
 
 function SuccessGetRecipeHolidays(data) {
@@ -505,17 +554,42 @@ function SuccessGetRecipeHolidays(data) {
         }
     }
 
-    //ShowRecipes();
 }
 
 function FailGetRecipeHolidays(data) {
     console.log("error! can't get holidays recipe information.");
     console.log(data);
     alert("שגיאה במשיכת חגי מתכון!, אנא נסה שנית מאוחד יותר.");
-
-    //ShowRecipes();
 }
 
+//*******************************************************************************************
+// GET RECIPE FOOD LABLES
+//*******************************************************************************************
+
+function GetRecipeFoodLables()
+//מביא את המצרכים של המתכון המבוקש
+{
+    for (var i = 0; i < COUNT_RECIPES; i++) {
+        GlobalAjax("/api/FoodLabelsForRecp/GetFoodLablesByRecpId/" + ARRY_RECIPES[i].recp_id, "GET", "", SuccessGetRecipeFoodLables, FailGetRecipeFoodLables);
+    }
+}
+
+function SuccessGetRecipeFoodLables(data) {
+    console.log("משיכת נתוני תוויות מתכון בוצע בהצלחה!.");
+    sessionStorage.setItem("RECIPE_FOOD_LABLES", JSON.stringify(data));
+    var recipe_id = data[0].id_recipe;
+    for (var i = 0; i < COUNT_RECIPES; i++) {
+        if (ARRY_RECIPES_DISPLAY[i].recp_id == recipe_id) {
+            ARRY_RECIPES_DISPLAY[i].recp_food_labels = data;
+        }
+    }
+}
+
+function FailGetRecipeFoodLables(data) {
+    console.log("error! can't get food lables recipe information.");
+    console.log(data);
+    alert("שגיאה במשיכת תוויות מתכון!, אנא נסה שנית מאוחד יותר.");
+}
 //*******************************************************************************************
 // Show Recipes
 //*******************************************************************************************
@@ -1208,6 +1282,52 @@ function GetRecipesByHolidays(holidays)
         for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
             for (x = 0; x < ARRY_RECIPES_DISPLAY[i].recp_holidays.length; x++) {
                 if (ARRY_RECIPES_DISPLAY[i].recp_holidays[x].id_holiday == holidays[h])
+                    list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
+            }
+        }
+    }
+    return list_recipes;
+}
+
+//*******************************************************************************************
+// SearchRecipeByFoodLabels
+//*******************************************************************************************
+function SearchRecipeByFoodLabels() {
+    //מקבל את רשימת הערכים
+    var food_labels = new Array();
+    var list_food_labels = document.getElementsByName('food_labels_option');
+    for (var j = 0; j < list_food_labels.length; j++) {
+        if (list_food_labels[j].checked == true)
+            food_labels.push(list_food_labels[j].value);
+    }
+    // אם לא נבחרה אף עיר
+    if (food_labels.length == 0) {
+        ShowSelectedRecipes(ARRY_RECIPES_DISPLAY);
+        alert("אנא בחר תוויות לחיפוש מתכון!");
+    }
+    else {
+        var search_recipes = GetRecipesByFoodLabels(food_labels);
+        // אם אין אף פרופיל מתאים לחחפוש
+        if (search_recipes.length == 0) {
+            document.getElementById("recipes_form").innerHTML = "";
+            alert("אין מתכונים מתאימים לחיפוש!");
+        }
+        else
+            ShowSelectedRecipes(search_recipes);
+    }
+}
+
+//*******************************************************************************************
+// GetRecipesByHolidays
+//*******************************************************************************************
+function GetRecipesByFoodLabels(food_labels)
+//מחזיר רשימת מתכונים לפי רמת קושי שנבחרה
+{
+    var list_recipes = new Array();
+    for (var h = 0; h < food_labels.length; h++) {
+        for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+            for (x = 0; x < ARRY_RECIPES_DISPLAY[i].recp_food_labels.length; x++) {
+                if (ARRY_RECIPES_DISPLAY[i].recp_food_labels[x].id_food_lable == food_labels[h])
                     list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
             }
         }
