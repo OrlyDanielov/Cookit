@@ -143,7 +143,7 @@ function SuccessDishCategory(arry_dish_category) {
     sessionStorage.setItem("ARRY_DISH_CATEGORY", JSON.stringify(arry_dish_category));
     ShowDishCategory(ARRY_DISH_CATEGORY);
 
-    GetUserLike();
+    GetFoodType();
 }
 
 //הפונקציה מתבצעת במקרה ששאילת מאייפיני מנה התבצעה בכישלון בשרת
@@ -151,7 +151,7 @@ function FailDishCategory() {
     console.log("שגיאה במשיכת נתוני מאפייני מנה מהשרת.");
     alert('שגיאה במשיכת נתוני מאפייני מנה מהשרת.');
 
-    GetUserLike();
+    GetFoodType();
 }
 
 //*******************************************************************************************
@@ -179,6 +179,55 @@ function AddDishCategory(_diff_category) {
 
     document.getElementById("search_dish_category_option").appendChild(li);
 }
+
+//*******************************************************************************************
+//GET FOOD TYPE
+//*******************************************************************************************
+// פונקציה מביאה את כל סוגי האוכל
+function GetFoodType() {
+    GlobalAjax("/api/FoodType/GetAll", "GET", "", SuccessFoodType, FailFoodType);
+}
+
+function SuccessFoodType(arry_food_type) {
+    ARRY_FOOD_TYPE = arry_food_type;
+    sessionStorage.setItem("ARRY_FOOD_TYPE", JSON.stringify(arry_food_type));
+    ShowFoodType(ARRY_FOOD_TYPE);
+
+    GetUserLike();
+}
+
+function FailFoodType() {
+    console.log("שגיאה במשיכת נתוני סוגי אוכל מהשרת.");
+    alert('שגיאה במשיכת נתוני סוגי אוכל מהשרת.');
+
+    GetUserLike();
+}
+//*******************************************************************************************
+//  ShowFoodType in search bar
+//*******************************************************************************************
+function ShowFoodType(_food_type) {
+    document.getElementById("search_food_type_option").innerHTML = ""; // ניקוי לפי דחיפה
+    for (var i = 0; i < _food_type.length; i++) {
+        AddFoodType(_food_type[i]);
+    }
+    document.getElementById("search_food_type_option").reload;
+}
+function AddFoodType(_food_type) {
+    //li
+    var li = document.createElement('li');
+    li.value = _food_type.id;
+    li.innerHTML = _food_type.food_type;
+    //input
+    var input = document.createElement('input');
+    input.type = "checkbox";
+    input.value = _food_type.id;
+    input.name = "food_type_option";
+
+    li.appendChild(input);
+
+    document.getElementById("search_food_type_option").appendChild(li);
+}
+
 //*******************************************************************************************
 // GET USER LIKE
 //*******************************************************************************************
@@ -891,6 +940,51 @@ function GetRecipesByDishCategory(dish_category)
     for (var h = 0; h < dish_category.length; h++) {
         for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
             if (ARRY_RECIPES_DISPLAY[i].recp_dish_category == dish_category[h])
+                list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
+        }
+    }
+    return list_recipes;
+}
+
+//*******************************************************************************************
+// SearchRecipeByFoodType
+//*******************************************************************************************
+function SearchRecipeByFoodType()
+{
+    //מקבל את רשימת הערכים
+    var food_type = new Array();
+    var list_food_type = document.getElementsByName('food_type_option');
+    for (var j = 0; j < list_food_type.length; j++) {
+        if (list_food_type[j].checked == true)
+            food_type.push(list_food_type[j].value);
+    }
+    // אם לא נבחרה אף עיר
+    if (food_type.length == 0) {
+        ShowSelectedRecipes(ARRY_RECIPES_DISPLAY);
+        alert("אנא בחר סוג אוכל לחיפוש מתכון!");
+    }
+    else {
+        var search_recipes = GetRecipesByFoodType(food_type);
+        // אם אין אף פרופיל מתאים לחחפוש
+        if (search_recipes.length == 0) {
+            document.getElementById("recipes_form").innerHTML = "";
+            alert("אין מתכונים מתאימים לחיפוש!");
+        }
+        else
+            ShowSelectedRecipes(search_recipes);
+    }
+}
+
+//*******************************************************************************************
+// GetRecipesByFoodType
+//*******************************************************************************************
+function GetRecipesByFoodType(food_type)
+//מחזיר רשימת מתכונים לפי רמת קושי שנבחרה
+{
+    var list_recipes = new Array();
+    for (var h = 0; h < food_type.length; h++) {
+        for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+            if (ARRY_RECIPES_DISPLAY[i].recp_food_type == food_type[h])
                 list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
         }
     }
