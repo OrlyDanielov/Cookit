@@ -46,14 +46,14 @@ function SuccessDifficultyLevel(arry_difficulty_level) {
     sessionStorage.setItem("Difficulty_Level", JSON.stringify(arry_difficulty_level));
     ShowDifficultyLevel(ARRY_DIFFICULTY_LEVEL);
 
-    GetUserLike();
+    GetDishType();
 }
 
 function FailDifficultyLevel() {
     console.log("שגיאה במשיכת נתוני רמות קושי מהשרת.");
     alert('שגיאה במשיכת נתוני רמות קושי מהשרת.');
 
-    GetUserLike();
+    GetDishType();
 }
 //*******************************************************************************************
 // Show Difficulty Level in search bar
@@ -68,7 +68,7 @@ function ShowDifficultyLevel(_list_diff_level) {
 function AddDifficultylevel(_diff_level) {
     //li
     var li = document.createElement('li');
-    li.value = _diff_level.id_city;
+    li.value = _diff_level.id;
     li.innerHTML = _diff_level.difficulty_level;
     //input
     var input = document.createElement('input');
@@ -81,6 +81,53 @@ function AddDifficultylevel(_diff_level) {
     document.getElementById("search_difficulty_level_option").appendChild(li);
 }
 
+//*******************************************************************************************
+// GET DISH TYPE
+//*******************************************************************************************
+// פונקציה מביאה את כל סוגי המנות
+function GetDishType() {
+    GlobalAjax("/api/DishType", "GET", "", SuccessDishType, FailDishType);
+}
+
+function SuccessDishType(arry_dish_type) {
+    ARRY_DISH_TYPE = arry_dish_type;
+    sessionStorage.setItem("Dish_Type", JSON.stringify(arry_dish_type));
+    ShowDishType(ARRY_DISH_TYPE);
+
+    GetUserLike();}
+
+function FailDishType() {
+    console.log("שגיאה במשיכת נתוני מאפייני מנה מהשרת.");
+    alert('שגיאה במשיכת נתוני מאפייני מנה מהשרת.');
+
+    GetUserLike();
+}
+
+//*******************************************************************************************
+// Show DishType in search bar
+//*******************************************************************************************
+function ShowDishType(_dish_type) {
+    document.getElementById("search_dish_type_option").innerHTML = ""; // ניקוי לפי דחיפה
+    for (var i = 0; i < _dish_type.length; i++) {
+        AddDishType(_dish_type[i]);
+    }
+    document.getElementById("search_dish_type_option").reload;
+}
+function AddDishType(_diff_level) {
+    //li
+    var li = document.createElement('li');
+    li.value = _diff_level.id;
+    li.innerHTML = _diff_level.dish_type;
+    //input
+    var input = document.createElement('input');
+    input.type = "checkbox";
+    input.value = _diff_level.id;
+    input.name = "dish_type_option";
+
+    li.appendChild(input);
+
+    document.getElementById("search_dish_type_option").appendChild(li);
+}
 //*******************************************************************************************
 // GET USER LIKE
 //*******************************************************************************************
@@ -658,9 +705,9 @@ function GetRecipeByName(recipe_name)
 }
 
 //*******************************************************************************************
-// SearchProfileByDifficultyLevel
+// SearchRecipeByDifficultyLevel
 //*******************************************************************************************
-function SearchProfileByDifficultyLevel()
+function SearchRecipeByDifficultyLevel()
 //חיפוש מתכון לפי רמת קושי
 {
     //מקבל את רשימת הערכים
@@ -700,6 +747,53 @@ function GetRecipesByDiificultyLevel(diff_level)
         for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
             console.log(ARRY_RECIPES_DISPLAY[i].recp_level == diff_level[h]);
             if (ARRY_RECIPES_DISPLAY[i].recp_level == diff_level[h])
+                list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
+        }
+    }
+    return list_recipes;
+}
+
+//*******************************************************************************************
+// SearchRecipeByDishType
+//*******************************************************************************************
+function SearchRecipeByDishType()
+//חיפוש מתכון לפי רמת קושי
+{
+    //מקבל את רשימת הערכים
+    var dish_type = new Array();
+    var list_dish_type = document.getElementsByName('dish_type_option');
+    for (var j = 0; j < list_dish_type.length; j++) {
+        if (list_dish_type[j].checked == true)
+            dish_type.push(list_dish_type[j].value);
+    }
+    // אם לא נבחרה אף עיר
+    if (dish_type.length == 0) {
+        ShowSelectedRecipes(ARRY_RECIPES_DISPLAY);
+        alert("אנא בחר סוג מנה לחיפוש מתכון!");
+    }
+    else {
+        var search_recipes = GetRecipesByDishType(dish_type);
+        // אם אין אף פרופיל מתאים לחחפוש
+        if (search_recipes.length == 0) {
+            document.getElementById("recipes_form").innerHTML = "";
+            alert("אין מתכונים מתאימים לחיפוש!");
+        }
+        else
+            ShowSelectedRecipes(search_recipes);
+    }
+}
+
+//*******************************************************************************************
+// GetRecipesByDiificultyLevel
+//*******************************************************************************************
+function GetRecipesByDishType(dish_type)
+//מחזיר רשימת מתכונים לפי רמת קושי שנבחרה
+{
+    var list_recipes = new Array();
+    for (var h = 0; h < dish_type.length; h++) {
+        for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+            console.log(ARRY_RECIPES_DISPLAY[i].recp_dish_type == dish_type[h]);
+            if (ARRY_RECIPES_DISPLAY[i].recp_dish_type == dish_type[h])
                 list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
         }
     }
