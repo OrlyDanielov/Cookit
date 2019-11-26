@@ -177,7 +177,7 @@ function AddDishCategory(_diff_category) {
 
     li.appendChild(input);
 
-    document.getElementById("search_kitchen_type_option").appendChild(li);
+    document.getElementById("search_dish_category_option").appendChild(li);
 }
 
 //*******************************************************************************************
@@ -225,7 +225,7 @@ function AddFoodType(_food_type) {
 
     li.appendChild(input);
 
-    document.getElementById("search_kitchen_type_option").appendChild(li);
+    document.getElementById("search_food_type_option").appendChild(li);
 }
 
 //*******************************************************************************************
@@ -242,14 +242,14 @@ function SuccessKitchenType(arry_kitchen_type) {
     sessionStorage.setItem("ARRY_KITCHEN_TYPE", JSON.stringify(arry_kitchen_type));
     ShowKitchenType(ARRY_KITCHEN_TYPE);
 
-    GetUserLike();
+    GetHoliday();
 }
 
 function FailKitchenType() {
     console.log("שגיאה במשיכת נתוני סוגי אוכל מהשרת.");
     alert('שגיאה במשיכת נתוני סוגי אוכל מהשרת.');
 
-    GetUserLike();
+    GetHoliday();
 }
 
 //*******************************************************************************************
@@ -276,6 +276,53 @@ function AddKitchenType(_kitchen_type) {
     li.appendChild(input);
 
     document.getElementById("search_kitchen_type_option").appendChild(li);
+}
+//*******************************************************************************************
+//  GET HOLIDAY
+//*******************************************************************************************
+function GetHoliday() {
+    GlobalAjax("/api/Holiday/GetAll", "GET", "", SuccessHoliday, FailHoliday);
+}
+
+function SuccessHoliday(arry_Holidays) {
+    ARRY_HOLIDAYS = arry_Holidays;
+    sessionStorage.setItem("ARRY_HOLIDAYS", JSON.stringify(arry_Holidays));
+    ShowHolidays(ARRY_HOLIDAYS);
+
+    GetUserLike();
+}
+
+function FailHoliday() {
+    console.log("שגיאה במשיכת נתוני חגים מהשרת.");
+    alert('שגיאה במשיכת נתוני חגים מהשרת.');
+
+    GetUserLike();
+}
+
+//*******************************************************************************************
+//  ShowHolidays in search bar
+//*******************************************************************************************
+function ShowHolidays(_holidays) {
+    document.getElementById("search_holidays_option").innerHTML = ""; // ניקוי לפי דחיפה
+    for (var i = 0; i < _holidays.length; i++) {
+        AddHoliday(_holidays[i]);
+    }
+    document.getElementById("search_holidays_option").reload;
+}
+function AddHoliday(_holidays) {
+    //li
+    var li = document.createElement('li');
+    li.value = _holidays.id;
+    li.innerHTML = _holidays.holiday_name;
+    //input
+    var input = document.createElement('input');
+    input.type = "checkbox";
+    input.value = _holidays.id;
+    input.name = "holidays_option";
+
+    li.appendChild(input);
+
+    document.getElementById("search_holidays_option").appendChild(li);
 }
 //*******************************************************************************************
 // GET USER LIKE
@@ -394,6 +441,8 @@ function SuccessGetAllRecipes(data) {
             recp_total_time: ARRY_RECIPES[i].recp_total_time,
             recp_work_time: ARRY_RECIPES[i].recp_work_time,
             recp_steps: ARRY_RECIPES[i].recp_steps,
+            recp_holidays: null,
+            recp_food_labels:null,
             recp_owner_name: null,
             login_user_favorite: false,
             login_user_like: false,
@@ -419,7 +468,9 @@ function SuccessGetAllRecipes(data) {
                     flag_a = true;
                 }
             }
-        }    
+    }
+    GetRecipeHolidays();
+   
     //הצגת כל המתכונים
     ShowRecipes();
 }
@@ -428,6 +479,41 @@ function FailGetAllRecipes(data) {
     console.log("error! can't get recipe information.");
     console.log(data);
     alert("שגיאה במשיכת נתוני מתכון!, אנא נסה שנית מאוחד יותר.");
+
+    //GetRecipeHolidays();
+}
+
+//*******************************************************************************************
+// GET RECIPE HOLIDAYS
+//*******************************************************************************************
+function GetRecipeHolidays()
+//מביא את המצרכים של המתכון המבוקש
+{
+    for (var i = 0; i < COUNT_RECIPES; i++) {
+        GlobalAjax("/api/HolidaysForRecpController/GetHolidaysByRecpId/" + ARRY_RECIPES[i].recp_id, "GET", "", SuccessGetRecipeHolidays, FailGetRecipeHolidays);
+    }
+}
+
+function SuccessGetRecipeHolidays(data) {
+    console.log("משיכת נתוני חגי מתכון בוצע בהצלחה!.");
+    sessionStorage.setItem("RECIPE_HOLIDAYS", JSON.stringify(data));
+    //RECIPE_HOLIDAYS = data;
+    var recipe_id = data[0].id_recp;
+    for (var i = 0; i < COUNT_RECIPES; i++) {
+        if (ARRY_RECIPES_DISPLAY[i].recp_id == recipe_id) {
+            ARRY_RECIPES_DISPLAY[i].recp_holidays = data;
+        }
+    }
+
+    //ShowRecipes();
+}
+
+function FailGetRecipeHolidays(data) {
+    console.log("error! can't get holidays recipe information.");
+    console.log(data);
+    alert("שגיאה במשיכת חגי מתכון!, אנא נסה שנית מאוחד יותר.");
+
+    //ShowRecipes();
 }
 
 //*******************************************************************************************
@@ -1079,6 +1165,51 @@ function GetRecipesByKitchenType(kitchen_type)
         for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
             if (ARRY_RECIPES_DISPLAY[i].recp_kitchen_type == kitchen_type[h])
                 list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
+        }
+    }
+    return list_recipes;
+}
+//*******************************************************************************************
+// SearchRecipeByHolidays
+//*******************************************************************************************
+function SearchRecipeByHolidays() {
+    //מקבל את רשימת הערכים
+    var holidays = new Array();
+    var list_holidays = document.getElementsByName('holidays_option');
+    for (var j = 0; j < list_holidays.length; j++) {
+        if (list_holidays[j].checked == true)
+            holidays.push(list_holidays[j].value);
+    }
+    // אם לא נבחרה אף עיר
+    if (holidays.length == 0) {
+        ShowSelectedRecipes(ARRY_RECIPES_DISPLAY);
+        alert("אנא בחר חגים לחיפוש מתכון!");
+    }
+    else {
+        var search_recipes = GetRecipesByHolidays(holidays);
+        // אם אין אף פרופיל מתאים לחחפוש
+        if (search_recipes.length == 0) {
+            document.getElementById("recipes_form").innerHTML = "";
+            alert("אין מתכונים מתאימים לחיפוש!");
+        }
+        else
+            ShowSelectedRecipes(search_recipes);
+    }
+}
+
+//*******************************************************************************************
+// GetRecipesByHolidays
+//*******************************************************************************************
+function GetRecipesByHolidays(holidays)
+//מחזיר רשימת מתכונים לפי רמת קושי שנבחרה
+{
+    var list_recipes = new Array();
+    for (var h = 0; h < holidays.length; h++) {
+        for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+            for (x = 0; x < ARRY_RECIPES_DISPLAY[i].recp_holidays.length; x++) {
+                if (ARRY_RECIPES_DISPLAY[i].recp_holidays[x].id_holiday == holidays[h])
+                    list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
+            }
         }
     }
     return list_recipes;
