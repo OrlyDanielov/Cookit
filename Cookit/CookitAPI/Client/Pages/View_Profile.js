@@ -378,6 +378,9 @@ function FailGetUserRecipes(data) {
     console.log("error! can't get recipe information.");
     console.log(data);
     alert("שגיאה במשיכת נתוני מתכון!, אנא נסה שנית מאוחד יותר.");
+    //אין מתכונים לפרופיל
+    //document.getElementById("profile_recipes").innerHTML = "אין מתכונים";
+
 }
 
 //*******************************************************************************************
@@ -386,8 +389,12 @@ function FailGetUserRecipes(data) {
 function ShowRecipes() {
     document.getElementById("profile_recipes").innerHTML = "";
     COUNT_NAME_RECIPES = 1;
-    for (var i = 0; i < PROFILE_RECIPES_DISPLAY.length; i++) {
-        CountLikeOfRecipe(PROFILE_RECIPES_DISPLAY[i], PROFILE_VIEW.name);
+    if (PROFILE_RECIPES_DISPLAY.length == 0) //אם אין מתכונים
+        document.getElementById("profile_recipes").innerHTML = "אין מתכונים";
+    else {
+        for (var i = 0; i < PROFILE_RECIPES_DISPLAY.length; i++) {
+            CountLikeOfRecipe(PROFILE_RECIPES_DISPLAY[i], PROFILE_VIEW.name);
+        }
     }
 }
 
