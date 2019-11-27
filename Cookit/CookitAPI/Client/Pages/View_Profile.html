@@ -84,45 +84,67 @@
             </a>
         </nav>
     </header>
-    <main role="main" class="flex-shrink-0 container  ">
-        <div class="row" style="text-align:center;"><h4 class="mb-3">דף פרופיל</h4></div>
-        <div id="profile_information" class="card profile-card-3 bg_brigth" style=" margin:10px; padding:10px;">
-            <!--תמונת פרופיל-->
-            <div id="profile_img_div" class="profile">
-                <img id="profile_img" c src="/Client/Images/Profiles_pic/profile.jpg" style="border-radius:50%; width:30%; height:30%; float:right;" alt="סליחה, התמונה איננה זמינה כעת.">
-                <!--מידע פרופיל-->
-                <div id="profile_data" class="card-content" style=" float:left; height:100%; width:70%; text-align:center; position:center; padding-top:30px;">
-                    <h1 id="profile_name" ></h1>
+    <main role="main" class="flex-shrink-0 ">
+        <form id="recipe" class="container bg_brigth ">
+            <fieldset id="profile_information">
+                <div id="profile_img_div" class="profile" style="float:right; height:100%; width:40%; text-align:center; position:center; padding-top:10px;">
+                    <img id="profile_img" src="/Client/Images/Profiles_pic/profile.jpg" style="border-radius:50%; width:50%; height:50%; float:right;" alt="סליחה, התמונה איננה זמינה כעת.">
+                </div>
+                <div id="profile_data" class="card-content" style=" float:left; height:100%; width:60%; text-align:center; position:center; padding-top:10px;">
+                    <h1 id="profile_name"></h1>
                     <h2 id="profile_description"></h2>
                     <h2 id="profile_city"></h2>
-                    <div><input type="button" id="btn_follow" class="btn btn-group" value="" onclick=""/></div>
+                    <div>
+                        <input type="button" id="btn_follow" class="btn btn-group" value="" onclick="" />
+                    </div>
                 </div>
-            </div>
-        </div>
-        <!--מתכוני פרופיל-->
-        <div id="profile_recipes" class="bg_brigth card" style=" margin:10px; padding:10px;">
-            <div class="row"><h4>מתכונים</h4></div>
-        </div>
-        <!--אירועי פרופיל-->
-        <div id="profile_events" class="bg_brigth card" style=" margin:10px; padding:10px;">
-            <div class="row"><h4>אירועים</h4></div>
-        </div>
-        <!--סדנאות פרופיל-->
-        <div id="profile_workshops" class="bg_brigth card" style=" margin:10px; padding:10px;">
-            <div class="row"><h4>סדנאות</h4></div>
-        </div>
-    </main>
-    <!--תחתית-->
-    <!--<footer id="footer"></footer>-->
-    <footer class="footer mt-auto py-3 fixed-bottom ">
-        <div class="container">
-            <p class="mb-1">&copy; Cookit</p>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">Privacy</a></li>
-                <li class="list-inline-item"><a href="#">Terms</a></li>
-                <li class="list-inline-item"><a href="#">Support</a></li>
-            </ul>
-        </div>
-    </footer>
+            </fieldset>
+            <hr class="mb-4">
+            <fieldset >
+                <legend>מתכונים</legend>
+                <div id="profile_recipes" style="height:500px; overflow-y:auto;">
+
+                </div>
+
+            </fieldset>
+        </form>
+        </main>
+            <!--<main role="main" class="flex-shrink-0 container  ">
+                <div id="profile_information" class="card profile-card-3 bg_brigth" style=" margin:10px; padding:10px;">
+                    <div id="profile_img_div" class="profile">
+                        <img id="profile_img" c src="/Client/Images/Profiles_pic/profile.jpg" style="border-radius:50%; width:30%; height:30%; float:right;" alt="סליחה, התמונה איננה זמינה כעת.">
+                        <div id="profile_data" class="card-content" style=" float:left; height:100%; width:70%; text-align:center; position:center; padding-top:30px;">
+                            <h1 id="profile_name" ></h1>
+                            <h2 id="profile_description"></h2>
+                            <h2 id="profile_city"></h2>
+                            <div><input type="button" id="btn_follow" class="btn btn-group" value="" onclick=""/></div>
+                        </div>
+                    </div>
+                </div>
+                <div  class="bg_brigth card" style=" margin:10px; padding:10px;">
+                    <div class="row" style="text-align:center; position:center;"><h4>מתכונים</h4></div>
+                    <div id="profile_recipes" class="row">
+
+                    </div>
+                </div>
+                <div id="profile_events" class="bg_brigth card" style=" margin:10px; padding:10px;">
+                    <div class="row"><h4>אירועים</h4></div>
+                </div>
+                <div id="profile_workshops" class="bg_brigth card" style=" margin:10px; padding:10px;">
+                    <div class="row"><h4>סדנאות</h4></div>
+                </div>
+            </main>-->
+            <!--תחתית-->
+            <!--<footer id="footer"></footer>-->
+            <footer class="footer mt-auto py-3 fixed-bottom ">
+                <div class="container">
+                    <p class="mb-1">&copy; Cookit</p>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#">Privacy</a></li>
+                        <li class="list-inline-item"><a href="#">Terms</a></li>
+                        <li class="list-inline-item"><a href="#">Support</a></li>
+                    </ul>
+                </div>
+            </footer>
 </body>
 </html>

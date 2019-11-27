@@ -464,6 +464,7 @@ function FailGetFavoriteByUserIdAndRecipeId() {
     //מביא את תגובות המתכון
     GetRecipeComments();
 }
+//*******************************************************************************************
 // GET all RECIPE 
 //*******************************************************************************************
 function GetAllRecipes()
@@ -973,7 +974,7 @@ function ShowRecipeData(_id_recpie)
 {
     var ID_RECPIE_VIEW = _id_recpie.split("_")[2];//id
     sessionStorage.setItem("ID_RECPIE_VIEW", JSON.stringify(ID_RECPIE_VIEW));
-    window.location.replace("View_Recipe.html");
+    window.location.replace("View_Recipe_Login.html");
 }
 //*******************************************************************************************
 // SearchRecipeByName

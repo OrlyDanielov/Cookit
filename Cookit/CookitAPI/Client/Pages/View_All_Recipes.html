@@ -1,31 +1,29 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
-    <title>Login</title>
+    <meta charset="utf-8" />
+    <title>view all recipes</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--java script code  -->
-    <script src="Login.js"></script>
+    <script src="View_All_Recipe.js"></script>
     <script src="GlobalAjax.js"></script>
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
     <link rel="stylesheet" type="text/css" href="FormStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
     <!--תפריט-->
     <!--<header id="menu"></header>-->
-    <!--תפריט-->
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
@@ -46,7 +44,6 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="Home_logout.html">דף הבית <span class="sr-only">(current)</span></a>
                     </li>
-
                 </ul>
             </div>
             <!-- Hamborger navbar -->
@@ -60,39 +57,17 @@
         </nav>
     </header>
     <!--תוכן הדף-->
-    <main role="main" class="flex-shrink-0  container  bg_brigth">
-        <form style="text-align:center;">
-            <fieldset>
-                <legend>התחבר לחשבונך</legend>
-                <div class="form-row" style="display:block;">
-                    <input type="email" id="inputEmail" placeholder="כתובת אימייל" required />
-                    <!--<span id="explanation_email" class="explanation"></span>-->
-                    <!--<i id="btn_explanation_email"  onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
-                    <i id="btn_explanation_email" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
-                    <span class="popuptext" id="email_popup">אימייל צריך להיות באנגלית ועם הסימנים @ו .</span>
-                    <div id="feedback_email" class="not_valid_feedback"></div>
-                </div>
-                <div class="form-row" style="display:block;">
-                    <input type="password" id="inputPassword" placeholder="סיסמה" equired />
-                    <!--<span id="explanation_password" class="explanation"></span>-->
-                    <!--<i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
-                    <i id="btn_explanation_password" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
-                    <span class="popuptext" id="password_popup">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
-                    <div id="feedback_password" class="not_valid_feedback"></div>
-                </div>
-                <input type="button" value="התחבר" class="btn btn-primary" onclick="CheckIfFormValid()" />
-            </fieldset>
-            <fieldset>
-                <div class="form-row"  style="display:block;">
-                    <span style="text-align:right;">שכחת סיסמה? <a href="Reset_Password.html">שחזר סיסמה</a></span>
-                </div>
-                <div class="form-row"  style="display:block;">
-                    <span style="text-align:right;">עדיין לא רשום? <a href="Registration.html">הרשם</a></span>
-                </div>
-            </fieldset>
-        </form>
+    <main role="main" class="flex-shrink-0 container  bg_brigth" style="margin-bottom:10px;">
+        <!--חיפוש לפי שם-->
+        <div class="topnav" style="text-align:center;margin-bottom:10px;">
+            <div style="display:inline; ">
+                <input type="text" id="txt_search_recipe_by_name" placeholder="חפש מתכון לפי שם..." name="search" style="width:95%;">
+                <button type="button" id="btn_search_recipe_by_name" onclick="SearchRecipeByName()"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <!--<h4 class="mb-3">מתכונים</h4>-->
+        <form id="recipes_form"></form>
     </main>
-    <!--תחתית-->
     <!--<footer id="footer"></footer>-->
     <footer class="footer mt-auto py-3 fixed-bottom ">
         <div class="container">

@@ -361,6 +361,25 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region GetRecipesByUserId
+        //מביא את כל המתכונים של משתמש לפי התז שלו
+        public static List<TBL_Recipe> GetRecipesByUserId(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                List<TBL_Recipe> list_recipes = db.TBL_Recipe.Where(x => x.Id_Recipe_User == user_id ).ToList();
+                if (list_recipes == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return list_recipes;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region GetRecpByUserIdRecipe
         //מביא מתכון לפי תז מתכון
         public static TBL_Recipe GetRecpByUserIdRecipe(int recipe_id)
@@ -596,6 +615,24 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
+
+        //#region GetAllRecipesOf_BU
+        ////מביא את כל המתכונים של משתמש עסקי
+        //public static List<TBL_Recipe> GetAllRecipesOf_BU()
+        //{
+        //    try
+        //    {
+        //        var db = Get_DB();
+        //        var recipes = db.TBL_Recipe.ToList();
+        //        var b_users = db.TBL_User.Where(x => x.Id_Type == 3).ToList();
+        //        var bu_recipe = recipes.(b_users)
+        //            }
+        //    catch (Exception e)
+        //    {
+        //        return null;
+        //    }
+        //}
+        //#endregion
 
         #region GetLikeByUserId
         // הפוקנציה מביאה מהמסד את כל סוגי האוכל
