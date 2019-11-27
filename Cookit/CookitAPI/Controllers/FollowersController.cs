@@ -44,6 +44,32 @@ namespace CookitAPI.Controllers
         }
         #endregion
 
+        #region GetProfileFollowByProfileId
+        //מביא את העוקבים של פרופיל
+        [Route("GetProfileFollowByProfileId/{profile_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetProfileFollowByProfileId(int profile_id)
+        {
+            Cookit_DBConnection db = new Cookit_DBConnection();
+            var user_follows = CookitDB.DB_Code.CookitQueries.GetProfileFollowByProfileId(profile_id);
+            if (user_follows == null) 
+                return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
+            else
+            {
+                List<FollowersDTO> result = new List<FollowersDTO>();
+                foreach (TBL_Followers item in user_follows)
+                {
+                    result.Add(new FollowersDTO
+                    {
+                        user_id = item.Id_User,
+                        profile_id = item.Id_Prof
+                    });
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+        }
+        #endregion
+
         #region Add New Follow
         [Route("AddNewFollow")]
         [HttpPost]

@@ -9,6 +9,17 @@ var ARRY_REGION = null;
 
 var ID_PROFILE_VIEW = JSON.parse(sessionStorage.getItem("ID_PROFILE_VIEW"));//בהתחלה שווה לצז פרופיל לתצוגה ןאחר כך מכניס לתוכו את כל המידע של הפרופיל
 var PROFILE_VIEW = null;
+var PROFILE_VIEW_DISPLAY = {
+    id: null,
+    user_id: null,
+    type: null,
+    name: null,
+    description: null,
+    id_city: null,
+    id_region: null,
+    status: null,
+    count_follow: null
+    };
 var PROFILE_FOLLOW_BY_LOGIN_USER = JSON.parse(sessionStorage.getItem("PROFILE_FOLLOW_BY_LOGIN_USER"));//null;
 
 var LOGIN_USER = JSON.parse(sessionStorage.getItem("Login_User"));
@@ -27,6 +38,7 @@ var COUNT_NAME_RECIPES = 1;
 $(document).ready(function () {
     GetCity();   
 });
+
 //*******************************************************************************************
 // GET CITY
 //*******************************************************************************************
@@ -117,11 +129,24 @@ function GetProfileInformation() {
 function SuccessGetAllProfiles(data) {
     PROFILE_VIEW = data;
     sessionStorage.setItem("PROFILE_VIEW", JSON.stringify(data));
+    PROFILE_RECIPES_DISPLAY = {
+        id: PROFILE_VIEW.Id_Prof,
+        user_id: PROFILE_VIEW.Id_User,
+        type: PROFILE_VIEW.ProfType,
+        name: PROFILE_VIEW.Name_Prof,
+        description: PROFILE_VIEW.ProfDescription,
+        id_city: PROFILE_VIEW.Id_City,
+        id_region: PROFILE_VIEW.Id_Region,
+        status: PROFILE_VIEW.ProfStatus,
+        count_follow: 0
+    };
+
+    //מביא את מספר העוקבים של הפרופיל
+    GetProfileCountFollows();
     //show the profiles dinamicaly
     ShowProfileInformation();
 
-
-    GetUserLike();//מביא את הלייקים של מהשתמש
+    //GetUserLike();//מביא את הלייקים של מהשתמש
 }
 
 function FailGetAllProfiles() {
@@ -207,6 +232,9 @@ function SuccessAddNewFollow() {
     var btn_profile = document.getElementById("btn_follow" );
     btn_profile.value = "הסר מעקב";//סטאטוס מעקב
     btn_profile.setAttribute("onClick", "RemoveFollowProfile_Btn(this.id)");
+    PROFILE_VIEW_DISPLAY.count_follow++; 
+    document.getElementById("profile_follow_count").innerHTML = "";
+    document.getElementById("profile_follow_count").innerHTML = "עוקבים " + PROFILE_VIEW_DISPLAY.count_follow;
     alert("הפרופיל נוסף למעקב בהצלחה!.");
 }
 
@@ -238,6 +266,9 @@ function SuccessRemoveFollow() {
     var btn_profile = document.getElementById("btn_follow");
     btn_profile.value = "עקוב";//סטאטוס מעקב
     btn_profile.setAttribute("onClick", "AddFollowProfile_Btn(this.id)");
+    PROFILE_VIEW_DISPLAY.count_follow--;
+    document.getElementById("profile_follow_count").innerHTML = "";
+    document.getElementById("profile_follow_count").innerHTML = "עוקבים " + PROFILE_VIEW_DISPLAY.count_follow;
     alert("הפרופיל הוסר ממעקב בהצלחה!.");
 }
 
@@ -742,4 +773,30 @@ function ShowRecipeData(_id_recpie)
     var ID_RECPIE_VIEW = _id_recpie.split("_")[2];//id
     sessionStorage.setItem("ID_RECPIE_VIEW", JSON.stringify(ID_RECPIE_VIEW));
     window.location.replace("View_Recipe_Login.html");
+}
+
+//*******************************************************************************************
+// ShowCountFollowOfProfile
+//*******************************************************************************************
+function ShowCountFollowOfProfile() {
+    var count_alert = document.getElementById("profile_follow_count");
+    count_alert.innerHTML = "";
+    count_alert.innerHTML = "עוקבים " + PROFILE_VIEW_DISPLAY.count_follow;
+}
+//*******************************************************************************************
+// GetProfileCountFollows
+//*******************************************************************************************
+function GetProfileCountFollows() {
+    GlobalAjax("/api/Followers/GetProfileFollowByProfileId/" + ID_PROFILE_VIEW, "GET", "", SuccessGetProfileCountFollows, FailGetProfileCountFollows);
+}
+
+function SuccessGetProfileCountFollows(data) {
+    PROFILE_VIEW_DISPLAY.count_follow = data.length;
+    ShowCountFollowOfProfile();
+
+    GetUserLike();//מביא את הלייקים של מהשתמש
+}
+
+function FailGetProfileCountFollows() {
+    console.log("שגיאה לא מצליח להביא את המשתמשים העוקבים של הפרופיל");
 }
