@@ -355,6 +355,8 @@
     <Content Include="Client\Pages\Upload_Workshop.js" />
     <Content Include="Client\Pages\UserInfo.html" />
     <Content Include="Client\Pages\UserInfo.js" />
+    <Content Include="Client\Pages\User_Cookbook.html" />
+    <Content Include="Client\Pages\User_Cookbook.js" />
     <Content Include="Client\Pages\View_All_Profiles.html" />
     <Content Include="Client\Pages\View_All_Profiles.js" />
     <Content Include="Client\Pages\View_All_Recipes.html" />
