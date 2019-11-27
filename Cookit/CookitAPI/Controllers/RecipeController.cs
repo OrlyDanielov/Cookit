@@ -215,6 +215,62 @@ namespace Cookit.Controllers
         }
         #endregion
 
+        # region GetFavoriteUserRecipes
+        //מיא את המתכונים שהמשתמש לא העלאה וגם שמר כמועדפים
+        [Route("GetFavoriteUserRecipes/{user_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetFavoriteUserRecipes(int user_id)
+        {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection();
+                //המתכונים שנשמרו במועדפים אצל המשתמש
+                List<TBL_FavoriteRecp> favorite_recp_list = CookitDB.DB_Code.CookitQueries.GetFavoriteByUserId(user_id);
+                //המתכונים שמשתמש לא העלאה
+                List<TBL_Recipe> recipe_list = CookitDB.DB_Code.CookitQueries.GetAllRecipesExpectOfUserId(user_id);
+                if (favorite_recp_list != null && recipe_list != null)
+                {
+                    //המתכונים המועדפים שהמשתמש לא העלאה
+                    List<TBL_Recipe> not_user_recipes = new List<TBL_Recipe>();
+                    foreach(TBL_FavoriteRecp  favorite in favorite_recp_list)
+                    {
+                        var recipe_id = favorite.Id_Recp;
+                        foreach(TBL_Recipe recipe in recipe_list)
+                        {
+                            if (recipe_id == recipe.Id_Recipe)
+                                not_user_recipes.Add(recipe);
+                        }
+                    }
+                    List<RecipeDTO> result = new List<RecipeDTO>();
+                    foreach (TBL_Recipe item in not_user_recipes)
+                    {
+                        result.Add(new RecipeDTO
+                        {
+                            user_id = item.Id_Recipe_User,
+                            recp_id = item.Id_Recipe,
+                            recp_name = item.Name_Recipe,
+                            recp_dish_type = item.Id_Recipe_DishType,
+                            recp_dish_category = item.Id_Recipe_DishCategory,
+                            recp_food_type = item.Id_Recipe_FoodType,
+                            recp_kitchen_type = item.Id_Recipe_KitchenType,
+                            recp_level = item.Id_Recipe_Level,
+                            recp_total_time = item.RecipeTotalTime,
+                            recp_work_time = item.RecipeWorkTime,
+                            recp_steps = item.PreparationSteps
+                        });
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "this recipe does not exist.");
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+        #endregion
+
         #region Add New Recipe
         [Route("AddNewRecipe")]
         [HttpPost]

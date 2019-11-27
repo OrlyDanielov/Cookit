@@ -380,6 +380,25 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region GetAllRecipesExpectOfUserId
+        //מביא את כל המתכונים חוץ משל המשתמש לפי התז שלו
+        public static List<TBL_Recipe> GetAllRecipesExpectOfUserId(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                List<TBL_Recipe> list_recipes = db.TBL_Recipe.Where(x => x.Id_Recipe_User != user_id).ToList();
+                if (list_recipes == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return list_recipes;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region GetRecpByUserIdRecipe
         //מביא מתכון לפי תז מתכון
         public static TBL_Recipe GetRecpByUserIdRecipe(int recipe_id)
@@ -498,7 +517,7 @@ namespace CookitDB.DB_Code
         #endregion
 
         #region GetFavoriteByUserId
-        //מביאה מצרכי מתכון לפי תז מתכון
+        //המתכונים המועדפים של משתמש
         public static List<TBL_FavoriteRecp> GetFavoriteByUserId(int user_id)
         {
             try
