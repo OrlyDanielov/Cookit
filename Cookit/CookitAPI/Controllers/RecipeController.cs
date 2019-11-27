@@ -55,48 +55,60 @@ namespace Cookit.Controllers
         }
         #endregion
 
-        //#region Get All Recipes Of_BU_AND_FU
-        //[Route("GetAllRecipesOf_BU_AND_FU")]
-        //[HttpGet]
-        //public HttpResponseMessage GetAllRecipesOf_BU_AND_FU()
-        //{
-        //    try
-        //    {
-        //        Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-        //        List<TBL_Recipe> list_recipes = CookitDB.DB_Code.CookitQueries.GetAllRecipesOf_BU_AND_FU();
-        //        if (list_recipes == null)
-        //            return Request.CreateResponse(HttpStatusCode.NotFound, "there is no recipes in the server");
-        //        else
-        //        {
-        //            //המרה של רשימת סןגי משתמשים למבנה נתונים מסוג DTO
-        //            List<RecipeDTO> result = new List<RecipeDTO>();
-        //            foreach (TBL_Recipe item in list_recipes)
-        //            {
-        //                result.Add(new RecipeDTO
-        //                {
-        //                    user_id = item.Id_Recipe_User,
-        //                    recp_id = item.Id_Recipe,
-        //                    recp_name = item.Name_Recipe,
-        //                    recp_dish_type = item.Id_Recipe_DishType,
-        //                    recp_dish_category = item.Id_Recipe_DishCategory,
-        //                    recp_food_type = item.Id_Recipe_FoodType,
-        //                    recp_kitchen_type = item.Id_Recipe_KitchenType,
-        //                    recp_level = item.Id_Recipe_Level,
-        //                    recp_total_time = item.RecipeTotalTime,
-        //                    recp_work_time = item.RecipeWorkTime,
-        //                    recp_steps = item.PreparationSteps
-        //                });
-        //            }
-        //            return Request.CreateResponse(HttpStatusCode.OK, result);
-        //        }
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
-        //    }
-        //}
-        //#endregion
+        #region Get All Recipes Of_BU_AND_FU
+        [Route("GetAllRecipesOf_BU_AND_FU")]
+        [HttpGet]
+        public HttpResponseMessage GetAllRecipesOf_BU_AND_FU()
+        {
+            try
+            {
+                Cookit_DBConnection DB = new Cookit_DBConnection();
+                //מביא את כל המתכונים
+                List<TBL_Recipe> list_recipes = CookitDB.DB_Code.CookitQueries.GetAllRecipes();
+                //מביא את כל המשתמשים שהם מסוג עסקי ואנין טעם
+                List<TBL_User> BU_FU_list = CookitDB.DB_Code.CookitQueries.GetBUAndFU();
+                if (BU_FU_list != null && list_recipes != null)
+                {
+                    //המתכונים שהם של משתמשים מסוג עסקי ואנין טעם
+                    List<TBL_Recipe> bu_fu_recipes = new List<TBL_Recipe>();
+                    foreach (TBL_User user in BU_FU_list)
+                    {
+                        var user_id = user.Id_User;
+                        foreach (TBL_Recipe recipe in list_recipes)
+                        {
+                            if (user_id == recipe.Id_Recipe_User)
+                                bu_fu_recipes.Add(recipe);
+                        }
+                    }
+                    List<RecipeDTO> result = new List<RecipeDTO>();
+                    foreach (TBL_Recipe item in bu_fu_recipes)
+                    {
+                        result.Add(new RecipeDTO
+                        {
+                            user_id = item.Id_Recipe_User,
+                            recp_id = item.Id_Recipe,
+                            recp_name = item.Name_Recipe,
+                            recp_dish_type = item.Id_Recipe_DishType,
+                            recp_dish_category = item.Id_Recipe_DishCategory,
+                            recp_food_type = item.Id_Recipe_FoodType,
+                            recp_kitchen_type = item.Id_Recipe_KitchenType,
+                            recp_level = item.Id_Recipe_Level,
+                            recp_total_time = item.RecipeTotalTime,
+                            recp_work_time = item.RecipeWorkTime,
+                            recp_steps = item.PreparationSteps
+                        });
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "this recipe does not exist.");
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+            }
+        }
+        #endregion
 
         #region get recipe by user id and recipe name
         [Route("GetRecpByUserIdAndRecpName/{user_id}/{recp_name}")]

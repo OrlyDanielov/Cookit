@@ -634,25 +634,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-        //#region GetAllRecipesOf_BU
-        ////מביא את כל המתכונים של משתמש עסקי
-        //public static List<TBL_Recipe> GetAllRecipesOf_BU()
-        //{
-        //    try
-        //    {
-        //        var db = Get_DB();
-        //        var recipes = db.TBL_Recipe.ToList();
-        //        var b_users = db.TBL_User.Where(x => x.Id_Type == 3).ToList();
-        //        var bu_recipe = recipes.(b_users)
-        //            }
-        //    catch (Exception e)
-        //    {
-        //        return null;
-        //    }
-        //}
-        //#endregion
-
+           
         #region GetLikeByUserId
         // הפוקנציה מביאה מהמסד את כל סוגי האוכל
         public static List<TBL_Likes> GetLikeByUserId(int user_id)
@@ -661,6 +643,22 @@ namespace CookitDB.DB_Code
             {
                 var db = Get_DB();
                 return db.TBL_Likes.Where(x=>x.Id_User == user_id).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetBUAndFU
+        //מביא את כל המשתמשים שהם מסוג עסקי ןאנים טעם
+        public static List<TBL_User> GetBUAndFU()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_User.Where(x => x.Id_Type == 3 || x.Id_Type == 2).ToList();
             }
             catch (Exception e)
             {
