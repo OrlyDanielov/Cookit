@@ -44,8 +44,8 @@ var COUNT_STEPS = 1;
 var NAME_STEPS = 1;
 //תז המתכון החדש
 //var ID_RECIPE = null;
-sessionStorage.setItem("RECIPE_NAME", JSON.stringify("עוגת שוקולד עשירה"));
-var RECIPE_NAME = JSON.parse(sessionStorage.getItem("RECIPE_NAME"));
+//sessionStorage.setItem("RECIPE_NAME", JSON.stringify("עוגת שוקולד עשירה"));
+//var RECIPE_NAME = JSON.parse(sessionStorage.getItem("RECIPE_NAME"));
 // פרטי המתכון
 var RECIPE_INFORMATION;
 var RECIPE_INGRIDIANTS = new Array();
@@ -62,6 +62,8 @@ var DELETE_FOOD_LABELS = new Array();
 var NEW_HOLIDAYS = new Array();
 var DELETE_HOLIDAYS = new Array();
 
+//המתכון המבוקש
+var ID_RECPIE_VIEW = JSON.parse(sessionStorage.getItem("ID_RECPIE_VIEW"));
 //*******************************************************************************************
 // page load
 //*******************************************************************************************
@@ -279,8 +281,10 @@ function FailFoodLable() {
 function GetRecipeImformation()
 //מביא את נתוני המתכון של המתשמש מהשרת
 {
-    //GlobalAjax("/api/Recipe/GetRecpByUserIdAndRecpName/" + LOGIN_USER.id + "/" + RECIPE_NAME, "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
-    GlobalAjax("/api/Recipe/GetRecpByUserIdAndRecpName/" + 32 + "/" + "ניוקי", "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
+    if (ID_RECPIE_VIEW == null)
+        alert("שגיאה במכישת נתוני המתכון המבוקש!.");
+    else
+        GlobalAjax("/api/Recipe/GetRecpByUserIdRecipe/" + ID_RECPIE_VIEW, "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
 
 }
 
@@ -443,6 +447,8 @@ function ViewPreparationSteps()//מציג את שלבי ההכנה
 
 function AddPreparationStep(step_txt)
 {
+    COUNT_STEPS = COUNT_STEPS + 1;
+    NAME_STEPS = NAME_STEPS + 1;
     var new_step = document.createElement('div');
     new_step.id = "step_" + NAME_STEPS;
     new_step.className = "form-row";
@@ -492,8 +498,7 @@ function AddPreparationStep(step_txt)
     document.getElementById("recipe_preparation_steps").insertBefore(new_step, document.getElementById("btn_add_preparation_steps"));
     console.log("step " + NAME_STEPS);
 
-    COUNT_STEPS = COUNT_STEPS + 1;
-    NAME_STEPS = NAME_STEPS + 1;
+    
     RECIPE_STEPS_VALIDATION.push({ step: false });
 
 }
@@ -1303,12 +1308,23 @@ function ButtonRemovePreparationStep(btn_remove_step)
 function UpdateRecipe()
 //עדכון פרטי מתכון
 {
+   
+
+    if (confirm("האם אתה רוצה לשמור את השינוי?")) {
+        var prp_steps = "";
+        var step_inputs = $("[id^=preparation_step_]");
+        for (var i = 0; i < step_inputs.length; i++) {
+            prp_steps += step_inputs[i].value;
+            if (i < step_inputs.length - 1)
+                prp_steps += "/n";
+        }
+        /*
     var prp_steps = "";
     var step_inputs = $("[id^=preparation_step_]");
     for (var i = 0; i < step_inputs.length; i++) {
         prp_steps += step_inputs[i].value + "/n";
     }
-    if (confirm("האם אתה רוצה לשמור את השינוי?")) {
+    */
         var new_recipe = {
             recp_id: RECIPE_INFORMATION.recp_id,
             user_id: RECIPE_INFORMATION.user_id,
@@ -1668,4 +1684,6 @@ function FailDeleteHolidaysForRecipe() {
 //*******************************************************************************************
 function AlertSuccess2User() {
     alert("המתכון עודכן בהצלחה!.");
+    window.location.replace("View_Recipe_Login.html");
+
 }

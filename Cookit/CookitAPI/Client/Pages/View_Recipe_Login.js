@@ -18,8 +18,8 @@ var ARRY_FOOD_LABLE = new Array();
 var COUNT_INGRIDIANTS = 0;
 var NAME_INGRIDIANTS = 0;
 //מונה מספר שלבים באופן ההכנה
-var COUNT_STEPS = 1;
-var NAME_STEPS = 1;
+var COUNT_STEPS = 0;
+var NAME_STEPS = 0;
 
 //פונקציות מתכון
 var RECIPE_LIKE = null;
@@ -44,8 +44,6 @@ var RECIPE_FOOD_LABLES = new Array();
 //*******************************************************************************************
 // הפונקציה קוראת בתחילת הקריאה לדף
 $(document).ready(function () {
-    ////אם משתמש עסקי
-    //ShowDiffLevelRationDiv();
     // להביא נתונים סטטים
     GetDishType();
     GetDishCategory();
@@ -257,7 +255,6 @@ function FailFoodLable() {
 function GetRecipeImformation()
 //מביא את נתוני המתכון של המתשמש מהשרת
 {
-    //GlobalAjax("/api/Recipe/GetRecpByUserIdAndRecpName/" + LOGIN_USER.id + "/" + RECIPE_NAME, "GET", "", SuccessGetRecipeImformation, FailGetRecipeImformation);
     if (ID_RECPIE_VIEW == null)
         alert("שגיאה במכישת נתוני המתכון המבוקש!.");
     else
@@ -480,9 +477,11 @@ function AddPreparationStep(step_txt, _index)
     NAME_STEPS  += 1;
 
     var new_step = document.createElement('div');
-    new_step.id = "sp=tep" + NAME_STEPS;
+    new_step.id = "step" + NAME_STEPS;
     new_step.className = "form-row text2rigth";
     new_step.style["float"] = "right";
+    new_step.style["display"] = "block";
+    new_step.style["width"] = "100%";
     new_step.innerHTML = _index + ". " + step_txt;//+;
     if (NAME_STEPS % 2 == 0)
         new_step.style["background-color"] = "#cccccc";   
@@ -640,8 +639,10 @@ function SuccessGetRecipeCountLike(data) {
     //שינוי מספר הלייקים למתכון
     var like_count_alert = document.getElementById("recipe_like_count");
     like_count_alert.innerHTML = "לייקים " + data;
-    //מביא את נתוני השמירת מתכון כמועדף
+        IsRecipBelong2LoginUser();
+//מביא את נתוני השמירת מתכון כמועדף
     GetFavorite();
+
 }
 
 function FailGetRecipeCountLike() {
@@ -880,4 +881,45 @@ function RemoveComment(_id)
     var child = document.getElementById(_id).parentNode;
     var all_comments = document.getElementById("old_comment");
     all_comments.removeChild(child);
+}
+
+//*******************************************************************************************
+//IS RECIPE BELONG TO LOGIN USER
+//*******************************************************************************************
+function IsRecipBelong2LoginUser() {
+    var user_id = LOGIN_USER.id;
+    var user_recipe = RECIPE_INFORMATION.user_id;
+    if (user_id == user_recipe) {
+        //הוספת כפתור למעבר עריכת מתכון
+        AddButtonEditRecipe();
+    }
+}
+
+//*******************************************************************************************
+// Add Button Edit Recipe
+//*******************************************************************************************
+function AddButtonEditRecipe() {
+    var div = document.getElementById("recipe_functions");
+    //col div
+    var col_div = document.createElement("div");
+    col_div.className = "col";
+    //btn
+    var btn = document.createElement("input");
+    btn.type = "button";
+    btn.value = "ערוך מתכון";
+    btn.className = "btn btn-group";
+    btn.setAttribute("onClick", "EditRecipe_BTN()");
+
+
+    col_div.appendChild(btn);
+    div.appendChild(col_div);
+}
+
+//*******************************************************************************************
+// EditRecipe_BTN
+//*******************************************************************************************
+function EditRecipe_BTN() {
+    var id_recipe = RECIPE_INFORMATION.recp_id;
+    sessionStorage.setItem("ID_RECPIE_VIEW", JSON.stringify(ID_RECPIE_VIEW));
+    window.location.replace("Edit_Recipe.html");
 }

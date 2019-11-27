@@ -345,12 +345,12 @@
     <Content Include="Client\Pages\Registration.html" />
     <Content Include="Client\Pages\Reset_Password.html" />
     <Content Include="Client\Pages\Reset_Password.js" />
-    <Content Include="Client\Pages\Update_Recipe.html" />
-    <Content Include="Client\Pages\Update_Recipe.js" />
+    <Content Include="Client\Pages\Edit_Recipe.html" />
+    <Content Include="Client\Pages\Edit_Recipe.js" />
     <Content Include="Client\Pages\Upload_Event.html" />
     <Content Include="Client\Pages\Upload_Event.js" />
-    <Content Include="Client\Pages\Upload_Recipe.html" />
-    <Content Include="Client\Pages\Upload_Recipe.js" />
+    <Content Include="Client\Pages\Add_New_Recipe.html" />
+    <Content Include="Client\Pages\Add_New_Recipe.js" />
     <Content Include="Client\Pages\Upload_Workshop.html" />
     <Content Include="Client\Pages\Upload_Workshop.js" />
     <Content Include="Client\Pages\UserInfo.html" />
