@@ -2,7 +2,10 @@
 // GLOBAL VARAIBLES
 //*******************************************************************************************
 var PROFILES = null;
+var PROFILE_VIEW_DISPLAY = new Array();
 var COUNT_PROFILE = 1;
+var COUNT_NAME_PROFILE = 1;
+
 
 var ARRY_CITY = null;
 var ARRY_REGION = null;
@@ -181,6 +184,19 @@ function GetAllProfiles() {
 function SuccessGetAllProfiles(data) {
     PROFILES = data;
     sessionStorage.setItem("PROFILES", JSON.stringify(data));
+    for (var i = 0; i < PROFILES.length; i++) {
+        PROFILE_VIEW_DISPLAY.push({
+            id: PROFILES[i].id,
+            user_id: PROFILES[i].user_id,
+            type: PROFILES[i].type,
+            name: PROFILES[i].name,
+            description: PROFILES[i].description,
+            id_city: PROFILES[i].id_city,
+            id_region: PROFILES[i].id_region,
+            status: PROFILES[i].status,
+            count_follow: 0
+        });
+    }
     //show the profiles dinamicaly
     ShowProfiles();
 }
@@ -199,11 +215,13 @@ function FailGetAllProfiles() {
 // Show Profiles
 //*******************************************************************************************
 function ShowProfiles() {
-    for (var i = 0; i < PROFILES.length; i++) {
-        AddProfile(PROFILES[i],i+1);
+    COUNT_NAME_PROFILE = 1;
+    for (var i = 0; i < PROFILE_VIEW_DISPLAY.length; i++) {
+        GetProfileCountFollows(PROFILE_VIEW_DISPLAY[i]);
+        //AddProfile(PROFILE_VIEW_DISPLAY[i]);
     }
 }
-function AddProfile(_profile, _index) {
+function AddProfile(_profile) {
     //div
     var div = document.createElement('div');
     div.className = "col-md-4 ";
@@ -247,16 +265,27 @@ function AddProfile(_profile, _index) {
     prof_name_div.appendChild(prof_description);
     //profile city and region
     var prof_city = document.createElement("span");
-    //prof_city.innerHTML = ConvertId2Value(ARRY_REGION, _profile.id_region);
-    //prof_city.innerHTML += " " + ConvertId2Value(ARRY_CITY, _profile.id_city);
     prof_city.innerHTML =ConvertId2Value(ARRY_CITY, _profile.id_city);
     prof_city.style["display"] = "block";
     prof_name_div.appendChild(prof_city);
     //profile 
     //FOLLOW BUTTON
+    var div_function = document.createElement("div");
+    div_function.className = "row";
+    var div_count_follow = document.createElement("div");
+    div_count_follow.className = "col";
+    var sapn_count_follow = document.createElement("span");
+    sapn_count_follow.id = "follow_count_" + _profile.id;
+    sapn_count_follow.innerHTML = "עוקבים " + _profile.count_follow;
+    var div_btn_follow = document.createElement("div");
+    div_btn_follow.className = "col";
     var prof_follow_btn = document.createElement("input");
     prof_follow_btn.type = "button";
-    prof_follow_btn.id ="btn_follow_"+ _profile.id;
+    prof_follow_btn.id = "btn_follow_" + _profile.id;
+    div_function.appendChild(div_count_follow);
+    div_function.appendChild(div_btn_follow);
+    div_count_follow.appendChild(sapn_count_follow);
+    div_btn_follow.appendChild(prof_follow_btn);
     if (IfFollowThisProfile(_profile.id))//אם פרופיל זה במעקב
     {
         prof_follow_btn.value = "הסר מעקב";//סטאטוס מעקב
@@ -267,26 +296,26 @@ function AddProfile(_profile, _index) {
         prof_follow_btn.setAttribute("onClick", "AddFollowProfile_Btn(this.id)");
     }
     prof_follow_btn.className = "btn btn-group";
-    prof_name_div.appendChild(prof_follow_btn);
+    prof_name_div.appendChild(div_function);
 
     prof_div.appendChild(prof_name_div);
 //הוספת השלב לתצוגה
     div.appendChild(prof_div);
-    if (COUNT_PROFILE % 3 == 1) {
+    if (COUNT_NAME_PROFILE % 3 == 1) {
         //create new row
         var row = document.createElement("div");
         row.className = "row";
-        row.id = "row_" + Math.ceil(COUNT_PROFILE / 3); // עיגול למעלה
+        row.id = "row_" + Math.ceil(COUNT_NAME_PROFILE / 3); // עיגול למעלה
 
         row.appendChild(div);
         document.getElementById("profiles_form").appendChild(row);
     }
     else {
-        console.log(Math.ceil(COUNT_PROFILE / 3));
-        document.getElementById("row_" + Math.ceil(COUNT_PROFILE / 3)).appendChild(div);
+        console.log(Math.ceil(COUNT_NAME_PROFILE / 3));
+        document.getElementById("row_" + Math.ceil(COUNT_NAME_PROFILE / 3)).appendChild(div);
     }
-    console.log("profile " + COUNT_PROFILE);
-    COUNT_PROFILE += 1;
+    console.log("profile " + COUNT_NAME_PROFILE);
+    COUNT_NAME_PROFILE += 1;
 }
 
 //*******************************************************************************************
@@ -341,6 +370,15 @@ function SuccessAddNewFollow(_id_profile) {
     var btn_profile = document.getElementById("btn_follow_" + _id_profile);
     btn_profile.value = "הסר מעקב";//סטאטוס מעקב
     btn_profile.setAttribute("onClick", "RemoveFollowProfile_Btn(this.id)");
+    var current_profile;
+    for (var i = 0; i < PROFILE_VIEW_DISPLAY.length; i++) {
+        if (PROFILE_VIEW_DISPLAY[i].id == _id_profile)
+            current_profile = PROFILE_VIEW_DISPLAY[i];
+    }
+    current_profile.count_follow++;
+    document.getElementById("follow_count_" + _id_profile).innerHTML = "";
+    document.getElementById("follow_count_" + _id_profile).innerHTML = "עוקבים " + current_profile.count_follow;
+
     alert("הפרופיל נוסף למעקב בהצלחה!."); 
 }
 
@@ -372,6 +410,15 @@ function SuccessRemoveFollow(_id_profile) {
     var btn_profile = document.getElementById("btn_follow_" + _id_profile);
     btn_profile.value = "עקוב";//סטאטוס מעקב
     btn_profile.setAttribute("onClick", "AddFollowProfile_Btn(this.id)");
+    var current_profile;
+    for (var i = 0; i < PROFILE_VIEW_DISPLAY.length; i++) {
+        if (PROFILE_VIEW_DISPLAY[i].id == _id_profile)
+            current_profile = PROFILE_VIEW_DISPLAY[i];
+    }
+    current_profile.count_follow--;
+    document.getElementById("follow_count_" + _id_profile).innerHTML = "";
+    document.getElementById("follow_count_" + _id_profile).innerHTML = "עוקבים " + current_profile.count_follow;
+
     alert("הפרופיל הוסר ממעקב בהצלחה!.");
 }
 
@@ -488,4 +535,24 @@ function ShowSelectedProfiles(_list_profiles)
     for (var i = 0; i < _list_profiles.length; i++) {
         AddProfile(_list_profiles[i], i + 1);
     }
+}
+//*******************************************************************************************
+// GetProfileCountFollows
+//*******************************************************************************************
+function GetProfileCountFollows(current_profile) {
+    GlobalAjax("/api/Followers/GetProfileFollowByProfileId/" + current_profile.id , "GET", "",
+        function (data) {
+            current_profile.count_follow = data.length;
+            AddProfile(current_profile);
+        }
+        , FailGetProfileCountFollows);
+}
+
+//function SuccessGetProfileCountFollows(data) {
+//    PROFILE_VIEW_DISPLAY.count_follow = data.length;
+//    //ShowCountFollowOfProfile();
+//}
+
+function FailGetProfileCountFollows() {
+    console.log("שגיאה לא מצליח להביא את המשתמשים העוקבים של הפרופיל");
 }
