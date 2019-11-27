@@ -536,3 +536,203 @@ function AddRecipe(_recipe) {
     console.log("recipe " + COUNT_NAME_RECIPES);
     COUNT_NAME_RECIPES += 1;
 }
+
+//*******************************************************************************************
+// RemoveRecipeFavorite_Btn
+//*******************************************************************************************
+function RemoveRecipeFavorite_Btn(id_btn_like)
+//מסיר לייק של המשתמש המחובר למתכון
+{
+    var _id_recipe = id_btn_like.split("_")[2];
+    RemoveFavorite(_id_recipe);
+}
+//*******************************************************************************************
+// AddRecipeFavorite_Btn
+//*******************************************************************************************
+function AddRecipeFavorite_Btn(id_btn_like)
+//מוסיף לייק של המשתמש המחובר למתכון
+{
+    var _id_recipe = id_btn_like.split("_")[2];
+    AddNewFavorite(_id_recipe);
+}
+
+//*******************************************************************************************
+// RemoveRecipeLike_Btn
+//*******************************************************************************************
+function RemoveRecipeLike_Btn(id_btn_like)
+//מסיר לייק של המשתמש המחובר למתכון
+{
+    var _id_recipe = id_btn_like.split("_")[2];
+    RemoveLike(_id_recipe);
+}
+//*******************************************************************************************
+// AddRecipeLike_Btn
+//*******************************************************************************************
+function AddRecipeLike_Btn(id_btn_like)
+//מוסיף לייק של המשתמש המחובר למתכון
+{
+    var _id_recipe = id_btn_like.split("_")[2];
+    AddNewLike(_id_recipe);
+}
+
+//*******************************************************************************************
+// ADD NEW LIKE
+//*******************************************************************************************
+function AddNewFavorite(_recipe_id)
+//הוספת לייק חדש
+{
+    var new_favorite = {
+        id_recipe: _recipe_id,
+        id_user: LOGIN_USER.id
+    };
+    RECIPE_FAVORITE = new_favorite;
+    for (var i = 0; i < PROFILE_RECIPES_DISPLAY.length; i++) {
+        if (PROFILE_RECIPES_DISPLAY[i].recp_id == _recipe_id)
+            PROFILE_RECIPES_DISPLAY[i].login_user_favorite = true;
+    }
+    GlobalAjax("/api/Favorite/AddNewFavorite", "POST", new_favorite, SuccessAddNewFavorite, FailAddNewFavorite);
+}
+function SuccessAddNewFavorite(data) {
+    //שינוי תצוגת כפתור הלייק של המתכון
+    var btn_favorite = document.getElementById("favorite_recipe_" + data.id_recipe);
+    btn_favorite.className = "fa fa-bookmark";
+    btn_favorite.setAttribute("title", "הקלק על הסימן כדי להסיר את המתכון למועדפים!.");
+    btn_favorite.setAttribute("onClick", "RemoveRecipeFavorite_Btn(this.id)");
+    //הודעת לייק
+    console.log("המתגון הוסף למועדפים בהצלחה!.");
+    alert("המתגון הוסף למועדפים בהצלחה!.");
+}
+
+function FailAddNewFavorite() {
+    console.log("הוספת מתכון למועדים נכשלה");
+    alert("הוספת מתכון למועדפים נכשלה");
+}
+//*******************************************************************************************
+// RemoveFavorite
+//*******************************************************************************************
+function RemoveFavorite(_recipe_id)
+//הוספת לייק חדש
+{
+    var _favorite = {
+        id_recipe: _recipe_id,
+        id_user: LOGIN_USER.id
+    };
+    var index = USER_FAVORITE.indexOf(_favorite);
+    USER_FAVORITE.splice(index, 1);
+    sessionStorage.setItem("USER_FAVORITE", JSON.stringify(USER_FAVORITE));
+    for (var i = 0; i < PROFILE_RECIPES_DISPLAY.length; i++) {
+        if (PROFILE_RECIPES_DISPLAY[i].recp_id == _recipe_id)
+            PROFILE_RECIPES_DISPLAY[i].login_user_favorite = false;
+    }
+    GlobalAjax("/api/Favorite/DeleteFavorite", "DELETE", _favorite, SuccessRemoveFavorite, FailRemoveFavorite);
+}
+function SuccessRemoveFavorite(data) {
+    //שינוי תצוגת כפתור הלייק של המתכון
+    var btn_favorite = document.getElementById("favorite_recipe_" + data.id_recipe);
+    btn_favorite.className = "fa fa-bookmark-o";
+    btn_favorite.setAttribute("title", "הקלק על הסימן כדי להוסיף את המתכון למועדפים !.");
+    btn_favorite.setAttribute("onClick", "AddRecipeFavorite_Btn(this.id)");
+    //הודעת לייק
+    console.log("המתכון הוסר מהמועדפים בהצלחה");
+    alert("המתכון הוסר מהמועדפים בהצלחה");
+}
+
+function FailRemoveFavorite() {
+    console.log("הסרת המתכון מהמועדפים נכשלה");
+    alert("הסרת המתכון מהמועדפים נכשלה");
+}
+//*******************************************************************************************
+// ADD NEW LIKE
+//*******************************************************************************************
+function AddNewLike(_recipe_id)
+//הוספת לייק חדש
+{
+    var new_like = {
+        id_recipe: _recipe_id,
+        id_user: LOGIN_USER.id
+    };
+    USER_LIKE.push(new_like);
+    sessionStorage.setItem("USER_LIKE", JSON.stringify(USER_LIKE));
+    for (var i = 0; i < PROFILE_RECIPES_DISPLAY.length; i++) {
+        if (PROFILE_RECIPES_DISPLAY[i].recp_id == _recipe_id) {
+            PROFILE_RECIPES_DISPLAY[i].login_user_like = true;
+            PROFILE_RECIPES_DISPLAY[i].recp_count_like++;
+        }
+    }
+    GlobalAjax("/api/Like/AddNewLike", "POST", new_like, SuccessAddNewLike, FailAddNewLike);
+}
+function SuccessAddNewLike(data) {
+    //שינוי תצוגת כפתור הלייק של המתכון
+    var btn_like = document.getElementById("like_recipe_" + data.id_recipe);
+    btn_like.className = "fa fa-heart";
+    btn_like.setAttribute("title", "הקלק על הסימן כדי להסיר לייק מהמתכון!.");
+    btn_like.setAttribute("onClick", "RemoveRecipeLike_Btn(this.id)");
+    //שינוי מספר הלייקים למתכון
+    var like_count_alert = document.getElementById("like_count_" + data.id_recipe);
+    var count_like = like_count_alert.innerHTML.split(" ")[1];
+    count_like++;
+    like_count_alert.innerHTML = "";
+    like_count_alert.innerHTML = "לייקים " + count_like;
+    //הודעת לייק
+    console.log("הלייק הוסף בהצלחה");
+    alert("הלייק הוסף למתכון בהצלחה!.");
+}
+
+function FailAddNewLike() {
+    console.log("הוספת לייק נכשלה");
+    alert("הוספת לייק נכשלה");
+}
+
+//*******************************************************************************************
+// Remove Like
+//*******************************************************************************************
+function RemoveLike(_recipe_id)
+//הוספת לייק חדש
+{
+    var _like = {
+        id_recipe: _recipe_id,
+        id_user: LOGIN_USER.id
+    };
+    var index = USER_LIKE.indexOf(_like);
+    USER_LIKE.splice(index, 1);
+    sessionStorage.setItem("USER_LIKE", JSON.stringify(USER_LIKE));
+    for (var i = 0; i < PROFILE_RECIPES_DISPLAY.length; i++) {
+        if (PROFILE_RECIPES_DISPLAY[i].recp_id == _recipe_id) {
+            PROFILE_RECIPES_DISPLAY[i].login_user_like = false;
+            PROFILE_RECIPES_DISPLAY[i].recp_count_like--;
+        }
+    }
+    GlobalAjax("/api/Like/DeleteLike", "DELETE", _like, SuccessRemoveLike, FailRemoveLike);
+}
+function SuccessRemoveLike(data) {
+    //שינוי תצוגת כפתור הלייק של המתכון
+    var btn_like = document.getElementById("like_recipe_" + data.id_recipe);
+    btn_like.className = "fa fa-heart-o";
+    btn_like.setAttribute("title", "הקלק על הסימן כדי להוסיף לייק מהמתכון!.");
+    btn_like.setAttribute("onClick", "AddRecipeLike_Btn(this.id)");
+    //שינוי מספר הלייקים למתכון
+    var like_count_alert = document.getElementById("like_count_" + data.id_recipe);
+    var count_like = like_count_alert.innerHTML.split(" ")[1];
+    count_like--;
+    like_count_alert.innerHTML = "";
+    like_count_alert.innerHTML = "לייקים " + count_like;
+    //הודעת לייק
+    console.log("הלייק הוסר בהצלחה");
+    alert("הלייק הוסר למתכון בהצלחה!.");
+}
+
+function FailRemoveLike() {
+    console.log("הסרת לייק נכשלה");
+    alert("הסרת לייק נכשלה");
+}
+
+//*******************************************************************************************
+// ShowRecipeData
+//*******************************************************************************************
+function ShowRecipeData(_id_recpie)
+//מעביר את המשתמש לדף של פרטי של במתכון בלבד
+{
+    var ID_RECPIE_VIEW = _id_recpie.split("_")[2];//id
+    sessionStorage.setItem("ID_RECPIE_VIEW", JSON.stringify(ID_RECPIE_VIEW));
+    window.location.replace("View_Recipe_Login.html");
+}
