@@ -208,3 +208,54 @@ function ShowRecipeData(_id_recpie)
     sessionStorage.setItem("ID_RECPIE_VIEW", JSON.stringify(ID_RECPIE_VIEW));
     window.location.replace("View_Recipe.html");
 }
+
+//*******************************************************************************************
+// SearchRecipeByName
+//*******************************************************************************************
+function SearchRecipeByName()
+//מחפש מתכונים לפי שם
+{
+    var txt_search_name = document.getElementById("txt_search_recipe_by_name");
+    if (txt_search_name.value == "") {
+        ShowSelectedRecipes(ARRY_RECIPES_DISPLAY);
+        alert("אנא הכנס שם מתכון לחיפוש!");
+    }
+    else {
+        var search_recipes = GetRecipeByName(txt_search_name.value); // מקבל את רשימת הפרופילים התואמים
+        if (search_recipes.length == 0)//אם אין אף תוצאת חיםוש מתאימה
+        {
+            document.getElementById("recipes_form").innerHTML = "";
+            alert("אין מתכונים מתאימים לחיפוש!");
+        }
+        else
+            ShowSelectedRecipes(search_recipes);
+    }
+}
+
+//*******************************************************************************************
+// GetRecipeByName
+//*******************************************************************************************
+function GetRecipeByName(recipe_name)
+//מחזיר פרופיל לפי שם. יכול להיות רשימה של פרופילים
+{
+    var list_recipes = new Array();
+    for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
+        console.log(ARRY_RECIPES_DISPLAY[i].recp_name.indexOf(recipe_name));
+        if (ARRY_RECIPES_DISPLAY[i].recp_name.indexOf(recipe_name) >= 0) // התאמה לכל או כל השם
+            list_recipes.push(ARRY_RECIPES_DISPLAY[i]);
+    }
+    return list_recipes;
+}
+//*******************************************************************************************
+// ShowSelectedRecipes
+//*******************************************************************************************
+function ShowSelectedRecipes(_list_recipes)
+//מציג את הפרופילים הנבחרים
+{
+    document.getElementById("recipes_form").innerHTML = "";
+    // תצוגת הפרופילים המבוקשים
+    COUNT_NAME_RECIPES = 1;
+    for (var i = 0; i < _list_recipes.length; i++) {
+        AddRecipe(_list_recipes[i]);
+    }
+}
