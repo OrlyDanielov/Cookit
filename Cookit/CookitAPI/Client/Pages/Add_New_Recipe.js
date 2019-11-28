@@ -834,6 +834,8 @@ function SuccessAddRecipe(id_recipe)
     ID_RECIPE = id_recipe;
     console.log("המתכון נוסף לשרת בהצלחה.");
     console.log("id recipe: " + id_recipe);
+    var ID_RECPIE_VIEW = id_recipe;
+    sessionStorage.setItem("ID_RECPIE_VIEW", JSON.stringify(ID_RECPIE_VIEW));
     //הוספת המתצרכים התוויות והחגים
     AddIngridiantForRecipe(id_recipe);
 }
@@ -896,6 +898,7 @@ function AddHolidaysForRecipe(_id_recipe)
 function SuccessAddHolidayForRecipe() {
     console.log("החגים נוספו למתכון בהצלחה!.");
     alert("המתכון נוסף בהצלחה!.");
+    window.location.replace("View_Recipe_Login.html"); //מעבר לדף הבית המחובר
 }
 
 function FailAddHolidaysForRecipe() {

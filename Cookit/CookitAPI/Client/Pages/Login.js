@@ -109,28 +109,8 @@ function CheckIfFormValid() {
         alert("אנא תקן את המקומות המסומנים.");
 }
 //*******************************************************************************************
-// SHOW HIDE EXPLANATION
+// ShowPopup
 //*******************************************************************************************
-//var EXPLANATION_PASSWORD = "הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.";
-//var EXPLANATION_EMAIL = "אימייל צריך להיות באנגלית ועם הסימנים @ו .";
-
-/*function ShowHideExplanation(btn_cliked_id) {
-    var div_name = "explanation_";
-    var words = btn_cliked_id.split('_');
-    div_name = div_name.concat(words[2]);
-    if (words.length > 3)
-        div_name = div_name.concat("_" + words[3]);
-    //display on\off the span
-    var str = document.getElementById(div_name).innerHTML;
-    if (str == "") {
-        if (btn_cliked_id == "btn_explanation_password")//אם סיסמה
-            document.getElementById(div_name).innerHTML = EXPLANATION_PASSWORD;
-        else
-            document.getElementById(div_name).innerHTML = EXPLANATION_EMAIL;
-    }
-    else
-        document.getElementById(div_name).innerHTML = "";
-}*/
 function ShowPopup(_id) {
     var words = _id.split('_');
     var name = words[2];

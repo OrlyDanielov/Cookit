@@ -40,8 +40,8 @@ var INGRIDIANTS_VALIDATION =//{
 var COUNT_INGRIDIANTS = 1;
 var NAME_INGRIDIANTS = 1;
 //מונה מספר שלבים באופן ההכנה
-var COUNT_STEPS = 1;
-var NAME_STEPS = 1;
+var COUNT_STEPS = 0;
+var NAME_STEPS = 0;
 //תז המתכון החדש
 //var ID_RECIPE = null;
 //sessionStorage.setItem("RECIPE_NAME", JSON.stringify("עוגת שוקולד עשירה"));

@@ -343,7 +343,6 @@ function SuccessGetFavoriteByUserId(data) {
 
 function FailGetFavoriteByUserId() {
     console.log("מתכון זה לא במועדפים של המשתמש");
-    //ShowFavorite();
     //מביא את כל המתכונים
     GetProfileRecipes();
 }
@@ -364,9 +363,9 @@ function SuccessGetUserRecipes(data) {
             document.getElementById("profile_recipes").innerHTML = "אין מתכונים";
     }
     else {
-        var recipe;
+        PROFILE_RECIPES_DISPLAY = new Array();
         for (var i = 0; i < COUNT_RECIPES; i++) {
-            recipe = {
+           PROFILE_RECIPES_DISPLAY.push({
                 recp_id: PROFILE_RECIPES[i].recp_id,
                 user_id: PROFILE_RECIPES[i].user_id,
                 recp_name: PROFILE_RECIPES[i].recp_name,
@@ -384,11 +383,9 @@ function SuccessGetUserRecipes(data) {
                 login_user_favorite: false,
                 login_user_like: false,
                 recp_count_like: null
-            };
-            //PROFILE_RECIPES_DISPLAY.push(recipe);
-            //PROFILE_RECIPES_DISPLAY.splice(i,0,recipe);
-            PROFILE_RECIPES_DISPLAY[i] = recipe;
+            });        
         }
+        console.log("PROFILE_RECIPES_DISPLAY.length = " + PROFILE_RECIPES_DISPLAY.length);
         //הכנסת הלייקים
         for (var h = 0; h < PROFILE_RECIPES_DISPLAY.length; h++) {
             var flag = false;
@@ -433,7 +430,7 @@ function ShowRecipes() {
         document.getElementById("profile_recipes").innerHTML = "אין מתכונים";
     else {
         for (var i = 0; i < PROFILE_RECIPES_DISPLAY.length; i++) {
-            CountLikeOfRecipe(PROFILE_RECIPES_DISPLAY[i], PROFILE_VIEW.name);
+            CountLikeOfRecipe(PROFILE_RECIPES_DISPLAY[i]);
         }
     }
 }
@@ -441,7 +438,7 @@ function ShowRecipes() {
 //*******************************************************************************************
 // Get number of like of recipe
 //*******************************************************************************************
-function CountLikeOfRecipe(_recipe, _name) {
+function CountLikeOfRecipe(_recipe) {
     GlobalAjax("/api/Like/GetCountLikeOfRecipe/" + _recipe.recp_id, "GET", "",
         function (data) {
             console.log("מספר לייקים " + data);
