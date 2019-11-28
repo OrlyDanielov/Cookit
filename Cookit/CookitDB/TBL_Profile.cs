@@ -22,11 +22,7 @@ public partial class TBL_Profile
     public TBL_Profile()
     {
 
-        this.TBL_Event = new HashSet<TBL_Event>();
-
         this.TBL_Followers = new HashSet<TBL_Followers>();
-
-        this.TBL_Workshop = new HashSet<TBL_Workshop>();
 
     }
 
@@ -53,15 +49,7 @@ public partial class TBL_Profile
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
-    public virtual ICollection<TBL_Event> TBL_Event { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
     public virtual ICollection<TBL_Followers> TBL_Followers { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<TBL_Workshop> TBL_Workshop { get; set; }
 
     public virtual TBL_Region TBL_Region { get; set; }
 

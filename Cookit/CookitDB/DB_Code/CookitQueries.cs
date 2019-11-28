@@ -273,42 +273,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-        
-        #region Get All Events
-        // הפוקנציה מביאה אירועים מהמסד נתונים
-        public static List<TBL_Event> Get_all_Events()
-        {
-            try
-            {
-                var db = Get_DB();
-                //  Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                return db.TBL_Event.ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region Get All Workshops
-        // הפוקנציה מביאה סדנאות מהמסד נתונים
-        public static List<TBL_Workshop> Get_all_Workshops()
-        {
-            try
-            {
-                var db = Get_DB();
-                //  Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                return db.TBL_Workshop.ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
+               
 
         #region Get All Holidays
         // הפוקנציה מביאה מהמסד את כל אופני המדידה למתכון
@@ -795,47 +760,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-        #region Add New Event
-        //פונקציה של הוספת אירוע חדש לטבלת האירועים
-        public static bool AddNewEvent(TBL_Event new_event)
-        {
-            try
-            {
-                var db = Get_DB();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                db.Entry(new_event).State = System.Data.Entity.EntityState.Added; // הוספת אירוע חדש
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-        #endregion
-
-        #region Add New Workshop
-        //פונקציה של הוספת סדנא חדשה לטבלת הסדנאות
-        public static bool AddNewWorkshop(TBL_Workshop new_workshop)
-        {
-            try
-            {
-                var db = Get_DB();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                db.Entry(new_workshop).State = System.Data.Entity.EntityState.Added; // הוספת סדנא חדשה
-                db.SaveChanges();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-        #endregion
-
+                       
         #region Add New Food Lables 2 Recipe
         //פונקציה של הוספת תוויות למתכון
         public static bool AddNewFoodLables2Recipe(List<TBL_LabelsForRecp> new_foodlbl2rcp)
@@ -938,8 +863,6 @@ namespace CookitDB.DB_Code
                     u.Gender = newUser.Gender;
                     u.Email = newUser.Email;
                     u.Id_Type = newUser.Id_Type;
-                    //u.UserStatus = newUser.UserStatus;
-                    //u.NumDrawRecp = newUser.NumDrawRecp;
 
                     db.SaveChanges();
                     return true;
@@ -1307,8 +1230,8 @@ namespace CookitDB.DB_Code
                 {
                     var user_password = user.UserPass;
                     //SendMail to user with password
-                    bool isSent = Mail.SendMail("orlydanielov@outlook.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password + ".");
-                    //bool isSent = Mail.SendMail("orlydanielov@gmail.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password+".");
+                    //bool isSent = Mail.SendMail("orlydanielov@outlook.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password + ".");
+                    bool isSent = Mail.SendMail("orlydanielov@gmail.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password + ".");
                     if (isSent)
                         return true;
                     else

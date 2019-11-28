@@ -22,8 +22,6 @@ public partial class TBL_User
     public TBL_User()
     {
 
-        this.TBL_DrawerRecp = new HashSet<TBL_DrawerRecp>();
-
         this.TBL_FavoriteRecp = new HashSet<TBL_FavoriteRecp>();
 
         this.TBL_Followers = new HashSet<TBL_Followers>();
@@ -31,8 +29,6 @@ public partial class TBL_User
         this.TBL_Likes = new HashSet<TBL_Likes>();
 
         this.TBL_Recipe = new HashSet<TBL_Recipe>();
-
-        this.TBL_WorkshopParticipents = new HashSet<TBL_WorkshopParticipents>();
 
         this.TBL_Profile = new HashSet<TBL_Profile>();
 
@@ -57,13 +53,7 @@ public partial class TBL_User
 
     public bool UserStatus { get; set; }
 
-    public int NumDrawRecp { get; set; }
 
-
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<TBL_DrawerRecp> TBL_DrawerRecp { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
@@ -80,10 +70,6 @@ public partial class TBL_User
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<TBL_Recipe> TBL_Recipe { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<TBL_WorkshopParticipents> TBL_WorkshopParticipents { get; set; }
 
     public virtual TBL_UserType TBL_UserType { get; set; }
 

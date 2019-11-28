@@ -13,8 +13,7 @@ namespace Cookit.Controllers
 {
     [RoutePrefix("api/User")]
     public class UserController : ApiController
-    {
-        
+    {        
         #region Login
         [Route("{email}/{pass}")]
         [HttpGet]
@@ -39,7 +38,6 @@ namespace Cookit.Controllers
                     result.gender = user.Gender;
                     result.pasword = user.UserPass;
                     result.status = user.UserStatus;
-                    result.number_of_draw_recipe = user.NumDrawRecp;
 
                     return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
@@ -154,8 +152,6 @@ namespace Cookit.Controllers
                    Gender = newUser.gender,
                    UserPass = newUser.pasword,
                    UserStatus = newUser.status,
-                   NumDrawRecp = newUser.number_of_draw_recipe
-
                 };
                 var user_id = CookitDB.DB_Code.CookitQueries.AddNewUser(u);
                 if (user_id != -1)
@@ -188,8 +184,7 @@ namespace Cookit.Controllers
                     Email = user.email,
                     Gender = user.gender,
                     UserPass = user.pasword,
-                    UserStatus = user.status,
-                    NumDrawRecp = user.number_of_draw_recipe
+                    UserStatus = user.status
                 };
                 var is_saved = CookitDB.DB_Code.CookitQueries.UpdateUserInfo(u);
                 if (is_saved == true)
@@ -203,6 +198,5 @@ namespace Cookit.Controllers
             }
         }
         #endregion
-              
     }
 }

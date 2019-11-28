@@ -6,12 +6,6 @@ var ARRY_USER_TYPE = JSON.parse(sessionStorage.getItem("ARRY_USER_TYPE"));
 //*******************************************************************************************
 // UPLOAD PAGE
 //*******************************************************************************************
-/*
-$(document).ready(function ()
-{
-    $('#menu').load("Menu_Login.html");
-});
-*/
 $(document).ready(function ()
 // הפונקציה קוראת בתחילת הקריאה לדף
 {

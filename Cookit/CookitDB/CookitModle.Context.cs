@@ -32,15 +32,9 @@ public partial class Cookit_DBConnection : DbContext
     }
 
 
-    public virtual DbSet<TBL_Barcode> TBL_Barcode { get; set; }
-
     public virtual DbSet<TBL_DishCategory> TBL_DishCategory { get; set; }
 
     public virtual DbSet<TBL_DishType> TBL_DishType { get; set; }
-
-    public virtual DbSet<TBL_DrawerRecp> TBL_DrawerRecp { get; set; }
-
-    public virtual DbSet<TBL_Event> TBL_Event { get; set; }
 
     public virtual DbSet<TBL_FavoriteRecp> TBL_FavoriteRecp { get; set; }
 
@@ -64,27 +58,15 @@ public partial class Cookit_DBConnection : DbContext
 
     public virtual DbSet<TBL_Likes> TBL_Likes { get; set; }
 
-    public virtual DbSet<TBL_Managers> TBL_Managers { get; set; }
-
     public virtual DbSet<TBL_Mesurments> TBL_Mesurments { get; set; }
-
-    public virtual DbSet<TBL_NutritionalIngridiants> TBL_NutritionalIngridiants { get; set; }
 
     public virtual DbSet<TBL_Recipe> TBL_Recipe { get; set; }
 
     public virtual DbSet<TBL_RecipeDifficultyLevel> TBL_RecipeDifficultyLevel { get; set; }
 
-    public virtual DbSet<TBL_Star> TBL_Star { get; set; }
-
-    public virtual DbSet<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
-
     public virtual DbSet<TBL_User> TBL_User { get; set; }
 
     public virtual DbSet<TBL_UserType> TBL_UserType { get; set; }
-
-    public virtual DbSet<TBL_Workshop> TBL_Workshop { get; set; }
-
-    public virtual DbSet<TBL_WorkshopParticipents> TBL_WorkshopParticipents { get; set; }
 
     public virtual DbSet<TBL_City> TBL_City { get; set; }
 

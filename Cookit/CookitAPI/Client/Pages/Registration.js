@@ -441,8 +441,7 @@ function CheckProfileInputs() {
             email: ($("#email").val()).toString(),
             gender: ($("input[name='gender']:checked").val()).toString(),
             pasword: ($("#password").val()).toString(),
-            status: true,
-            number_of_draw_recipe: 0
+            status: true
         };
         //שליחת הנתונים לשרת
         GlobalAjax("/api/User/AddNewUser", "POST", new_user, SuccessUser, FailUser);
@@ -464,24 +463,7 @@ function CheckProfileInputs() {
         console.log(data.T);
         alert('שגיאה בהוספת המשתמש לשרת.');
     }
-//***************************************************************************//
-/*
-function GetUserIdByEmail() {
-    var email = $("#email").val();
-    GlobalAjax("/api/User/"+ email+"/GetUserIdByEmail", "GET", "", Success_GetUserIdByEmail, Fail_GetUserIdByEmail);
-}
 
-function Success_GetUserIdByEmail(user_id) {
-    console.log("user id = " + user_id);
-    AddNewProfile(user_id);
-}
-
-function Fail_GetUserIdByEmail(data) {
-    console.log("error, can't get user id by his mail.");
-    console.log(data);
-    alert("ישנה תקלה כעת בשרת, אנא נסה להרשם במועד אחר!.");
-}
-*/
 //***************************************************************************//
 
     function AddNewProfile(user_id)// הפונקציה שולחת את פרטי משתמש לשרת

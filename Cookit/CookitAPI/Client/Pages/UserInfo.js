@@ -39,8 +39,8 @@ $(document).ready(function ()
     if (IS_PROFILE) {
         document.getElementById("profile_view").style.display = "block";
         document.getElementById("profile_view").reload;
+        ViewProfileInfo();
         GetCity();
-       //get cities play get region and view profile information
     }
 });
 //*******************************************************************************************
@@ -192,6 +192,7 @@ function ViewProfileInfo()
     ViewSelectOneOptInformation("profile_city", PROFILE_INFORMATION.id_city);
     ViewSelectOneOptInformation("profile_region", PROFILE_INFORMATION.id_region);
 }
+
 //*******************************************************************************************
 // EDIT
 //*******************************************************************************************

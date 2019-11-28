@@ -32,8 +32,6 @@ public partial class TBL_Recipe
 
         this.TBL_Likes = new HashSet<TBL_Likes>();
 
-        this.TBL_StarsForRecp = new HashSet<TBL_StarsForRecp>();
-
         this.TBL_Comments = new HashSet<TBL_Comments>();
 
     }
@@ -92,10 +90,6 @@ public partial class TBL_Recipe
     public virtual ICollection<TBL_Likes> TBL_Likes { get; set; }
 
     public virtual TBL_RecipeDifficultyLevel TBL_RecipeDifficultyLevel { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
 
     public virtual TBL_User TBL_User { get; set; }
 

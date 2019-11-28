@@ -15,6 +15,8 @@
     <!--java script code  -->
     <script src="View_Follow_Profiles.js"></script>
     <script src="GlobalAjax.js"></script>
+    <script src="Menu_Login.js"></script>
+
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
     <link rel="stylesheet" type="text/css" href="FormStyle.css">
@@ -31,6 +33,9 @@
                         <a class="nav-link" href="View_All_Profiles.html">פרופילים</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="User_Cookbook.html">ספר המתכונים שלי</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="View_All_Recipes_Login.html">מתכונים</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -40,7 +45,7 @@
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" style="text-align:center">
                             <div id="User_Login_Details" class="dropdown-item">
-                                <img src="../Images/Background_pic/user_null_fic.svg" />
+                                <!--<img src="../Images/Background_pic/user_null_fic.svg" />-->
                                 <p id="menu_user_name"></p>
                                 <p id="menu_user_type"></p>
                                 <button id="btn_logout" class="btn-dark" onclick="Logout()">התנתק</button>
@@ -51,12 +56,8 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="View_Follow_Profiles.html">פרופילים נעקבים</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="Upload_Recipe.html">העלאת מתכון חדש</a>
-                            <a class="dropdown-item" href="User_Cookbook.html">ספר המתכונים הדיגיטלי שלי</a>
+                            <a class="dropdown-item" href="Add_New_Recipe.html">העלאת מתכון חדש</a>
                         </div>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="Home_login.html">דף הבית <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
@@ -64,7 +65,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="Home_logout.html">
+            <a class="navbar-brand" href="Home_login.html">
                 <img src="/Client/Images/Background_pic/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 Cookit
             </a>
@@ -72,7 +73,7 @@
     </header>
     <!--פרופילים נעקבים-->
     <main role="main" class="flex-shrink-0 container  bg_brigth">
-        <form >
+        <form>
             <fieldset>
                 <legend>פרופילים נעקבים</legend>
                 <div id="follows_profiles">
@@ -81,16 +82,16 @@
             </fieldset>
         </form>
     </main>
-        <!--תחתית-->
-        <footer class="footer mt-auto py-3 fixed-bottom ">
-            <div class="container">
-                <p class="mb-1">&copy; Cookit</p>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="#">Privacy</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Support</a></li>
-                </ul>
-            </div>
-        </footer>
+    <!--תחתית-->
+    <footer class="footer mt-auto py-3 fixed-bottom ">
+        <div class="container">
+            <p class="mb-1">&copy; Cookit</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

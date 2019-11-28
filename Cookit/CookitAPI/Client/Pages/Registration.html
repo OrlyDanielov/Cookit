@@ -22,7 +22,7 @@
 
 </head>
 <body>
-    <!--תפריט-->   
+    <!--תפריט-->
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
@@ -38,9 +38,8 @@
                         <a class="nav-link" href="View_All_Recipes.html">מתכונים</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="Home_logout.html">דף הבית <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="Home_logout.html">דף הבית</a>
                     </li>
-
                 </ul>
             </div>
             <!-- Hamborger navbar -->
@@ -48,7 +47,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="Home_logout.html">
-                <img src="/Client/Images/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                <img src="/Client/Images/Background_pic/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 CookIt
             </a>
         </nav>
@@ -56,7 +55,7 @@
     <!-- טופס הרשמה -->
     <div class="container bg_brigth">
         <h2>הרשמה</h2>
-        <form name="registration_form" >
+        <form name="registration_form">
             <fieldset id="private_details">
                 <legend>פרטים אישיים</legend>
                 <div class="form-row">
@@ -76,7 +75,7 @@
                         <label for="last_name" class="col-sm-6 col-form-label">שם משפחה</label>
                         <input type="text" class="form-control" id="last_name">
                         <div id="feedback_last_name" class="not_valid_feedback"></div>
-                    </div> 
+                    </div>
                     <!-- שם פרטי -->
                     <div class="col">
                         <label for="first_name" class="col-sm-6 col-form-label">שם פרטי</label>
@@ -105,24 +104,24 @@
                 <div class="form-row">
                     <!-- מין -->
                     <div class="col">
-                            <label for="div_gender" class="col-sm-4 col-form-label">מין</label>
-                            <div class="custom-control custom-radio">
-                                <input id="female" name="gender" value="F" type="radio" class="custom-control-input" checked>
-                                <label class="custom-control-label" for="female">נקבה</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input id="male" name="gender" value="M" type="radio" class="custom-control-input">
-                                <label class="custom-control-label" for="male">זכר</label>
-                            </div>
+                        <label for="div_gender" class="col-sm-4 col-form-label">מין</label>
+                        <div class="custom-control custom-radio">
+                            <input id="female" name="gender" value="F" type="radio" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="female">נקבה</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="male" name="gender" value="M" type="radio" class="custom-control-input">
+                            <label class="custom-control-label" for="male">זכר</label>
+                        </div>
                     </div>
-                        <!-- סוג משתמש (אנין טעם \ חובב \ עסקי)) -->
+                    <!-- סוג משתמש (אנין טעם \ חובב \ עסקי)) -->
                     <div class="col">
                         <label for="user_type" class="col-sm-4 col-form-label">סוג משתמש</label>
                         <!--<i id="btn_explanation_user_type" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
                         <i id="btn_explanation_user_type" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
                         <span class="popuptext" id="user_type_popup">
                             למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו. למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים.בנוסף יכול להעלות סדנאות לקהילה באתר.
-                           למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלןת אירוע עסקי לאתר.
+                            למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלןת אירוע עסקי לאתר.
                         </span>
                         <!--<div id="explanation_user_type" class="explanation"></div>-->
                         <div class="col-sm-10">
@@ -132,7 +131,7 @@
                         </div>
                         <div id="feedback_user_type" class="not_valid_feedback"></div>
                     </div>
-                    </div>
+                </div>
             </fieldset>
             <hr class="mb-4">
             <!-- פרטי פרופיל -->
@@ -182,8 +181,8 @@
         </form>
     </div>
     <!--תחתית-->
-    <!--<footer id="footer"></footer>-->
-    <footer class="footer mt-auto py-3 fixed-bottom ">
+    <!--<footer class="footer mt-auto py-3 fixed-bottom ">-->
+    <footer class=" mt-auto py-3 fixed-bottom">
         <div class="container">
             <p class="mb-1">&copy; CookIt</p>
             <ul class="list-inline">

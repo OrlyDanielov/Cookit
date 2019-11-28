@@ -24,8 +24,6 @@ public partial class TBL_Mesurments
 
         this.TBL_IngridiantForRecp = new HashSet<TBL_IngridiantForRecp>();
 
-        this.TBL_NutritionalIngridiants = new HashSet<TBL_NutritionalIngridiants>();
-
     }
 
 
@@ -38,10 +36,6 @@ public partial class TBL_Mesurments
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
     public virtual ICollection<TBL_IngridiantForRecp> TBL_IngridiantForRecp { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<TBL_NutritionalIngridiants> TBL_NutritionalIngridiants { get; set; }
 
 }
 

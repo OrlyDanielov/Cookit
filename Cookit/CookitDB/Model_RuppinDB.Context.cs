@@ -30,8 +30,6 @@ namespace CookitDB
         public virtual DbSet<TBL_Comments> TBL_Comments { get; set; }
         public virtual DbSet<TBL_DishCategory> TBL_DishCategory { get; set; }
         public virtual DbSet<TBL_DishType> TBL_DishType { get; set; }
-        public virtual DbSet<TBL_DrawerRecp> TBL_DrawerRecp { get; set; }
-        public virtual DbSet<TBL_Event> TBL_Event { get; set; }
         public virtual DbSet<TBL_FavoriteRecp> TBL_FavoriteRecp { get; set; }
         public virtual DbSet<TBL_Followers> TBL_Followers { get; set; }
         public virtual DbSet<TBL_FoodType> TBL_FoodType { get; set; }
@@ -41,18 +39,11 @@ namespace CookitDB
         public virtual DbSet<TBL_KitchenType> TBL_KitchenType { get; set; }
         public virtual DbSet<TBL_Likes> TBL_Likes { get; set; }
         public virtual DbSet<TBL_Mesurments> TBL_Mesurments { get; set; }
-        public virtual DbSet<TBL_NutritionalIngridiants> TBL_NutritionalIngridiants { get; set; }
         public virtual DbSet<TBL_Profile> TBL_Profile { get; set; }
         public virtual DbSet<TBL_Recipe> TBL_Recipe { get; set; }
         public virtual DbSet<TBL_RecipeDifficultyLevel> TBL_RecipeDifficultyLevel { get; set; }
-        public virtual DbSet<TBL_Star> TBL_Star { get; set; }
-        public virtual DbSet<TBL_StarsForRecp> TBL_StarsForRecp { get; set; }
         public virtual DbSet<TBL_User> TBL_User { get; set; }
         public virtual DbSet<TBL_UserType> TBL_UserType { get; set; }
-        public virtual DbSet<TBL_Workshop> TBL_Workshop { get; set; }
-        public virtual DbSet<TBL_WorkshopParticipents> TBL_WorkshopParticipents { get; set; }
         public virtual DbSet<TBL_FoodLabel> TBL_FoodLabel { get; set; }
-        public virtual DbSet<TBL_Managers> TBL_Managers { get; set; }
-        public virtual DbSet<TBL_Barcode> TBL_Barcode { get; set; }
     }
 }

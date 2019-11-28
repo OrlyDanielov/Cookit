@@ -17,12 +17,13 @@ namespace CookitDB.DB_Code
             try
             {
                 // new SmtpClient("smtp.live.com", 25);
-                //cv.Credentials = new NetworkCredential("orlydanielov@outlook.com", "712946od");
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);             
+                //SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);           
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+
                 smtp.EnableSsl = true;
                 //smtp.Timeout = 10000;
                 smtp.Credentials = new System.Net.NetworkCredential("orlydanielov@gmail.com", "712946orlyd");
-                smtp.UseDefaultCredentials = true;//false;
+                smtp.UseDefaultCredentials = false;
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 //המייל
                 MailMessage mail = new MailMessage(_sender_mail,_reciver_mail,_subject,_message); //new MailMessage();
