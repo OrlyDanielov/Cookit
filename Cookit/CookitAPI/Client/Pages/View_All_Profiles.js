@@ -6,7 +6,6 @@ var PROFILE_VIEW_DISPLAY = new Array();
 var COUNT_PROFILE = 1;
 var COUNT_NAME_PROFILE = 1;
 
-
 var ARRY_CITY = null;
 var ARRY_REGION = null;
 

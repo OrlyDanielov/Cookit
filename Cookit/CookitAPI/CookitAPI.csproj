@@ -363,6 +363,8 @@
     <Content Include="Client\Pages\View_All_Recipes.js" />
     <Content Include="Client\Pages\View_All_Recipes_Login.html" />
     <Content Include="Client\Pages\View_All_Recipes_Login.js" />
+    <Content Include="Client\Pages\View_Follow_Profiles.html" />
+    <Content Include="Client\Pages\View_Follow_Profiles.js" />
     <Content Include="Client\Pages\View_Profile.html" />
     <Content Include="Client\Pages\View_Profile.js" />
     <Content Include="Client\Pages\View_Recipe.html" />

@@ -20,6 +20,7 @@ function SuccessLogin(user)
     //console.log("login success!.");
     //alert("login success!.");
     // שמירת המשתמש המחובר והעברה לדף הבית
+    sessionStorage.clear();
     sessionStorage.setItem("Login_User", JSON.stringify(user));
     //בדיקה האם למשתמש יש גם פרופיל, אז להביא גם את הפרטים האלה
     if (user.user_type == 2 || user.user_type == 3)
