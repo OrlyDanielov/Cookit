@@ -215,9 +215,18 @@ function FailGetAllProfiles() {
 //*******************************************************************************************
 function ShowProfiles() {
     COUNT_NAME_PROFILE = 1;
+    var login_id;
+    var profile_id;
     for (var i = 0; i < PROFILE_VIEW_DISPLAY.length; i++) {
-        GetProfileCountFollows(PROFILE_VIEW_DISPLAY[i]);
-        //AddProfile(PROFILE_VIEW_DISPLAY[i]);
+        login_id = LOGIN_USER.id;
+        profile_id = PROFILE_VIEW_DISPLAY[i].user_id;
+        if (profile_id == login_id) //אם המשתמש המחובר זה הפרופיל
+        {
+            PROFILE_VIEW_DISPLAY.splice(i, 1); //לא להציג אתו
+            i--;
+        }
+        else
+            GetProfileCountFollows(PROFILE_VIEW_DISPLAY[i]);
     }
 }
 function AddProfile(_profile) {
@@ -498,10 +507,10 @@ function GetProfileByName(prof_name)
 //מחזיר פרופיל לפי שם. יכול להיות רשימה של פרופילים
 {
     var list_profiles = new Array();
-    for (var i = 0; i < PROFILES.length; i++) {
-        console.log(PROFILES[i].name.indexOf(prof_name));
-        if (PROFILES[i].name.indexOf(prof_name) >= 0) // התאמה לכל או כל השם
-            list_profiles.push( PROFILES[i]);
+    for (var i = 0; i < PROFILE_VIEW_DISPLAY.length; i++) {
+        console.log(PROFILE_VIEW_DISPLAY[i].name.indexOf(prof_name));
+        if (PROFILE_VIEW_DISPLAY[i].name.indexOf(prof_name) >= 0) // התאמה לכל או כל השם
+            list_profiles.push(PROFILE_VIEW_DISPLAY[i]);
     }
     return list_profiles;
 }
@@ -514,10 +523,10 @@ function GetProfileByCity(cities)
 {
     var list_profiles = new Array();
     for (var h = 0; h < cities.length; h++) {
-        for (var i = 0; i < PROFILES.length; i++) {
-            console.log(PROFILES[i].id_city ==cities[h]);
-            if (PROFILES[i].id_city == cities[h]) 
-                list_profiles.push(PROFILES[i]);
+        for (var i = 0; i < PROFILE_VIEW_DISPLAY.length; i++) {
+            console.log(PROFILE_VIEW_DISPLAY[i].id_city ==cities[h]);
+            if (PROFILE_VIEW_DISPLAY[i].id_city == cities[h]) 
+                list_profiles.push(PROFILE_VIEW_DISPLAY[i]);
         }
     }
     return list_profiles;
