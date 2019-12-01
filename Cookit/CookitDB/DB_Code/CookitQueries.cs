@@ -584,6 +584,22 @@ namespace CookitDB.DB_Code
         }
         #endregion
 
+        #region Get Profiles Follows After User By Profile Id
+        // מביא את כל העוקבים אחרי הפרופיל לפי התז שלו
+        public static List<TBL_Followers> GetProfilesFollowsAfterUserByProfileId(int id_profile)
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Followers.Where(x => x.Id_Prof == id_profile).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Ge tProfile Follow By Profile Id
         //מביא את כל המשתמשים העוקבים אחרי פרופיל לפי התז פרופיל
         public static List<TBL_Followers> GetProfileFollowByProfileId(int profile_id)

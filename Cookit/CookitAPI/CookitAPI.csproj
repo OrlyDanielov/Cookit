@@ -353,6 +353,8 @@
     <Content Include="Client\Pages\View_Follow_Profiles.js" />
     <Content Include="Client\Pages\View_Profile.html" />
     <Content Include="Client\Pages\View_Profile.js" />
+    <Content Include="Client\Pages\View_Profile_Follow_After_Me.html" />
+    <Content Include="Client\Pages\View_Profile_Follow_After_Me.js" />
     <Content Include="Client\Pages\View_Recipe.html" />
     <Content Include="Client\Pages\View_Recipe.js" />
     <Content Include="Client\Pages\View_Recipe_Login.html" />

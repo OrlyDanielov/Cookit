@@ -2,23 +2,27 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Home</title>
+    <title>view profile follow after me</title>
     <!-- Required meta tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--java script code  -->
+    <script src="View_Profile_Follow_After_Me.js"></script>
     <script src="GlobalAjax.js"></script>
     <script src="Menu_Login.js"></script>
+
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="GeneralStyle.css">
+    <link rel="stylesheet" type="text/css" href="FormStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
     <!--תפריט-->
     <header>
@@ -68,63 +72,20 @@
             </a>
         </nav>
     </header>
-    <!--תוכן דף -->
-    <main role="main" class="flex-shrink-0">
-        <div class="container bg_brigth">
-            <!--תוכן דף בית משתמש רשום-->
-            <div id="Home_body">
-                <center>
-                    <h1>
-                        <b>
-                            <font color="red">
-                                ברוכים הבאים לאתר
-                                <br>
-                                CookIt!
-                            </font>
-                        </b>
-                    </h1>
-                    <h3><b><font color="red">אפלקציית המתכונים החדשנית </font></b></h3>
+    <main role="main" class="flex-shrink-0 container  bg_brigth">
+        <form>
+            <fieldset>
+                <legend>פרופילים עוקבים אחרי</legend>
+                <div id="follows_profiles">
 
-                    <p class="lead">
-                        .הינה אפליקציית מתכונים משודרגת בעלת פן חברתי רחב
-                        CookIt
-                        <br>
-                        .אצלנו תוכלו להינות מאוסף של מתכונים בטעם הישראלי הייחודי
-                        <br>
-                        .תצללו לתוך מאגר המתכונים שלנו, העשיר והמיוחד, ממגוון סגנונות מטבח מוכרים
-                        <br>
-                        :המאפשרת למשתמשים בה
-                        CookIt
-                        בנוסף אצלנו נוצרת קהילת
-                        <br>
-                        להתחבר אחד עם השני,
-                        להצטרף לסדנאות קהילתיות
-                        ולהזמין לאירועים עיסקיים
-                        <br />
-                        .בתחום הקולוניריה
-
-                        <br>
-                        אצלנו ניתן ליצור ספר מתכונים דיגיטלי עם המתכונים שלכם
-                        <br>
-                        .ומתכונים של אחרים כאן שהכי אהבתם ומעוניינים לשמור
-
-                        <br><br><br>
-                        <b>
-                            אז יאללה הגיע הזמן לעזוב את ספרי המתכונים, מחברות ישנות ותצלומי מתכונים בטלפון
-                            <br>
-                            .וליצור לעצמכם ספר מתכונים דיגיטלי אישי וייחודי לטעמך
-                            <br>
-                            .תתחילו להינות מאפליקצייה ידידותית וחכמה עם הרבה תוכן ועניין
-                        </b>
-                    </p>
-                </center>
-            </div>
-        </div>
+                </div>
+            </fieldset>
+        </form>
     </main>
     <!--תחתית-->
     <footer class="footer mt-auto py-3 fixed-bottom ">
         <div class="container">
-            <p class="mb-1">&copy; CookIt</p>
+            <p class="mb-1">&copy; Cookit</p>
             <ul class="list-inline">
                 <li class="list-inline-item"><a href="#">Privacy</a></li>
                 <li class="list-inline-item"><a href="#">Terms</a></li>

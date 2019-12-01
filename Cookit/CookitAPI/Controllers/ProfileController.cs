@@ -144,6 +144,60 @@ namespace CookitAPI.Controllers
         }
         #endregion
 
+        #region GetProfilesFollowsAfterUserByProfileId
+        [Route("GetProfilesFollowsAfterUserByProfileId/{profile_id}")]
+        [HttpGet]
+        public HttpResponseMessage GetProfilesFollowsAfterUserByProfileId(int profile_id)
+            //מביא את הפרופילים העוקבים אחרי פרופיל לפי התז שלו
+        {
+            try
+            {
+                Cookit_DBConnection db = new Cookit_DBConnection();
+                //תז הפרופילים העוקבים אחרי לפי תז משתמש 
+                List<TBL_Followers> follows_list = CookitDB.DB_Code.CookitQueries.GetProfilesFollowsAfterUserByProfileId(profile_id);
+                if (follows_list == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, follows_list);
+                }
+                else
+                {
+                    //הפרופילים העוקבים אחרי
+                    //List<ProfileDTO> profiles_list = new List<ProfileDTO>();
+                    List<ProfileDTO> profiles_list = new List<ProfileDTO>();
+                    TBL_Profile profile;//= new TBL_Profile;
+                                        //בודק האם העוקב הוא פרופיל או משתמש. אם פרופיל מוסיף לרשימה
+                                        //מביא את הפרופיל לפי התז שלו ודוחף לרשימה
+                    foreach (TBL_Followers item in follows_list)
+                    {
+                        profile = CookitDB.DB_Code.CookitQueries.GetProfileByUserId(item.Id_User);
+                        if (profile != null)
+                        {
+                            profiles_list.Add(new ProfileDTO
+                            {
+                                id = profile.Id_Prof,
+                                user_id = profile.Id_User,
+                                type = profile.ProfType,
+                                name = profile.Name_Prof,
+                                description = profile.ProfDescription,
+                                id_city = profile.Id_City,
+                                id_region = profile.Id_Region,
+                                status = profile.ProfStatus
+                            });
+                        }
+                        else
+                            profiles_list.Add(null);
+
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, profiles_list);
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, e.Message);
+            }
+        }
+        #endregion
+
         #region Check if Profile Exsist 
         //check if exsist profile match to user id
         [Route("CheckProfileExsistByUserId/{user_id}")]
