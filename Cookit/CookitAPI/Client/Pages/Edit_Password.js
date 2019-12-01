@@ -146,5 +146,5 @@ function HidePassword(_btn_id) {
     var arry = _btn_id.split("_");
     var _id = arry[1] + '_' + arry[2];
     var _element = document.getElementById(_id).setAttribute('type', 'password');
-    var icom = document.getElementById(_btn_id).setAttribute('onclick', 'HidePassword(this.id)');
+    var icom = document.getElementById(_btn_id).setAttribute('onclick', 'ShowPassword(this.id)');
 }

@@ -537,3 +537,25 @@ function ShowPopup(_id) {
     var popup = document.getElementById(name);
     popup.classList.toggle("show");
 }
+//*******************************************************************************************
+//ShowPassword
+//*******************************************************************************************
+function ShowPassword(_btn_id) {
+    var arry = _btn_id.split("_");
+    var _id = arry[1];
+    if (arry.length > 2)
+        _id+= '_' + arry[2];
+    var _element = document.getElementById(_id).setAttribute('type', 'input');
+    var icom = document.getElementById(_btn_id).setAttribute('onclick', 'HidePassword(this.id)');
+}
+//*******************************************************************************************
+//HidePassword
+//*******************************************************************************************
+function HidePassword(_btn_id) {
+    var arry = _btn_id.split("_");
+    var _id = arry[1];
+    if (arry.length > 2)
+        _id += '_' + arry[2];
+    var _element = document.getElementById(_id).setAttribute('type', 'password');
+    var icom = document.getElementById(_btn_id).setAttribute('onclick', 'ShowPassword(this.id)');
+}

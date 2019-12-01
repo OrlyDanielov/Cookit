@@ -87,6 +87,7 @@
                     <!-- אימות סיסמה -->
                     <div class="col">
                         <label for="password_authentication" class="col-sm-4 col-form-label">אימות סיסמה</label>
+                        <i id="icon_password_authentication" class="fa fa-eye" data-toggle="tooltip" title="הקלק על הסימן כדי להראות את הסיסמה" style="font-size:24px" onclick="ShowPassword(this.id)"></i>
                         <input type="password" class="form-control" id="password_authentication">
                         <div id="feedback_password_authentication" class="not_valid_feedback"></div>
                     </div>
@@ -97,6 +98,7 @@
                         <i id="btn_explanation_password" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
                         <span class="popuptext" id="password_popup">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
                         <!--<div id="explanation_password" class="explanation"></div>-->
+                        <i id="icon_password" class="fa fa-eye" data-toggle="tooltip" title="הקלק על הסימן כדי להראות את הסיסמה" style="font-size:24px" onclick="ShowPassword(this.id)"></i>
                         <input type="password" class="form-control" id="password">
                         <div id="feedback_password" class="not_valid_feedback"></div>
                     </div>

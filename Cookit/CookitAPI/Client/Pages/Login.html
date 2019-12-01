@@ -24,8 +24,6 @@
 </head>
 <body>
     <!--תפריט-->
-    <!--<header id="menu"></header>-->
-    <!--תפריט-->
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
@@ -73,6 +71,7 @@
                     <input type="password" id="inputPassword" placeholder="סיסמה" equired />
                     <!--<span id="explanation_password" class="explanation"></span>-->
                     <!--<i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
+                    <i id="icon_inputPassword" class="fa fa-eye" data-toggle="tooltip" title="הקלק על הסימן כדי להראות את הסיסמה" style="font-size:24px" onclick="ShowPassword(this.id)"></i>
                     <i id="btn_explanation_password" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
                     <span class="popuptext" id="password_popup">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
                     <div id="feedback_password" class="not_valid_feedback"></div>
