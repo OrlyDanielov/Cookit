@@ -320,6 +320,8 @@
     <Content Include="Client\Images\Profiles_pic\profile.jpg" />
     <Content Include="Client\Images\Recipes_pic\chokolate cake.jpg" />
     <Content Include="Client\Images\Recipes_pic\pasta.jpg" />
+    <Content Include="Client\Pages\Edit_Password.html" />
+    <Content Include="Client\Pages\Edit_Password.js" />
     <Content Include="Client\Pages\FormStyle.css" />
     <Content Include="Client\Pages\GeneralStyle.css" />
     <Content Include="Client\Pages\GlobalAjax.js" />

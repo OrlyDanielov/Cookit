@@ -863,6 +863,8 @@ namespace CookitDB.DB_Code
                     u.Gender = newUser.Gender;
                     u.Email = newUser.Email;
                     u.Id_Type = newUser.Id_Type;
+                    u.UserPass = newUser.UserPass;
+                    u.UserStatus = newUser.UserStatus;
 
                     db.SaveChanges();
                     return true;
