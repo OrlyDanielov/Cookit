@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>view Recipe</title>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+    <!--java script code  -->
+    <script src="View_Recipe.js"></script>
+    <script src="../GlobalAjax.js"></script>
+    <script src="Menu.js"></script>
+
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="../FormStyle.css">
+    <link rel="stylesheet" type="text/css" href="../GeneralStyle.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <!--תפריט-->
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="View_All_Profiles.html">פרופילים</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="User_Cookbook.html">ספר המתכונים שלי</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="View_All_Recipes.html">מתכונים</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link menu_text dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            אזור אישי
+                            <i class="fa fa-fw fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown" style="text-align:center">
+                            <div id="User_Login_Details">
+                                <p id="menu_user_name" style="color:#4bbdc9"></p>
+                                <p id="menu_user_type" style="color:#4bbdc9"></p>
+                                <button id="btn_logout" class="btn-light " onclick="Logout()">התנתק</button>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class=" menu_text" style="display:block;" href="View_And_Edit_User_Information.html">פרטיים אישיים</a>
+                            <a id="Page_My_Profile" class=" menu_text" href="My_Profile.html">הפרופיל שלי</a>
+                            <a class=" menu_text" style="display:block;" href="Edit_Password.html">החלפת סיסמה</a>
+                            <div class="dropdown-divider"></div>
+                            <a class=" menu_text" href="View_Follow_Profiles.html">פרופילים נעקבים</a>
+                            <a id="Page_Prpfile_Follow_Me" class=" menu_text" href="View_Profile_Follow_After_Me.html">פרופילים עוקבים</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="menu_text" href="Add_New_Recipe.html">העלאת מתכון חדש</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu_text" href="Home.html">דף בית</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Hamborger navbar -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="Home_logout.html" style="font-family:'Lobster',cursive;">
+                <img src="/Client/Images/Background_pic/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                CookIt
+            </a>
+        </nav>
+    </header>
+    <!--תוכן הדף-->
+    <main role="main" class="flex-shrink-0 ">
+        <form id="recipe" class="container bg_brigth ">
+            <h1 class="mb-3 " style="color:#4bbdc9;">מתכון</h1>
+            <h4 id="recipe_name" class="mb-3"></h4>
+            <div id="recipe_owner"></div>
+            <!--קטגוריות-->
+            <fieldset>
+                <!--תמונה-->
+                <div>
+                    <img id="recipe_picture" src="" style="height:400px;width:600px; border-radius: 30px; margin:10px;" alt="סליחה, התמונה איננה זמינה כעת.">
+                </div>
+                <!--פונקציות מתכון-->
+                <div class="form-row" id="recipe_functions">
+                    <!--מספר לייקים-->
+                    <div class="col">
+                        <span id="recipe_like_count"></span>
+                    </div>
+                    <!--לייק-->
+                    <div class="col">
+                        <i id="recipe_like" class="fa fa-heart-o" style="font-size:48px;color:red" onclick="" data-toggle="tooltip" data-placement="top" title="לייק למתכון"></i>
+                    </div>
+                    <!--שמור למועדפים-->
+                    <div class="col" id="div_recipe_favorite">
+                        <i id="recipe_favorite" class="fa fa-bookmark-o" style="font-size:48px;color:black" onclick="AddRemoveFavoriteRecipe()" data-toggle="tooltip" data-placement="top" title="שמירת מתכון למועדפים"></i>
+                    </div>
+                </div>
+            </fieldset>
+            <hr class="mb-4">
+            <fieldset>
+                <!--מאפייני מתכון-->
+                <div class="form-row">
+                    <div class="col">
+                        <div>דרגת קושי :</div>
+                        <div id="recipe_difficulty_level" style="color:#4bbdc9;"></div>
+                    </div>
+                    <div class="col">
+                        <div>זמן הכנה :</div>
+                        <div id="recipe_work_time" style="color:#4bbdc9;"></div>
+                    </div>
+                    <div class="col">
+                        <div>זמן כולל :</div>
+                        <div id="recipe_total_time" style="color:#4bbdc9;"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <div>סוג מנה :</div>
+                        <div id="recipe_dish_type" style="color:#4bbdc9;"></div>
+                    </div>
+                    <div class="col">
+                        <div>מאפיין מנה :</div>
+                        <div id="recipe_dish_category" style="color:#4bbdc9;"></div>
+                    </div>
+                    <div class="col">
+                        <div>סוג אוכל :</div>
+                        <div id="recipe_food_type" style="color:#4bbdc9;"></div>
+                    </div>
+                    <div class="col">
+                        <div>סגנון מטבח :</div>
+                        <span id="recipe_kitchen_type" style="color:#4bbdc9;"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <div>תוויות :</div>
+                        <div id="recipe_food_labels" style="color:#4bbdc9;"></div>
+                    </div>
+                    <div class="col">
+                        <div>חגים :</div>
+                        <span id="recipe_holidays" style="color:#4bbdc9;"></span>
+                    </div>
+                </div>
+            </fieldset>
+            <hr class="mb-4">
+            <!--מצרכים-->
+            <fieldset>
+                <legend>מצרכים</legend>
+                <div id="recipe_ingridiants" style="float:right;">
+
+                </div>
+            </fieldset>
+            <hr class="mb-4">
+            <!--אופן הכנה-->
+            <fieldset id="recipe_preparation_steps">
+                <legend>אופן הכנה</legend>
+
+            </fieldset>
+        </form>
+        <!--תגובות-->
+        <form id="comments" class="container bg_brigth">
+            <h4 class="mb-3">תגובות</h4>
+            <fieldset id="new_comment">
+                <legend>הוסף תגובה</legend>
+                <div class="form-row">
+                    <textarea id="user_comment" class="form-control" placeholder="הוסף תגובה ..."></textarea>
+                    <input type="button" id="btn_add_comment" value="הוסף תגובה" class="btn btn-group" style="float:right; right:0px;" onclick="AddNewComment()" />
+                </div>
+            </fieldset>
+            <fieldset id="old_comment"></fieldset>
+        </form>
+        <!--</div>-->
+    </main>
+    <!--תחתית-->
+    <div class="footer">
+        <div class="container">
+            <p class="mb-1 menu_text">&copy; CookIt</p>
+        </div>
+    </div>
+</body>
+</html>

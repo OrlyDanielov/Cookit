@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fdee1d436b844299871c9ea175681471" Name="Diagram1" ZoomLevel="45">
+      <Diagram DiagramId="fdee1d436b844299871c9ea175681471" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishCategory" Width="1.5" PointX="0.75" PointY="18.375" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_DishType" Width="1.5" PointX="0.75" PointY="16" />
         <EntityTypeShape EntityType="Cookit_DBModel.TBL_FavoriteRecp" Width="1.5" PointX="8.25" PointY="13.375" />

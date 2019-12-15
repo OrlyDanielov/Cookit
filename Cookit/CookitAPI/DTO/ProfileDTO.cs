@@ -9,11 +9,12 @@ namespace CookitAPI.DTO
     {
         public int id;
         public int user_id;
-        public string type;
         public string name;
         public string description;
         public int id_city;
         public int id_region;
         public bool status;
+        public string img_path;
+        public string img_name;
     }
 }

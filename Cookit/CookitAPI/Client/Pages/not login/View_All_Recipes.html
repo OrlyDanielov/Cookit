@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--java script code  -->
@@ -23,23 +24,22 @@
 </head>
 <body>
     <!--תפריט-->
-    <!--תפריט-->
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
                     <li>
-                        <a class="nav-link" href="Registration.html">הרשם</a>
+                        <a class="nav-link menu_text" href="Registration.html">הרשם</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="Login.html">התחבר</a>
+                        <a class="nav-link menu_text" href="Login.html">התחבר</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="View_All_Recipes.html">מתכונים</a>
+                        <a class="nav-link menu_text" href="View_All_Recipes.html">מתכונים</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="Home_logout.html">דף הבית</a>
+                    <li class="nav-item ">
+                        <a class="nav-link menu_text" href="Home_logout.html">דף הבית</a>
                     </li>
 
                 </ul>
@@ -48,7 +48,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="Home_logout.html">
+            <a class="navbar-brand" href="Home_logout.html" style="font-family:'Lobster',cursive;">
                 <img src="/Client/Images/Background_pic/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 CookIt
             </a>
@@ -56,6 +56,7 @@
     </header>
     <!--תוכן הדף-->
     <main role="main" class="flex-shrink-0 container  bg_brigth" style="margin-bottom:10px;">
+        <h1 class="mb-3 " style="color:#4bbdc9;">מתכונים</h1>
         <!--חיפוש לפי שם-->
         <div class="topnav" style="text-align:center;margin-bottom:10px;">
             <div style="display:inline; ">
@@ -64,17 +65,15 @@
             </div>
         </div>
         <!--<h4 class="mb-3">מתכונים</h4>-->
-        <form id="recipes_form"></form>
+        <form id="recipes_form">
+            <center>
+                <div id="loading_icon" style="display:none; text-align:center;" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </center>
+        </form>
     </main>
-    <!--<footer id="footer"></footer>-->
-    <footer class="footer mt-auto py-3 fixed-bottom ">
+    <footer class="footer">
         <div class="container">
-            <p class="mb-1">&copy; CookIt</p>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">Privacy</a></li>
-                <li class="list-inline-item"><a href="#">Terms</a></li>
-                <li class="list-inline-item"><a href="#">Support</a></li>
-            </ul>
+            <p class="mb-1 menu_text">&copy; CookIt</p>            
         </div>
     </footer>
 </body>

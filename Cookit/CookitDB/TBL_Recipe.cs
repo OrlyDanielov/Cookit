@@ -59,6 +59,10 @@ public partial class TBL_Recipe
 
     public string PreparationSteps { get; set; }
 
+    public string Image_Path { get; set; }
+
+    public string Image_Name { get; set; }
+
 
 
     public virtual TBL_DishCategory TBL_DishCategory { get; set; }

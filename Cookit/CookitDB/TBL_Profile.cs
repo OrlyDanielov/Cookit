@@ -31,8 +31,6 @@ public partial class TBL_Profile
 
     public int Id_User { get; set; }
 
-    public string ProfType { get; set; }
-
     public string Name_Prof { get; set; }
 
     public string ProfDescription { get; set; }
@@ -42,6 +40,10 @@ public partial class TBL_Profile
     public int Id_City { get; set; }
 
     public int Id_Region { get; set; }
+
+    public string Image_Path { get; set; }
+
+    public string Image_Name { get; set; }
 
 
 

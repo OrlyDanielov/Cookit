@@ -10,7 +10,7 @@ var COUNT_NAME_RECIPES = 1;
 // PAGE LOAD
 //*******************************************************************************************
 $(document).ready(function () {
-    Get_BUandFU_Recipes();    
+    Get_FU_Recipes();    
 });
 
 //*******************************************************************************************
@@ -20,11 +20,14 @@ $(document).ready(function () {
 //*******************************************************************************************
 // GET BU AND FU RECIPE 
 //*******************************************************************************************
-function Get_BUandFU_Recipes() {
-    GlobalAjax("/api/Recipe/GetAllRecipesOf_BU_AND_FU", "GET", "", SuccessGet_BUandFU_Recipes, FailGet_BUandFU_Recipes);
+function Get_FU_Recipes() {
+    //הפעלת איקון אניצציה של טעינה
+    document.getElementById("loading_icon").style.display = "block";
+
+    GlobalAjax("/api/Recipe/Get_FU_Recipes", "GET", "", SuccessGet_FU_Recipes, FailGet_FU_Recipes);
 }
 
-function SuccessGet_BUandFU_Recipes(data) {
+function SuccessGet_FU_Recipes(data) {
     console.log("משיכת נתוני מתכון בוצע בהצלחה!.");
     sessionStorage.setItem("ARRY_RECIPES", JSON.stringify(data));
     ARRY_RECIPES = data;
@@ -45,14 +48,19 @@ function SuccessGet_BUandFU_Recipes(data) {
             recp_holidays: null,
             recp_food_labels: null,
             recp_owner_name: null,
-            recp_count_like: null
+            recp_count_like: null,
+            img_name: ARRY_RECIPES[i].img_name,
+            img_path: ARRY_RECIPES[i].img_path
         });
     }
     //הצגת כל המתכונים
     ShowRecipes();
 }
 
-function FailGet_BUandFU_Recipes() {
+function FailGet_FU_Recipes() {
+    //הפעלת איקון אניצציה של טעינה
+    document.getElementById("loading_icon").style.display = "none";
+
     console.log("error! can't get recipe information.");
     console.log(data);
     alert("שגיאה במשיכת נתוני מתכון!, אנא נסה שנית מאוחד יותר.");
@@ -62,6 +70,9 @@ function FailGet_BUandFU_Recipes() {
 // Show Recipes
 //*******************************************************************************************
 function ShowRecipes() {
+    //הפעלת איקון אניצציה של טעינה
+    document.getElementById("loading_icon").style.display = "none";
+
     document.getElementById("recipes_form").innerHTML = "";
     COUNT_NAME_RECIPES = 1;
     for (var i = 0; i < ARRY_RECIPES_DISPLAY.length; i++) {
@@ -137,10 +148,10 @@ function AddRecipe(_recipe) {
     var recipe_img = document.createElement("img");
     recipe_img.id = "img_recipe_" + _recipe.recp_id;
     recipe_img.className = "profile shrink recipe_onhover_effect";
-    recipe_img.alt = " תמונת מתכון " + _recipe.recp_name;
-    recipe_img.src = "/Client/Images/Recipes_pic/chokolate cake.jpg";
-    recipe_img.style["width"] = "100%";
-    recipe_img.style["height"] = "50%";
+    recipe_img.alt = "סליחה, התמונה לא זמינה כעת";//" תמונת מתכון " + _recipe.recp_name;
+    recipe_img.src = _recipe.img_path;
+    recipe_img.style["width"] = "300px";//"100%";
+    recipe_img.style["height"] = "200px";//"50%";
     recipe_img.style["marginTop"] = "5px";
     recipe_img.setAttribute("onClick", "ShowRecipeData(this.id)");
     recipe_img_div.appendChild(recipe_img);

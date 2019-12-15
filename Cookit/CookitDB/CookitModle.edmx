@@ -135,12 +135,13 @@
           </Key>
           <Property Name="Id_Prof" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Id_User" Type="int" Nullable="false" />
-          <Property Name="ProfType" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Name_Prof" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="ProfDescription" Type="nvarchar" MaxLength="250" />
           <Property Name="ProfStatus" Type="bit" Nullable="false" />
           <Property Name="Id_City" Type="int" Nullable="false" />
           <Property Name="Id_Region" Type="int" Nullable="false" />
+          <Property Name="Image_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image_Path" Type="nvarchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Recipe">
           <Key>
@@ -157,6 +158,8 @@
           <Property Name="RecipeWorkTime" Type="time" Precision="7" Nullable="false" />
           <Property Name="Id_Recipe_Level" Type="int" Nullable="false" />
           <Property Name="PreparationSteps" Type="ntext" Nullable="false" />
+          <Property Name="Image_Path" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Image_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_RecipeDifficultyLevel">
           <Key>
@@ -918,6 +921,8 @@
           <NavigationProperty Name="TBL_RecipeDifficultyLevel" Relationship="Cookit_DBModel.FK_Level" FromRole="TBL_Recipe" ToRole="TBL_RecipeDifficultyLevel" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User1" FromRole="TBL_Recipe" ToRole="TBL_User" />
           <NavigationProperty Name="TBL_Comments" Relationship="Cookit_DBModel.FK_Recp3" FromRole="TBL_Recipe" ToRole="TBL_Comments" />
+          <Property Name="Image_Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TBL_RecipeDifficultyLevel">
           <Key>
@@ -1220,7 +1225,6 @@
           </Key>
           <Property Name="Id_Prof" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Id_User" Type="Int32" Nullable="false" />
-          <Property Name="ProfType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Name_Prof" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ProfDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ProfStatus" Type="Boolean" Nullable="false" />
@@ -1230,6 +1234,8 @@
           <NavigationProperty Name="TBL_Followers" Relationship="Cookit_DBModel.FK_Profile" FromRole="TBL_Profile" ToRole="TBL_Followers" />
           <NavigationProperty Name="TBL_Region" Relationship="Cookit_DBModel.FK_Region" FromRole="TBL_Profile" ToRole="TBL_Region" />
           <NavigationProperty Name="TBL_User" Relationship="Cookit_DBModel.FK_User" FromRole="TBL_Profile" ToRole="TBL_User" />
+          <Property Name="Image_Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_City">
           <End Type="Cookit_DBModel.TBL_City" Role="TBL_City" Multiplicity="1" />
@@ -1441,6 +1447,8 @@
           <EntitySetMapping Name="TBL_Recipe">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Recipe">
               <MappingFragment StoreEntitySet="TBL_Recipe">
+                <ScalarProperty Name="Image_Name" ColumnName="Image_Name" />
+                <ScalarProperty Name="Image_Path" ColumnName="Image_Path" />
                 <ScalarProperty Name="PreparationSteps" ColumnName="PreparationSteps" />
                 <ScalarProperty Name="Id_Recipe_Level" ColumnName="Id_Recipe_Level" />
                 <ScalarProperty Name="RecipeWorkTime" ColumnName="RecipeWorkTime" />
@@ -1505,12 +1513,13 @@
           <EntitySetMapping Name="TBL_Profile">
             <EntityTypeMapping TypeName="Cookit_DBModel.TBL_Profile">
               <MappingFragment StoreEntitySet="TBL_Profile">
+                <ScalarProperty Name="Image_Name" ColumnName="Image_Name" />
+                <ScalarProperty Name="Image_Path" ColumnName="Image_Path" />
                 <ScalarProperty Name="Id_Region" ColumnName="Id_Region" />
                 <ScalarProperty Name="Id_City" ColumnName="Id_City" />
                 <ScalarProperty Name="ProfStatus" ColumnName="ProfStatus" />
                 <ScalarProperty Name="ProfDescription" ColumnName="ProfDescription" />
                 <ScalarProperty Name="Name_Prof" ColumnName="Name_Prof" />
-                <ScalarProperty Name="ProfType" ColumnName="ProfType" />
                 <ScalarProperty Name="Id_User" ColumnName="Id_User" />
                 <ScalarProperty Name="Id_Prof" ColumnName="Id_Prof" />
               </MappingFragment>

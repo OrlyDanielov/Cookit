@@ -19,8 +19,10 @@ var PROFILE_VALIDATION = {
     name: false,
     description: false,
     city: false,
-    region: false
-    };
+    region: false,
+    img: false
+};
+var PROFILE_ID;
 //תז משתמש
 //var user_id;
 //*******************************************************************************************
@@ -37,6 +39,7 @@ $(document).ready(function () {
 //*******************************************************************************************
 //הפונקציה מכניסה את ערכי מהבסיס נתונים באופן דינמי אל רשימה נגללת
 function EnterData2DDList(arry, ddList) {
+    document.getElementById(ddList).innerHTML = "";
     for (i in arry) {
         $("#" + ddList).append(AddOption(arry[i]));
     }
@@ -55,24 +58,22 @@ function AddOption(item) {
 function GetUserType()
 // הפונקציה מביאה את סוגי המשתמשים מהמסד נתונים
 {
-    if (JSON.parse(sessionStorage.getItem('ARRY_USER_TYPE')) == null)
+    //if (JSON.parse(sessionStorage.getItem('ARRY_USER_TYPE')) == null)
     // כדי לקורא רק פעם אחת
-    {
+    //{
         GlobalAjax("/api/UserType/GetAll", "GET", "", SuccessUserType, FailUserType);
-    }
-    else
-        SuccessUserType(JSON.parse(sessionStorage.getItem('ARRY_USER_TYPE')));
+//    }
+//    else
+//        SuccessUserType(JSON.parse(sessionStorage.getItem('ARRY_USER_TYPE')));
 }
 
 function SuccessUserType(arry_userType) {
     console.log(ARRY_USER_TYPE);
-    ARRY_USER_TYPE = arry_userType;
-    for (var i = 0; i < ARRY_USER_TYPE.length; i++) {
-        if (ARRY_USER_TYPE[i].id == 4)//מנהל
-            ARRY_USER_TYPE.splice(i,1);
-    }
+    ARRY_USER_TYPE = arry_userType;  
     sessionStorage.setItem("ARRY_USER_TYPE", JSON.stringify(arry_userType));
     EnterData2DDList(ARRY_USER_TYPE, "user_type");
+
+    GetCities();
 }
 
 function FailUserType() {
@@ -85,17 +86,19 @@ function FailUserType() {
 function GetCities()
 //הפונקציה מביאה את רשימת הערים ממסד הנתונים
 {
-    if (JSON.parse(sessionStorage.getItem('ARRY_CITY')) == null)
+    //if (JSON.parse(sessionStorage.getItem('ARRY_CITY')) == null)
     // כדי לקורא רק פעם אחת
-    {
+    //{
         GlobalAjax("/api/City/GetAllCities", "GET", "", SuccessCity, FailCity);
-    }
+    //}
 }
 
 function SuccessCity(arry_city) {
     sessionStorage.setItem("ARRY_CITY", JSON.stringify(arry_city));
     ARRY_CITY = arry_city;
     EnterData2DDList(ARRY_CITY, "profile_city");
+
+    GetRegions();
 }
 
 function FailCity() {
@@ -107,9 +110,9 @@ function FailCity() {
 //*******************************************************************************************
 function GetRegions()
 {
-    if (JSON.parse(sessionStorage.getItem('ARRY_REGION')) == null) {
+    //if (JSON.parse(sessionStorage.getItem('ARRY_REGION')) == null) {
         GlobalAjax("/api/Region/GetAllRegion", "GET", "", SuccessGetRegion, FailGetRegion);
-    }
+    //}
 }
 
 function SuccessGetRegion(arry_region) {
@@ -129,7 +132,7 @@ function FailGetRegion() {
 // אם כן - מציגה בטופס את החלק אותו צריך למלא
 function IsProfile() {
     var user_type = $('#user_type').find(":selected").text();
-    if(user_type === "אנין טעם" || user_type === "עסקי") 
+    if(user_type === "אנין טעם") 
     {
         isHasProfile = true;
         GetCities();
@@ -229,7 +232,8 @@ function Change_style_by_validation()
             name: $("#profile_name"),
             description: $("#profile_description"),
             city: $("#profile_city"),
-            region: $("#profile_region")
+            region: $("#profile_region"),
+            img: $("#profile_upload_image")
         };
         for (var i in PROFILE_VALIDATION) {
             if (PROFILE_VALIDATION[i] == false) {
@@ -361,13 +365,15 @@ function CheckProfileInputs() {
         name: $("#profile_name").val(),
         description: $("#profile_description").val(),
         city: $('#profile_city').find(":selected").val(),
-        region: $('#profile_region').find(":selected").val()
+        region: $('#profile_region').find(":selected").val(),
+        img: $('#profile_upload_image').val()
     };
     var profile_feedback = {
         name: document.getElementById("feedback_profile_name"),
         description: document.getElementById("feedback_profile_description"),
         city: document.getElementById("feedback_profile_city"),
-        region: document.getElementById("feedback_profile_region")
+        region: document.getElementById("feedback_profile_region"),
+        img: document.getElementById("feedback_profile_image")
     };
     // name
     if (profile_inputs.name == "") {
@@ -413,6 +419,23 @@ function CheckProfileInputs() {
         PROFILE_VALIDATION.region = true;
         profile_feedback.region.innerHTML = "";
     }
+    //img
+    var img_end = profile_inputs.img.split(".")[1];
+    if (profile_inputs.img == "") {
+        PROFILE_VALIDATION.img = false;
+        profile_feedback.img.innerHTML = "אנא בחר תמונת פרופיל!";
+    }
+    else if (!(img_end == 'tiff' || img_end == 'pjp' || img_end == 'pjpeg' || img_end == 'jfif' || img_end == 'tif' || img_end == 'gif' || img_end == 'svg' || img_end == 'bmp' || img_end == 'png' || img_end == 'jpeg' || img_end == 'svgz' || img_end == 'jpg' || img_end == 'webp' || img_end == 'ico' || img_end == 'xbm' || img_end == 'dib'))
+    {
+        PROFILE_VALIDATION.img = false;
+        profile_feedback.img.innerHTML = "אנא בחר קובץ מסוג תמונה!";
+    }
+        else {
+        PROFILE_VALIDATION.img = true;
+        profile_feedback.img.innerHTML = "";
+        //הצגת התמונה
+        document.getElementById("profile_image").setAttribute("src", profile_inputs.img);
+    }
 }
 //*******************************************************************************************
 // CHECK FORM VALIDATION
@@ -452,9 +475,11 @@ function CheckProfileInputs() {
         console.log("המשתמש נוסף לשרת בהצלחה.");
         if (isHasProfile)
             AddNewProfile(user_id);
-            //GetUserIdByEmail();
-        else
+        //GetUserIdByEmail();
+        else {
             alert('ההרשמה בוצעה בהצלחה.');
+            window.location.replace("Login.html"); //מעבר לדף הבית המחובר
+        }
     }
 
     function FailUser(data)// פונקציה המתבצעת אחרי כישלון הוספה  של משתמש
@@ -473,8 +498,8 @@ function CheckProfileInputs() {
         if (profile_type === 'עסקי')
             _type = 'B';
         else
-            _type = 'F';
-        //פרופיל חדש
+            _type = 'F';       
+//פרופיל חדש
         var new_profile = {
             user_id: user_id,
             type: _type,
@@ -482,16 +507,20 @@ function CheckProfileInputs() {
             description: $("#profile_description").val(),
             id_city: $('#profile_city').find(":selected").val(),
             id_region: $('#profile_region').find(":selected").val(),
-            status: true
+            status: true,
+            img_name: 0,
+            img_path: 0
         };
         //שליחת הנתונים לשרת
         GlobalAjax("/api/Profile/AddNewProfile", "POST", new_profile, SuccessProfile, FailProfile);
     }
 
-    function SuccessProfile() // פונקציה המתבצעת אחרי הוספה מוצלחת של פרופיל
+    function SuccessProfile(data) // פונקציה המתבצעת אחרי הוספה מוצלחת של פרופיל
     {
+        PROFILE_ID = data.id;
         console.log("הפרופיל נוסף לשרת בהצלחה.");
-        alert('ההרשמה בוצעה בהצלחה.');
+        //הוספת תמונת הפרופיל
+        AddProfileImage();
     }
 
     function FailProfile()// פונקציה המתבצעת אחרי כישלון הוספה  של פרופיל
@@ -501,33 +530,45 @@ function CheckProfileInputs() {
 }
 
 //*******************************************************************************************
-// SHOW HIDE EXPLANATION
+//add profile Image
 //*******************************************************************************************
-/*var EXPLANATION_USER_TYPE = "למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו.\n למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים.בנוסף יכול להעלות סדנאות לקהילה באתר.";
-EXPLANATION_USER_TYPE = EXPLANATION_USER_TYPE+"\n למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים לעקוב.בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלוןת אירוע עסקי לאתר. ";
-var EXPLANATION_EMAIL = "אימייל צריך להיות באנגלית ועם הסימנים @ו .";
-var EXPLANATION_PASSWORD = "הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.";
+function AddProfileImage() {
+    var profile_image_name = $("#profile_upload_image").val();//document.getElementById("profile_upload_image").files[0];
+    var arry = profile_image_name.split('\\');
+    var image_name = arry[arry.length - 1];
+    var path = "~/Images/Profiles/";
+    var image_path = path + image_name;
+    //var img = document.getElementById("profile_upload_image").files[0];
+    var img = $("#profile_upload_image")[0].files[0];
 
-function ShowHideExplanation(btn_cliked_id) {
-    var div_name = "explanation_";
-    var words = btn_cliked_id.split('_');
-    div_name = div_name.concat(words[2]);
-    if (words.length > 3)
-        div_name = div_name.concat("_" + words[3]);
-    //display on\off the span
-    var str = document.getElementById(div_name).innerHTML;
-    if (str == "") {
-        if (btn_cliked_id == "btn_explanation_password")//אם סיסמה
-            document.getElementById(div_name).innerHTML = EXPLANATION_PASSWORD;
-        else if (btn_cliked_id == "btn_explanation_email")//אם סיסמה
-            document.getElementById(div_name).innerHTML = EXPLANATION_EMAIL;
-        else//סוג משתמש
-            document.getElementById(div_name).innerHTML = EXPLANATION_USER_TYPE;
-    }
-    else
-        document.getElementById(div_name).innerHTML = "";
+    var fd = new FormData();
+    fd.append("id", PROFILE_ID);
+    fd.append("file", img);
+    $.ajax({
+        url: '/api/Profile/AddProfileImage',
+        type: 'PUT',
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function () {
+            console.log("תמונת פרופיל נוספה בהצלחה!.");
+            alert('ההרשמה בוצעה בהצלחה.');
+            window.location.replace("Login.html"); //מעבר לדף הבית המחובר
+        },
+        error: function () {
+            console.log("שגיאה בהוספת תמונת פרופיל!.");
+            alert("שגיאה בהוספת תמונת פרופיל!.");
+        }        
+    });
 }
-*/
+
+function FailAddProfileImage() {
+    console.log("שגיאה בהוספת תמונת פרופיל!.");
+    alert("שגיאה בהוספת תמונת פרופיל!.");
+}
+//*******************************************************************************************
+// ShowPopup
+//*******************************************************************************************
 function ShowPopup(_id) {
     var words = _id.split('_');
     var name = words[2];
@@ -535,7 +576,7 @@ function ShowPopup(_id) {
         name = name.concat("_" + words[3]);
     name = name.concat("_popup");
     var popup = document.getElementById(name);
-    popup.classList.toggle("show");
+    popup.classList.toggle("show_popup");
 }
 //*******************************************************************************************
 //ShowPassword
@@ -558,4 +599,20 @@ function HidePassword(_btn_id) {
         _id += '_' + arry[2];
     var _element = document.getElementById(_id).setAttribute('type', 'password');
     var icom = document.getElementById(_btn_id).setAttribute('onclick', 'ShowPassword(this.id)');
+}
+//*******************************************************************************************
+//Show img Profile
+//*******************************************************************************************
+function ShowImgProfile(_input) {
+    var img = $("#profile_upload_image").val();
+    var img_end = img.split(".")[1];
+    var reader = new FileReader();
+    if (img_end == 'tiff' || img_end == 'pjp' || img_end == 'pjpeg' || img_end == 'jfif' || img_end == 'tif' || img_end == 'gif' || img_end == 'svg' || img_end == 'bmp' || img_end == 'png' || img_end == 'jpeg' || img_end == 'svgz' || img_end == 'jpg' || img_end == 'webp' || img_end == 'ico' || img_end == 'xbm' || img_end == 'dib') {
+        //document.getElementById(profile_image).setAttribute('src', img);
+        reader.onload = function (e) {
+            $('#profile_image')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(_input.files[0]);
+    }
 }

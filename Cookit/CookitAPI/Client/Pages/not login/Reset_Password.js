@@ -3,38 +3,35 @@
 //*******************************************************************************************
 //פונקצית בדיקת קיימות המייל
 function CheckingMail() {
-        var email = $("#email").val();
-GlobalAjax("/api/User/" + email+"/SendMail","GET", "", SuccessSendMail4ResetPassword, FailSendMail4ResetPassword);
-/*
-    GlobalAjax("/api/User/" + email + "/CheckMailAvailable", "GET", "", SendMail4ResetPassword, FailCheckMail);//Success_CheckMailFree, Fail_CheckMailFree);   
-*/
+    var email = $("#email").val();
+    GlobalAjax("/api/User/" + email + "/CheckMailAvailable", "GET", "",
+        function (data) {
+            if (data == false) //אם המייל קיים במערכת
+                SendMail4ResetPassword(email);
+            else
+                alert("אימייל זה אינו קיים במערכת!.");
+        },
+        FailCheckMail);
 }
 
 function FailCheckMail(data) {
-    console.log("that mail doesn't exsist.");
+    console.log("שגיאה בבדיקת האימייל מול השרת!.");
     console.log(data.T);
-    alert("שגיאה השרת אינו יכול כעת לשחזר את סיסמתך.");
+    alert("שגיאה בבדיקת האימייל מול השרת!.");
 }
 //*******************************************************************************************
 // SendMail4ResetPassword
 //*******************************************************************************************
 function SendMail4ResetPassword(data)
 {
-    var email = $("#email").val();
-    if (data)//אם המייל לא קיים
-    {  console.log("mail not exsist.");
-        alert("אנא הכנס אימייל קיים!.");
-    }
-    else {
-            console.log("mail exsist.");
+    var email = $("#email").val();    
         //מעבר לשליחת מייל
         GlobalAjax("/api/User/" + email, "/SendMail","GET", "", SuccessSendMail4ResetPassword, FailSendMail4ResetPassword);
-    }
+    
 }
 
 function SuccessSendMail4ResetPassword() {
-    console.log("מייל עם הסיסמה שלך נשלח לחשבונך בהצלחה!.");
-    alert("מייל עם הסיסמה שלך נשלח לחשבונך בהצלחה!.");
+    alert("מייל שחזור סיסמה נשלח לכתובת האימייל שלך בהצלחה!.")
 }
 
 function FailSendMail4ResetPassword() {

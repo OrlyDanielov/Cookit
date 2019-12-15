@@ -9,6 +9,8 @@ var user = new Array();
 // LOGIN
 //*******************************************************************************************
 function LoginVerification() {
+    //הפעלת איקון אניצציה של טעינה
+    document.getElementById("loading_icon").style.display = "block";
       // פרטי המשתמש הנכנס
     var email = $("#inputEmail").val();
     var pass = $("#inputPassword").val();  
@@ -22,29 +24,33 @@ function SuccessLogin(user)
     sessionStorage.clear();
     sessionStorage.setItem("Login_User", JSON.stringify(user));
     //בדיקה האם למשתמש יש גם פרופיל, אז להביא גם את הפרטים האלה
-    if (user.user_type == 2 || user.user_type == 3)
+    if (user.user_type == 2 )
         GlobalAjax("/api/Profile/GetProfileByUserId/" + user.id, "GET", "", SuccessProfile, FailProfile);
     else   //מעבר לדף הבית המחובר
-        window.location.replace("../login user/Home_LOGIN-USER.html");
-        //window.location.replace("Home_login.html");
+        window.location.replace("../login/Home.html"); //מעבר לדף הבית המחובר
 }
 
 function FailLogin()
 //פונקציה של אי הצלחת זיהוי המשתמש
 {
+    //הפעלת איקון אניצציה של טעינה
+    document.getElementById("loading_icon").style.display = "none";
+
     console.log("login fail!.");
     alert("אימייל או סיסמה לא נכונים. אנא נסה שנית.");
 }
 
 function SuccessProfile(profile) {
     sessionStorage.setItem("Login_Profile", JSON.stringify(profile));
-    //window.location.replace("Home_login.html"); //מעבר לדף הבית המחובר
-    window.location.replace("../login profile/Home_LOGIN-PROFILE.html"); //מעבר לדף הבית המחובר
+    window.location.replace("../login/Home.html"); //מעבר לדף הבית המחובר
 }
 
 function FailProfile() {
-    console.log("cant find match profile!.");
+    //הפעלת איקון אניצציה של טעינה
+    document.getElementById("loading_icon").style.display = "none";
 
+    console.log("cant find match profile!.");
+    alert("שגיאה, לא מצליח למצוא נתוני פרופיל!.");
 }
 //*******************************************************************************************
 // INPUT VALIDATION
@@ -66,11 +72,6 @@ function CheckInputs()
         email_feedback.innerHTML = "אנא הכנס אימייל!";
         flag = false;
     }
-    /*else if (!(email.length <= 50)) {
-        email_input.classList.add("not_valid");
-        email_feedback.innerHTML = "אנא הכנס אמייל באורך עד 50 תווים!";
-        flag = false;
-    }*/
     else if (re.test(String(email).toLowerCase()) == false) {
         email_input.classList.add("not_valid");
         email_feedback.innerHTML = "אנא הכנס אימייל תקין!.";
@@ -87,11 +88,6 @@ function CheckInputs()
         password_input.classList.add("not_valid");
         password_feedback.innerHTML = "אנא הכנס סיסמה!";
     }
-    /*else  if (!(password.match(passw))) {
-        password_input.classList.add("not_valid");
-        password_feedback.innerHTML = "אנא הכנס סיסמה באורך 6 עד 12 תווים הכוללת לפחות ספרה אחת, אות קטנה באנגלית ואות גדולה באנגלית!.";
-        flag = false;
-  }*/
     else {
         if (password_input.classList.contains("not_valid"))
             password_input.classList.remove("not_valid");
@@ -110,32 +106,40 @@ function CheckIfFormValid() {
         alert("אנא תקן את המקומות המסומנים.");
 }
 //*******************************************************************************************
-// ShowPopup
+//ShowPopup
 //*******************************************************************************************
 function ShowPopup(_id) {
     var words = _id.split('_');
     var name = words[2];
     if (words.length > 3)
         name = name.concat("_" + words[3]);
-    name = name.concat("_popup");
+    name = name.concat("_popup");//password_popup//email_popup
     var popup = document.getElementById(name);
-    popup.classList.toggle("show");
+    popup.classList.toggle("show_popup");
+    //if (popup.classList.contains("show_popup"))
+    //    popup.classList.remove("show_popup");
+    //else
+    //    popup.classList.add("show_popup");
 }
 //*******************************************************************************************
 //ShowPassword
 //*******************************************************************************************
 function ShowPassword(_btn_id) {
-    var arry = _btn_id.split("_");
-    var _id = arry[1];
-    var _element = document.getElementById(_id).setAttribute('type', 'input');
+    //var arry = _btn_id.split("_");
+    //var _id = arry[1];
+    //if (arry.length > 2)
+    //    _id += '_' + arry[2];
+    var _element = document.getElementById("inputPassword").setAttribute('type', 'input');
     var icom = document.getElementById(_btn_id).setAttribute('onclick', 'HidePassword(this.id)');
 }
 //*******************************************************************************************
 //HidePassword
 //*******************************************************************************************
 function HidePassword(_btn_id) {
-    var arry = _btn_id.split("_");
-    var _id = arry[1];
-    var _element = document.getElementById(_id).setAttribute('type', 'password');
+    //var arry = _btn_id.split("_");
+    //var _id = arry[1];
+    //if (arry.length > 2)
+    //    _id += '_' + arry[2];
+    var _element = document.getElementById("inputPassword").setAttribute('type', 'password');
     var icom = document.getElementById(_btn_id).setAttribute('onclick', 'ShowPassword(this.id)');
 }

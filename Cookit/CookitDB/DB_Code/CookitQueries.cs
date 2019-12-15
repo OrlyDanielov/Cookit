@@ -22,6 +22,275 @@ namespace CookitDB.DB_Code
         //*********************************************************************
         //              GET
         //*********************************************************************
+
+        //PROFILE
+        #region GetProfileByUserId
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Profile GetProfileByUserId(int userId)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
+                if (prof == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return prof;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetProfileInformationByProfileId
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Profile GetProfileByProfileId(int profile_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_Prof == profile_id);
+                if (prof == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return prof;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get ProfileID Of User 
+        public static int GetProfileIDOfUserByID(int ID)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile user_prof = db.TBL_Profile.SingleOrDefault(a => a.Id_User == ID);
+                return user_prof.Id_Prof;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+        #endregion
+
+        #region Get All Active Profiles
+        //מביא את כל הפרופילים הפעילים
+        public static List<TBL_Profile> GetAllActiveProfiles()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Profile.Where(x => x.ProfStatus == true).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get Profile Follow By User
+        //מביא את כל הפרופילים הנעקבים ע"י המשתמש
+        public static List<TBL_Followers> GetProfileFollowByUser(int id_user)
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Followers.Where(x => x.Id_User == id_user).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Get Profiles Follows After User By Profile Id
+        // מביא את כל העוקבים אחרי הפרופיל לפי התז שלו
+        public static List<TBL_Followers> GetProfilesFollowsAfterUserByProfileId(int id_profile)
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Followers.Where(x => x.Id_Prof == id_profile).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region Ge tProfile Follow By Profile Id
+        //מביא את כל המשתמשים העוקבים אחרי פרופיל לפי התז פרופיל
+        public static List<TBL_Followers> GetProfileFollowByProfileId(int profile_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Followers.Where(x => x.Id_Prof == profile_id).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+    
+        //RECIPE
+        #region GetRecpByUserIdAndRecpName
+        // מביאה את הפרופיל לפי תז של משתמש
+        public static TBL_Recipe GetRecpByUserIdAndRecpName(int user_id, string recp_name)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Recipe recp = db.TBL_Recipe.SingleOrDefault(x => x.Id_Recipe_User == user_id && x.Name_Recipe == recp_name);
+                if (recp == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return recp;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetRecipesByUserId
+        //מביא את כל המתכונים של משתמש לפי התז שלו
+        public static List<TBL_Recipe> GetRecipesByUserId(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                List<TBL_Recipe> list_recipes = db.TBL_Recipe.Where(x => x.Id_Recipe_User == user_id).ToList();
+                if (list_recipes == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return list_recipes;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetAllRecipesExpectOfUserId
+        //מביא את כל המתכונים חוץ משל המשתמש לפי התז שלו
+        public static List<TBL_Recipe> GetAllRecipesExpectOfUserId(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                List<TBL_Recipe> list_recipes = db.TBL_Recipe.Where(x => x.Id_Recipe_User != user_id).ToList();
+                if (list_recipes == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return list_recipes;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetRecpByUserIdRecipe
+        //מביא מתכון לפי תז מתכון
+        public static TBL_Recipe GetRecpByUserIdRecipe(int recipe_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Recipe recp = db.TBL_Recipe.SingleOrDefault(x => x.Id_Recipe == recipe_id);
+                if (recp == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else return recp;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetAllRecipes
+        //מביא את כל המתכונים
+        public static List<TBL_Recipe> GetAllRecipes()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Recipe.OrderBy(x => x.Id_Recipe).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        //USER
+        #region GetFU
+        //מביא את כל המשתמשים שהם מסוגאנים טעם
+        public static List<TBL_User> GetFU()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_User.Where(x => x.Id_Type == 2).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        #region GetUserFullNameByID
+        //מביאה מצרכי מתכון לפי תז מתכון
+        public static string GetUserFullNameByID(int user_id)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Id_User == user_id);
+                if (user == null) // אם אין משתמש אם פרטים כאלה
+                    return null;
+                else
+                    return user.FirstName + " " + user.LastName;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        #endregion
+
+        //OTHERS
+
+       /* #region GetAllLikes
+        //מביא את כל הלייקים
+        public static List<TBL_Likes> GetAllLikes()
+        {
+            try
+            {
+                var db = Get_DB();
+                return db.TBL_Likes.ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        #endregion
+    */
         #region Get All User Type
         // הפוקנציה מביאה מהמסד את כל סוגי המשתמשים
         public static List<TBL_UserType> Get_all_User_Type()
@@ -172,7 +441,7 @@ namespace CookitDB.DB_Code
                 var db = Get_DB();
                 //bgroup36_prodConnection db = new bgroup36_prodConnection();
                 //Cookit_DBConnection db = new Cookit_DBConnection();
-                return db.TBL_Ingridiants.ToList();
+                return db.TBL_Ingridiants.OrderBy(x=>x.Name_Ingridiants).ToList();
             }
             catch (Exception e)
             {
@@ -217,64 +486,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-        #region GetProfileByUserId
-        // מביאה את הפרופיל לפי תז של משתמש
-        public static TBL_Profile GetProfileByUserId(int userId)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_User == userId);
-                if (prof == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return prof;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region GetProfileInformationByProfileId
-        // מביאה את הפרופיל לפי תז של משתמש
-        public static TBL_Profile GetProfileByProfileId(int profile_id)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_Profile prof = db.TBL_Profile.SingleOrDefault(x => x.Id_Prof == profile_id);
-                if (prof == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return prof;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region Get ProfileID Of User 
-        public static int GetProfileIDOfUserByID(int ID)
-        {
-            try
-            {
-                var db = Get_DB();
-                // Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                TBL_Profile user_prof = db.TBL_Profile.SingleOrDefault(a => a.Id_User == ID);
-                return user_prof.Id_Prof;
-            }
-            catch
-            {
-                return -1;
-            }
-        }
-        #endregion
-               
-
+                
         #region Get All Holidays
         // הפוקנציה מביאה מהמסד את כל אופני המדידה למתכון
         public static List<TBL_Holiday> Get_all_Holidays()
@@ -306,83 +518,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-        #region GetRecpByUserIdAndRecpName
-        // מביאה את הפרופיל לפי תז של משתמש
-        public static TBL_Recipe GetRecpByUserIdAndRecpName(int user_id, string recp_name)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_Recipe recp = db.TBL_Recipe.SingleOrDefault(x => x.Id_Recipe_User == user_id && x.Name_Recipe == recp_name);
-                if (recp == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return recp;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region GetRecipesByUserId
-        //מביא את כל המתכונים של משתמש לפי התז שלו
-        public static List<TBL_Recipe> GetRecipesByUserId(int user_id)
-        {
-            try
-            {
-                var db = Get_DB();
-                List<TBL_Recipe> list_recipes = db.TBL_Recipe.Where(x => x.Id_Recipe_User == user_id ).ToList();
-                if (list_recipes == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return list_recipes;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region GetAllRecipesExpectOfUserId
-        //מביא את כל המתכונים חוץ משל המשתמש לפי התז שלו
-        public static List<TBL_Recipe> GetAllRecipesExpectOfUserId(int user_id)
-        {
-            try
-            {
-                var db = Get_DB();
-                List<TBL_Recipe> list_recipes = db.TBL_Recipe.Where(x => x.Id_Recipe_User != user_id).ToList();
-                if (list_recipes == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return list_recipes;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region GetRecpByUserIdRecipe
-        //מביא מתכון לפי תז מתכון
-        public static TBL_Recipe GetRecpByUserIdRecipe(int recipe_id)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_Recipe recp = db.TBL_Recipe.SingleOrDefault(x => x.Id_Recipe == recipe_id);
-                if (recp == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else return recp;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
+               
         #region GetIngridiantsByRecpId
         //מביאה מצרכי מתכון לפי תז מתכון
         public static List<TBL_IngridiantForRecp> GetIngridiantsByRecpId(int recp_id)
@@ -515,27 +651,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-        #region GetUserFullNameByID
-        //מביאה מצרכי מתכון לפי תז מתכון
-        public static string GetUserFullNameByID(int user_id)
-        {
-            try
-            {
-                var db = Get_DB();
-                TBL_User user = db.TBL_User.SingleOrDefault(x => x.Id_User == user_id );
-                if (user == null) // אם אין משתמש אם פרטים כאלה
-                    return null;
-                else
-                    return user.FirstName+" "+user.LastName;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-        #endregion
-
+        
         #region Get Comments By Recipe Id
         //מביא את כל התגובות של מתכון
         public static List<TBL_Comments> GetCommentsByRecipeId(int recipe_id)
@@ -551,87 +667,7 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-        #region Get All Active Profiles
-        //מביא את כל הפרופילים הפעילים
-        public static List<TBL_Profile> GetAllActiveProfiles()
-        {
-            try
-            {
-                var db = Get_DB();
-                return db.TBL_Profile.Where(x => x.ProfStatus == true).ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region Get Profile Follow By User
-        //מביא את כל הפרופילים הנעקבים ע"י המשתמש
-        public static List<TBL_Followers> GetProfileFollowByUser(int id_user)
-        {
-            try
-            {
-                var db = Get_DB();
-                return db.TBL_Followers.Where(x => x.Id_User == id_user).ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region Get Profiles Follows After User By Profile Id
-        // מביא את כל העוקבים אחרי הפרופיל לפי התז שלו
-        public static List<TBL_Followers> GetProfilesFollowsAfterUserByProfileId(int id_profile)
-        {
-            try
-            {
-                var db = Get_DB();
-                return db.TBL_Followers.Where(x => x.Id_Prof == id_profile).ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region Ge tProfile Follow By Profile Id
-        //מביא את כל המשתמשים העוקבים אחרי פרופיל לפי התז פרופיל
-        public static List<TBL_Followers> GetProfileFollowByProfileId(int profile_id)
-        {
-            try
-            {
-                var db = Get_DB();
-                return db.TBL_Followers.Where(x => x.Id_Prof == profile_id).ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
-
-        #region GetAllRecipes
-        //מביא את כל המתכונים
-        public static List<TBL_Recipe> GetAllRecipes()
-        {
-            try
-            {
-                var db = Get_DB();
-                return db.TBL_Recipe.OrderBy(x=>x.Id_Recipe).ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
-           
+      
         #region GetLikeByUserId
         // הפוקנציה מביאה מהמסד את כל סוגי האוכל
         public static List<TBL_Likes> GetLikeByUserId(int user_id)
@@ -647,26 +683,9 @@ namespace CookitDB.DB_Code
             }
         }
         #endregion
-
-        #region GetBUAndFU
-        //מביא את כל המשתמשים שהם מסוג עסקי ןאנים טעם
-        public static List<TBL_User> GetBUAndFU()
-        {
-            try
-            {
-                var db = Get_DB();
-                return db.TBL_User.Where(x => x.Id_Type == 3 || x.Id_Type == 2).ToList();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        #endregion
         //*********************************************************************
         //              ADD
         //*********************************************************************
-
         #region Add New Recipe
         //פונקציה של הוספת מתכון חדש לטבלת המתכונים
         //public static bool AddNewRecipe(TBL_Recipe new_recipe)
@@ -707,18 +726,20 @@ namespace CookitDB.DB_Code
 
         #region Add New Profile
         //פונקציה של הוספת פרופיל חדש לטבלת הפרופילים
-        public static bool AddNewProfile(TBL_Profile new_profile)
+        public static int AddNewProfile(TBL_Profile new_profile)
         {
             try
             {
                 var db = Get_DB();
                 db.Entry(new_profile).State = System.Data.Entity.EntityState.Added; // הוספת פרופיל חדש
                 db.SaveChanges();
-                return true;
+                return new_profile.Id_Prof;
+                //return true;
             }
             catch (Exception)
             {
-                return false;
+                //return false;
+                return -1;
             }
         }
         #endregion
@@ -905,12 +926,64 @@ namespace CookitDB.DB_Code
                 TBL_Profile p = db.TBL_Profile.SingleOrDefault(x => x.Id_Prof == newProfile.Id_Prof);
                 if (p != null)
                 {
-                    p.ProfType = newProfile.ProfType;
                     p.Name_Prof = newProfile.Name_Prof;
                     p.ProfDescription = newProfile.ProfDescription;
                     p.Id_City = newProfile.Id_City;
                     p.Id_Region = newProfile.Id_Region;
                     p.ProfStatus = newProfile.ProfStatus;
+                    p.Image_Name = newProfile.Image_Name;
+                    p.Image_Path = newProfile.Image_Path;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region Update Profile Image
+        public static bool UpdateProfileImage(int profile_id,string img_name, string img_path)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Profile p = db.TBL_Profile.SingleOrDefault(x => x.Id_Prof == profile_id);
+                if (p != null)
+                {
+                    p.Image_Name = img_name;
+                    p.Image_Path = img_path;
+
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region Update Recipe Image
+        public static bool UpdateRecipeImage(int recipe_id, string img_name, string img_path)
+        {
+            try
+            {
+                var db = Get_DB();
+                TBL_Recipe r = db.TBL_Recipe.SingleOrDefault(x => x.Id_Recipe == recipe_id);
+                if (r != null)
+                {
+                    r.Image_Name = img_name;
+                    r.Image_Path= img_path;
 
                     db.SaveChanges();
                     return true;
@@ -944,6 +1017,8 @@ namespace CookitDB.DB_Code
                     r.PreparationSteps = new_recipe.PreparationSteps;
                     r.RecipeTotalTime = new_recipe.RecipeTotalTime;
                     r.RecipeWorkTime = new_recipe.RecipeWorkTime;
+                    r.Image_Name = new_recipe.Image_Name;
+                    r.Image_Path = new_recipe.Image_Path;
 
                     db.SaveChanges();
                     return true;
@@ -1248,8 +1323,7 @@ namespace CookitDB.DB_Code
                 {
                     var user_password = user.UserPass;
                     //SendMail to user with password
-                    //bool isSent = Mail.SendMail("orlydanielov@outlook.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password + ".");
-                    bool isSent = Mail.SendMail("orlydanielov@gmail.com", user_mail, "Reset Password - Cookit", "Your password is: " + user_password + ".");
+                    bool isSent = Mail.SendMail(user_mail, "Reset Password - Cookit", "Your password is: " + user_password + ".");
                     if (isSent)
                         return true;
                     else

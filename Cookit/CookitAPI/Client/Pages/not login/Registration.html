@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
     <!--java script code  -->
     <script src="Registration.js"></script>
     <script src="../GlobalAjax.js"></script>
@@ -29,16 +30,16 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
                     <li>
-                        <a class="nav-link" href="Registration.html">הרשם</a>
+                        <a class="nav-link menu_text" href="Registration.html">הרשם</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="Login.html">התחבר</a>
+                        <a class="nav-link menu_text" href="Login.html">התחבר</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="View_All_Recipes.html">מתכונים</a>
+                        <a class="nav-link menu_text" href="View_All_Recipes.html">מתכונים</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="Home_logout.html">דף הבית</a>
+                    <li class="nav-item ">
+                        <a class="nav-link menu_text" href="Home_logout.html">דף הבית</a>
                     </li>
                 </ul>
             </div>
@@ -46,7 +47,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="Home_logout.html">
+            <a class="navbar-brand" href="Home_logout.html" style="font-family:'Lobster',cursive;">
                 <img src="/Client/Images/Background_pic/cookie_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 CookIt
             </a>
@@ -54,7 +55,7 @@
     </header>
     <!-- טופס הרשמה -->
     <div class="container bg_brigth">
-        <h2>הרשמה</h2>
+        <h1 class="mb-3 " style="color:#4bbdc9;">הרשמה</h1>
         <form name="registration_form">
             <fieldset id="private_details">
                 <legend>פרטים אישיים</legend>
@@ -63,10 +64,8 @@
                     <!-- אימייל -->
                     <div class="col">
                         <label for="email" class="col-sm-4 col-form-label">אימייל</label>
-                        <!--<i id="btn_explanation_email" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
-                        <i id="btn_explanation_email" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <i id="btn_explanation_email" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:#4bbdc9;"></i>
                         <span class="popuptext" id="email_popup">אימייל צריך להיות באנגלית ועם הסימנים @ו .</span>
-                        <!--<div id="explanation_email" class="explanation"></div>-->
                         <input type="email" class="form-control" id="email">
                         <div id="feedback_email" class="not_valid_feedback"></div>
                     </div>
@@ -94,10 +93,8 @@
                     <!-- סיסמה -->
                     <div class="col">
                         <label for="password" class="col-sm-4 col-form-label">סיסמה</label>
-                        <!--<i id="btn_explanation_password" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
-                        <i id="btn_explanation_password" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <i id="btn_explanation_password" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:#4bbdc9;"></i>
                         <span class="popuptext" id="password_popup">הסיסמה באורך 6 עד 12 תווים, מכילה לפחות מספר אחד, ואות באנגלית.</span>
-                        <!--<div id="explanation_password" class="explanation"></div>-->
                         <i id="icon_password" class="fa fa-eye" data-toggle="tooltip" title="הקלק על הסימן כדי להראות את הסיסמה" style="font-size:24px" onclick="ShowPassword(this.id)"></i>
                         <input type="password" class="form-control" id="password">
                         <div id="feedback_password" class="not_valid_feedback"></div>
@@ -120,10 +117,9 @@
                     <div class="col">
                         <label for="user_type" class="col-sm-4 col-form-label">סוג משתמש</label>
                         <!--<i id="btn_explanation_user_type" onclick="ShowHideExplanation(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>-->
-                        <i id="btn_explanation_user_type" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:blue;"></i>
+                        <i id="btn_explanation_user_type" onclick="ShowPopup(this.id)" class="fa fa-question-circle" style="font-size:24px;color:#4bbdc9;"></i>
                         <span class="popuptext" id="user_type_popup">
-                            למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו. למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים.בנוסף יכול להעלות סדנאות לקהילה באתר.
-                            למשתמש עסקי יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים. בנוסף הוא יכול להעלות סדנאות לקהילה באתר, הוא יכול להעלןת אירוע עסקי לאתר.
+                            למשתמש יצירתי אין פרופיל, ולכן אי אפשר לעקוב אחריו ומשתמשים לא רשומים לא יכולים לצפות במתכונים שלו. למשתמש אנין טעם יש פרופיל, אחריו יכולים לעקוב משתמשים אחרים.
                         </span>
                         <!--<div id="explanation_user_type" class="explanation"></div>-->
                         <div class="col-sm-10">
@@ -176,23 +172,32 @@
                     </div>
                     <hr class="mb-4">
                 </div>
+                <div class="form-row">
+                    <!--העלאת תמונת פרופיל-->
+                    <div class="col">
+                        <label for="profile_upload_image" class="col-sm-4 col-form-label">תמונת פרופיל</label>
+                        <input type="file" class="form-control-file" id="profile_upload_image" accept="image/*" onchange="ShowImgProfile(this)">
+                        <div id="feedback_profile_image" class="not_valid_feedback"></div>
+                    </div>
+                    <!--תמונת פרופיל-->
+                    <div class="col">
+                        <img id="profile_image" src="" alt="אין תמונה" style="width:200px;height:400px;" />
+                    </div>
+                </div>
             </fieldset>
             <div>
-                <input type="button" class="btn btn-primary btn-lg" onclick="IsFormValid()" value="שלח" />
+                <input type="button" class="btn btn-info btn-lg" onclick="IsFormValid()" value="שלח" />
             </div>
         </form>
     </div>
-    <!--תחתית-->
-    <!--<footer class="footer mt-auto py-3 fixed-bottom ">-->
-    <footer class=" mt-auto py-3 fixed-bottom">
-        <div class="container">
-            <p class="mb-1">&copy; CookIt</p>
-            <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">Privacy</a></li>
-                <li class="list-inline-item"><a href="#">Terms</a></li>
-                <li class="list-inline-item"><a href="#">Support</a></li>
-            </ul>
+    <div class="container" style="margin-bottom:10px; margin-top:10px;">
         </div>
-    </footer>
+    <!--תחתית-->
+    <div class="footer  ">
+        <!--  mt-auto py-3 fixed-bottom -->
+        <div class="container">
+            <p class="mb-1 menu_text">&copy; CookIt</p>
+        </div>
+    </div>
 </body>
 </html>

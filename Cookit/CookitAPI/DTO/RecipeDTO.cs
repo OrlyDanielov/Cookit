@@ -18,6 +18,8 @@ namespace CookitAPI.DTO
         public TimeSpan recp_total_time;   
         public TimeSpan recp_work_time;
         public string recp_steps;
+        public string img_path;
+        public string img_name;
 
     }
 }

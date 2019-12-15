@@ -6,30 +6,32 @@ using System.Threading.Tasks;
 //התוספת כדי לשלוח מייל
 using System.Net;
 using System.Net.Mail;
-//using System.Net.Mime;
 
 namespace CookitDB.DB_Code
 {
     public class Mail
     {       
-        public static bool SendMail(string _sender_mail, string _reciver_mail, string _subject, string _message)
+        public static bool SendMail( string _reciver_mail, string _subject, string _message)
         {
             try
             {
-                // new SmtpClient("smtp.live.com", 25);
-                //SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);           
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                SmtpClient client = new SmtpClient();
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.EnableSsl = true;
+                client.Host = "smtp.gmail.com";
+                client.Port = 587;
+                // setup Smtp authentication
+                System.Net.NetworkCredential credentials =
+                    new System.Net.NetworkCredential("cookit.reply.is@gmail.com", "cookit2019");
+                client.UseDefaultCredentials = false;
+                client.Credentials = credentials;
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("cookit.reply.is@gmail.com");
+                msg.To.Add(new MailAddress(_reciver_mail));
+                msg.Subject = _subject;
+                msg.Body = _message;
 
-                smtp.EnableSsl = true;
-                //smtp.Timeout = 10000;
-                smtp.Credentials = new System.Net.NetworkCredential("orlydanielov@gmail.com", "712946orlyd");
-                smtp.UseDefaultCredentials = false;
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                //המייל
-                MailMessage mail = new MailMessage(_sender_mail,_reciver_mail,_subject,_message); //new MailMessage();
-                //שליחת המייל
-                smtp.Send(mail);
-                Console.WriteLine("email sent succesfully!.");
+                client.Send(msg);
                 return true;
             }
             catch (Exception e)

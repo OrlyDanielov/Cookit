@@ -395,21 +395,18 @@ function GetRecipeInforamtionForDisplay()
     //זמן עבודה
     var work_time_arry = RECIPE_INFORMATION.recp_work_time.split(":");
     var work_time = "";
-    if (work_time_arry[0] > 0)
-        work_time += work_time_arry[0] + "ימים ";
-    if (work_time_arry[1] > 0)
-        work_time += work_time_arry[1] + "שעות ";
-    if (work_time_arry[2] > 0)
-        work_time += work_time_arry[2] + "דקןת ";
+    if (work_time_arry[0] != 0 || work_time_arry[0] != 00)
+        work_time += work_time_arry[0] + "שעות ";
+    if (work_time_arry[1] != 0 || work_time_arry[1] != 00)
+        work_time += work_time_arry[1] + "דקות ";   
     //זמן כולל
     var total_time_arry = RECIPE_INFORMATION.recp_total_time.split(":");
     var total_time = "";
-    if (total_time_arry[0] > 0)
-        total_time += total_time_arry[0] + "ימים ";
-    if (total_time_arry[1] > 0)
-        total_time_arry += total_time_arry[1] + "שעות ";
-    if (total_time_arry[2] > 0)
-        total_time += total_time_arry[2] + "דקןת ";
+    if (total_time_arry[0] != 0 || total_time_arry[0] != 00)
+        total_time += total_time_arry[0] + "שעות ";
+    if (total_time_arry[1] != 0 || total_time_arry[1] != 00)
+        total_time += total_time_arry[1] + "דקות ";
+  
     RECIPE_INFORMATION_DISPLAY = {
         recp_name: RECIPE_INFORMATION.recp_name,
         recp_dish_type: ConvertId2Value(ARRY_DISH_TYPE, RECIPE_INFORMATION.recp_dish_type),
@@ -421,7 +418,9 @@ function GetRecipeInforamtionForDisplay()
         recp_work_time: work_time,//RECIPE_INFORMATION.recp_work_time,
         recp_steps: RECIPE_INFORMATION.recp_steps,
         recp_holidays: ConvertId2MultipelValue(ARRY_HOLIDAYS, RECIPE_HOLIDAYS, "id_holiday"),
-        recp_food_labels: ConvertId2MultipelValue(ARRY_FOOD_LABLE, RECIPE_FOOD_LABLES, "id_food_lable")
+        recp_food_labels: ConvertId2MultipelValue(ARRY_FOOD_LABLE, RECIPE_FOOD_LABLES, "id_food_lable"),
+            img_path: RECIPE_INFORMATION.img_path,
+        img_name: RECIPE_INFORMATION.img_name
     };
 }
 
@@ -441,7 +440,8 @@ function ViewRecipeInformation(_recipe_owner_name)
     document.getElementById("recipe_kitchen_type").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_kitchen_type;
     document.getElementById("recipe_holidays").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_holidays;
     document.getElementById("recipe_food_labels").innerHTML = RECIPE_INFORMATION_DISPLAY.recp_food_labels;
-    //מציג את שלבי ההכנה
+    var recp_img_path = RECIPE_INFORMATION.img_path;
+    $("#recipe_picture").attr("src", recp_img_path); //מציג את שלבי ההכנה
     ViewPreparationSteps();
     //צריך להציג את כל המצרכים
     ViewIngridiants();
@@ -467,7 +467,8 @@ function AddPreparationStep(step_txt, _index)
     new_step.id = "sp=tep" + NAME_STEPS;
     new_step.className = "form-row text2rigth";
     new_step.style["float"] = "right";
-    new_step.innerHTML = _index + ". " + step_txt;//+;
+    new_step.innerHTML = " שלב" + _index + " :" + step_txt;
+    //new_step.innerHTML = _index + ". " + step_txt;//+;
     if (NAME_STEPS % 2 == 0)
         new_step.style["background-color"] = "#cccccc";
     document.getElementById("recipe_preparation_steps").appendChild(new_step);
@@ -528,10 +529,19 @@ function FailGetRecipeComments() {
 // SHOW RECIPE COMMENTS
 //*******************************************************************************************
 function ShowRecipeComments() {
-    for (var i = 0; i < RECIPE_COMMENTS.length; i++) {
-        GetUserFullNameByID(RECIPE_COMMENTS[i], RECIPE_COMMENTS[i].user_id);
+    if (RECIPE_COMMENTS.length == 0) {
+        document.getElementById("comments").style["height"] = "50px";
+        document.getElementById("comments").innerHTML = "אין תגובות";
     }
+    else {
+        document.getElementById("comments").style["height"] = "300px";
+        document.getElementById("comments").style["overflowY"] = "scroll";
+        document.getElementById("comments").style["overflowX"] = "hidden";
 
+        for (var i = 0; i < RECIPE_COMMENTS.length; i++) {
+            GetUserFullNameByID(RECIPE_COMMENTS[i], RECIPE_COMMENTS[i].user_id);
+        }
+    }
 }
 
 function AddComment(_comment, user_full_name) {
