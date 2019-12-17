@@ -68,7 +68,7 @@ namespace CookitAPI.Controllers
                     List<ProfileDTO> result = new List<ProfileDTO>();
                     foreach (TBL_Profile item in profile_list)
                     {
-                        follow_count = CookitDB.DB_Code.CookitQueries.GetProfileFollowByProfileId(item.Id_Prof).Count;//מביא את מספר הלייקים של מתכון
+                        follow_count = CookitQueries.GetProfileFollowByProfileId(item.Id_Prof).Count;//מביא את מספר הלייקים של מתכון
                         if (follow_count >= MINIMUM_FOLLOW_FOR_PROFILE)
                             result.Add(new ProfileDTO
                             {
