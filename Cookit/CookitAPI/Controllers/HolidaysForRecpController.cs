@@ -25,7 +25,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_HolidaysForRecp> holidays4recp = CookitDB.DB_Code.CookitQueries.GetHolidaysByRecpId(recp_id);
                 if (holidays4recp == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this holidays recipe does not exist.");
@@ -64,7 +65,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_HolidaysForRecp> list_holiday_2_recp = new List<TBL_HolidaysForRecp>();
                 TBL_HolidaysForRecp hd2recp;
                 for (int i = 0; i < newholiday2Recipe.Count; i++)
@@ -103,7 +105,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_HolidaysForRecp> list_holidays_2_recp = new List<TBL_HolidaysForRecp>();
                 TBL_HolidaysForRecp holiday;
                 for (int i = 0; i < deleteHolidays2Recp.Count; i++)

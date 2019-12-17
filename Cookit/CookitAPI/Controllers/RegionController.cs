@@ -24,7 +24,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetAllRegion()
         {
-            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //bgroup36_prodConnection db = new bgroup36_prodConnection();
             var regions = CookitDB.DB_Code.CookitQueries.GetAllRegion();
             if (regions == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no regions in DB.");

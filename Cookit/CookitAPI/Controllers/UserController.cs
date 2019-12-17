@@ -21,7 +21,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 TBL_User user = CookitDB.DB_Code.CookitQueries.LogIn(email, pass); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
 
                 if (user == null) // אם אין משתמש שכזה
@@ -57,7 +58,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection();
                 bool flag = CookitDB.DB_Code.CookitQueries.CheckMailAvailable(email);
                 return Request.CreateResponse(HttpStatusCode.OK, flag);
             }
@@ -76,7 +78,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 string user_full_name = CookitDB.DB_Code.CookitQueries.GetUserFullNameByID(user_id); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
 
                 if (user_full_name == null) // אם אין משתמש שכזה
@@ -98,7 +101,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 bool isSent = CookitDB.DB_Code.CookitQueries.SendMail(email);
                 if (isSent)
                     return Request.CreateResponse(HttpStatusCode.OK, "");
@@ -120,7 +124,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 int user_id = CookitDB.DB_Code.CookitQueries.GetUserByEmail(email);
                 if (user_id > 0) // אם מצא את המשתמש
                      return Request.CreateResponse(HttpStatusCode.OK, user_id);
@@ -142,7 +147,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_User u = new TBL_User()
                 {
                    Id_Type = newUser.user_type,
@@ -174,7 +180,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_User u  = new TBL_User()
                 {
                     Id_User = user.id,

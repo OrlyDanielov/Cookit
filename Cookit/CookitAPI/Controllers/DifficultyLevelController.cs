@@ -18,7 +18,7 @@ namespace Cookit.Controllers
         [HttpGet]
         public HttpResponseMessage GetAll()
         {
-            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //bgroup36_prodConnection db = new bgroup36_prodConnection();
             // קורא לפונקציה שמחזירה את דגרות הקושי של מתכון מהDB
             var diffLevel = CookitDB.DB_Code.CookitQueries.Get_all_DifficultyLevel();
             if (diffLevel == null) // אם אין נתונים במסד נתונים

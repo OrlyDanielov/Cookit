@@ -19,7 +19,7 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+              
                 var list_favorite = CookitDB.DB_Code.CookitQueries.GetFavoriteByUserId(user_id);
                 if (list_favorite == null) // אם אין משתמש שכזהd
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this like does not exist.");
@@ -30,6 +30,7 @@ namespace CookitAPI.Controllers
                     {
                         result.Add(new FavoriteRecipeDTO
                         {
+                            id = item.Id,
                             id_recipe = item.Id_Recp,
                             id_user = item.Id_User
                         });
@@ -51,7 +52,7 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                
                 TBL_FavoriteRecp favorite = CookitDB.DB_Code.CookitQueries.GetFavoriteByUserIdAndRecipeId(user_id, recipe_id); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
 
                 if (favorite == null) // אם אין משתמש שכזה
@@ -60,9 +61,9 @@ namespace CookitAPI.Controllers
                 {
                     //המרה של רשימת נתוני משתמש למבנה נתונים מסוג DTO
                     FavoriteRecipeDTO result = new FavoriteRecipeDTO();
+                    result.id = favorite.Id;
                     result.id_recipe = favorite.Id_Recp;
                     result.id_user = favorite.Id_User;
-                    //result.status = favorite.RecpStatus;
 
                     return Request.CreateResponse(HttpStatusCode.OK, result);
                 }
@@ -81,9 +82,10 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+               
                 TBL_FavoriteRecp favorite = new TBL_FavoriteRecp()
                 {
+                    Id = newFavorite.id,
                     Id_Recp = newFavorite.id_recipe,
                     Id_User = newFavorite.id_user
                 };
@@ -108,9 +110,10 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                
                 TBL_FavoriteRecp _favorite = new TBL_FavoriteRecp()
                 {
+                    Id = delete_favorite.id,
                     Id_Recp = delete_favorite.id_recipe,
                     Id_User = delete_favorite.id_user
                 };

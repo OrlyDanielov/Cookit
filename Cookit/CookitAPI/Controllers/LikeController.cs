@@ -19,7 +19,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
                 var list_like = CookitDB.DB_Code.CookitQueries.GetLikeByUserId(user_id); 
                 if (list_like == null) // אם אין משתמש שכזהd
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this like does not exist.");
@@ -28,8 +27,9 @@ namespace CookitAPI.Controllers
                     List<LikesDTO> result = new List<LikesDTO>();
                     foreach (TBL_Likes item in list_like)
                     {
-                        result.Add(new LikesDTO { 
-                        id_recipe = item.Id_Recp,
+                        result.Add(new LikesDTO {
+                            id = item.Id,
+                            id_recipe = item.Id_Recp,
                         id_user = item.Id_User
                     });
                     }
@@ -50,7 +50,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
                 int count_like = CookitDB.DB_Code.CookitQueries.GetCountLikeOfRecipe(recipe_id);
                 if (count_like > -1 )
                     return Request.CreateResponse(HttpStatusCode.OK, count_like);
@@ -64,7 +63,6 @@ namespace CookitAPI.Controllers
         }
         #endregion   
 
-
         #region GetLikeByUserIdAndRecipeId
         [Route("GetLikeByUserIdAndRecipeId/{user_id}/{recipe_id}")]
         [HttpGet]
@@ -72,7 +70,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
                 TBL_Likes like = CookitDB.DB_Code.CookitQueries.GetLikeByUserIdAndRecipeId(user_id, recipe_id); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
 
                 if (like == null) // אם אין משתמש שכזה
@@ -81,6 +78,7 @@ namespace CookitAPI.Controllers
                 {
                     //המרה של רשימת נתוני משתמש למבנה נתונים מסוג DTO
                     LikesDTO result = new LikesDTO();
+                    result.id = like.Id;
                     result.id_recipe = like.Id_Recp;
                     result.id_user = like.Id_User;
 
@@ -101,10 +99,10 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Likes like = new TBL_Likes()
                 {
-                   Id_Recp = newLike.id_recipe,
+                    Id = newLike.id,
+                    Id_Recp = newLike.id_recipe,
                    Id_User = newLike.id_user                  
                 };
                 bool is_saved = CookitDB.DB_Code.CookitQueries.AddNewLike(like);
@@ -128,9 +126,9 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Likes _like = new TBL_Likes()
                 {
+                    Id = delete_like.id,
                     Id_Recp = delete_like.id_recipe,
                     Id_User = delete_like.id_user
                 }; 

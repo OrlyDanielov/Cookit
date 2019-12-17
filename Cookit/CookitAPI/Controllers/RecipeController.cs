@@ -21,7 +21,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_Recipe> list_recipes = CookitDB.DB_Code.CookitQueries.GetAllRecipes();
                 if (list_recipes == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "there is no recipes in the server");
@@ -68,14 +69,14 @@ namespace Cookit.Controllers
             try
             {
                 const int MINIMUM_LIKE_FOR_RECIPE = 10;
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_Recipe> recipe_list = CookitDB.DB_Code.CookitQueries.GetAllRecipes();
-                //List<TBL_Likes> like_list = CookitDB.DB_Code.CookitQueries.GetAllLikes();//מביא את כל הלייקים
-                if (recipe_list == null )//&& like_list == null)
+                if (recipe_list == null )
                     return Request.CreateResponse(HttpStatusCode.OK, recipe_list);
                 else
                 {
-                    int like_count;//= CookitDB.DB_Code.CookitQueries.GetRecipeLikes()
+                    int like_count;
                     //המרה של רשימת סןגי משתמשים למבנה נתונים מסוג DTO
                     List<RecipeDTO> result = new List<RecipeDTO>();
                     foreach (TBL_Recipe item in recipe_list)
@@ -117,7 +118,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 //מביא רשימת המעקבים שלי
                 List<TBL_Followers> user_follow_list = CookitDB.DB_Code.CookitQueries.GetProfileFollowByUser(user_id);
                 //רשימת הפרופילים הנעקבים
@@ -180,7 +182,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection();
                 //מביא את כל המתכונים
                 List<TBL_Recipe> list_recipes = CookitDB.DB_Code.CookitQueries.GetAllRecipes();
                 //מביא את כל המשתמשים שהם מסוג אנין טעם
@@ -237,7 +240,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Recipe recipe = CookitDB.DB_Code.CookitQueries.GetRecpByUserIdAndRecpName(user_id, recp_name);
                if(recipe == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this recipe does not exist.");
@@ -277,7 +281,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_Recipe> recipes = CookitDB.DB_Code.CookitQueries.GetRecipesByUserId(user_id);
                 if (recipes == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this recipe does not exist.");
@@ -320,7 +325,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); 
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); 
                 TBL_Recipe recipe = CookitDB.DB_Code.CookitQueries.GetRecpByUserIdRecipe(recipe_id);
                 if (recipe == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this recipe does not exist.");
@@ -361,7 +367,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection();
                 //המתכונים שנשמרו במועדפים אצל המשתמש
                 List<TBL_FavoriteRecp> favorite_recp_list = CookitDB.DB_Code.CookitQueries.GetFavoriteByUserId(user_id);
                 //המתכונים שמשתמש לא העלאה
@@ -418,7 +425,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Recipe r = new TBL_Recipe()
                 {
                     Id_Recipe_User = newRecipe.user_id,
@@ -462,7 +470,8 @@ namespace Cookit.Controllers
             string pull_path = "/Images/Recipes/" + recipe_id.ToString() + ext;//"~/Images/Recipes/" + recipe_id.ToString() + ext;
             string img_name = recipe_id.ToString();
 
-            Cookit_DBConnection db = new Cookit_DBConnection();
+            //bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
             //עדכון פרטי תמונה אצל מתכון
             bool is_updated = CookitDB.DB_Code.CookitQueries.UpdateRecipeImage(recipe_id, img_name, pull_path);
             if (is_updated) //כאשר מוצאים את הפרופיל המתאים
@@ -483,7 +492,8 @@ namespace Cookit.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Recipe r = new TBL_Recipe()
                 {
                    Id_Recipe = recipe.recp_id,

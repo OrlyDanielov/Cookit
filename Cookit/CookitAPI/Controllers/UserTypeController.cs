@@ -19,7 +19,7 @@ namespace CookitAPI.Controllers
         public HttpResponseMessage Get_all_user_type()
         {
             //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            Cookit_DBConnection db = new Cookit_DBConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
             // קורא לפונקציה שמחזירה את כל סוגי המשתמשים מהDB
             var userType = CookitDB.DB_Code.CookitQueries.Get_all_User_Type();
             if (userType == null) // אם אין נתונים במסד נתונים

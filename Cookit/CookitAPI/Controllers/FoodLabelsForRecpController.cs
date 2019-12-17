@@ -25,7 +25,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_LabelsForRecp> lbl4recp = CookitDB.DB_Code.CookitQueries.GetFoodLablesByRecpId(recp_id);
                 if (lbl4recp == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this food lables recipe does not exist.");
@@ -64,7 +65,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_LabelsForRecp> list_lbl_2_recp = new List<TBL_LabelsForRecp>();
                 TBL_LabelsForRecp food_lbl2recp;
                 for (int i = 0; i < newFl2Recipe.Count; i++)
@@ -103,7 +105,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_LabelsForRecp> list_lbl_2_recp = new List<TBL_LabelsForRecp>();
                 TBL_LabelsForRecp lbl;
                 for (int i = 0; i < deletelbl2Recp.Count; i++)

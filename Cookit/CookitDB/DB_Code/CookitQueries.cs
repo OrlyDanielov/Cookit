@@ -10,10 +10,11 @@ namespace CookitDB.DB_Code
     {
 
         #region Get_DB
-        public static Cookit_DBConnection Get_DB()
+        public static bgroup36_prodEntities Get_DB() //bgroup36_prodConnection  Get_DB()//Cookit_DBConnection Get_DB()
         {
-            Cookit_DBConnection db = new Cookit_DBConnection();
+            //Cookit_DBConnection db = new Cookit_DBConnection();
             //bgroup36_prodConnection db = new bgroup36_prodConnection();
+            bgroup36_prodEntities db = new bgroup36_prodEntities();
             return db;
 
         }
@@ -350,8 +351,6 @@ namespace CookitDB.DB_Code
             try
             {
                 var db = Get_DB();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
                 return db.TBL_DishType.ToList();
             }
             catch (Exception e)

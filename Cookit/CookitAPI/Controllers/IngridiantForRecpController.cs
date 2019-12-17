@@ -25,7 +25,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_IngridiantForRecp> ing4recp = CookitDB.DB_Code.CookitQueries.GetIngridiantsByRecpId(recp_id);
                 if (ing4recp == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this ingridiants recipe does not exist.");
@@ -65,7 +66,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
                 TBL_IngridiantForRecp ing;
                 for(int i =0; i<newIng2Recp.Count; i++)
@@ -101,7 +103,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
                 TBL_IngridiantForRecp ing;
                 for (int i = 0; i < updateIng2Recp.Count; i++)
@@ -138,8 +141,9 @@ namespace CookitAPI.Controllers
           {
               try
               {
-                  Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-                  List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
                   TBL_IngridiantForRecp ing;
                   for (int i = 0; i < deleteIng2Recp.Count; i++)
                   {

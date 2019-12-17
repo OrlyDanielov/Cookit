@@ -21,7 +21,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection db = new Cookit_DBConnection();
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection db = new Cookit_DBConnection();
                 var food_lable = CookitDB.DB_Code.CookitQueries.Get_all_FoodLable();
                 if (food_lable == null) // אם אין נתונים במסד נתונים
                     return Request.CreateResponse(HttpStatusCode.BadRequest, "there is no holidays in DB.");

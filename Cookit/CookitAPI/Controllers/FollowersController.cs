@@ -23,7 +23,6 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetPrGetProfileFollowByUserofileByUserId(int user_id)
         {
-            Cookit_DBConnection db = new Cookit_DBConnection();
             var follow_profiles = CookitDB.DB_Code.CookitQueries.GetProfileFollowByUser(user_id);
 
             if (follow_profiles == null) // אם אין משתמש שכזה
@@ -35,6 +34,7 @@ namespace CookitAPI.Controllers
                 {
                     result.Add(new FollowersDTO
                     {
+                        id = item.Id,
                         user_id = item.Id_User,
                         profile_id = item.Id_Prof
                     });
@@ -50,7 +50,6 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetProfileFollowByProfileId(int profile_id)
         {
-            Cookit_DBConnection db = new Cookit_DBConnection();
             var user_follows = CookitDB.DB_Code.CookitQueries.GetProfileFollowByProfileId(profile_id);
             if (user_follows == null) 
                 return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
@@ -61,6 +60,7 @@ namespace CookitAPI.Controllers
                 {
                     result.Add(new FollowersDTO
                     {
+                        id = item.Id,
                         user_id = item.Id_User,
                         profile_id = item.Id_Prof
                     });
@@ -78,10 +78,10 @@ namespace CookitAPI.Controllers
             try
             {
 
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Followers follow = new TBL_Followers()
                 {
-                   Id_User=new_follow.user_id,
+                    Id = new_follow.id,
+                    Id_User = new_follow.user_id,
                    Id_Prof = new_follow.profile_id
                 };
                 var is_saved = CookitDB.DB_Code.CookitQueries.AddNewFollow(follow);
@@ -109,9 +109,9 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Followers follow = new TBL_Followers()
                 {
+                    Id = follow2remove.id,
                     Id_User = follow2remove.user_id,
                     Id_Prof = follow2remove.profile_id
                 };

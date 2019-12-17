@@ -20,7 +20,7 @@ namespace Cookit.Controllers
         [HttpGet]
         public HttpResponseMessage GetAll()
         {
-            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //bgroup36_prodConnection db = new bgroup36_prodConnection();
             // קורא לפונקציה שמחזירה את כל סוגי האוכל מהDB
             var foodType = CookitDB.DB_Code.CookitQueries.Get_all_FoodType();
             if (foodType == null) // אם אין נתונים במסד נתונים

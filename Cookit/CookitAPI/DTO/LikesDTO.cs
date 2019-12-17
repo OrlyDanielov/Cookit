@@ -7,9 +7,8 @@ namespace CookitAPI.DTO
 {
     public class LikesDTO
     {
+        public int id;
         public int id_recipe;
         public int id_user;
-        //public bool status;
-        //public DateTime date_like;
     }
 }

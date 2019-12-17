@@ -67,95 +67,91 @@
     </Compile>
     <Compile Include="DB_Code\CookitQueries.cs" />
     <Compile Include="DB_Code\Mail.cs" />
-    <Compile Include="Model_RuppinDB.Context.cs">
+    <Compile Include="ModelRuppinDB_NEW.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model_RuppinDB.Context.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model_RuppinDB.cs">
+    <Compile Include="ModelRuppinDB_NEW.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model_RuppinDB.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model_RuppinDB.Designer.cs">
+    <Compile Include="ModelRuppinDB_NEW.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model_RuppinDB.edmx</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TBL_City.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Comments.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_DishCategory.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_DishType.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_FavoriteRecp.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Followers.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_FoodLabel.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_FoodType.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Holiday.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_HolidaysForRecp.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_IngridiantForRecp.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Ingridiants.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_KitchenType.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_LabelsForRecp.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Likes.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Mesurments.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Profile.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Recipe.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_RecipeDifficultyLevel.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_Region.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_User.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
     <Compile Include="TBL_UserType.cs">
-      <DependentUpon>CookitModle.tt</DependentUpon>
+      <DependentUpon>ModelRuppinDB_NEW.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="Model_RuppinDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model_RuppinDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <EntityDeploy Include="CookitModle.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CookitModle.Designer.cs</LastGenOutput>
@@ -163,8 +159,12 @@
     <None Include="CookitModle.edmx.diagram">
       <DependentUpon>CookitModle.edmx</DependentUpon>
     </None>
-    <None Include="Model_RuppinDB.edmx.diagram">
-      <DependentUpon>Model_RuppinDB.edmx</DependentUpon>
+    <EntityDeploy Include="ModelRuppinDB_NEW.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelRuppinDB_NEW.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelRuppinDB_NEW.edmx.diagram">
+      <DependentUpon>ModelRuppinDB_NEW.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -179,15 +179,15 @@
       <DependentUpon>CookitModle.edmx</DependentUpon>
       <LastGenOutput>CookitModle.cs</LastGenOutput>
     </Content>
-    <Content Include="Model_RuppinDB.Context.tt">
+    <Content Include="ModelRuppinDB_NEW.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model_RuppinDB.edmx</DependentUpon>
-      <LastGenOutput>Model_RuppinDB.Context.cs</LastGenOutput>
+      <DependentUpon>ModelRuppinDB_NEW.edmx</DependentUpon>
+      <LastGenOutput>ModelRuppinDB_NEW.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model_RuppinDB.tt">
+    <Content Include="ModelRuppinDB_NEW.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model_RuppinDB.edmx</DependentUpon>
-      <LastGenOutput>Model_RuppinDB.cs</LastGenOutput>
+      <DependentUpon>ModelRuppinDB_NEW.edmx</DependentUpon>
+      <LastGenOutput>ModelRuppinDB_NEW.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

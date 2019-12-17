@@ -24,7 +24,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetCommentsByRecipeId(int recipe_id)
         {
-            bgroup36_prodConnection db = new bgroup36_prodConnection();
+            //bgroup36_prodConnection db = new bgroup36_prodConnection();
             List<TBL_Comments> comments = CookitDB.DB_Code.CookitQueries.GetCommentsByRecipeId(recipe_id);
             if (comments == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no comments to this recipe in DB.");
@@ -58,7 +58,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Comments comment = new TBL_Comments()
                 {
                    Id_Recp = newComment.recipe_id,
@@ -93,7 +94,9 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
+                //bgroup36_prodConnection db = new bgroup36_prodConnection();
+
+                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                
                 bool is_saved = CookitDB.DB_Code.CookitQueries.RemoveCommentById(id);
                 if (is_saved == true)
