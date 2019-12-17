@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+//using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
 using CookitAPI.DTO;
 
 namespace CookitAPI.Controllers
@@ -24,8 +26,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetCommentsByRecipeId(int recipe_id)
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            List<TBL_Comments> comments = CookitDB.DB_Code.CookitQueries.GetCommentsByRecipeId(recipe_id);
+            List<TBL_Comments> comments = CookitQueries.GetCommentsByRecipeId(recipe_id);
             if (comments == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no comments to this recipe in DB.");
             else
@@ -58,17 +59,14 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Comments comment = new TBL_Comments()
                 {
                    Id_Recp = newComment.recipe_id,
                    Id_User = newComment.user_id,
                    Comment = newComment.comment,
-                   CommentDate = newComment.comment_date//,
-                   //CommentStatus = newComment.comment_status
+                   CommentDate = newComment.comment_date
                 };
-                int id_comment = CookitDB.DB_Code.CookitQueries.AddNewComment(comment);
+                int id_comment = CookitQueries.AddNewComment(comment);
                 if (id_comment != -1)
                     return Request.CreateResponse(HttpStatusCode.OK, id_comment);
                 else
@@ -90,15 +88,11 @@ namespace CookitAPI.Controllers
         #region RemoveCommentById
         [Route("RemoveCommentById/{id}")]
         [HttpDelete]
-        public HttpResponseMessage RemoveCommentById(int id)//([FromBody]List<FoodLable2RecipeDTO> deletelbl2Recp)
+        public HttpResponseMessage RemoveCommentById(int id)
         {
             try
-            {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-               
-                bool is_saved = CookitDB.DB_Code.CookitQueries.RemoveCommentById(id);
+            {               
+                bool is_saved = CookitQueries.RemoveCommentById(id);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, "the comments deleted Successfully from the recipe.");
                 else

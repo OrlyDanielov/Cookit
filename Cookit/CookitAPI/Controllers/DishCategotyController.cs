@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CookitAPI;
+using CookitAPI.DB_Code;
 using Cookit.DTO;
-using CookitDB;
+//using CookitDB;
 
 namespace Cookit.Controllers
 {
@@ -16,10 +18,8 @@ namespace Cookit.Controllers
         [Route("api/DishCategoty")]
         public HttpResponseMessage Get()
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
-            // קורא לפונקציה שמחזירה את כל המאפייני מנה מהDB
-            var dishCategory = CookitDB.DB_Code.CookitQueries.Get_all_DishCategory();
+             // קורא לפונקציה שמחזירה את כל המאפייני מנה מהDB
+            var dishCategory = CookitQueries.Get_all_DishCategory();
             if (dishCategory == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no DishCategiry in DB.");
             else

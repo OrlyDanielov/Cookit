@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CookitAPI.DTO;
-using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
+//using CookitDB;
 using System.IO;
 using System.Web;
 using System.Data;
@@ -21,9 +23,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetAllActiveProfiles()
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
-            List< TBL_Profile > profiles = CookitDB.DB_Code.CookitQueries.GetAllActiveProfiles();
+            List< TBL_Profile > profiles = CookitQueries.GetAllActiveProfiles();
             if (profiles == null) // אם אין משתמש שכזה
                 return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
             else
@@ -58,8 +58,7 @@ namespace CookitAPI.Controllers
             try
             {
                 const int MINIMUM_FOLLOW_FOR_PROFILE = 10;
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-                List<TBL_Profile> profile_list = CookitDB.DB_Code.CookitQueries.GetAllActiveProfiles();
+                List<TBL_Profile> profile_list = CookitQueries.GetAllActiveProfiles();
                 if (profile_list == null)
                     return Request.CreateResponse(HttpStatusCode.OK, profile_list);
                 else
@@ -100,9 +99,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetProfileByProfileId(int id_profile)
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
-            TBL_Profile profile = CookitDB.DB_Code.CookitQueries.GetProfileByProfileId(id_profile);
+            TBL_Profile profile = CookitQueries.GetProfileByProfileId(id_profile);
 
             if (profile == null) // אם אין משתמש שכזה
                 return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
@@ -130,9 +127,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetProfileByUserId(int userId)
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
-            TBL_Profile profile = CookitDB.DB_Code.CookitQueries.GetProfileByUserId(userId); 
+            TBL_Profile profile = CookitQueries.GetProfileByUserId(userId); 
 
             if (profile == null) // אם אין משתמש שכזה
                 return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
@@ -163,10 +158,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
                 //תז הפרופילים הנעקבים עי המשתמש לפי תז משתמש
-                List<TBL_Followers> follows_list = CookitDB.DB_Code.CookitQueries.GetProfileFollowByUser(user_id);
+                List<TBL_Followers> follows_list = CookitQueries.GetProfileFollowByUser(user_id);
                 if (follows_list == null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, follows_list);
@@ -179,7 +172,7 @@ namespace CookitAPI.Controllers
                                         //מביא את הפרופיל לפי התז שלו ודוחף לרשימה
                     foreach (TBL_Followers item in follows_list)
                     {
-                        profile = CookitDB.DB_Code.CookitQueries.GetProfileByProfileId(item.Id_Prof);
+                        profile = CookitQueries.GetProfileByProfileId(item.Id_Prof);
                         //מביא רק את הפרופילים הפעילים
                         if (profile.ProfStatus == true)
                         {
@@ -215,10 +208,8 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
                 //תז הפרופילים העוקבים אחרי לפי תז משתמש 
-                List<TBL_Followers> follows_list = CookitDB.DB_Code.CookitQueries.GetProfilesFollowsAfterUserByProfileId(profile_id);
+                List<TBL_Followers> follows_list = CookitQueries.GetProfilesFollowsAfterUserByProfileId(profile_id);
                 if (follows_list == null)
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, follows_list);
@@ -232,7 +223,7 @@ namespace CookitAPI.Controllers
                                         //מביא את הפרופיל לפי התז שלו ודוחף לרשימה
                     foreach (TBL_Followers item in follows_list)
                     {
-                        profile = CookitDB.DB_Code.CookitQueries.GetProfileByUserId(item.Id_User);
+                        profile = CookitQueries.GetProfileByUserId(item.Id_User);
                         if (profile != null)
                         {
                             //תציג רק פרופילים פעילים
@@ -274,11 +265,9 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //Cookit_DBConnection DB = new Cookit_DBConnection();
-                TBL_Profile p = CookitDB.DB_Code.CookitQueries.CheckProfileExsistByUserId(user_id);
+                TBL_Profile p = CookitQueries.CheckProfileExsistByUserId(user_id);
                 if (p == null)
                     return Request.CreateResponse(HttpStatusCode.OK, p);
-                //return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
                 else
                 {
                     ProfileDTO result = new ProfileDTO();
@@ -311,7 +300,6 @@ namespace CookitAPI.Controllers
             try
             {   
                 //שמירת הפרופיל בשרת
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Profile p = new TBL_Profile()
                 {
                     Id_User = new_profile.user_id,
@@ -323,7 +311,7 @@ namespace CookitAPI.Controllers
                     Image_Path = new_profile.img_path,
                     Image_Name = new_profile.img_name
                 };
-                int id_profile = CookitDB.DB_Code.CookitQueries.AddNewProfile(p);
+                int id_profile = CookitQueries.AddNewProfile(p);
                 if (id_profile > -1)
                 {
                     new_profile.id = id_profile;
@@ -354,10 +342,8 @@ namespace CookitAPI.Controllers
             string pull_path = "/Images/Profiles/" + profile_id.ToString() + ext;
             string img_name = profile_id.ToString();
 
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
             //עדכון פרטי תמונה אצל הפרופיל
-            bool is_updated = CookitDB.DB_Code.CookitQueries.UpdateProfileImage(profile_id, img_name, pull_path);
+            bool is_updated = CookitQueries.UpdateProfileImage(profile_id, img_name, pull_path);
             if (is_updated) //כאשר מוצאים את הפרופיל המתאים
             {
                 //שמירת התמונה בתקייה של הפרויקט
@@ -375,7 +361,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 TBL_Profile p = new TBL_Profile()
                 {
                     Id_Prof = profile.id,
@@ -388,7 +373,7 @@ namespace CookitAPI.Controllers
                     Image_Path = profile.img_path,
                     Image_Name = profile.img_name
                 };
-                var is_saved = CookitDB.DB_Code.CookitQueries.UpdateProfileInfo(p);
+                var is_saved = CookitQueries.UpdateProfileInfo(p);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, "the profile information updated seccussfully.");
                 else
@@ -406,9 +391,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetProfileIDByUserID(int id)
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-            int p_id = CookitDB.DB_Code.CookitQueries.GetProfileIDOfUserByID(id);
+            int p_id = CookitQueries.GetProfileIDOfUserByID(id);
             if (p_id != -1)
                 return Request.CreateResponse(HttpStatusCode.OK, p_id);
             else

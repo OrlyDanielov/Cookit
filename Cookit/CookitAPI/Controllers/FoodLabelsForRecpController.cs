@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
+//using CookitDB;
 using CookitAPI.DTO;
 
 namespace CookitAPI.Controllers
@@ -25,9 +27,7 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-                List<TBL_LabelsForRecp> lbl4recp = CookitDB.DB_Code.CookitQueries.GetFoodLablesByRecpId(recp_id);
+                List<TBL_LabelsForRecp> lbl4recp = CookitQueries.GetFoodLablesByRecpId(recp_id);
                 if (lbl4recp == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this food lables recipe does not exist.");
                 else
@@ -65,8 +65,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_LabelsForRecp> list_lbl_2_recp = new List<TBL_LabelsForRecp>();
                 TBL_LabelsForRecp food_lbl2recp;
                 for (int i = 0; i < newFl2Recipe.Count; i++)
@@ -79,7 +77,7 @@ namespace CookitAPI.Controllers
                     };
                     list_lbl_2_recp.Add(food_lbl2recp);
                 }
-                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewFoodLables2Recipe(list_lbl_2_recp);
+                var is_saved = CookitQueries.AddNewFoodLables2Recipe(list_lbl_2_recp);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, "the food lables added Successfully to the recipe.");
                 else
@@ -105,8 +103,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_LabelsForRecp> list_lbl_2_recp = new List<TBL_LabelsForRecp>();
                 TBL_LabelsForRecp lbl;
                 for (int i = 0; i < deletelbl2Recp.Count; i++)
@@ -120,7 +116,7 @@ namespace CookitAPI.Controllers
                     };
                     list_lbl_2_recp.Add(lbl);
                 }
-                var is_saved = CookitDB.DB_Code.CookitQueries.DeleteFoodLabelsForRecipeById(list_lbl_2_recp);
+                var is_saved = CookitQueries.DeleteFoodLabelsForRecipeById(list_lbl_2_recp);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, "the food labels deleted Successfully from the recipe.");
                 else

@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web;
-using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
+//using CookitDB;
 using CookitAPI.DTO;
 
 namespace CookitAPI.Controllers
@@ -20,9 +22,7 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection db = new Cookit_DBConnection();
-                var holiday = CookitDB.DB_Code.CookitQueries.Get_all_Holidays();
+                var holiday = CookitQueries.Get_all_Holidays();
                 if (holiday == null) // אם אין נתונים במסד נתונים
                     return Request.CreateResponse(HttpStatusCode.BadRequest, "there is no holidays in DB.");
                 else

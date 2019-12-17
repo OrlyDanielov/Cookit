@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CookitAPI.DTO;
-using CookitDB;
+//using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
 
 
 namespace CookitAPI.Controllers
@@ -20,9 +22,8 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetAllCities()
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
             // קורא לפונקציה שמחזירה את של הערים מהDB
-            var cities = CookitDB.DB_Code.CookitQueries.Get_all_cities();
+            var cities = CookitQueries.Get_all_cities();
             if (cities == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no cities in DB.");
             else

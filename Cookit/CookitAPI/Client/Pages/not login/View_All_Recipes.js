@@ -62,7 +62,6 @@ function FailGet_FU_Recipes() {
     document.getElementById("loading_icon").style.display = "none";
 
     console.log("error! can't get recipe information.");
-    console.log(data);
     alert("שגיאה במשיכת נתוני מתכון!, אנא נסה שנית מאוחד יותר.");
 }
 

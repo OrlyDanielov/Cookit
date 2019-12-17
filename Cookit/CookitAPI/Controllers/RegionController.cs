@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
+//using CookitDB;
 using CookitAPI.DTO;
 
 namespace CookitAPI.Controllers
@@ -24,8 +26,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetAllRegion()
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            var regions = CookitDB.DB_Code.CookitQueries.GetAllRegion();
+            var regions = CookitQueries.GetAllRegion();
             if (regions == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no regions in DB.");
             else

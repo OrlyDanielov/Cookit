@@ -51,6 +51,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -259,6 +260,8 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserTypeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DB_Code\CookitQueries.cs" />
+    <Compile Include="DB_Code\Mail.cs" />
     <Compile Include="DTO\CityDTO.cs" />
     <Compile Include="DTO\CommentsDTO.cs" />
     <Compile Include="DTO\DifficultyLevelDTO.cs" />
@@ -288,35 +291,97 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Model_Ruppin_DB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Ruppin_DB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model_Ruppin_DB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model_Ruppin_DB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_Ruppin_DB.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="TBL_City.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Comments.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_DishCategory.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_DishType.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_FavoriteRecp.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Followers.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_FoodLabel.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_FoodType.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Holiday.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_HolidaysForRecp.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_IngridiantForRecp.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Ingridiants.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_KitchenType.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_LabelsForRecp.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Likes.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Mesurments.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Profile.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Recipe.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_RecipeDifficultyLevel.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_Region.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_User.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TBL_UserType.cs">
+      <DependentUpon>Model_Ruppin_DB.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Client\Images\Background_pic\cookie_icon.png" />
     <Content Include="Client\Images\Background_pic\pic_cookies_6.jpg" />
-    <Content Include="Client\Images\cookie_icon.png" />
-    <Content Include="Client\Images\pic_bg_1.jpg" />
-    <Content Include="Client\Images\pic_bg_10.jpg" />
-    <Content Include="Client\Images\pic_bg_11.jpg" />
-    <Content Include="Client\Images\pic_bg_12.jpg" />
-    <Content Include="Client\Images\pic_bg_2.jpg" />
-    <Content Include="Client\Images\pic_bg_3.jpg" />
-    <Content Include="Client\Images\pic_bg_4.jpg" />
-    <Content Include="Client\Images\pic_bg_5.jpg" />
-    <Content Include="Client\Images\pic_bg_6.jpg" />
-    <Content Include="Client\Images\pic_bg_7.jpg" />
-    <Content Include="Client\Images\pic_bg_8.jpg" />
-    <Content Include="Client\Images\pic_bg_9.jpg" />
-    <Content Include="Client\Images\pic_cookies_1.jpg" />
-    <Content Include="Client\Images\pic_cookies_2.jpg" />
-    <Content Include="Client\Images\pic_cookies_3.jpg" />
-    <Content Include="Client\Images\pic_cookies_4.jpg" />
-    <Content Include="Client\Images\pic_cookies_5.jpg" />
-    <Content Include="Client\Images\pic_cookies_6.jpg" />
-    <Content Include="Client\Images\user_null_fic.svg" />
+    <Content Include="Client\Pages\GeneralStyle.css" />
     <Content Include="Client\Pages\login\Add_New_Recipe.js" />
     <Content Include="Client\Pages\login\Add_New_Recipe.html" />
     <Content Include="Client\Pages\login\Edit_Password.html" />
@@ -390,9 +455,35 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\Recipes\41.jpg" />
-    <Content Include="Images\Recipes\42.jpg" />
-    <Content Include="Images\Recipes\43.jpg" />
+    <Content Include="Images\Profiles\1.jfif" />
+    <Content Include="Images\Profiles\10.jfif" />
+    <Content Include="Images\Profiles\11.jfif" />
+    <Content Include="Images\Profiles\2.jfif" />
+    <Content Include="Images\Profiles\3.jfif" />
+    <Content Include="Images\Profiles\4.jfif" />
+    <Content Include="Images\Profiles\5.jfif" />
+    <Content Include="Images\Profiles\6.jfif" />
+    <Content Include="Images\Profiles\7.jfif" />
+    <Content Include="Images\Profiles\8.jfif" />
+    <Content Include="Images\Profiles\9.jfif" />
+    <Content Include="Images\Recipes\1.jpg" />
+    <Content Include="Images\Recipes\2.jpg" />
+    <Content Include="Images\Recipes\3.jpg" />
+    <Content Include="Images\Recipes\4.jpg" />
+    <Content Include="Images\Recipes\5.jpg" />
+    <Content Include="Images\Recipes\6.jpg" />
+    <Content Include="Images\Recipes\7.jpg" />
+    <Content Include="Images\Recipes\8.jpg" />
+    <Content Include="Model_Ruppin_DB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_Ruppin_DB.edmx</DependentUpon>
+      <LastGenOutput>Model_Ruppin_DB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model_Ruppin_DB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_Ruppin_DB.edmx</DependentUpon>
+      <LastGenOutput>Model_Ruppin_DB.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -427,8 +518,17 @@
     <Content Include="Cookit_DB\TBL_RecipeDifficultyLevel.csv" />
     <Content Include="Cookit_DB\TBL_Region.csv" />
     <Content Include="Cookit_DB\TBL_UserType.csv" />
+    <Content Include="libman.json" />
+    <EntityDeploy Include="Model_Ruppin_DB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_Ruppin_DB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model_Ruppin_DB.edmx.diagram">
+      <DependentUpon>Model_Ruppin_DB.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -476,7 +576,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\Profiles\" />
     <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
@@ -497,6 +596,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

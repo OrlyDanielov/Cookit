@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
+//using CookitDB;
 using CookitAPI.DTO;
 
 namespace CookitAPI.Controllers
@@ -20,7 +22,7 @@ namespace CookitAPI.Controllers
             try
             {
               
-                var list_favorite = CookitDB.DB_Code.CookitQueries.GetFavoriteByUserId(user_id);
+                var list_favorite = CookitQueries.GetFavoriteByUserId(user_id);
                 if (list_favorite == null) // אם אין משתמש שכזהd
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this like does not exist.");
                 else
@@ -53,7 +55,7 @@ namespace CookitAPI.Controllers
             try
             {
                 
-                TBL_FavoriteRecp favorite = CookitDB.DB_Code.CookitQueries.GetFavoriteByUserIdAndRecipeId(user_id, recipe_id); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
+                TBL_FavoriteRecp favorite = CookitQueries.GetFavoriteByUserIdAndRecipeId(user_id, recipe_id); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
 
                 if (favorite == null) // אם אין משתמש שכזה
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this favorite recipe does not exist.");
@@ -89,7 +91,7 @@ namespace CookitAPI.Controllers
                     Id_Recp = newFavorite.id_recipe,
                     Id_User = newFavorite.id_user
                 };
-                bool is_saved = CookitDB.DB_Code.CookitQueries.AddNewFavorite(favorite);
+                bool is_saved = CookitQueries.AddNewFavorite(favorite);
                 if (is_saved)
                     return Request.CreateResponse(HttpStatusCode.OK, newFavorite);
                 else
@@ -117,7 +119,7 @@ namespace CookitAPI.Controllers
                     Id_Recp = delete_favorite.id_recipe,
                     Id_User = delete_favorite.id_user
                 };
-                var is_saved = CookitDB.DB_Code.CookitQueries.DeleteFavorite(_favorite);
+                var is_saved = CookitQueries.DeleteFavorite(_favorite);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, delete_favorite);
                 else

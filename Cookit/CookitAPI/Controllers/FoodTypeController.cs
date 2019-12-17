@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
+//using CookitDB;
 using Cookit.DTO;
 
 
@@ -20,9 +22,8 @@ namespace Cookit.Controllers
         [HttpGet]
         public HttpResponseMessage GetAll()
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
             // קורא לפונקציה שמחזירה את כל סוגי האוכל מהDB
-            var foodType = CookitDB.DB_Code.CookitQueries.Get_all_FoodType();
+            var foodType = CookitQueries.Get_all_FoodType();
             if (foodType == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no FoodType in DB.");
             else

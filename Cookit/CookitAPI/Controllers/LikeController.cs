@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+//using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
 using CookitAPI.DTO;
 
 namespace CookitAPI.Controllers
@@ -19,7 +21,7 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                var list_like = CookitDB.DB_Code.CookitQueries.GetLikeByUserId(user_id); 
+                var list_like = CookitQueries.GetLikeByUserId(user_id); 
                 if (list_like == null) // אם אין משתמש שכזהd
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this like does not exist.");
                 else
@@ -50,7 +52,7 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                int count_like = CookitDB.DB_Code.CookitQueries.GetCountLikeOfRecipe(recipe_id);
+                int count_like = CookitQueries.GetCountLikeOfRecipe(recipe_id);
                 if (count_like > -1 )
                     return Request.CreateResponse(HttpStatusCode.OK, count_like);
                 else
@@ -70,7 +72,7 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                TBL_Likes like = CookitDB.DB_Code.CookitQueries.GetLikeByUserIdAndRecipeId(user_id, recipe_id); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
+                TBL_Likes like = CookitQueries.GetLikeByUserIdAndRecipeId(user_id, recipe_id); // מחזיר אמת אם אימייל וסיסמא נכונים. אחרת מחזיר שקר.
 
                 if (like == null) // אם אין משתמש שכזה
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this like does not exist.");
@@ -105,7 +107,7 @@ namespace CookitAPI.Controllers
                     Id_Recp = newLike.id_recipe,
                    Id_User = newLike.id_user                  
                 };
-                bool is_saved = CookitDB.DB_Code.CookitQueries.AddNewLike(like);
+                bool is_saved = CookitQueries.AddNewLike(like);
                 if (is_saved)
                     return Request.CreateResponse(HttpStatusCode.OK, newLike);
                 else
@@ -132,7 +134,7 @@ namespace CookitAPI.Controllers
                     Id_Recp = delete_like.id_recipe,
                     Id_User = delete_like.id_user
                 }; 
-                var is_saved = CookitDB.DB_Code.CookitQueries.DeleteLike(_like);
+                var is_saved = CookitQueries.DeleteLike(_like);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, delete_like);
                 else

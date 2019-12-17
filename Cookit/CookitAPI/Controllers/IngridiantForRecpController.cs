@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+//using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
 using CookitAPI.DTO;
 
 namespace CookitAPI.Controllers
@@ -25,9 +27,7 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-                List<TBL_IngridiantForRecp> ing4recp = CookitDB.DB_Code.CookitQueries.GetIngridiantsByRecpId(recp_id);
+                List<TBL_IngridiantForRecp> ing4recp = CookitQueries.GetIngridiantsByRecpId(recp_id);
                 if (ing4recp == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this ingridiants recipe does not exist.");
                 else
@@ -43,7 +43,7 @@ namespace CookitAPI.Controllers
                             id_recp= ing4recp[i].Id_Recp,
                             id_ingridiants = ing4recp[i].Id_Ingridiants,
                             id_mesurment = ing4recp[i].Id_Mesurment,
-                            amount = ing4recp[i].Amount //float.Parse(ing4recp[i].Amount)
+                            amount = ing4recp[i].Amount 
                         };
                         list_ing_2_recp.Add(ing);
                     }
@@ -66,8 +66,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
                 TBL_IngridiantForRecp ing;
                 for(int i =0; i<newIng2Recp.Count; i++)
@@ -82,7 +80,7 @@ namespace CookitAPI.Controllers
                     };
                     list_ing_2_recp.Add(ing);
                 }
-                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewIngridiants2Recipe(list_ing_2_recp);
+                var is_saved = CookitQueries.AddNewIngridiants2Recipe(list_ing_2_recp);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, "the Ingridiants added Successfully to the recipe.");
                 else
@@ -103,8 +101,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
                 TBL_IngridiantForRecp ing;
                 for (int i = 0; i < updateIng2Recp.Count; i++)
@@ -120,7 +116,7 @@ namespace CookitAPI.Controllers
                     };
                     list_ing_2_recp.Add(ing);
                 }
-                var is_saved = CookitDB.DB_Code.CookitQueries.updateIng2Recp(list_ing_2_recp);
+                var is_saved = CookitQueries.updateIng2Recp(list_ing_2_recp);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, "the Ingridiants updated Successfully to the recipe.");
                 else
@@ -141,8 +137,6 @@ namespace CookitAPI.Controllers
           {
               try
               {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_IngridiantForRecp> list_ing_2_recp = new List<TBL_IngridiantForRecp>();
                   TBL_IngridiantForRecp ing;
                   for (int i = 0; i < deleteIng2Recp.Count; i++)
@@ -158,7 +152,7 @@ namespace CookitAPI.Controllers
                       };
                       list_ing_2_recp.Add(ing);
                   }
-                  var is_saved = CookitDB.DB_Code.CookitQueries.DeleteById(list_ing_2_recp);
+                  var is_saved = CookitQueries.DeleteById(list_ing_2_recp);
                   if (is_saved == true)
                       return Request.CreateResponse(HttpStatusCode.OK, "the Ingridiants deleted Successfully from the recipe.");
                   else

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+//using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
 using CookitAPI.DTO;
 
 namespace CookitAPI.Controllers
@@ -25,9 +27,7 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
-                List<TBL_HolidaysForRecp> holidays4recp = CookitDB.DB_Code.CookitQueries.GetHolidaysByRecpId(recp_id);
+                List<TBL_HolidaysForRecp> holidays4recp = CookitQueries.GetHolidaysByRecpId(recp_id);
                 if (holidays4recp == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, "this holidays recipe does not exist.");
                 else
@@ -65,8 +65,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_HolidaysForRecp> list_holiday_2_recp = new List<TBL_HolidaysForRecp>();
                 TBL_HolidaysForRecp hd2recp;
                 for (int i = 0; i < newholiday2Recipe.Count; i++)
@@ -79,7 +77,7 @@ namespace CookitAPI.Controllers
                     };
                     list_holiday_2_recp.Add(hd2recp);
                 }
-                var is_saved = CookitDB.DB_Code.CookitQueries.AddHolidays2Recipe(list_holiday_2_recp);
+                var is_saved = CookitQueries.AddHolidays2Recipe(list_holiday_2_recp);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, "the holidays added Successfully to the recipe.");
                 else
@@ -105,8 +103,6 @@ namespace CookitAPI.Controllers
         {
             try
             {
-                //bgroup36_prodConnection db = new bgroup36_prodConnection();
-                //Cookit_DBConnection DB = new Cookit_DBConnection(); //מצביע לבסיס הנתונים של טבלאות
                 List<TBL_HolidaysForRecp> list_holidays_2_recp = new List<TBL_HolidaysForRecp>();
                 TBL_HolidaysForRecp holiday;
                 for (int i = 0; i < deleteHolidays2Recp.Count; i++)
@@ -120,7 +116,7 @@ namespace CookitAPI.Controllers
                     };
                     list_holidays_2_recp.Add(holiday);
                 }
-                var is_saved = CookitDB.DB_Code.CookitQueries.DeleteHolidaysForRecipeById(list_holidays_2_recp);
+                var is_saved = CookitQueries.DeleteHolidaysForRecipeById(list_holidays_2_recp);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, "the food labels deleted Successfully from the recipe.");
                 else

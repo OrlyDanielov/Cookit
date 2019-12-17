@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3d8e5f32bde841138fdda0746b54cfa4" Name="Diagram1">
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_City" Width="1.5" PointX="6" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Comments" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_DishCategory" Width="1.5" PointX="6" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_DishType" Width="1.5" PointX="6" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_FavoriteRecp" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Followers" Width="1.5" PointX="5.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_FoodLabel" Width="1.5" PointX="8.25" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_FoodType" Width="1.5" PointX="6" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Holiday" Width="1.5" PointX="8.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_HolidaysForRecp" Width="1.5" PointX="10.5" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_IngridiantForRecp" Width="1.5" PointX="10.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Ingridiants" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_KitchenType" Width="1.5" PointX="6" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_LabelsForRecp" Width="1.5" PointX="10.5" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Likes" Width="1.5" PointX="8.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Mesurments" Width="1.5" PointX="8.25" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Profile" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Recipe" Width="1.5" PointX="8.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_RecipeDifficultyLevel" Width="1.5" PointX="6" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_Region" Width="1.5" PointX="3.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_User" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bgroup36_prodModel.TBL_UserType" Width="1.5" PointX="0.75" PointY="13" IsExpanded="true" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_City" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Id_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Recp3" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_User3" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_DishCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_DishType" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Recp16" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_User18" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Profile" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_User6" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Label" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_FoodType" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Holiday" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Recp8" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Ingridiants1" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Mesurment1" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Recp6" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_KitchenType" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Recp7" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Recp2" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_User2" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_User" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_Level" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="bgroup36_prodModel.FK_UserType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

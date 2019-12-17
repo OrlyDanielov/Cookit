@@ -4,22 +4,21 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CookitAPI;
+using CookitAPI.DB_Code;
 using Cookit.DTO;
-using CookitDB;
+//using CookitDB;
 
 namespace Cookit.Controllers
 {
     public class KitchenTypeController : ApiController
     {
-        // GET api/<controller>
         //מחזיר את כל סוגי המטבחים מבסיס הנתונים
         [Route("api/KitchenType")]
         public HttpResponseMessage Get()
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
             // קורא לפונקציה שמחזירה את כל סוגי המטבחים מהDB
-            var kitchenType = CookitDB.DB_Code.CookitQueries.Get_all_KitchenType();
+            var kitchenType = CookitQueries.Get_all_KitchenType();
             if (kitchenType == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no KitchenType in DB.");
             else

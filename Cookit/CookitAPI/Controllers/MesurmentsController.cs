@@ -4,22 +4,21 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
+//using CookitDB;
 using Cookit.DTO;
 
 namespace Cookit.Controllers
 {
     public class MesurmentsController : ApiController
     {
-        // GET api/<controller>  
         //מחזיר את כל האופייני מדידה מבסיס הנתונים      
         [Route("api/Mesurments")]
         public HttpResponseMessage Get()
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            //Cookit_DBConnection db = new Cookit_DBConnection();
             // קורא לפונקציה שמחזירה את כל אופני המדידה מהDB
-            var dishType = CookitDB.DB_Code.CookitQueries.Get_all_Mesurments();
+            var dishType = CookitQueries.Get_all_Mesurments();
             if (dishType == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no Mesurments in DB.");
             else

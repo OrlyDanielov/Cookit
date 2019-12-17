@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CookitDB;
+//using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
 using CookitAPI.DTO;
 
 namespace CookitAPI.Controllers
@@ -23,7 +25,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetPrGetProfileFollowByUserofileByUserId(int user_id)
         {
-            var follow_profiles = CookitDB.DB_Code.CookitQueries.GetProfileFollowByUser(user_id);
+            var follow_profiles = CookitQueries.GetProfileFollowByUser(user_id);
 
             if (follow_profiles == null) // אם אין משתמש שכזה
                 return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
@@ -50,7 +52,7 @@ namespace CookitAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetProfileFollowByProfileId(int profile_id)
         {
-            var user_follows = CookitDB.DB_Code.CookitQueries.GetProfileFollowByProfileId(profile_id);
+            var user_follows = CookitQueries.GetProfileFollowByProfileId(profile_id);
             if (user_follows == null) 
                 return Request.CreateResponse(HttpStatusCode.NotFound, "this profile does not exist.");
             else
@@ -84,7 +86,7 @@ namespace CookitAPI.Controllers
                     Id_User = new_follow.user_id,
                    Id_Prof = new_follow.profile_id
                 };
-                var is_saved = CookitDB.DB_Code.CookitQueries.AddNewFollow(follow);
+                var is_saved = CookitQueries.AddNewFollow(follow);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, new_follow.profile_id);
                 else
@@ -115,7 +117,7 @@ namespace CookitAPI.Controllers
                     Id_User = follow2remove.user_id,
                     Id_Prof = follow2remove.profile_id
                 };
-                var is_saved = CookitDB.DB_Code.CookitQueries.RemoveFollow(follow);
+                var is_saved = CookitQueries.RemoveFollow(follow);
                 if (is_saved == true)
                     return Request.CreateResponse(HttpStatusCode.OK, follow2remove.profile_id);
                 else

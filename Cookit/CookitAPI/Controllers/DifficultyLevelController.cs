@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Cookit.DTO;
-using CookitDB;
+//using CookitDB;
+using CookitAPI;
+using CookitAPI.DB_Code;
 
 namespace Cookit.Controllers
 {
@@ -18,9 +20,8 @@ namespace Cookit.Controllers
         [HttpGet]
         public HttpResponseMessage GetAll()
         {
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
             // קורא לפונקציה שמחזירה את דגרות הקושי של מתכון מהDB
-            var diffLevel = CookitDB.DB_Code.CookitQueries.Get_all_DifficultyLevel();
+            var diffLevel = CookitQueries.Get_all_DifficultyLevel();
             if (diffLevel == null) // אם אין נתונים במסד נתונים
                 return Request.CreateResponse(HttpStatusCode.NotFound, "there is no DifficultyLevel in DB.");
             else
