@@ -458,6 +458,7 @@
     <Content Include="Images\Profiles\1.jfif" />
     <Content Include="Images\Profiles\10.jfif" />
     <Content Include="Images\Profiles\11.jfif" />
+    <Content Include="Images\Profiles\12.jpg" />
     <Content Include="Images\Profiles\2.jfif" />
     <Content Include="Images\Profiles\3.jfif" />
     <Content Include="Images\Profiles\4.jfif" />
@@ -474,6 +475,7 @@
     <Content Include="Images\Recipes\6.jpg" />
     <Content Include="Images\Recipes\7.jpg" />
     <Content Include="Images\Recipes\8.jpg" />
+    <Content Include="Images\Recipes\9.jpg" />
     <Content Include="Model_Ruppin_DB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model_Ruppin_DB.edmx</DependentUpon>
@@ -526,9 +528,8 @@
     <Content Include="Model_Ruppin_DB.edmx.diagram">
       <DependentUpon>Model_Ruppin_DB.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
-    <None Include="Properties\PublishProfiles\CustomProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\Cookit.learnheb.pubxml" />
+    <None Include="Properties\PublishProfiles\Ruppin.bgroup36.proj.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

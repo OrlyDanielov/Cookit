@@ -533,12 +533,11 @@ function CheckProfileInputs() {
 //add profile Image
 //*******************************************************************************************
 function AddProfileImage() {
-    var profile_image_name = $("#profile_upload_image").val();//document.getElementById("profile_upload_image").files[0];
+    var profile_image_name = $("#profile_upload_image").val();
     var arry = profile_image_name.split('\\');
     var image_name = arry[arry.length - 1];
     var path = "~/Images/Profiles/";
     var image_path = path + image_name;
-    //var img = document.getElementById("profile_upload_image").files[0];
     var img = $("#profile_upload_image")[0].files[0];
 
     var fd = new FormData();
@@ -557,14 +556,9 @@ function AddProfileImage() {
         },
         error: function () {
             console.log("שגיאה בהוספת תמונת פרופיל!.");
-            alert("שגיאה בהוספת תמונת פרופיל!.");
+            alert("שגיאה בהוספת תמונת פרופיל!. יתר פרטי ההרשמה נקלטו במערכת בהצלחה!.");
         }        
     });
-}
-
-function FailAddProfileImage() {
-    console.log("שגיאה בהוספת תמונת פרופיל!.");
-    alert("שגיאה בהוספת תמונת פרופיל!.");
 }
 //*******************************************************************************************
 // ShowPopup

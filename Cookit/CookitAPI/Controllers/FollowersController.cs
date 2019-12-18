@@ -82,7 +82,7 @@ namespace CookitAPI.Controllers
 
                 TBL_Followers follow = new TBL_Followers()
                 {
-                    Id = new_follow.id,
+                    //Id = new_follow.id,
                     Id_User = new_follow.user_id,
                    Id_Prof = new_follow.profile_id
                 };
@@ -113,7 +113,7 @@ namespace CookitAPI.Controllers
             {
                 TBL_Followers follow = new TBL_Followers()
                 {
-                    Id = follow2remove.id,
+                    //Id = follow2remove.id,
                     Id_User = follow2remove.user_id,
                     Id_Prof = follow2remove.profile_id
                 };

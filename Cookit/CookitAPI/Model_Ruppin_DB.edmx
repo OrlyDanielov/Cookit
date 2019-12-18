@@ -1194,7 +1194,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bgroup36_prodEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bgroup36_prodEntities1" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="TBL_City" EntityType="Self.TBL_City" />
           <EntitySet Name="TBL_Comments" EntityType="Self.TBL_Comments" />
           <EntitySet Name="TBL_DishCategory" EntityType="Self.TBL_DishCategory" />

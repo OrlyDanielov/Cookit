@@ -103,7 +103,7 @@ namespace CookitAPI.Controllers
             {
                 TBL_Likes like = new TBL_Likes()
                 {
-                    Id = newLike.id,
+                    //Id = newLike.id,
                     Id_Recp = newLike.id_recipe,
                    Id_User = newLike.id_user                  
                 };
@@ -130,7 +130,7 @@ namespace CookitAPI.Controllers
             {
                 TBL_Likes _like = new TBL_Likes()
                 {
-                    Id = delete_like.id,
+                    //Id = delete_like.id,
                     Id_Recp = delete_like.id_recipe,
                     Id_User = delete_like.id_user
                 }; 

@@ -18,6 +18,7 @@ namespace CookitAPI
         public bgroup36_prodEntities1()
             : base("name=bgroup36_prodEntities1")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

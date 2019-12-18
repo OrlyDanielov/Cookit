@@ -87,7 +87,7 @@ namespace CookitAPI.Controllers
                
                 TBL_FavoriteRecp favorite = new TBL_FavoriteRecp()
                 {
-                    Id = newFavorite.id,
+                    //Id = newFavorite.id,
                     Id_Recp = newFavorite.id_recipe,
                     Id_User = newFavorite.id_user
                 };
@@ -115,7 +115,7 @@ namespace CookitAPI.Controllers
                 
                 TBL_FavoriteRecp _favorite = new TBL_FavoriteRecp()
                 {
-                    Id = delete_favorite.id,
+                    //Id = delete_favorite.id,
                     Id_Recp = delete_favorite.id_recipe,
                     Id_User = delete_favorite.id_user
                 };
