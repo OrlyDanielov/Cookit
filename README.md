@@ -1,2 +1,3 @@
-# Cookit---Final-Project
-פרויקט גמר - אתר מתכונים. מפתחות: אורלי דניאלוב, עומר פרידמן. מנחה : רינה גירשין. רופין.
+adaptive web site is a Culinary Social Network. 
+Used Client-Server, Full-Stuck development, Working in Collaboration.
+C#, Entity Framework, ASP.NET, JavaScript, HTML, CSS, BOOTSTRAP.
