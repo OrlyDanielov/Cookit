@@ -15,7 +15,12 @@ else
     IS_PROFILE = false;
 var OLD_USER_TYPE = USER_INFORMATION.user_type;
 
-var OLD_PROFILE_IMAGE = false;//האם החליף את התמונה הקיימת
+var _user_type = parseInt(JSON.parse(sessionStorage.getItem("Login_User")).user_type);// סוג המשתמש
+var OLD_PROFILE_IMAGE;
+if (_user_type == 2) // משתמש אנין טעם
+    OLD_PROFILE_IMAGE = false;//האם החליף את התמונה הקיימת
+else
+    OLD_PROFILE_IMAGE = true; // חייב לבדוק האם יש תמונה
 
 var USER_VALIDATION = {
     first_name: false,
@@ -374,7 +379,7 @@ function CheckProfileInputs() {
         description: $("#profile_description").val(),
         city: $('#profile_city').find(":selected").val(),
         region: $('#profile_region').find(":selected").val(),
-        img: $('#profile_upload_image').val()//profile_image.src
+        img: $('#profile_upload_image').val()//profile_image
     };
     var profile_feedback = {
         name: document.getElementById("feedback_profile_name"),
@@ -500,12 +505,14 @@ function SuccessUpdateUser() // פונקציה המתבצעת אחרי הוספ�
 {
     console.log('הפרטים האישיים עודכני בהצלחה!.');
     //בודק האם יש צורך לעדכון פרופיל או להוספת פרופיל חדש
-    var new_user_type = $('#select_user_type').find(":selected").val();
-    console.log("old_user_type " + OLD_USER_TYPE);
+    var new_user_type = parseInt($('#select_user_type').find(":selected").val());
+    console.log("OLD_USER_TYPE " + OLD_USER_TYPE);
     if (OLD_USER_TYPE == 1 && new_user_type == 1)//אם אין פרופיל
         AlertSuccsses2User();
     else if (OLD_USER_TYPE == 1 && new_user_type == 2)//אם מוסיפים פרופיל
     {
+        OLD_USER_TYPE = 2;
+
         //צריל לבדוק האם למשתמש יש פרופיל לא פעילולעדכן אותו, או להוסיף פרופיל חדדש
         GlobalAjax("/api/Profile/CheckProfileExsistByUserId/" + USER_INFORMATION.id, "GET", "",
             function (_old_profile) {
@@ -525,10 +532,14 @@ function SuccessUpdateUser() // פונקציה המתבצעת אחרי הוספ�
         );
     }
     else if (OLD_USER_TYPE == 2 && new_user_type == 2) {
+        OLD_USER_TYPE = 2;
+
         //אם מעכנים פרופיל קיים
         Update_profile();
     }
     else {
+        OLD_USER_TYPE = 1;
+
         //אם מסירים פרופיל. מעבר ממשתמש אנין טעם למשתמש יצרתי
         PROFILE_INFORMATION.status = false;
         Update_profile();
