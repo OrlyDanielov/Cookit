@@ -374,7 +374,7 @@ function CheckProfileInputs() {
         description: $("#profile_description").val(),
         city: $('#profile_city').find(":selected").val(),
         region: $('#profile_region').find(":selected").val(),
-        img: $('#profile_upload_image').val()
+        img: $('#profile_upload_image').val()//profile_image.src
     };
     var profile_feedback = {
         name: document.getElementById("feedback_profile_name"),

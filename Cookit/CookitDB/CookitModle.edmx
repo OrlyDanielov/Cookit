@@ -137,11 +137,11 @@
           <Property Name="Id_User" Type="int" Nullable="false" />
           <Property Name="Name_Prof" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="ProfDescription" Type="nvarchar" MaxLength="250" />
-          <Property Name="ProfStatus" Type="bit" Nullable="false" />
           <Property Name="Id_City" Type="int" Nullable="false" />
           <Property Name="Id_Region" Type="int" Nullable="false" />
-          <Property Name="Image_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProfStatus" Type="bit" Nullable="false" />
           <Property Name="Image_Path" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Image_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="TBL_Recipe">
           <Key>

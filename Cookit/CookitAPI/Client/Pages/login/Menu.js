@@ -39,7 +39,7 @@ function GetUserType_MENU()
 function SuccessUserType_MENU(arry_userType) {
     ARRY_USER_TYPE = arry_userType;
     sessionStorage.setItem("ARRY_USER_TYPE", JSON.stringify(arry_userType));
-    var user_type = JSON.parse(sessionStorage.getItem("Login_User")).user_type;
+    var user_type = parseInt(JSON.parse(sessionStorage.getItem("Login_User")).user_type);// JSON.parse(sessionStorage.getItem("Login_User")).user_type;
     for (var i = 0; i < ARRY_USER_TYPE.length; i++) {
         if (ARRY_USER_TYPE[i].id === user_type)
             user_type = ARRY_USER_TYPE[i].user_type;

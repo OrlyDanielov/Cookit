@@ -14,7 +14,7 @@ namespace CookitDB.DB_Code
         {
             //Cookit_DBConnection db = new Cookit_DBConnection();
             //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            bgroup36_prodEntities db = new bgroup36_prodEntities();
+            var db = new bgroup36_prodEntities();
             return db;
 
         }

@@ -24,7 +24,7 @@ function SuccessLogin(user)
     sessionStorage.clear();
     sessionStorage.setItem("Login_User", JSON.stringify(user));
     //בדיקה האם למשתמש יש גם פרופיל, אז להביא גם את הפרטים האלה
-    if (user.user_type == 2 )
+    if (user.user_type === 2 )
         GlobalAjax("/api/Profile/GetProfileByUserId/" + user.id, "GET", "", SuccessProfile, FailProfile);
     else   //מעבר לדף הבית המחובר
         window.location.replace("../login/Home.html"); //מעבר לדף הבית המחובר
@@ -67,12 +67,12 @@ function CheckInputs()
     var flag = true;
     // email
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (email == "") {
+    if (email === "") {
         email_input.classList.add("not_valid");
         email_feedback.innerHTML = "אנא הכנס אימייל!";
         flag = false;
     }
-    else if (re.test(String(email).toLowerCase()) == false) {
+    else if (re.test(String(email).toLowerCase()) === false) {
         email_input.classList.add("not_valid");
         email_feedback.innerHTML = "אנא הכנס אימייל תקין!.";
         flag = false;
@@ -84,7 +84,7 @@ function CheckInputs()
     }
     // password
     var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}$/;
-    if (password == "") {
+    if (password === "") {
         password_input.classList.add("not_valid");
         password_feedback.innerHTML = "אנא הכנס סיסמה!";
     }

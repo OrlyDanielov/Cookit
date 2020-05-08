@@ -1,8 +1,10 @@
-﻿using System;
+﻿using CookitDB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using CookitDB;
 
 namespace CookitAPI.DB_Code
 {
@@ -10,11 +12,12 @@ namespace CookitAPI.DB_Code
     {
 
         #region Get_DB
-        public static bgroup36_prodEntities1 Get_DB() //bgroup36_prodConnection  Get_DB()//Cookit_DBConnection Get_DB()
+        //public static Cookit_DBConnection Get_DB()
+        public static bgroup36_prodEntities1 Get_DB()
         {
-            //Cookit_DBConnection db = new Cookit_DBConnection();
-            //bgroup36_prodConnection db = new bgroup36_prodConnection();
-            bgroup36_prodEntities1 db = new bgroup36_prodEntities1();
+            //var db = new Cookit_DBConnection();//bgroup36_prodEntities();
+            var db = new bgroup36_prodEntities1();
+            
             return db;
 
         }
